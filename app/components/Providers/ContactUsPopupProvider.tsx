@@ -10,7 +10,7 @@ import React, {
 } from "react";
 // import { AnimatePresence } from "framer-motion";
 import ContactPopup, { ContactPopupProps } from "../Models/ContactPopup";
-import CtaPopup, { CtaPopupProps } from "../Modals/CtaPopup";
+import CtaPopup, { CtaPopupProps } from "../Models/CtaPopup";
 
 interface PopupContextProps {
     showPopup: () => void;
@@ -130,14 +130,8 @@ export const ContactUsPopupProvider: React.FC<ContactUsPopupProviderProps> = ({
             }}
         >
             {children}
-
-            {/* <AnimatePresence> */}
             <ContactPopup onClose={hidePopup} open={isOpen} data={contactData} />
-            {/* </AnimatePresence> */}
-
-            {/* <AnimatePresence> */}
             <CtaPopup onClose={hideCta} open={isCtaOpen} data={ctaContactData} />
-        </AnimatePresence>
         </PopupContext.Provider >
     );
 };

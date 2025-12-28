@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import clsx from "clsx";
-import { usePopup } from "@/components/Providers/ContactUsPopupProvider";
+import { usePopup } from "@/app/components/Providers/ContactUsPopupProvider";
 
 interface WhiteButtonProps {
     href?: string;

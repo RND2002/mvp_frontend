@@ -1,17 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import PopupFormField from "../../common/PopupFormField";
-import PrimaryButton from "../../common/PrimaryButton";
-import PhoneInputField from "@/hooks/usePhoneInput";
-import { contactFormSchema } from "@/lib/yup";
+import PopupFormField from "@/app/ui/input/PopupFormField";
+import PrimaryButton from "@/app/components/common/PrimaryButton";
+import PhoneInputField from "@/app/hooks/usePhoneInput";
+import { contactFormSchema } from "@/app/lib/yup";
 import clsx from "clsx";
-import { apiRequest } from "@/lib/api";
-import { useAlert } from "@/hooks/useAlert";
-import MathCaptcha from "@/components/common/MathCaptcha";
-import { useMathCaptcha } from "@/hooks/useMathCaptcha";
+import { apiRequest } from "@/app/lib/api";
+import { useAlert } from "@/app/hooks/useAlert";
+import MathCaptcha from "@/app/components/common/MathCaptcha";
+import { useMathCaptcha } from "@/app/hooks/useMathCaptcha";
+import { useOutsideClick } from "@/app/hooks/useOutsideClick";
+import { motion } from "framer-motion";
 
 interface FormValues {
     firstName: string;
@@ -21,22 +23,19 @@ interface FormValues {
     message: string;
 }
 
-interface ContactPopupFormProps {
-    fields: {
-        label: string;
-        type: string;
-        placeholder: string;
-        rows?: number;
-    }[];
-    buttonText: string;
+export interface ContactPopupProps {
+    data?: any;
+    open: boolean;
     onClose: () => void;
 }
 
-const ContactPopupForm: React.FC<ContactPopupFormProps> = ({
-    fields,
-    buttonText,
+const ContactPopup: React.FC<ContactPopupProps> = ({
+    data,
+    open,
     onClose,
 }) => {
+    const popupRef = useRef<HTMLDivElement>(null);
+    useOutsideClick(popupRef, onClose);
     const { showAlert } = useAlert();
     const captcha = useMathCaptcha();
 
@@ -57,6 +56,12 @@ const ContactPopupForm: React.FC<ContactPopupFormProps> = ({
             message: "",
         },
     });
+
+    useEffect(() => {
+        if (open) {
+            captcha.refresh();
+        }
+    }, [open]);
 
     const onSubmit = async (values: FormValues) => {
         if (!captcha.answer.trim()) {
@@ -105,70 +110,94 @@ const ContactPopupForm: React.FC<ContactPopupFormProps> = ({
         errors.phone ? "border-primary" : "border-paragraph/50"
     )
 
+    if (!open) return null;
+
     return (
-        <form className="bg-white grid" onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                    <PopupFormField
-                        label={fields[0].label}
-                        type={fields[0].type}
-                        iconSrc="/icons/contact-us/pop-up/user.svg"
-                        placeholder={fields[0].placeholder}
-                        {...register("firstName")}
-                        error={errors.firstName}
-                    />
-                </div>
-
-                <div>
-                    <PopupFormField
-                        label={fields[1].label}
-                        type={fields[1].type}
-                        iconSrc="/icons/contact-us/pop-up/user.svg"
-                        placeholder={fields[1].placeholder}
-                        {...register("lastName")}
-                        error={errors.lastName}
-                    />
-                </div>
-            </div>
-
-            <PopupFormField
-                label={fields[2].label}
-                type={fields[2].type}
-                iconSrc="/icons/contact-us/pop-up/input-email.svg"
-                placeholder={fields[2].placeholder}
-                {...register("email")}
-                error={errors.email}
-            />
-
-            <PhoneInputField
-                control={control}
-                name="phone"
-                placeholder={fields[3].placeholder}
-                inputClassName={inputClassName}
-                error={errors.phone}
-            />
-
-            <PopupFormField
-                label={fields[4].label}
-                as="textarea"
-                rows={fields[4].rows}
-                placeholder={fields[4].placeholder}
-                {...register("message")}
-                error={errors.message}
-            />
-
-            <div className="flex items-center w-full gap-2">
-                <MathCaptcha captcha={captcha} />
-
-                <PrimaryButton
-                    type="submit"
-                    className="w-max font-medium! py-3 flex-1 text-sm! justify-center"
+        <motion.div
+            className="fixed inset-0 z-[999999] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+        >
+            <motion.div
+                ref={popupRef}
+                initial={{ y: 50, opacity: 0, scale: 0.96 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                exit={{ y: 50, opacity: 0, scale: 0.95 }}
+                transition={{ type: "spring", damping: 18, stiffness: 120 }}
+                className="bg-white rounded-3xl w-full max-w-2xl p-8 relative max-h-[90vh] overflow-y-auto"
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-500 hover:text-black"
                 >
-                    {isSubmitting ? "Submitting..." : buttonText}
-                </PrimaryButton>
-            </div>
-        </form>
+                    ✕
+                </button>
+
+                <h2 className="text-2xl font-bold mb-6 text-center">Contact Us</h2>
+
+                <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <PopupFormField
+                                label="First Name"
+                                placeholder="First Name"
+                                iconSrc="/icons/contact-us/pop-up/user.svg"
+                                {...register("firstName")}
+                                error={errors.firstName}
+                            />
+                        </div>
+                        <div>
+                            <PopupFormField
+                                label="Last Name"
+                                placeholder="Last Name"
+                                iconSrc="/icons/contact-us/pop-up/user.svg"
+                                {...register("lastName")}
+                                error={errors.lastName}
+                            />
+                        </div>
+                    </div>
+
+                    <PopupFormField
+                        label="Email"
+                        placeholder="your@email.com"
+                        iconSrc="/icons/contact-us/pop-up/input-email.svg"
+                        {...register("email")}
+                        error={errors.email}
+                    />
+
+                    <PhoneInputField
+                        control={control}
+                        name="phone"
+                        placeholder="Phone Number"
+                        inputClassName={inputClassName}
+                        error={errors.phone}
+                    />
+
+                    <PopupFormField
+                        label="Message"
+                        as="textarea"
+                        rows={4}
+                        placeholder="How can we help?"
+                        {...register("message")}
+                        error={errors.message}
+                    />
+
+                    <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
+                        <MathCaptcha captcha={captcha} />
+
+                        <PrimaryButton
+                            type="submit"
+                            className="w-full sm:w-auto px-8"
+                        >
+                            {isSubmitting ? "Submitting..." : "Send Message"}
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </motion.div>
+        </motion.div>
     );
 };
 
-export default ContactPopupForm;
+export default ContactPopup;

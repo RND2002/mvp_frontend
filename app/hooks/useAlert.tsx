@@ -1,10 +1,9 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback } from "react";
-// import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
-import InlineSVG from "@/components/common/InlineSVG";
-
+import InlineSVG from "@/app/components/common/InlineSVG";
 type AlertType = "success" | "error" | "info";
 
 interface Alert {

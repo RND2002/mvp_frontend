@@ -4,17 +4,17 @@ import React, { useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 import { AnimatePresence, motion } from "framer-motion";
 import { isValidPhoneNumber } from "react-phone-number-input";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
-import InlineSVG from "@/components/common/InlineSVG";
-import PrimaryButton from "../common/PrimaryButton";
-import PhoneInputField from "@/hooks/usePhoneInput";
+import { useOutsideClick } from "@/app/hooks/useOutsideClick";
+import InlineSVG from "@/app/components/common/InlineSVG";
+import PrimaryButton from "@/app/components/common/PrimaryButton";
+import PhoneInputField from "@/app/hooks/usePhoneInput";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAlert } from "@/hooks/useAlert";
-import { apiRequest } from "@/lib/api";
-import MathCaptcha from "../common/MathCaptcha";
-import { useMathCaptcha } from "@/hooks/useMathCaptcha";
+import { useAlert } from "@/app/hooks/useAlert";
+import { apiRequest } from "@/app/lib/api";
+import MathCaptcha from "@/app/components/common/MathCaptcha";
+import { useMathCaptcha } from "@/app/hooks/useMathCaptcha";
 
 interface CtaContactData {
     title: string;
@@ -144,16 +144,18 @@ const CtaPopup: React.FC<CtaPopupProps> = ({ data, open, onClose }) => {
                 <p className="text-paragraph text-sm lg:text-base 2xl:text-lg mt-3 leading-relaxed max-w-[90%]">
                     {data.description}
                 </p>
-
-                <InlineSVG
-                    src="/icons/contact-us/pop-up/cta-phone.svg"
-                    alt="Phone"
-                    preserveColors
-                    className="absolute w-15 h-15 top-10 left-1/2 -translate-x-1/2"
-                />
+                {/* Icon placeholder since src might be missing */}
+                <div className="absolute top-10 left-1/2 -translate-x-1/2 w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                    <InlineSVG
+                        src="/icons/contact-us/pop-up/cta-phone.svg"
+                        alt="Phone"
+                        preserveColors
+                        className="w-8 h-8"
+                    />
+                </div>
 
                 <form
-                    className="relative z-10 w-full"
+                    className="relative z-10 w-full mt-10"
                     onSubmit={handleSubmit(handleBtnClick)}
                 >
                     <div className="md:max-w-2/3! w-full mx-auto">
