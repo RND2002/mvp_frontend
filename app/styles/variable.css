@@ -1,0 +1,746 @@
+@import "tailwindcss";
+
+@theme inline {
+    /* Base brand colors */
+    --color-primary: #f5010b;
+    --color-light-button: #8c0006;
+    --color-primary-dark: #000000;
+    --color-paragraph: #7d7d7d;
+    --color-about: #fff8f8;
+    --color-tech-card-laundry: #fafafa;
+    --color-client-contact: #f6f6f6;
+    --color-case-details-text: #525665;
+    --color-observations: #d8d8d8;
+    --color-project-details: #2a2c32;
+    --color-project-solution: #efefef;
+    --color-case-details-card: #f5f5f5;
+    --color-client-worldwide: #fff9f9;
+    --color-blog-categories: #f4f4f4;
+    --color-gray-tech: #f3f2f4;
+    --color-ebook-card: #eaedee;
+    --color-laundry-light: #fbebeb;
+    --color-card-light-dark: #1b1d1e;
+    --color-admin-card: #f5010b1c;
+    --color-light-pink-muted: #ffe5ef;
+    --color-unmatched: #f8e6e6;
+    --color-demand-card: #fefeff;
+    --color-light-navy: #b4c8ff;
+    --color-slider-bg: #081717;
+    --color-software-benefits: #00234b;
+    --color-demand-tag: #487afd1a;
+    --color-demand-light-tag: #f06d2d1a;
+    --color-demand-green: #5dc29e26;
+    --color-section-bg-light: #f0f0efcc;
+    --color-card: #500101;
+    --color-card-red: #f5010b;
+    --color-card-accent: #f5010b1f;
+    --color-partner-button: #aa0007;
+    --color-case-studies: #f5010b4d;
+    --color-tech-offering: #970208;
+    --color-step: #b50209;
+    --color-video-button: #edfafe;
+    --color-light-dark: #f3f3f2;
+    --color-home-service: #b50109;
+    --color-light-blur: #ffffff1f;
+    --color-darkblue: #0d1221;
+    --color-pannel-card-bg: #f8f8fa;
+    --color-light-red-blur: #f5010b1a;
+    --color-partner-header: #232222;
+    --color-insight-1: #cc0000;
+    --color-insight-2: #700000;
+    --color-insight-text: #b50109;
+    --color-text-field: #f7f7f7;
+    --color-light: #f3f3f2;
+    --color-chatbot-banner: #ffdddf;
+    --color-card-light-gray: #4d505b;
+    --color-feature-icon: #b9b9b9;
+    --color-brown: #791400;
+    --color-medium-red: #eb4545;
+    --color-light-pink: #f9cdd0;
+    --color-primary-light: #ff4f5659;
+    --color-dark: #111111;
+    --color-muted: #808080;
+    --color-primary-15: #ff4f5626;
+    --color-gray-medium: #545454;
+    --color-crypto-gray: #545454;
+    --application-development-card: #fff3f4;
+    --application-development-grey: #595959;
+    --mvp-development-statistic-black: #120a0b;
+    --mvp-development-statistic-light-rgb: 248, 244, 241;
+    --mvp-development-statistic-gray-rgb: 69, 65, 64;
+    --mvp-development-journey-black: #1e1a1c;
+    --mvp-development-journey-white: #f7f5fc;
+    --mvp-development-journey-light-black: #7e8083;
+    --color-lightpink-background: #f7ecec;
+    --color-pink-card-text: #f3c0c2;
+    --color-medium-red: #eb4545;
+    --color-border-gray: #e8eaed;
+    --color-ai-consult-portfolio-gray: #a8a4a3;
+    --color-ai-consultant-portfolio-black: #353535;
+    --color-black-opacity: #000000cc;
+    --color-dark-gray: #474747;
+    --color-gray-ai-consultant: #808080;
+    --color-ai-red: #f5010b;
+    --color-white-variant: #fdfdfd;
+
+    --color-light-pink: #f9cdd0;
+    --color-border-gray: #e8eaed;
+    --color-ai-consult-portfolio-gray: #a8a4a3;
+    --color-ai-consultant-portfolio-black: #353535;
+    --color-black-opacity: #000000cc;
+    --color-dark-gray: #474747;
+    --color-gray-ai-consultant: #808080;
+    --color-ai-red: #f5010b;
+    --color-white-variant: #fdfdfd;
+    --color-dark-brown: #ca1906;
+    --color-light-gray: #fbf9f5;
+    --color-dark-brown-line: #813437;
+    --color-muted-pink: #faf0f0;
+    --color-card-pink: #ffc7c9;
+    --color-tech-card: #d3d3d3;
+
+    /* Neutral / supporting colors */
+    --color-navbar-label: #00000080;
+    --color-navbar: #ffffff;
+    --color-text-dark: #222222;
+    --color-banner: #fef3f3;
+    --color-technology-stack: #b5010933;
+    --color-text-darker: #03010d;
+    --color-overlay-image: #911916;
+    --color-ma-card: #b5010900;
+    --color-hero-dark-mask: #051e24;
+    --color-hero-dark-red: #240505;
+    --color-gray-dark: #616161;
+    --color-gray-light: #1a1a1a;
+    --color-gray-quote: #595959;
+    --color-gray-company: #6c727f;
+    --color-nav-blue: #121b2b;
+    --color-marron-card: #810c06;
+    --color-medium-red-start: #b50109;
+    --color-medium-red-via: #b61609;
+    --color-light-red-end: #d2656b;
+    --color-dark-red: #790000;
+    --color-light-pink-crypto: #f84c4c;
+    --color-primary-dark-light-pink: #df5a5a;
+    --color-primary-dark-pink: #e12121;
+    --color-card-light-navbar: #e9e9e9;
+    --color-cta-card: #1f2021;
+    --color-hero-dark-mask: #051e24;
+    --color-hero-dark-red: #240505;
+    --color-gray-light: #1a1a1a;
+    --color-gray-quote: #595959;
+    --color-gray-company: #6c727f;
+    --color-nav-blue: #121b2b;
+    --color-black-card: #121212;
+    --color-lightpink: #ffe5e6;
+    --color-lightpinkLight: "#FFE5E6";
+    --color-blue: #487afd;
+    --color-pink: #e7d8d8;
+
+    --color-green-mint: #5dffbb;
+    --color-purple-light: #806bff;
+    --color-purple: #755fff;
+    --color-pink: #ff718a;
+    --color-normal-brown: #220205;
+    --color-base-red: #900f06;
+    --color-base-red-light: #5f0708;
+    --color-base-red-medium: #6c0807;
+    --color-faq: #1f2933;
+    --color-blog-categories: #f4f4f4;
+    --color-light-gray: #f8f8f8;
+
+    /* zendesk */
+    --color-zendesk-light-purple: #efeaff;
+    --color-zendesk-light-pink: #ffeeea;
+    --color-zendesk-light-blue: #e8fcf7;
+    --color-zendesk-light-yellow: #fffbeb;
+    --color-zendesk-pink: #fbdcdd;
+    --color-hubSpot-blue: #319dff;
+    --color-hubSpot-orange: #ff683c;
+    --color-background-pink: #f7e3e3;
+
+    --color-pink-education: #f6e7e7;
+    --color-gray-learning: #f9f9f9;
+
+    --color-salesforce-hero: #E9A13C;
+    --color-salesforce-card-bg: #123637;
+
+    /* Gradients */
+    --navbar-box: linear-gradient(53.16deg,
+            var(--color-white) 14.36%,
+            var(--color-primary) 578.5%);
+    --color-contact-text: linear-gradient(180deg,
+            var(--color-text-dark) 15.87%,
+            var(--color-primary) 90.17%);
+    --top-bar-gradient-start: linear-gradient(0deg,
+            var(--color-primary-dark) -53.97%,
+            var(--color-primary) 155.56%);
+    --gradient-ai-navbar: linear-gradient(0deg,
+            var(--color-primary) -53.97%,
+            var(--color-primary-dark) 155.56%);
+    --top-bar-gradient: linear-gradient(0deg,
+            var(--color-primary) -53.97%,
+            var(--color-primary-dark) 155.56%);
+    --banner-gradient: linear-gradient(180deg,
+            var(--color-banner) 0%,
+            var(--color-white) 100%);
+    --color-primary-gradient: linear-gradient(0deg,
+            var(--color-primary-dark) 11.17%,
+            var(--color-primary) 57.41%);
+    --color-primary-gradient-light: linear-gradient(180deg,
+            var(--color-primary) -25.44%,
+            var(--color-white) 135.67%);
+    --gradient-technology-solutions: linear-gradient(360deg,
+            var(--color-primary) -500%,
+            var(--color-white) 100%);
+    --gradient-statistic-card: linear-gradient(180deg,
+            var(--color-primary-dark) -29.82%,
+            var(--color-primary) 126.61%);
+    --gradient-fame-card: linear-gradient(360deg,
+            var(--color-primary-dark) -43.38%,
+            var(--color-primary) 102.93%);
+    --gradient-tech-offering: linear-gradient(103.31deg,
+            var(--color-tech-offering) -14.61%,
+            var(--color-primary-dark) 113.55%);
+    --gradient-ride-share: linear-gradient(269.91deg,
+            #ffffff 6.45%,
+            rgba(181, 1, 9, 0.2) 100%);
+    --gradient-why-choose-us: linear-gradient(103.31deg,
+            #970208 -14.61%,
+            #000000 113.55%);
+    --gradient-tech-offering-card: linear-gradient(88.14deg,
+            var(--color-card) -9.28%,
+            var(--color-tech-offering) 99.81%);
+    --gradient-case-studies: linear-gradient(230.1deg,
+            var(--color-white) 28.44%,
+            var(--color-primary) 182.39%);
+    --gradient-wall-of-fame: linear-gradient(180deg,
+            var(--color-primary) 18.25%,
+            var(--color-primary-dark) 80.95%);
+
+    --gradient-crypto-state: linear-gradient(180deg,
+            var(--color-primary) -54.78%,
+            var(--color-primary-dark) 100%);
+
+    --gradient-technology-stack: linear-gradient(269.64deg,
+            var(--color-white) 40.5%,
+            var(--color-primary) 290.46%);
+    --panels-mask: radial-gradient(100% 84% at 27.3% 26%,
+            rgb(0, 0, 0) 44.5717%,
+            rgba(0, 0, 0, 0) 87.0443%);
+    --gradient-technology-stack-btn-hover: linear-gradient(90deg,
+            var(--color-primary-dark) 0%,
+            var(--color-primary) 100%);
+    --gradient-ride-share-contact: linear-gradient(56.25deg,
+            rgba(255, 255, 255, 0.82) 8.38%,
+            rgba(245, 1, 11, 0.7) 200%);
+    --gradient-technology-stack-btn: linear-gradient(90deg,
+            rgba(0, 0, 0, 0.6) 0%,
+            rgba(245, 1, 11, 0.6) 100%);
+    --gradient-taxi-dispatch: linear-gradient(180deg, #ffffff 0%, #ffe5e6 100%);
+    --gradient-custom-red: linear-gradient(56.25deg,
+            rgba(255, 255, 255, 0.82) 8.38%,
+            rgba(245, 1, 11, 0.7) 229.05%);
+    --gradient-technology-stack-text: linear-gradient(360deg,
+            var(--color-primary-dark) 12.5%,
+            var(--color-primary) 81.73%);
+    --gradient-tech-stack-text: linear-gradient(180deg,
+            var(--color-primary) 16.89%,
+            var(--color-primary-dark) 88.32%);
+    --gradient-dating-app: linear-gradient(103.31deg,
+            var(--color-tech-offering) -14.61%,
+            var(--color-primary-dark) 113.55%);
+
+    --gradient-tech-solution-text: linear-gradient(180deg,
+            var(--color-primary) 29.41%,
+            var(--color-primary-dark) 86.27%);
+    --gradient-event-showcase: linear-gradient(154.8deg,
+            var(--color-tech-offering) 6.91%,
+            var(--color-primary-dark) 116.31%);
+    --gradient-mobile-wallet: linear-gradient(180deg, #fef3f3 0%, #fff7f7 100%);
+    --gradient-insights: linear-gradient(154.18deg,
+            var(--color-insight-1) 15.46%,
+            var(--color-insight-2) 82.8%);
+    --gradient-insights2: linear-gradient(360deg,
+            var(--color-insight-text) 10%,
+            var(--color-insight-1) 90%);
+    --gradient-contact-us: linear-gradient(56.25deg,
+            var(--color-white) 8.38%,
+            var(--color-primary) 229.05%);
+    --gradient-contact-text: linear-gradient(180deg,
+            var(--color-primary) 0%,
+            var(--color-primary-dark) 100%);
+    --gradient-benefits-text: linear-gradient(180deg,
+            var(--color-primary) 23.96%,
+            var(--color-primary-dark) 75.52%);
+    --gradient-next-gen-text: linear-gradient(0deg,
+            var(--color-primary-dark) -16.8%,
+            var(--color-primary) 91.6%);
+    --gradient-our-partner: linear-gradient(90.93deg,
+            var(--color-primary-dark) 2.96%,
+            var(--color-primary) 150.97%);
+    --gradient-Slider: linear-gradient(270.93deg,
+            var(--color-primary-dark) 20.96%,
+            var(--color-primary) 150.97%);
+    --gradient-case-study: linear-gradient(360deg,
+            var(--color-primary-dark) 18.42%,
+            var(--color-primary) 81.19%);
+
+    --gradient-fantasy-sport: linear-gradient(269.91deg,
+            #ffffff -2.21%,
+            rgba(181, 1, 9, 0.8) 492.08%);
+
+    --gradient-chatbot-banner: linear-gradient(178.76deg,
+            var(--color-chatbot-banner) 1.06%,
+            var(--color-white) 116.96%);
+    --gradient-chatbot-dev: linear-gradient(0deg,
+            var(--color-primary-dark) 16.95%,
+            var(--color-primary) 69.49%);
+    --gradient-chatbot-dev-text: linear-gradient(180deg,
+            var(--color-primary) 15.83%,
+            var(--color-primary-dark) 84.47%);
+
+    --gradient-chatbot-dev-card: linear-gradient(127.44deg,
+            var(--color-insight-text) -13.05%,
+            var(--color-primary-dark) 121.02%);
+    --gradient-chatbot-dev-our-result: linear-gradient(269.91deg,
+            var(--color-white) -2.21%,
+            var(--color-technology-stack) 92.08%);
+    --gradient-chatbot-showcase: linear-gradient(270.28deg,
+            var(--color-white) 24.86%,
+            var(--color-primary) 233.91%);
+    --gradient-chatbot-industry-served: linear-gradient(180deg,
+            var(--color-primary) 19.64%,
+            var(--color-white) 83.04%);
+
+    --gradient-e-mobility: linear-gradient(180deg,
+            var(--color-ai-red) -76.96%,
+            var(--color-navbar) 84.47%);
+
+    --gradient-chatbot-case-studies: linear-gradient(103.31deg,
+            var(--color-tech-offering) -14.61%,
+            var(--color-primary-dark) 113.55%);
+    --gradient-chatbot-tech-stack: linear-gradient(149.74deg,
+            var(--color-tech-offering) 8.58%,
+            var(--color-insight-text) 112.89%);
+    --gradient-chatbot-service: linear-gradient(0deg,
+            var(--color-primary) -280.64%,
+            var(--color-white) 83.93%);
+    --gradient-chatbot-methodology: linear-gradient(113.37deg,
+            var(--color-insight-1) -63.88%,
+            var(--color-insight-2) 70.46%);
+    --gradient-generative-text: linear-gradient(97.33deg,
+            var(--color-white) -22.09%,
+            var(--color-primary) 124.49%);
+    --gradient-generative-ai-services: linear-gradient(272.56deg,
+            var(--color-primary-dark) -177.26%,
+            var(--color-insight-text) 120.6%);
+    --gradient-generative-ai-solution: linear-gradient(269.91deg,
+            var(--color-white) -2.21%,
+            var(--color-insight-text) 492.08%);
+    --gradient-generative-ai-solution-text: linear-gradient(0deg,
+            var(--color-primary-dark) 23.73%,
+            var(--color-primary) 71.19%);
+    --gradient-generative-ai-tech-stack: linear-gradient(126.38deg,
+            var(--color-insight-text) 0%,
+            var(--color-insight-1) 56.51%,
+            var(--color-primary) 100%);
+    --gradient-generative-ai-features: linear-gradient(270.28deg,
+            var(--color-white) 24.86%,
+            var(--color-primary) 402.12%);
+    --gradient-generative-ai-icon: linear-gradient(105deg,
+            var(--color-tech-offering) 0%,
+            var(--color-primary) 100%);
+    --gradient-generative-ai-cta: linear-gradient(278.24deg,
+            var(--color-tech-offering) -3.4%,
+            var(--color-insight-2) 101.14%);
+    --gradient-dev-lifecycle: linear-gradient(0deg,
+            var(--color-white) 16.95%,
+            var(--color-primary) 69.49%);
+    --gradient-ai-agent-hero: linear-gradient(180deg,
+            var(--color-primary) 38.83%,
+            var(--color-primary-dark) 84.47%);
+    --gradient-ai-agent-box: linear-gradient(360deg,
+            var(--color-white) 0%,
+            var(--color-primary) 35%,
+            var(--color-primary) 81%);
+    --gradient-ai-development-text: linear-gradient(137.06deg,
+            var(--color-tech-offering) 3.64%,
+            var(--color-primary) 95.63%);
+    --gradient-expert-crypto-card: linear-gradient(92.47deg,
+            var(--color-primary) -10.01%,
+            var(--color-tech-offering) 95.72%);
+    --gradient-custom-software: linear-gradient(180deg,
+            var(--color-primary) 19.64%,
+            var(--color-primary-dark) 83.04%);
+    --gradient-enterprise-software: linear-gradient(180deg,
+            var(--color-primary) -76.96%,
+            var(--color-white) 84.47%);
+    --gradient-es-business-goal: linear-gradient(180deg,
+            var(--color-primary) -150%,
+            #ababab12 100%);
+    --gradient-es-cta-text: linear-gradient(89.5deg,
+            #5dffbb 13.56%,
+            #806bff 35.98%,
+            #755fff 50.93%,
+            #ff718a 85.33%);
+    --gradient-es-cta-background: linear-gradient(278.12deg,
+            var(--color-tech-offering) 4%,
+            var(--color-brown) 149.62%);
+    --gradient-es-services: linear-gradient(300.81deg,
+            var(--color-insight-text) -22.31%,
+            var(--color-insight-2) 102.97%);
+    --gradient-ma-card: linear-gradient(180deg,
+            var(--color-medium-red) 0%,
+            var(--color-brown) 100%);
+    --gradient-ma-solution: linear-gradient(269.91deg,
+            var(--color-white) -2.21%,
+            var(--color-insight-text) 492.08%);
+    --gradient-ma-dev-process: linear-gradient(360deg,
+            var(--color-ma-card) 0%,
+            var(--color-insight-text) 99%);
+    --gradient-ma-success-stories: linear-gradient(269.83deg,
+            var(--color-white) 29.69%,
+            var(--color-insight-text) 778.33%);
+    --gradient-ma-core-features: linear-gradient(124.9deg,
+            var(--color-primary) 0.71%,
+            var(--color-tech-offering) 95.11%);
+    --gradient-android-eco-card: linear-gradient(180deg,
+            rgba(245, 1, 11, 0.2) 0%,
+            rgba(255, 255, 255, 0.2) 100%);
+    --gradient-mobile-place: linear-gradient(181.45deg,
+            rgba(245, 1, 11, 0.12) 0%,
+            rgba(245, 1, 11, 0.06) 100%);
+    --gradient-digital-wallet: linear-gradient(103.31deg,
+            #970208 -14.61%,
+            #000000 113.55%);
+    --gradient-hybrid-app: linear-gradient(180deg,
+            var(--color-white) 0%,
+            var(--color-primary) 600%);
+    --gradient-hybrid-app-benefits: linear-gradient(269.91deg,
+            var(--color-white) 6.45%,
+            var(--color-technology-stack) 492.08%);
+    --gradient-hybrid-app-cta: linear-gradient(124.72deg,
+            var(--color-insight-text) 3.2%,
+            var(--color-insight-2) 94.96%);
+    --gradient-sc-cta: linear-gradient(96.69deg,
+            var(--color-insight-text) -0.53%,
+            var(--color-brown) 101.04%);
+    --gradient-consultant: linear-gradient(96.69deg,
+            #b50109 -0.53%,
+            #791400 101.04%);
+    --gradient-crypto-world: linear-gradient(270deg,
+            #ffffff 44.59%,
+            #f5010b 324.24%);
+    --gradient-card: linear-gradient(90deg,
+            var(--color-marron-card) 0%,
+            var(--color-primary-dark) 126.61%);
+
+    --gradient-red-card: linear-gradient(to top right,
+            var(--color-medium-red-start),
+            var(--color-medium-red-via),
+            var(--color-light-red-end));
+    --gradient-ba-card: linear-gradient(181.05deg,
+            var(--color-card) 0%,
+            var(--color-tech-offering) 100%);
+    --gradient-ba-text: linear-gradient(360deg,
+            var(--color-primary-dark) -14.86%,
+            var(--color-primary) 89.19%);
+    --gradient-ba-tech-card: radial-gradient(57.02% 63.62% at 50.17% 50%,
+            var(--color-primary) 82.2%,
+            var(--color-insight-text) 100%);
+    --gradient-mvp-development: linear-gradient(0deg,
+            var(--color-primary-dark) 16.96%,
+            var(--color-primary) 80.36%);
+    --gradient-game-changer-card: linear-gradient(180deg,
+            var(--color-primary-light) -146.14%,
+            #ffffff 100%);
+    --gradient-nft-icon: linear-gradient(90deg,
+            var(--color-brown) 0%,
+            var(--color-primary) 100%);
+    --gradient-nft-card: linear-gradient(144.73deg,
+            var(--color-primary-dark) -179.39%,
+            #1e1a19 3.98%,
+            var(--color-primary) 120.67%,
+            var(--color-insight-text) 120.67%);
+    --gradient-wall-fame-cta: linear-gradient(78.59deg,
+            var(--color-tech-offering) 31%,
+            var(--color-primary) 80%);
+
+    --gradient-hero-mask: linear-gradient(to top,
+            var(--color-hero-dark-mask) 0%,
+            transparent 100%);
+    --gradient-achievement-red: linear-gradient(300.81deg,
+            #b50109 -22.31%,
+            #700000 102.97%);
+    --gradient-black-red: linear-gradient(0deg, #000000 23.73%, #f5010b 71.19%);
+    --gradient-red-white: linear-gradient(to left, #ffffff, rgba(181, 1, 9, 0.2));
+    --gradient-ai-consultant-portfolio-red-white: linear-gradient(to right,
+            #970208 0%,
+            #000000 100%);
+    --gradient-red-white-vertical: linear-gradient(180deg,
+            #f5010b 19.64%,
+            #ffffff 83.04%);
+    --gradient-multicolor: linear-gradient(89.5deg,
+            #5dffbb 13.56%,
+            #806bff 35.98%,
+            #755fff 50.93%,
+            #ff718a 85.33%);
+    --gradient-red-white-ai-consultant: linear-gradient(180deg,
+            rgba(255, 79, 86, 0.35) -146.14%,
+            #ffffff 100%);
+    --gradient-laundry-card: linear-gradient(90.15deg,
+            #000000 -26.5%,
+            #970208 128.89%);
+    --gradient-green-purple-pink-ai-consultant: linear-gradient(89.5deg,
+            #5dffbb 13.56%,
+            #806bff 35.98%,
+            #755fff 50.93%,
+            #ff718a 85.33%);
+    --gradient-red-white-ai-consultant-ai-models: linear-gradient(180deg,
+            #f5010b 19.64%,
+            #ffffff 83.04%);
+    --gradient-divider: linear-gradient(90deg,
+            var(--color-light) 16%,
+            var(--color-primary) 50.49%,
+            var(--color-primary) 50.5%,
+            var(--color-light) 84%);
+    --gradient-it-tech: linear-gradient(56.25deg,
+            var(--color-white) 8.38%,
+            var(--color-primary) 229.05%);
+    --gradient-managed-service: linear-gradient(257.62deg,
+            var(--color-primary) 0%,
+            var(--color-white) 77%,
+            var(--color-white) 105.48%);
+    --gradient-de-fi-card: linear-gradient(316.48deg,
+            rgba(151, 2, 8, 0) 0%,
+            var(--color-tech-offering) 90%,
+            var(--color-insight-text) 100%,
+            var(--color-white) 100%);
+
+    --gradient-red-card: radial-gradient(163% 100% at 50% 111.9%,
+            var(--color-brown) 1.8%,
+            var(--color-tech-offering) 31.24%,
+            var(--color-insight-text) 50.9%,
+            var(--color-primary) 76.28%);
+
+    --gradient-service-card: linear-gradient(100.6deg,
+            rgba(248, 76, 76, 0.6) 0%,
+            rgba(223, 90, 90, 0.6) 47.99%,
+            rgba(225, 33, 33, 0.6) 100%);
+
+    --gradient-custom: radial-gradient(163% 100% at 50% 111.9%,
+            var(--color-primary-dark) 1.8%,
+            var(--color-tech-offering) 31.24%,
+            var(--color-primary) 50.9%,
+            rgba(245, 1, 11, 0.46) 76.28%);
+
+    --gradient-border: linear-gradient(138.64deg,
+            var(--color-primary) -22.09%,
+            var(--color-navbar) 42.53%,
+            var(--color-primary) 113.68%);
+
+    --gradient-custom-card: radial-gradient(50% 50% at 50% 50%,
+            rgba(245, 1, 11, 0.13) 0%,
+            rgba(181, 1, 9, 0.54) 53.94%,
+            #b50109 100%);
+
+    --gradient-contactUs-popup: linear-gradient(88.14deg,
+            rgba(80, 1, 1, 0.4) -9.28%,
+            rgba(151, 2, 8, 0.4) 99.81%);
+
+    --gradient-blockChain-card: linear-gradient(132.09deg,
+            var(--color-navbar) 0%,
+            var(--color-tech-offering) 25%,
+            var(--color-insight-text) 75%,
+            var(--color-primary) 100%);
+    --gradient-iot-card: linear-gradient(90.15deg,
+            var(--color-primary-dark) -26.5%,
+            var(--color-tech-offering) 128.89%);
+    --gradient-power-bi-card: linear-gradient(89deg,
+            var(--color-primary) 0%,
+            var(--color-tech-offering) 100%);
+    --gradient-healthcare-dashboard: linear-gradient(154.33deg,
+            var(--color-tech-offering) -34.95%,
+            var(--color-primary-dark) 96.43%);
+    --gradient-sales-analytic: linear-gradient(160.84deg,
+            var(--color-primary-dark) -79.88%,
+            var(--color-tech-offering) 157.07%);
+    --gradient-sales-card: linear-gradient(208.95deg,
+            var(--color-card-pink) 0%,
+            var(--color-muted-pink) 40%);
+
+    --gradient-food-delivery: linear-gradient(208.95deg,
+            var(--color-brown) -4.1%,
+            var(--color-primary-dark) 111.24%);
+    --gradient-food-delivery-btn-sec: linear-gradient(90deg,
+            var(--color-navbar) 0%,
+            var(--color-ai-red) 100%);
+    --gradient-count-banner-bg: linear-gradient(180deg,
+            var(--color-navbar) 0%,
+            var(--color-light-pink) 100%);
+    --gradient-big-data-card: linear-gradient(279.19deg,
+            var(--color-primary-dark) -37.14%,
+            var(--color-insight-text) 99.71%);
+    --gradient-tableau-tools: linear-gradient(102.54deg,
+            var(--color-tech-offering) -11.18%,
+            var(--color-primary-dark) 163.59%);
+    --gradient-food-delivery: linear-gradient(208.95deg,
+            var(--color-brown) -4.1%,
+            var(--color-primary-dark) 111.24%);
+    --gradient-food-delivery-btn-sec: linear-gradient(90deg,
+            var(--color-navbar) 0%,
+            var(--color-ai-red) 100%);
+    --gradient-count-banner-bg: linear-gradient(180deg,
+            var(--color-navbar) 0%,
+            var(--color-light-pink) 100%);
+    --gradient-tableau-cta: linear-gradient(270deg,
+            var(--color-primary) 0%,
+            var(--color-tech-offering) 100%);
+
+    --gradient-zendesk-slider: linear-gradient(90deg,
+            var(--color-primary-dark) 5.87%,
+            var(--color-normal-brown) 20.87%,
+            var(--color-base-red) 90.87%);
+
+    --gradient-ml-slider: linear-gradient(90deg,
+            var(--color-base-red-light) 40.87%,
+            var(--color-base-red-medium) 90.87%);
+
+    --gradient-zendesk-connected: linear-gradient(270deg,
+            var(--color-navbar) 1.87%,
+            var(--color-zendesk-pink) 50%);
+
+    --gradient-medicine: linear-gradient(180deg,
+            var(--color-chatbot-banner) 1.87%,
+            var(--color-navbar) 50%);
+
+    --gradient-pharmacy: linear-gradient(147deg,
+            var(--color-primary-dark) -18%,
+            var(--color-primary) 155.56%);
+
+    --gradient-medicine-vertical: linear-gradient(180deg,
+            rgba(var(--color-navbar)) 0%,
+            rgba(var(--color-primary-dark)) 40%,
+            rgba(var(--color-navbar)) 100%);
+
+    --gradient-dating-support: linear-gradient(270deg,
+            var(--color-navbar) 28.54%,
+            var(--color-primary) 491.69%);
+
+    --gradient-funky: linear-gradient(89.5deg,
+            var(--color-green-mint) 13.56%,
+            var(--color-purple-light) 35.98%,
+            var(--color-purple) 50.93%,
+            var(--color-pink) 85.33%);
+    --gradient-stats-cards: linear-gradient(180deg,
+            #000000 -29.82%,
+            #f5010b 126.61%);
+    --gradient-ready-join: linear-gradient(96.69deg,
+            #b50109 -0.53%,
+            #791400 101.04%);
+
+    --gradient-funky-2: linear-gradient(89.5deg,
+            var(--color-green-mint) 32.56%,
+            var(--color-purple-light) 35.98%,
+            var(--color-purple) 50.93%,
+            var(--color-pink) 85.33%);
+
+    --gradient-red-white-flare: linear-gradient(118.73deg,
+            var(--color-primary) -95.46%,
+            var(--color-navbar) 29.69%,
+            var(--color-navbar) 51.77%,
+            var(--color-navbar) 71.35%,
+            var(--color-primary) 207.75%);
+    --gradient-trusted-banner: linear-gradient(0deg,
+            rgba(245, 1, 11, 0.6),
+            rgba(245, 1, 11, 0.6)),
+        linear-gradient(47.18deg, var(--color-primary) 0%, rgba(245, 1, 11, 0) 66%);
+
+    --gradient-logistic-banner: linear-gradient(0deg,
+            var(--color-primary-dark) -30.97%,
+            var(--color-primary) 155.56%);
+
+    --gradient-pink: linear-gradient(270.19deg, #ffffff 70%, #f5010b 23%);
+
+    --gradient-tech-card: linear-gradient(95.44deg,
+            rgba(0, 0, 0, 0.5) 39.02%,
+            rgba(181, 1, 9, 0.5) 110.71%);
+
+    --food-delivery-service-bg: linear-gradient(270.19deg,
+            rgba(255, 255, 255, 0.7) 1.87%,
+            rgba(245, 1, 11, 0.23) 402.69%);
+    --gradient-yellow: linear-gradient(270deg, #eac101 0%, #f8e998 100%);
+    --gradient-black-fade: linear-gradient(180deg,
+            rgba(0, 0, 0, 0) 51.33%,
+            #000000 100%);
+    --gradient-black-red: linear-gradient(180deg, #000000 0%, #970208 100%);
+    --gradient-overlayed-red: linear-gradient(96.69deg,
+            #b50109 -0.53%,
+            #791400 101.04%);
+    --gradient-ds-tabs: linear-gradient(97.46deg,
+            var(--color-primary) -31.52%,
+            var(--color-tech-offering) 106.03%);
+
+    --gradient-Hero: linear-gradient(112.53deg, #b50109 11.78%, #ffffff 100%);
+    --gradient-hero-text: linear-gradient(180deg, #f5010b 0%, #ffffff 66.4%);
+    /* --business-demand: box-shadow: 7px 7px 20px 0px #00000005; */
+    --gradient-partnership: linear-gradient(154.8deg,
+            #970208 6.91%,
+            #000000 116.31%);
+    --gradient-e-mobility: linear-gradient(180deg,
+            var(--color-ai-red) -76.96%,
+            var(--color-navbar) 84.47%);
+    --gradient-portfolio: linear-gradient(89.5deg,
+            #5dffbb 13.56%,
+            #806bff 35.98%,
+            #755fff 50.93%,
+            #ff718a 85.33%);
+    --gradient-portfolio-background: linear-gradient(100deg,
+            #fce7f3 20%,
+            #eff6ff 85%,
+            #facc15 100%);
+    --gradient-popup-card: linear-gradient(88.14deg,
+            color-mix(in srgb, var(--color-card) 60%, transparent) -9.28%,
+            color-mix(in srgb, var(--color-tech-offering) 60%, transparent) 99.81%);
+
+    --panel-shadow: 0px 7px 21px -1.25px #1c46ff08,
+        0px 1.6px 4.81px -0.83px #1c46ff03, 0px 0.42px 1.26px -0.42px #1c46ff03,
+        0px 0px 0px 5px #f8f8fa;
+
+    --box-on-demand: 4px 3px 15px rgba(0, 0, 0, 0.15);
+
+    /* Shadows */
+    --shadow-navbar: 0px 9px 16px 0px #00000038;
+    --shadow-navbar-box: 0px 0px 11px 0px #0000001f;
+    --shadow-card: -8px 31px 16.01px -0.5px #00000024,
+        -3.64px 14.1px 7.28px -0.42px #00000012,
+        -1.83px 7.09px 3.66px -0.33px #0000000d,
+        -0.97px 3.74px 1.93px -0.25px #00000008,
+        -0.48px 1.87px 0.96px -0.17px #00000005,
+        -0.19px 0.73px 0.38px -0.08px #00000005;
+    --shadow-blog-cards: 0px 5px 40px 0px #0000000d;
+    --shadow-features-card: 0px 5.12px 40.94px 0px #0000000d;
+    --shadow-case-studies: 0px 2px 3px 1px #92929252;
+    --shadow-case-details: 0px 2px 13px 0px #00000017;
+    /* Fonts */
+    --font-product-sans: var(--product-sans);
+}
+
+[data-theme*="dark"] {
+    /* --top-bar-gradient-start: linear-gradient(0deg, green -53.97%, yellow 155.56%);
+  --top-bar-gradient: linear-gradient(0deg, yellow -53.97%, green 155.56%); */
+    --color-navbar: #ffffff;
+
+    --font-pt-sans: var(--pt-sans);
+}
+
+/* Box shadow effect with left and bottom */
+.shadow-custom-multi {
+    box-shadow: -8px 31px 16px -0.5px rgba(0, 0, 0, 0.14),
+        -3.64px 14.1px 7.28px -0.42px rgba(0, 0, 0, 0.07),
+        -1.83px 7.09px 3.66px -0.33px rgba(0, 0, 0, 0.05),
+        -0.97px 3.74px 1.93px -0.25px rgba(0, 0, 0, 0.03),
+        -0.48px 1.87px 0.96px -0.17px rgba(0, 0, 0, 0.02),
+        -0.19px 0.73px 0.38px -0.08px rgba(0, 0, 0, 0.02);
+}

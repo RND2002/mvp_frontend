@@ -104,48 +104,53 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
     [navbarData, handleMouseEnter, handleMouseLeave]
   );
 
-  if (isMobileOrTab) {
-    return (
-      <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} />
-    );
-  }
+  // if (isMobileOrTab) {
+  //   return (
+  //     <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} />
+  //   );
+  // }
   return (
-    <div className="hidden lg:flex items-center gap-8 relative">
-      {navbarData.navItems.filter((item) => item.visibleIn === "both").map((item) => (
-        <div key={item.name} className="relative">
-          {renderNavItems(item)}
-          <DropdownSection
-            isVisible={item.name === NavItemName.AboutUs && showAboutUs}
-            items={navbarData.aboutUsSection.items}
-            onMouseEnter={() => setShowAboutUs(true)}
-            onMouseLeave={() => handleMouseLeave(NavItemName.AboutUs)}
-          />
-          <DropdownSection
-            isVisible={item.name === NavItemName.Resources && showResources}
-            items={navbarData.resourcesSection.items}
-            onMouseEnter={() => setShowResources(true)}
-            onMouseLeave={() => handleMouseLeave(NavItemName.Resources)}
-          />
-        </div>
-      ))}
+    <>
+      <div className="lg:hidden">
+        <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} />
+      </div>
+      <div className="hidden lg:flex items-center gap-8 relative">
+        {navbarData.navItems.filter((item) => item.visibleIn === "both").map((item) => (
+          <div key={item.name} className="relative">
+            {renderNavItems(item)}
+            <DropdownSection
+              isVisible={item.name === NavItemName.AboutUs && showAboutUs}
+              items={navbarData.aboutUsSection.items}
+              onMouseEnter={() => setShowAboutUs(true)}
+              onMouseLeave={() => handleMouseLeave(NavItemName.AboutUs)}
+            />
+            <DropdownSection
+              isVisible={item.name === NavItemName.Resources && showResources}
+              items={navbarData.resourcesSection.items}
+              onMouseEnter={() => setShowResources(true)}
+              onMouseLeave={() => handleMouseLeave(NavItemName.Resources)}
+            />
+          </div>
+        ))}
 
-      <CustomButton onClick={() => alert("Custom Button Clicked")}>
-        Sign In
-      </CustomButton>
+        <CustomButton onClick={() => alert("Custom Button Clicked")}>
+          Sign In
+        </CustomButton>
 
-      <IndustrySection
-        columns={navbarData.industriesSection?.columns}
-        onMouseEnter={() => setShowIndustries(true)}
-        handleMouseLeave={handleMouseLeave}
-        isVisible={showIndustries}
-      />
-      <ServicesSection
-        navbarData={navbarData}
-        onMouseEnter={() => setShowServices(true)}
-        handleMouseLeave={handleMouseLeave}
-        isVisible={showServices}
-      />
-    </div>
+        <IndustrySection
+          columns={navbarData.industriesSection?.columns}
+          onMouseEnter={() => setShowIndustries(true)}
+          handleMouseLeave={handleMouseLeave}
+          isVisible={showIndustries}
+        />
+        <ServicesSection
+          navbarData={navbarData}
+          onMouseEnter={() => setShowServices(true)}
+          handleMouseLeave={handleMouseLeave}
+          isVisible={showServices}
+        />
+      </div>
+    </>
   );
 };
 
