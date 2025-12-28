@@ -1,0 +1,212 @@
+{
+    "title": {
+        "line1": "Your Smart Partner for Vehicle Care",
+        "line2": "On-Call Service, Custom Modifications & Trusted Mechanics"
+    },
+    "labels": {
+        "techExpertise": "Certified Vehicle Experts",
+        "futureProducts": "Smart Auto Solutions"
+    },
+    "items": [
+        {
+            "title": "On-Call Vehicle Services",
+            "subtitle": "Doorstep Car & Bike Servicing",
+            "content": {
+                "heading": "Anytime, Anywhere Vehicle Assistance",
+                "description": "Book certified mechanics for car and bike services at your location with real-time tracking, transparent pricing, and fast turnaround."
+            },
+            "techExpertise": [
+                {
+                    "name": "General Vehicle Servicing",
+                    "icon": "/icons/vehicle/general-service.svg"
+                },
+                {
+                    "name": "Oil & Filter Change",
+                    "icon": "/icons/vehicle/oil-change.svg"
+                },
+                {
+                    "name": "Brake Inspection & Repair",
+                    "icon": "/icons/vehicle/brake.svg"
+                },
+                {
+                    "name": "Battery Jumpstart & Replacement",
+                    "icon": "/icons/vehicle/battery.svg"
+                },
+                {
+                    "name": "Emergency Breakdown Assistance",
+                    "icon": "/icons/vehicle/breakdown.svg"
+                }
+            ],
+            "futureProducts": [
+                {
+                    "name": "QuickFix On-Call",
+                    "icon": "/icons/vehicle/quickfix.svg"
+                },
+                {
+                    "name": "24x7 RoadAssist",
+                    "icon": "/icons/vehicle/roadassist.svg"
+                }
+            ]
+        },
+        {
+            "title": "Car Modification Studio",
+            "subtitle": "Performance, Style & Comfort Upgrades",
+            "content": {
+                "heading": "Transform Your Car, Your Way",
+                "description": "From aesthetic upgrades to performance tuning, we offer end-to-end car modification solutions using high-quality components."
+            },
+            "techExpertise": [
+                {
+                    "name": "Alloy Wheels & Tyres",
+                    "icon": "/icons/vehicle/alloy.svg"
+                },
+                {
+                    "name": "Car Wraps & Paint Protection (PPF)",
+                    "icon": "/icons/vehicle/wrap.svg"
+                },
+                {
+                    "name": "Suspension & Performance Tuning",
+                    "icon": "/icons/vehicle/suspension.svg"
+                },
+                {
+                    "name": "Interior Customization",
+                    "icon": "/icons/vehicle/interior.svg"
+                },
+                {
+                    "name": "Lighting & Headlamp Upgrades",
+                    "icon": "/icons/vehicle/lighting.svg"
+                }
+            ],
+            "futureProducts": [
+                {
+                    "name": "ModVisualizer AR",
+                    "icon": "/icons/vehicle/ar.svg"
+                },
+                {
+                    "name": "CarStyle Configurator",
+                    "icon": "/icons/vehicle/config.svg"
+                }
+            ]
+        },
+        {
+            "title": "Bike Service & Customization",
+            "subtitle": "Performance & Aesthetic Bike Care",
+            "content": {
+                "heading": "Ride Better, Ride Smarter",
+                "description": "Professional bike servicing and customization for daily commuters, cruisers, and sports bikes."
+            },
+            "techExpertise": [
+                {
+                    "name": "Bike General Service",
+                    "icon": "/icons/vehicle/bike-service.svg"
+                },
+                {
+                    "name": "Chain Sprocket & Clutch Work",
+                    "icon": "/icons/vehicle/chain.svg"
+                },
+                {
+                    "name": "Exhaust & Performance Mods",
+                    "icon": "/icons/vehicle/exhaust.svg"
+                },
+                {
+                    "name": "Custom Paint & Graphics",
+                    "icon": "/icons/vehicle/bike-paint.svg"
+                },
+                {
+                    "name": "Tyre & Brake Replacement",
+                    "icon": "/icons/vehicle/bike-brake.svg"
+                }
+            ],
+            "futureProducts": [
+                {
+                    "name": "BikeCare Plus",
+                    "icon": "/icons/vehicle/bikecare.svg"
+                },
+                {
+                    "name": "Rider Custom Studio",
+                    "icon": "/icons/vehicle/rider.svg"
+                }
+            ]
+        },
+        {
+            "title": "Vehicle Components Marketplace",
+            "subtitle": "Genuine Parts & Accessories",
+            "content": {
+                "heading": "All Parts. One Platform.",
+                "description": "Buy verified car and bike components with installation support and warranty-backed services."
+            },
+            "techExpertise": [
+                {
+                    "name": "Engine Components",
+                    "icon": "/icons/vehicle/engine.svg"
+                },
+                {
+                    "name": "Electrical & Electronics",
+                    "icon": "/icons/vehicle/electrical.svg"
+                },
+                {
+                    "name": "Body Parts & Accessories",
+                    "icon": "/icons/vehicle/body.svg"
+                },
+                {
+                    "name": "Infotainment Systems",
+                    "icon": "/icons/vehicle/infotainment.svg"
+                },
+                {
+                    "name": "Suspension & Steering Parts",
+                    "icon": "/icons/vehicle/steering.svg"
+                }
+            ],
+            "futureProducts": [
+                {
+                    "name": "AutoParts Store",
+                    "icon": "/icons/vehicle/store.svg"
+                },
+                {
+                    "name": "Fitment Guarantee",
+                    "icon": "/icons/vehicle/fitment.svg"
+                }
+            ]
+        },
+        {
+            "title": "Smart User Experience",
+            "subtitle": "Simple, Transparent & Fast",
+            "content": {
+                "heading": "Designed for Vehicle Owners",
+                "description": "A seamless digital experience from booking to service completion with real-time updates and trusted professionals."
+            },
+            "techExpertise": [
+                {
+                    "name": "Instant Service Booking",
+                    "icon": "/icons/ux/booking.svg"
+                },
+                {
+                    "name": "Live Mechanic Tracking",
+                    "icon": "/icons/ux/tracking.svg"
+                },
+                {
+                    "name": "Upfront Pricing & Invoices",
+                    "icon": "/icons/ux/pricing.svg"
+                },
+                {
+                    "name": "Service History & Reminders",
+                    "icon": "/icons/ux/history.svg"
+                },
+                {
+                    "name": "Ratings & Reviews",
+                    "icon": "/icons/ux/review.svg"
+                }
+            ],
+            "futureProducts": [
+                {
+                    "name": "Smart Service Reminders",
+                    "icon": "/icons/ux/reminder.svg"
+                },
+                {
+                    "name": "AI Vehicle Health Report",
+                    "icon": "/icons/ux/health.svg"
+                }
+            ]
+        }
+    ]
+}
