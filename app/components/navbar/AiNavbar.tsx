@@ -1,0 +1,56 @@
+"use client";
+
+import Image from "next/image";
+import React from "react";
+import { NavItem } from "@/app/lib/types";
+import AiNavbarMobile from "./AiNavbarMobile";
+import ActiveLink from "./ActiveLink";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+
+interface AiNavbarProps {
+  items: NavItem[];
+  open: boolean;
+  setOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
+}
+
+const AiNavbar: React.FC<AiNavbarProps> = ({ items, open, setOpen }) => {
+  const pathname = usePathname();
+  const showAiNavbar = items.some((item) => pathname.endsWith(item.href || ""));
+
+  if (!showAiNavbar) return null;
+
+  return (
+    <div
+      id="ai-navbar"
+      className="[background-image:var(--gradient-ai-navbar)]"
+    >
+      <div className="relative container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-1">
+        <div className="flex items-center gap-16">
+          <Link
+            href={items?.[0]?.href || "/"}
+            className="relative h-15 w-[140px] lg:w-[170px]"
+          >
+            <Image
+              src="/icons/ai-chatbot/logo.svg"
+              className="object-contain"
+              fill
+              alt="Logo"
+            />
+          </Link>
+        </div>
+
+        <div className="hidden xl:flex items-center gap-4">
+          {items.map((item) => (
+            <ActiveLink key={item.name} item={item} />
+          ))}
+        </div>
+        <div className="xl:hidden">
+          <AiNavbarMobile items={items} open={open} setOpen={setOpen} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AiNavbar;

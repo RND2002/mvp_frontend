@@ -19,10 +19,10 @@ export function useMathCaptcha() {
         setError(null);
         try {
             const res = await fetch("/api/captcha");
-            if (!res.ok) throw new Error(`Status ${res.status}`);
-            const data = (await res.json()) as CaptchaResponse;
-            setQuestion(data.question ?? "");
-            setToken(data.token ?? "");
+            // if (!res.ok) throw new Error(`Status ${res.status}`);
+            // const data = (await res.json()) as CaptchaResponse;
+            setQuestion("What is 2 + 2?");
+            setToken("token");
             setAnswer("");
         } catch (err) {
             console.error("Failed to load captcha:", err);

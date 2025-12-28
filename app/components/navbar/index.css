@@ -1,0 +1,34 @@
+@layer utilities {
+  .bg-top-bar-gradient {
+    background-image: var(--top-bar-gradient);
+    background-size: 100% 200%;
+    background-position: top center;
+    background-repeat: no-repeat;
+    animation: gradient-flip var(--gradient-duration, 900ms) ease-out forwards;
+    will-change: background-position, background-size, background-image;
+  }
+
+  @keyframes gradient-flip {
+    0% {
+      background-image: var(--top-bar-gradient-start);
+      background-position: top center;
+      background-size: 100% 200%;
+    }
+
+    50% {
+      background-position: bottom center;
+      background-size: 100% 170%;
+    }
+
+    75% {
+      background-position: bottom center;
+      background-size: 100% 200%;
+    }
+
+    100% {
+      background-image: var(--top-bar-gradient);
+      background-position: bottom center;
+      background-size: 100% 100%;
+    }
+  }
+}

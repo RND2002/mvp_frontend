@@ -1,0 +1,129 @@
+"use client";
+
+import React, { useState } from "react";
+import ContactBar from "./ContactBar";
+import "./index.css";
+import Navbar from "./Navbar";
+import Image from "next/image";
+import AutoSlider from "../common/AutoSlider";
+import AiNavbar from "./AiNavbar";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import FoodNavbar from "./FoodNavbar";
+import { NavbarName } from "@/app/lib/constants";
+import useStickyNavbar from "@/app/hooks/useStickyNavbar";
+import { NavbarData } from "@/app/lib/types";
+
+export interface ContactData {
+  email: string;
+  uae: { country: string; phone: string };
+  india: { country: string; phone: string };
+}
+
+interface MainNavbarProps {
+  navbarData: NavbarData;
+}
+
+const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
+  const pathname = usePathname();
+  const showAiNavbar = navbarData?.aiNavItems.some((item) =>
+    pathname.endsWith(item.href || "")
+  );
+  const showFoodNavbar = navbarData?.foodNavItems.some((item) =>
+    pathname.endsWith(item.href || "")
+  );
+  const [openNav, setOpenNav] = useState<{
+    main: boolean;
+    ai: boolean;
+    food: boolean;
+  }>({
+    main: false,
+    ai: false,
+    food: false,
+  });
+
+  // Close other navbars when one is opened
+  const handleNavbarToggle = (navbar: NavbarName, isOpen: boolean) => {
+    setOpenNav(() => ({
+      main: navbar === NavbarName.MAIN ? isOpen : false,
+      ai: navbar === NavbarName.AI ? isOpen : false,
+      food: navbar === NavbarName.FOOD ? isOpen : false,
+    }));
+  };
+
+  useStickyNavbar(100, openNav.main);
+  return (
+    <div
+      className={
+        showAiNavbar || showFoodNavbar ? "min-h-[168px]" : "min-h-[100px]"
+      }
+    >
+      <nav id="navbar" className="relative z-500 bg-navbar shadow-navbar">
+        <div
+          id="main-navbar-container"
+          className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-1 relative"
+        >
+          <div className="flex items-center gap-16">
+            <Link href="/" className="relative h-15 w-[140px] lg:w-[170px]">
+              <Image
+                src="/png/logo.png"
+                className="object-contain"
+                fill
+                alt="Logo"
+              />
+            </Link>
+            {/* <AutoSlider
+              className="mb-0! hidden md:flex"
+              slideClassName="!p-0"
+              slides={navbarData.navSlideItems}
+              direction="vertical"
+              showName={false}
+              showNavigation={false}
+              showTagline={false}
+              slideHeight={60}
+              slideWidth={90}
+              autoSlideTime={3000}
+              hideOnMobile={true}
+            /> */}
+          </div>
+          <Navbar
+            navbarData={navbarData}
+            open={openNav.main}
+            setOpen={(isOpen) =>
+              handleNavbarToggle(
+                NavbarName.MAIN,
+                typeof isOpen === "boolean" ? isOpen : !openNav.main
+              )
+            }
+          />
+        </div>
+        {showAiNavbar && (
+          <AiNavbar
+            items={navbarData.aiNavItems}
+            open={openNav.ai}
+            setOpen={(isOpen) =>
+              handleNavbarToggle(
+                NavbarName.AI,
+                typeof isOpen === "boolean" ? isOpen : !openNav.ai
+              )
+            }
+          />
+        )}
+        {showFoodNavbar && (
+          <FoodNavbar
+            items={navbarData.foodNavItems}
+            open={openNav.food}
+            setOpen={(isOpen) =>
+              handleNavbarToggle(
+                NavbarName.FOOD,
+                typeof isOpen === "boolean" ? isOpen : !openNav.food
+              )
+            }
+          />
+        )}
+      </nav>
+    </div>
+  );
+};
+
+export default MainNavbar;

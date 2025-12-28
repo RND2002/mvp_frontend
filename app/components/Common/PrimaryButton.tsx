@@ -6,6 +6,7 @@ interface PrimaryButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     children: React.ReactNode;
     className?: string;
     openPopup?: boolean;
+    href?: string;
 }
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
