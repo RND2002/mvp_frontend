@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AlertProvider } from "@/app/hooks/useAlert";
+import { Footer } from "./components/Footer";
+import MainNavbar from "@/app/components/Navbar";
+import { ContactUsPopupProvider } from "@/app/components/Providers/ContactUsPopupProvider";
+import { NAVBAR_DATA } from "./lib/navbar-data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +33,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AlertProvider>
-          {children}
+          <ContactUsPopupProvider>
+            <MainNavbar navbarData={NAVBAR_DATA} />
+            {children}
+            <Footer />
+          </ContactUsPopupProvider>
         </AlertProvider>
       </body>
     </html>
   );
 }
+

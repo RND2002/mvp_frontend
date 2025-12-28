@@ -9,3 +9,16 @@ interface PartnerSection {
     };
     items: PartnerSectionItem[];
 }
+
+interface GenerativeAiSolution {
+    title: string;
+    description: string;
+    logo?: string;
+    image: string;
+}
+
+type NavItem = {
+    name: string;
+    href?: string;
+    visibleIn?: string;
+};

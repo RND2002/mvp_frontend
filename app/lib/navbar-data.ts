@@ -4,10 +4,9 @@ import { NavbarData } from "./types";
 
 export const NAVBAR_DATA: NavbarData = {
     navItems: [
-        { name: "Industries", visibleIn: "both", section: "industries" },
-        { name: "Services", visibleIn: "both", section: "services" },
-        { name: "About Us", visibleIn: "both", section: "about" },
-        { name: "Resources", visibleIn: "both", section: "resources" }
+        { name: "RideVision Studio", visibleIn: "both", section: "studio", href: "/studio" },
+        { name: "About Us", visibleIn: "both", section: "about", href: "/about" },
+        { name: "Our Services", visibleIn: "both", section: "our-services" }
     ],
     aiNavItems: [
         { name: "AI Chatbot", href: "/ai/semantix" }
@@ -28,19 +27,29 @@ export const NAVBAR_DATA: NavbarData = {
     },
     resourcesSection: {
         items: [
-            { name: "Blog", href: "/resources/blog" },
-            { name: "Case Studies", href: "/resources/case-studies" }
+            { name: "Service Now", href: "/services/now" },
+            { name: "Upgrade My Ride", href: "/services/upgrade" },
+            { name: "Auto Parts Store", href: "/services/parts" },
+            { name: "My Vehicle", href: "/services/my-vehicle" }
+        ]
+    },
+    studioSection: {
+        items: [
+            { name: "Bike Studio", href: "/studio/bike" },
+            { name: "Car Studio", href: "/studio/car" },
+            { name: "Van Studio", href: "/studio/van" },
+            { name: "Truck Studio", href: "/studio/truck" }
         ]
     },
     industriesSection: {
         columns: [
             {
                 title: "Healthcare",
-                items: [{ name: "Hospitals", href: "/industries/healthcare/hospitals" }]
+                items: [{ name: "Hospitals", href: "/studio/healthcare/hospitals" }]
             },
             {
                 title: "Fintech",
-                items: [{ name: "Banking", href: "/industries/fintech/banking" }]
+                items: [{ name: "Banking", href: "/studio/fintech/banking" }]
             }
         ]
     },

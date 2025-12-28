@@ -1,7 +1,7 @@
 {
     "title": {
         "line1": "Your Smart Partner for Vehicle Care",
-        "line2": "On-Call Service, Custom Modifications & Trusted Mechanics"
+        "line2": "Online & Call-Based Booking, Custom Modifications & Trusted Mechanics"
     },
     "labels": {
         "techExpertise": "Certified Vehicle Experts",
@@ -9,11 +9,11 @@
     },
     "items": [
         {
-            "title": "On-Call Vehicle Services",
-            "subtitle": "Doorstep Car & Bike Servicing",
+            "title": "Vehicle Services",
+            "subtitle": "Online & Doorstep Car & Bike Servicing",
             "content": {
-                "heading": "Anytime, Anywhere Vehicle Assistance",
-                "description": "Book certified mechanics for car and bike services at your location with real-time tracking, transparent pricing, and fast turnaround."
+                "heading": "Book Anytime, Anywhere",
+                "description": "Book certified mechanics online or via call for car and bike services at your location or preferred workshop, with real-time updates, transparent pricing, and fast turnaround."
             },
             "techExpertise": [
                 {
@@ -39,7 +39,7 @@
             ],
             "futureProducts": [
                 {
-                    "name": "QuickFix On-Call",
+                    "name": "QuickFix Booking",
                     "icon": "/icons/vehicle/quickfix.svg"
                 },
                 {
@@ -53,7 +53,7 @@
             "subtitle": "Performance, Style & Comfort Upgrades",
             "content": {
                 "heading": "Transform Your Car, Your Way",
-                "description": "From aesthetic upgrades to performance tuning, we offer end-to-end car modification solutions using high-quality components."
+                "description": "Explore and book car modification services online or via call, from aesthetic upgrades to performance tuning, using high-quality components handled by expert professionals."
             },
             "techExpertise": [
                 {
@@ -93,7 +93,7 @@
             "subtitle": "Performance & Aesthetic Bike Care",
             "content": {
                 "heading": "Ride Better, Ride Smarter",
-                "description": "Professional bike servicing and customization for daily commuters, cruisers, and sports bikes."
+                "description": "Schedule bike servicing and customization online or by call for commuters, cruisers, and sports bikes with trusted mechanics and quality components."
             },
             "techExpertise": [
                 {
@@ -133,7 +133,7 @@
             "subtitle": "Genuine Parts & Accessories",
             "content": {
                 "heading": "All Parts. One Platform.",
-                "description": "Buy verified car and bike components with installation support and warranty-backed services."
+                "description": "Browse and order verified car and bike components online or get assistance via call, with installation support and warranty-backed services."
             },
             "techExpertise": [
                 {
@@ -173,11 +173,11 @@
             "subtitle": "Simple, Transparent & Fast",
             "content": {
                 "heading": "Designed for Vehicle Owners",
-                "description": "A seamless digital experience from booking to service completion with real-time updates and trusted professionals."
+                "description": "A seamless digital experience that supports online and call-based bookings, from service scheduling to completion, with live updates, trusted professionals, and full transparency."
             },
             "techExpertise": [
                 {
-                    "name": "Instant Service Booking",
+                    "name": "Online & Call Booking",
                     "icon": "/icons/ux/booking.svg"
                 },
                 {

@@ -32,7 +32,7 @@ const AiNavbar: React.FC<AiNavbarProps> = ({ items, open, setOpen }) => {
             className="relative h-15 w-[140px] lg:w-[170px]"
           >
             <Image
-              src="/icons/ai-chatbot/logo.svg"
+              src="/assets/icons/logoipsum-365.svg"
               className="object-contain"
               fill
               alt="Logo"

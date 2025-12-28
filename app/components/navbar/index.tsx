@@ -55,7 +55,7 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
   return (
     <div
       className={
-        showAiNavbar || showFoodNavbar ? "min-h-[168px]" : "min-h-[100px]"
+        showAiNavbar || showFoodNavbar ? "min-h-[168px]" : "min-h-[70px]"
       }
     >
       <nav id="navbar" className="relative z-500 bg-navbar shadow-navbar">
@@ -66,7 +66,7 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
           <div className="flex items-center gap-16">
             <Link href="/" className="relative h-15 w-[140px] lg:w-[170px]">
               <Image
-                src="/png/logo.png"
+                src="/assets/icons/logoipsum-365.svg"
                 className="object-contain"
                 fill
                 alt="Logo"

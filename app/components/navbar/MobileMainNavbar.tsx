@@ -42,14 +42,12 @@ const MobileViewNavbar = ({
     switch (section) {
       case "services":
         return navbarData.servicesSection?.categories || [];
-      case "industries":
-        // Flatten all items from all columns for mobile view
-        return navbarData.industriesSection?.columns.flatMap((col) =>
-          col.items.map((item) => ({ name: item.name, href: item.href, label: item.name }))
-        ) || [];
+      case "studio":
+        return navbarData.studioSection?.items || [];
       case "about":
         return navbarData.aboutUsSection?.items || [];
       case "resources":
+      case "our-services":
         return navbarData.resourcesSection?.items || [];
       case "whoWeServe":
         return navbarData.whoWeServe?.items || [];

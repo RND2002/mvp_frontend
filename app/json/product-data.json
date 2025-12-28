@@ -1,0 +1,33 @@
+{
+    "heading": {
+        "highlighted": "Our Vehicle Services",
+        "line1": "Book, Customize & Manage Your Vehicle Effortlessly"
+    },
+    "paragraph": "Our platform enables users to book car and bike services online or via call with ease. From scheduled servicing to custom modifications and genuine parts, we deliver reliable solutions with transparency, expert professionals, and a seamless digital experience.",
+    "items": [
+        {
+            "title": "Online & Call-Based Vehicle Servicing",
+            "description": "Book car and bike services online or through a simple call. Choose doorstep or workshop service for routine maintenance, repairs, inspections, and emergency assistance with real-time updates and clear pricing.",
+            "logo": "/icons/vehicle/booking-service.svg",
+            "image": "/png/vehicle/services/booking-service.png"
+        },
+        {
+            "title": "Vehicle Modification & Customization",
+            "description": "Personalize your car or bike with performance upgrades, visual enhancements, interior customization, lighting, wraps, alloys, and premium accessories delivered by verified modification experts.",
+            "logo": "/icons/vehicle/modification.svg",
+            "image": "/png/vehicle/services/modification.png"
+        },
+        {
+            "title": "Genuine Parts & Components",
+            "description": "Browse and purchase authentic car and bike parts including engine components, brakes, suspension, electrical systems, infotainment units, and accessories with optional professional installation.",
+            "logo": "/icons/vehicle/components.svg",
+            "image": "/png/vehicle/services/components.png"
+        },
+        {
+            "title": "Smart Booking & Vehicle Experience",
+            "description": "Track bookings, manage service history, receive reminders, access digital invoices, rate mechanics, and get post-service support through a user-friendly app and dashboard.",
+            "logo": "/icons/vehicle/user-experience.svg",
+            "image": "/png/vehicle/services/user-experience.png"
+        }
+    ]
+}

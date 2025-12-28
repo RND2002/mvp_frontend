@@ -44,6 +44,7 @@ export interface NavbarData {
     navSlideItems: string[];
     aboutUsSection: NavSection;
     resourcesSection: NavSection;
+    studioSection?: NavSection;
     industriesSection: IndustriesSection;
     servicesSection: ServicesSectionData;
     whoWeServe?: NavSection;

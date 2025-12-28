@@ -23,44 +23,32 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
   const isMobileOrTab = useMediaQuery("(max-width: 1100px)");
-  const [showIndustries, setShowIndustries] = useState(false);
+  const [showStudio, setShowStudio] = useState(false);
   const [showAboutUs, setShowAboutUs] = useState(false);
-  const [showResources, setShowResources] = useState(false);
+  const [showOurServices, setShowOurServices] = useState(false);
   const [showServices, setShowServices] = useState(false);
 
   useStickyNavbar(100, open);
 
   const handleMouseEnter = (item: NavItem) => {
-    switch (item.name) {
-      // case NavItemName.Industries:
-      //   setShowIndustries(true);
-      //   break;
-      case NavItemName.AboutUs:
-        setShowAboutUs(true);
+    switch (item.section) {
+      case "studio":
+        setShowStudio(true);
         break;
-      case NavItemName.Resources:
-        setShowResources(true);
+      case "our-services":
+        setShowOurServices(true);
         break;
-      // case NavItemName.Services:
-      //   setShowServices(true);
-      //   break;
     }
   };
 
-  const handleMouseLeave = (name: NavItemName) => {
-    switch (name) {
-      // case NavItemName.Industries:
-      //   setShowIndustries(false);
-      //   break;
-      case NavItemName.AboutUs:
-        setShowAboutUs(false);
+  const handleMouseLeave = (section: string) => {
+    switch (section) {
+      case "studio":
+        setShowStudio(false);
         break;
-      case NavItemName.Resources:
-        setShowResources(false);
+      case "our-services":
+        setShowOurServices(false);
         break;
-      // case NavItemName.Services:
-      //   setShowServices(false);
-      //   break;
     }
   };
 
@@ -84,12 +72,12 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         <button
           className="group relative inline-block whitespace-nowrap text-text-dark transition-colors hover:text-primary focus:outline-none cursor-pointer"
           onMouseEnter={() => handleMouseEnter(item)}
-          onMouseLeave={() => handleMouseLeave(item.name as NavItemName)}
+          onMouseLeave={() => handleMouseLeave(item.section || item.name)}
           onFocus={() => handleMouseEnter(item)}
-          onBlur={() => handleMouseLeave(item.name as NavItemName)}
+          onBlur={() => handleMouseLeave(item.section || item.name)}
           onKeyDown={(e) => {
             if (e.key === "Escape") {
-              handleMouseLeave(item.name as NavItemName);
+              handleMouseLeave(item.section || item.name);
               e.currentTarget.blur();
             }
           }}
@@ -119,16 +107,10 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
           <div key={item.name} className="relative">
             {renderNavItems(item)}
             <DropdownSection
-              isVisible={item.name === NavItemName.AboutUs && showAboutUs}
-              items={navbarData.aboutUsSection.items}
-              onMouseEnter={() => setShowAboutUs(true)}
-              onMouseLeave={() => handleMouseLeave(NavItemName.AboutUs)}
-            />
-            <DropdownSection
-              isVisible={item.name === NavItemName.Resources && showResources}
+              isVisible={item.section === "our-services" && showOurServices}
               items={navbarData.resourcesSection.items}
-              onMouseEnter={() => setShowResources(true)}
-              onMouseLeave={() => handleMouseLeave(NavItemName.Resources)}
+              onMouseEnter={() => setShowOurServices(true)}
+              onMouseLeave={() => handleMouseLeave("our-services")}
             />
           </div>
         ))}
@@ -137,18 +119,12 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
           Sign In
         </CustomButton>
 
-        <IndustrySection
-          columns={navbarData.industriesSection?.columns}
-          onMouseEnter={() => setShowIndustries(true)}
-          handleMouseLeave={handleMouseLeave}
-          isVisible={showIndustries}
-        />
-        <ServicesSection
+        {/* <ServicesSection
           navbarData={navbarData}
           onMouseEnter={() => setShowServices(true)}
           handleMouseLeave={handleMouseLeave}
           isVisible={showServices}
-        />
+        /> */}
       </div>
     </>
   );
