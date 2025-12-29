@@ -8,9 +8,6 @@ export const NAVBAR_DATA: NavbarData = {
         { name: "About Us", visibleIn: "both", section: "about", href: "/about" },
         { name: "Our Services", visibleIn: "both", section: "our-services" }
     ],
-    aiNavItems: [
-        { name: "AI Chatbot", href: "/ai/semantix" }
-    ],
     foodNavItems: [
         { name: "Food Delivery", href: "/food/delivery" }
     ],

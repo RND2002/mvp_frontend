@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useMathCaptcha } from "@/hooks/useMathCaptcha";
+import { useMathCaptcha } from "@/app/hooks/useMathCaptcha";
 import clsx from "clsx";
 
 interface MathCaptchaProps {

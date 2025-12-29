@@ -6,6 +6,8 @@ import AiNavbarMobile from "./AiNavbarMobile";
 import ActiveLink from "./ActiveLink";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { NavItem } from "@/app/lib/types";
+
 interface AiNavbarProps {
   items: NavItem[];
   open: boolean;
@@ -41,11 +43,11 @@ const FoodNavbar: React.FC<AiNavbarProps> = ({ items, open, setOpen }) => {
           </Link>
         </div>
 
-        <div className="hidden xl:flex items-center gap-4">
+        {/* <div className="hidden xl:flex items-center gap-4">
           {items.map((item) => (
             <ActiveLink key={item.name} item={item} />
           ))}
-        </div>
+        </div> */}
         <div className="xl:hidden">
           <AiNavbarMobile items={items} open={open} setOpen={setOpen} />
         </div>

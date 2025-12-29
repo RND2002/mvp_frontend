@@ -1,0 +1,22 @@
+{
+    "backgroundImage": "/png/it-consulting/hero/background.png",
+    "darkShadow": "/png/it-consulting/hero/darkShadow.png",
+    "heading": "Manage Your\nVehicle\nSmartly",
+    "highlightedText": "Vehicle",
+    "description": "Keep track of your vehicle's health, service history, and documentation in one place. Our smart dashboard provides all the tools you need for effortless vehicle management.",
+    "buttons": {
+        "primary": "Schedule A Call",
+        "secondary": "Access Dashboard",
+        "icon": "/assets/icons/email.svg"
+    },
+    "logos": [
+        {
+            "name": "Logo 1",
+            "logo": "/icons/it-consulting/hero/logo-1.svg"
+        },
+        {
+            "name": "Logo 2",
+            "logo": "/icons/it-consulting/hero/logo-2.svg"
+        }
+    ]
+}

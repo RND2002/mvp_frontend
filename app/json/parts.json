@@ -1,0 +1,22 @@
+{
+    "backgroundImage": "/png/it-consulting/hero/background.png",
+    "darkShadow": "/png/it-consulting/hero/darkShadow.png",
+    "heading": "Genuine\nAuto Parts &\nComponents",
+    "highlightedText": "Auto Parts",
+    "description": "Source high-quality, authentic parts for your vehicle. Our extensive catalog ensures you find exactly what you need for optimal performance and safety.",
+    "buttons": {
+        "primary": "Schedule A Call",
+        "secondary": "Browse Catalog",
+        "icon": "/assets/icons/email.svg"
+    },
+    "logos": [
+        {
+            "name": "Logo 1",
+            "logo": "/icons/it-consulting/hero/logo-1.svg"
+        },
+        {
+            "name": "Logo 2",
+            "logo": "/icons/it-consulting/hero/logo-2.svg"
+        }
+    ]
+}

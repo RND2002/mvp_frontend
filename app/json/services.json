@@ -1,0 +1,39 @@
+{
+    "heading": "Our Premium Custom Healthcare",
+    "subHeading": "App Development Services",
+    "description": "",
+    "cards": [
+        {
+            "title": "Healthcare App Consulting",
+            "image": "/png/ai-consultant/consultingCategory/small-girl.png"
+        },
+        {
+            "title": "Healthcare App UI/UX Design",
+            "image": "/png/ai-consultant/consultingCategory/girl-surgery.png"
+        },
+        {
+            "title": "Healthcare Web App Development",
+            "image": "/png/ai-consultant/consultingCategory/girl-checkup.png"
+        },
+        {
+            "title": "Healthcare Software Development",
+            "image": "/png/ai-consultant/consultingCategory/lady-dentist.png"
+        },
+        {
+            "title": "Healthcare App Modernization",
+            "image": "/png/ai-consultant/consultingCategory/family.png"
+        },
+        {
+            "title": "Healthcare CRM App Development",
+            "image": "/png/ai-consultant/consultingCategory/ear-checkup.png"
+        },
+        {
+            "title": "Healthcare Data Integration",
+            "image": "/png/ai-consultant/consultingCategory/grocery-lady.png"
+        },
+        {
+            "title": "Healthcare Wearable App Development​",
+            "image": "/png/ai-consultant/consultingCategory/grocery-lady.png"
+        }
+    ]
+}

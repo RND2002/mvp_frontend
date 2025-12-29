@@ -26,9 +26,6 @@ interface MainNavbarProps {
 
 const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
   const pathname = usePathname();
-  const showAiNavbar = navbarData?.aiNavItems.some((item) =>
-    pathname.endsWith(item.href || "")
-  );
   const showFoodNavbar = navbarData?.foodNavItems.some((item) =>
     pathname.endsWith(item.href || "")
   );
@@ -53,26 +50,21 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
 
   useStickyNavbar(100, openNav.main);
   return (
-    <div
-      className={
-        showAiNavbar || showFoodNavbar ? "min-h-[168px]" : "min-h-[70px]"
-      }
-    >
-      <nav id="navbar" className="relative z-500 bg-navbar shadow-navbar">
-        <div
-          id="main-navbar-container"
-          className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-1 relative"
-        >
-          <div className="flex items-center gap-16">
-            <Link href="/" className="relative h-15 w-[140px] lg:w-[170px]">
-              <Image
-                src="/assets/icons/logoipsum-365.svg"
-                className="object-contain"
-                fill
-                alt="Logo"
-              />
-            </Link>
-            {/* <AutoSlider
+    <nav id="navbar" className="relative z-500 bg-navbar shadow-navbar">
+      <div
+        id="main-navbar-container"
+        className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-1 relative"
+      >
+        <div className="flex items-center gap-16">
+          <Link href="/" className="relative h-15 w-[140px] lg:w-[170px]">
+            <Image
+              src="/assets/icons/logoipsum-365.svg"
+              className="object-contain"
+              fill
+              alt="Logo"
+            />
+          </Link>
+          {/* <AutoSlider
               className="mb-0! hidden md:flex"
               slideClassName="!p-0"
               slides={navbarData.navSlideItems}
@@ -85,44 +77,31 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
               autoSlideTime={3000}
               hideOnMobile={true}
             /> */}
-          </div>
-          <Navbar
-            navbarData={navbarData}
-            open={openNav.main}
-            setOpen={(isOpen) =>
-              handleNavbarToggle(
-                NavbarName.MAIN,
-                typeof isOpen === "boolean" ? isOpen : !openNav.main
-              )
-            }
-          />
         </div>
-        {showAiNavbar && (
-          <AiNavbar
-            items={navbarData.aiNavItems}
-            open={openNav.ai}
-            setOpen={(isOpen) =>
-              handleNavbarToggle(
-                NavbarName.AI,
-                typeof isOpen === "boolean" ? isOpen : !openNav.ai
-              )
-            }
-          />
-        )}
-        {showFoodNavbar && (
-          <FoodNavbar
-            items={navbarData.foodNavItems}
-            open={openNav.food}
-            setOpen={(isOpen) =>
-              handleNavbarToggle(
-                NavbarName.FOOD,
-                typeof isOpen === "boolean" ? isOpen : !openNav.food
-              )
-            }
-          />
-        )}
-      </nav>
-    </div>
+        <Navbar
+          navbarData={navbarData}
+          open={openNav.main}
+          setOpen={(isOpen) =>
+            handleNavbarToggle(
+              NavbarName.MAIN,
+              typeof isOpen === "boolean" ? isOpen : !openNav.main
+            )
+          }
+        />
+      </div>
+      {showFoodNavbar && (
+        <FoodNavbar
+          items={navbarData.foodNavItems}
+          open={openNav.food}
+          setOpen={(isOpen) =>
+            handleNavbarToggle(
+              NavbarName.FOOD,
+              typeof isOpen === "boolean" ? isOpen : !openNav.food
+            )
+          }
+        />
+      )}
+    </nav>
   );
 };
 

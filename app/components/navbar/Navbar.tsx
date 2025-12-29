@@ -6,8 +6,6 @@ import Image from "next/image";
 import PrimaryButton from "../common/PrimaryButton";
 import ArrowUpIcon from "@/public/assets/icons/arrow-up.svg";
 // import HamburgerIcon from "@/assets/icons/hamburger.svg";
-import { NavItemName } from "@/app/lib/constants";
-import IndustrySection from "@/app/components/Navbar/IndustrySection";
 import DropdownSection from "@/app/components/Navbar/DropdownSection";
 import ServicesSection from "@/app/components/Navbar/ServicesSection";
 import useStickyNavbar from "@/app/hooks/useStickyNavbar";

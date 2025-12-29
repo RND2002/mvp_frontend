@@ -1,0 +1,81 @@
+@import "./styles/variable.css";
+@import "react-phone-number-input/style.css";
+
+
+@layer utilities {
+    .container-lg {
+        width: 100%;
+    }
+
+    @media (min-width: 40rem) {
+        .container-lg {
+            max-width: 50rem
+        }
+    }
+
+    @media (min-width: 48rem) {
+        .container-lg {
+            max-width: 58rem
+        }
+    }
+
+    @media (min-width: 64rem) {
+        .container-lg {
+            max-width: 74rem
+        }
+    }
+
+    @media (min-width: 80rem) {
+        .container-lg {
+            max-width: 90rem
+        }
+    }
+
+    @media (min-width: 96rem) {
+        .container-lg {
+            max-width: 106rem
+        }
+    }
+}
+
+.primary-gradient-text {
+    background: var(--color-primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.primary-gradient-light-text {
+    background: var(--color-primary-gradient-light);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.text-gradient-contact-text {
+    background: var(--color-contact-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+
+.anychart-credits {
+    display: none !important;
+}
+
+.custom-phone-input-wrapper {
+    min-height: fit-content !important;
+}
+
+.custom-phone-input .PhoneInputCountry {
+    top: 50% !important;
+}

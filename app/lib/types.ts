@@ -39,7 +39,6 @@ export interface ServicesSectionData {
 
 export interface NavbarData {
     navItems: NavItem[];
-    aiNavItems: NavItem[];
     foodNavItems: NavItem[];
     navSlideItems: string[];
     aboutUsSection: NavSection;

@@ -1,0 +1,22 @@
+{
+    "backgroundImage": "/png/it-consulting/hero/background.png",
+    "darkShadow": "/png/it-consulting/hero/darkShadow.png",
+    "heading": "Premium\nVehicle\nUpgrades",
+    "highlightedText": "Upgrades",
+    "description": "Transform your vehicle with our premium modification and customization services. From performance tuning to aesthetic enhancements, we deliver top-tier solutions to make your ride stand out.",
+    "buttons": {
+        "primary": "Schedule A Call",
+        "secondary": "View Upgrades",
+        "icon": "/assets/icons/email.svg"
+    },
+    "logos": [
+        {
+            "name": "Logo 1",
+            "logo": "/icons/it-consulting/hero/logo-1.svg"
+        },
+        {
+            "name": "Logo 2",
+            "logo": "/icons/it-consulting/hero/logo-2.svg"
+        }
+    ]
+}

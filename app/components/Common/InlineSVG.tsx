@@ -28,7 +28,7 @@ const InlineSVG = ({
     const [svg, setSvg] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
 
-    const isSVG = src.toLowerCase().endsWith(".svg");
+    const isSVG = src?.toLowerCase().endsWith(".svg");
     const Component = as as any;
 
     useEffect(() => {
