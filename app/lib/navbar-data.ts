@@ -1,5 +1,5 @@
 
-import { NavbarData } from "./types";
+import { NavbarData } from "@/app/lib/types";
 
 
 export const NAVBAR_DATA: NavbarData = {

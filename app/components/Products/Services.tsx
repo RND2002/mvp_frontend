@@ -1,6 +1,6 @@
 import React from "react";
 import DualSectionCard from "@/app/components/common/DualSectionCard";
-import { SpringUp } from "@/app/components/common/AnimatedWrapper";
+import { SpringUp } from "../common/AnimatedWrapper";
 
 interface ServicesItem {
     title: string;

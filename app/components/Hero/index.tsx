@@ -1,7 +1,7 @@
 import React from "react";
 import SecondaryButton from "@/app/ui/button/SecondaryButton";
 import PrimaryButton from "@/app/components/common/PrimaryButton";
-import { FadeUp, StaggerContainer } from "@/app/components/common/AnimatedWrapper";
+import { FadeUp, StaggerContainer } from "../common/AnimatedWrapper";
 import Image from "next/image";
 import InlineSVG from "@/app/components/common/InlineSVG";
 

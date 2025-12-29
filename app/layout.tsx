@@ -4,7 +4,7 @@ import "@/app/globals.css";
 import "@/app/global.css";
 import { AlertProvider } from "@/app/hooks/useAlert";
 import { Footer } from "@/app/components/Footer";
-import MainNavbar from "@/app/components/Navbar";
+import MainNavbar from "@/app/components/Navbar/index";
 import { ContactUsPopupProvider } from "@/app/components/Providers/ContactUsPopupProvider";
 import { NAVBAR_DATA } from "@/app/lib/navbar-data";
 
