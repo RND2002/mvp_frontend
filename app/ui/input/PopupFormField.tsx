@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import { FieldError } from "react-hook-form";
-import InlineSVG from "@/app/components/common/InlineSVG";
+import InlineSVG from "@/app/components/Common/InlineSVG";
 
 interface PopupFormFieldProps
     extends React.InputHTMLAttributes<HTMLInputElement> {

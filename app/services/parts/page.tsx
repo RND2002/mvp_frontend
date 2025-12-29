@@ -1,8 +1,8 @@
 import React from 'react';
-import Hero from '@/app/components/Hero';
+import Hero from '@/app/components/Hero/index';
 import heroData from '@/app/json/parts.json';
 import categoryData from '@/app/json/services.json';
-import ConsultantCategorySection from '@/app/components/common/CategoryCards';
+import ConsultantCategorySection from '@/app/components/Common/CategoryCards/index';
 
 const Page = () => {
     return (
