@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
-import PrimaryButton from "../common/PrimaryButton";
+import PrimaryButton from "@/app/components/common/PrimaryButton";
 import ArrowUpIcon from "@/public/assets/icons/arrow-up.svg";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { NavItem, NavbarData, Category } from "@/app/lib/types";
 import { NavItemName } from "@/app/lib/constants";
-import DropdownMenu, { childrenData } from "./DropdownMenu";
+import DropdownMenu, { childrenData } from "@/app/components/Navbar/DropdownMenu";
 
 type Item = NavItem;
 

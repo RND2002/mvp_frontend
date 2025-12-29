@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { NavbarData, NavItem } from "@/app/lib/types";
 import Link from "next/link";
 import Image from "next/image";
-import PrimaryButton from "../common/PrimaryButton";
+import PrimaryButton from "@/app/components/common/PrimaryButton";
 import ArrowUpIcon from "@/public/assets/icons/arrow-up.svg";
 // import HamburgerIcon from "@/assets/icons/hamburger.svg";
 import DropdownSection from "@/app/components/Navbar/DropdownSection";

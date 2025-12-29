@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
-import InlineSVG from "../common/InlineSVG";
+import InlineSVG from "@/app/components/common/InlineSVG";
 import { usePathname } from "next/navigation";
 import ChevronDown from "@/app/assets/icons/chevron-down-double.svg";
 

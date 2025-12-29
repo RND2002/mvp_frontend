@@ -1,7 +1,7 @@
 // CategoryCard.tsx
 import React from "react";
 import Image from "next/image";
-import { ConsultantCategoryCard } from "./index";
+import { ConsultantCategoryCard } from "@/app/components/common/CategoryCards/index";
 import ArrowRightIcon from "@/app/assets/icons/arrow-right.svg";
 import ArrowUpIcon from "@/app/assets/icons/arrow-up.svg";
 import InlineSVG from "@/app/components/common/InlineSVG";

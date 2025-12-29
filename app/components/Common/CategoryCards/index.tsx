@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Container from "@/app/components/common/Container";
-import CategoryCard from "./CategoryCards";
+import CategoryCard from "@/app/components/common/CategoryCards/CategoryCards";
 import Cta from "@/app/components/common/DatingCta";
 import clsx from "clsx";
 

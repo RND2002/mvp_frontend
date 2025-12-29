@@ -2,7 +2,7 @@ import InlineSVG from "@/app/components/common/InlineSVG";
 import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
-import PopupTrigger from "./PopupTrigger";
+import PopupTrigger from "@/app/components/common/PopupTrigger";
 
 interface DualSectionCardProps {
     item: GenerativeAiSolution;

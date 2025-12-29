@@ -3,8 +3,8 @@
 import Image from "next/image";
 import React from "react";
 import { NavItem } from "@/app/lib/types";
-import AiNavbarMobile from "./AiNavbarMobile";
-import ActiveLink from "./ActiveLink";
+import AiNavbarMobile from "@/app/components/Navbar/AiNavbarMobile";
+import ActiveLink from "@/app/components/Navbar/ActiveLink";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 

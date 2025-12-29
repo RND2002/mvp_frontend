@@ -2,7 +2,7 @@
 import React from "react";
 import ArrowRightIcon from "@/app/assets/icons/arrow-right.svg";
 import WhiteButton from "@/app/ui/button/WhiteButton";
-import CtaImageWrapper from "./CtaImageWrapper";
+import CtaImageWrapper from "@/app/components/common/DatingCta/CtaImageWrapper";
 import clsx from "clsx";
 import { FadeUp, StaggerContainer } from "@/app/components/common/AnimatedWrapper";
 import InlineSVG from "@/app/components/common/InlineSVG";

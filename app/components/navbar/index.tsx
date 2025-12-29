@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import ContactBar from "./ContactBar";
-import "./index.css";
-import Navbar from "./Navbar";
+import ContactBar from "@/app/components/Navbar/ContactBar";
+import "@/app/components/Navbar/index.css";
+import Navbar from "@/app/components/Navbar/Navbar";
 import Image from "next/image";
-import AutoSlider from "../common/AutoSlider";
-import AiNavbar from "./AiNavbar";
+import AutoSlider from "@/app/components/common/AutoSlider";
+import AiNavbar from "@/app/components/Navbar/AiNavbar";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import FoodNavbar from "./FoodNavbar";
+import FoodNavbar from "@/app/components/Navbar/FoodNavbar";
 import { NavbarName } from "@/app/lib/constants";
 import useStickyNavbar from "@/app/hooks/useStickyNavbar";
 import { NavbarData } from "@/app/lib/types";

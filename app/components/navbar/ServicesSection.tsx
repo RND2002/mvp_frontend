@@ -14,7 +14,7 @@ import {
   slideInLeftAnimation,
 } from "@/app/lib/motion";
 // import InlineSVG from "../common/InlineSVG";
-import AutoSlider from "../common/AutoSlider";
+import AutoSlider from "@/app/components/common/AutoSlider";
 
 interface ServicesSectionProps {
   isVisible: boolean;

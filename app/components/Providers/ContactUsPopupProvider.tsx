@@ -9,8 +9,8 @@ import React, {
     useCallback,
 } from "react";
 // import { AnimatePresence } from "framer-motion";
-import ContactPopup, { ContactPopupProps } from "../Models/ContactPopup";
-import CtaPopup, { CtaPopupProps } from "../Models/CtaPopup";
+import ContactPopup, { ContactPopupProps } from "@/app/components/Models/ContactPopup";
+import CtaPopup, { CtaPopupProps } from "@/app/components/Models/CtaPopup";
 
 interface PopupContextProps {
     showPopup: () => void;

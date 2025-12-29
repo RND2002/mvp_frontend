@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import ListItem from "../common/ListItem";
+import ListItem from "@/app/components/common/ListItem";
 import {
   dropdownAnimation,
   listItemAnimation,

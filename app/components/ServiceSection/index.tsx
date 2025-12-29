@@ -1,5 +1,5 @@
 import React from "react";
-import PartnerGrid from "./ServiceGrid";
+import PartnerGrid from "@/app/components/ServiceSection/ServiceGrid";
 
 interface PartnerSectionProps {
     data: PartnerSection;
