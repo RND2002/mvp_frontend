@@ -12,6 +12,8 @@ import useStickyNavbar from "@/app/hooks/useStickyNavbar";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import MobileMainNavbar from "@/app/components/Navbar/MobileMainNavbar";
 import CustomButton from "@/app/ui/button/CustomButton";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import LoginDialog from "@/app/components/Auth/LoginDialog";
 
 interface NavbarProps {
   navbarData: NavbarData;
@@ -25,6 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showOurServices, setShowOurServices] = useState(false);
   const [showServices, setShowServices] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   useStickyNavbar(100, open);
 
@@ -97,8 +100,14 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
   // }
   return (
     <>
-      <div className="lg:hidden">
-        <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} />
+      <div className="lg:hidden flex items-center justify-end w-full gap-4">
+        {/* <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} /> */}
+        <Avatar className="h-10 w-10 bg-blue-500 cursor-pointer" onClick={() => setIsLoginOpen(true)}>
+          <AvatarImage
+            src="https://github.com/shadcn.png"
+            alt="@shadcn"
+          />
+        </Avatar>
       </div>
       <div className="hidden lg:flex items-center gap-8 relative">
         {navbarData.navItems.filter((item) => item.visibleIn === "both").map((item) => (
@@ -113,9 +122,17 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
           </div>
         ))}
 
-        <CustomButton onClick={() => alert("Custom Button Clicked")}>
+        {/* <CustomButton onClick={() => alert("Custom Button Clicked")}>
           Sign In
-        </CustomButton>
+        </CustomButton> */}
+        <Avatar className="h-10 w-10 bg-blue-500 cursor-pointer" onClick={() => setIsLoginOpen(true)}>
+          <AvatarImage
+            src="https://github.com/shadcn.png"
+            alt="@shadcn"
+          />
+        </Avatar>
+        <LoginDialog open={isLoginOpen} setOpen={setIsLoginOpen} />
+
 
         {/* <ServicesSection
           navbarData={navbarData}

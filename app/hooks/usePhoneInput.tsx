@@ -41,6 +41,17 @@ const PhoneInputField = <T extends FieldValues>({
             : "text-sm 2xl:text-lg text-text-dark"
     );
 
+    const inputClass = clsx(
+        "w-full px-4 py-3",
+        "rounded-[12px]",
+        color === "white"
+            ? "bg-transparent border border-white text-white placeholder:text-white/70"
+            : "bg-text-field text-text-dark border border-paragraph/30",
+        "focus:ring-1 focus:border-transparent focus:ring-primary/50 focus:outline-none",
+        error && "border-transparent focus:ring-primary/50",
+        inputClassName
+    );
+
     return (
         <div className="grid mb-3 mt-1 relative">
             {label && (
@@ -63,7 +74,10 @@ const PhoneInputField = <T extends FieldValues>({
                                 id={name}
                                 inputRef={ref}
                                 placeholder={placeholder}
-                                className={clsx("custom-phone-input", inputClassName)}
+                                className="custom-phone-input"
+                                numberInputProps={{
+                                    className: inputClass
+                                }}
                             />
                         </div>
                         <div className="absolute -bottom-5">
