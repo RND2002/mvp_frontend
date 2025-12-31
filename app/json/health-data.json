@@ -1,0 +1,37 @@
+{
+    "colorText": "AI-Powered Capabilities Driving",
+    "title": "Health & Wellness Excellence",
+    "phoneImage": "/png/it-consulting/hero/phone-mockup.png",
+    "features": [
+        {
+            "icon": "/icons/arrow-right.svg",
+            "title": "Personalized Health Tracking",
+            "description": "Track your vitals and health metrics with AI-driven insights."
+        },
+        {
+            "icon": "/icons/arrow-right.svg",
+            "title": "Smart Diet Recommendations",
+            "description": "Get meal plans tailored to your health goals and preferences."
+        },
+        {
+            "icon": "/icons/arrow-right.svg",
+            "title": "Virtual Health Assistant",
+            "description": "24/7 support for your health queries and appointment scheduling."
+        },
+        {
+            "icon": "/icons/arrow-right.svg",
+            "title": "Medication Reminders",
+            "description": "Never miss a dose with smart notifications and tracking."
+        },
+        {
+            "icon": "/icons/arrow-right.svg",
+            "title": "Activity Monitoring",
+            "description": "Analyze your daily activity levels and get improvement suggestions."
+        },
+        {
+            "icon": "/icons/arrow-right.svg",
+            "title": "Health Reports Analysis",
+            "description": "Upload reports and get simplified AI summaries of your health status."
+        }
+    ]
+}

@@ -7,6 +7,7 @@ import { Footer } from "@/app/components/Footer/index";
 import MainNavbar from "@/app/components/Navbar/index";
 import { ContactUsPopupProvider } from "@/app/components/Providers/ContactUsPopupProvider";
 import { NAVBAR_DATA } from "@/app/lib/navbar-data";
+import MobileBottomNav from "@/app/components/common/MobileBottomNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
           <ContactUsPopupProvider>
             <MainNavbar navbarData={NAVBAR_DATA} />
             {children}
+            <MobileBottomNav />
             <Footer />
           </ContactUsPopupProvider>
         </AlertProvider>

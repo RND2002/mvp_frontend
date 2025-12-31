@@ -1,0 +1,41 @@
+{
+    "id": "1",
+    "title": "Rajnigandha Silver Pearls Elaichi Mouth Freshener",
+    "brand": "Rajnigandha",
+    "price": 60,
+    "mrp": 60,
+    "netQty": "6.25 g",
+    "rating": 4.9,
+    "reviewCount": 1600,
+    "images": [
+        "/png/it-consulting/hero/phone-mockup.png",
+        "/png/it-consulting/hero/background1.jpg",
+        "/png/vehicle/services/booking-service.png",
+        "/png/vehicle/services/modification.png"
+    ],
+    "coupons": [
+        {
+            "code": "ZEPPOWER150",
+            "description": "Get flat ₹150 off on orders above ₹499"
+        },
+        {
+            "code": "ZEPPOWER100",
+            "description": "Get flat ₹100 off on orders above ₹299"
+        }
+    ],
+    "highlights": [
+        {
+            "label": "Brand",
+            "value": "Rajnigandha Silver Pearls"
+        },
+        {
+            "label": "Product Type",
+            "value": "Mouth Freshener-Sweets"
+        },
+        {
+            "label": "Ingredients",
+            "value": "Cardamom Seeds, Spices (Clove Powder and Cinnamon Powder), Gum Arabic, Silver Leaf, Saffron, Artificial Sweeteners"
+        }
+    ],
+    "description": "Rajnigandha Silver Pearls is a premium mouth freshener made with handpicked cardamom seeds and coated with pure silver leaf. It provides a unique and refreshing taste that lasts long."
+}

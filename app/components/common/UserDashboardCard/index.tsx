@@ -1,6 +1,9 @@
+"use client";
 import React from "react";
 import FeatureCard from "@/app/components/common/UserDashboardCard/FeatureCard";
 import Cta from "@/app/components/common/UserDashboardCard/Cta";
+import { useRouter } from "next/navigation";
+import PopupTrigger from "../PopupTrigger";
 
 type Props = {
     data: {
@@ -22,6 +25,8 @@ type Props = {
 };
 
 const OurDevelopmentApproach: React.FC<Props> = ({ data, withCta = true }) => {
+    const router = useRouter();
+
     return (
         <section className="relative bg-light">
             <div className="container px-1 lg:px-0 pb-6 lg:py-0 py-6 w-full mx-auto">
@@ -36,7 +41,13 @@ const OurDevelopmentApproach: React.FC<Props> = ({ data, withCta = true }) => {
                 {/* Cards loop */}
                 <div className="mt-8 space-y-8">
                     {data.cards.map((card, i) => (
-                        <FeatureCard key={i} {...card} reverse={i % 2 === 1} />
+                        <div
+                            key={i}
+                            onClick={() => router.push(card.link || "/health")}
+                            className="block w-full sticky top-20 z-10 cursor-pointer"
+                        >
+                            <FeatureCard {...card} reverse={i % 2 === 1} />
+                        </div>
                     ))}
                 </div>
 

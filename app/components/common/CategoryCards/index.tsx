@@ -4,6 +4,7 @@ import Container from "@/app/components/common/Container";
 import CategoryCard from "@/app/components/common/CategoryCards/CategoryCards";
 import Cta from "@/app/components/common/DatingCta";
 import clsx from "clsx";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export interface ConsultantCategoryCard {
     title: string;
@@ -51,13 +52,16 @@ const ConsultantCategorySection: React.FC<ConsultantCategorySectionProps> = ({
                     </h2>
                     <p className="mt-4 text-lg text-gray-600">{data.description}</p>
                 </div>
-                <div className="flex flex-wrap -mx-4">
-                    {data?.cards.map((card, index) => (
-                        <div key={index} className="w-full sm:w-1/2 lg:w-1/4 px-4 mb-6">
-                            <CategoryCard data={card} />
-                        </div>
-                    ))}
-                </div>
+                <ScrollArea className="w-full pb-4">
+                    <div className="flex w-max space-x-4 p-4">
+                        {data?.cards.map((card, index) => (
+                            <div key={index} className="w-[30vw] sm:w-[300px] lg:w-[350px] flex-shrink-0">
+                                <CategoryCard data={card} />
+                            </div>
+                        ))}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                </ScrollArea>
             </Container>
             {cta && <div className="container mx-auto px-8 mt-16 pb-16"><Cta data={cta} /></div>}
         </div>
