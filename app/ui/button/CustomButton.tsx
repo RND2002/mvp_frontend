@@ -49,7 +49,7 @@ const CustomButton: React.FC<CustomButton> = ({
         <>
             <span className={textClasses}>{children}</span>
 
-            <span className={circleClasses} aria-hidden>
+            {/* <span className={circleClasses} aria-hidden>
                 <svg
                     className={arrowClasses}
                     viewBox="0 0 24 24"
@@ -73,7 +73,7 @@ const CustomButton: React.FC<CustomButton> = ({
                         strokeLinejoin="round"
                     />
                 </svg>
-            </span>
+            </span> */}
         </>
     );
     const { showPopup } = usePopup();

@@ -28,7 +28,7 @@ const OurDevelopmentApproach: React.FC<Props> = ({ data, withCta = true }) => {
     const router = useRouter();
 
     return (
-        <section className="relative bg-light">
+        <section className="relative">
             <div className="container px-1 lg:px-0 pb-6 lg:py-0 py-6 w-full mx-auto">
                 <h2 className="2xl:text-4xl md:text-[2.3rem] text-[1.4rem] font-normal leading-normal">
                     Hello Aryan
