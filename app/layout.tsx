@@ -39,7 +39,7 @@ export default function RootLayout({
             <MainNavbar navbarData={NAVBAR_DATA} />
             {children}
             <MobileBottomNav />
-            <Footer />
+            {/* <Footer /> */}
           </ContactUsPopupProvider>
         </AlertProvider>
       </body>
