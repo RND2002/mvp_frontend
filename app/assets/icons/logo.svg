@@ -6,12 +6,12 @@
   </defs>
   <text x="50%" y="50%" 
         font-family="'Product Sans', 'Google Sans', 'Roboto', sans-serif" 
-        font-size="100" 
-        font-weight="500" 
+        font-size="110" 
+        font-weight="700" 
         fill="#DCFF1E" 
         text-anchor="middle" 
         dominant-baseline="central"
-        letter-spacing="0">
+        letter-spacing="5">
     vroom
   </text>
 </svg>
