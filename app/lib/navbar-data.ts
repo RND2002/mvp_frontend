@@ -4,9 +4,9 @@ import { NavbarData } from "@/app/lib/types";
 
 export const NAVBAR_DATA: NavbarData = {
     navItems: [
-        { name: "RideVision Studio", visibleIn: "both", section: "studio", href: "/studio" },
-        { name: "About Us", visibleIn: "both", section: "about", href: "/about" },
-        { name: "Our Services", visibleIn: "both", section: "our-services" }
+        // { name: "RideVision Studio", visibleIn: "both", section: "studio", href: "/studio" },
+        // { name: "About Us", visibleIn: "both", section: "about", href: "/about" },
+        // { name: "Our Services", visibleIn: "both", section: "our-services" }
     ],
     foodNavItems: [
         { name: "Food Delivery", href: "/food/delivery" }

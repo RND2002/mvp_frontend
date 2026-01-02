@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import PhoneInputField from "@/app/hooks/usePhoneInput"
+import Logo from "@/app/assets/icons/logo.svg";
+import Image from "next/image";
 import {
     Dialog,
     DialogContent,
@@ -61,7 +63,9 @@ export default function LoginDialog({ open, setOpen }: LoginDialogProps) {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle className="bg-transparent">Vroom</DialogTitle>
+                    <DialogTitle className="bg-transparent flex justify-center">
+                        <Image src={Logo} alt="Vroom" width={128} height={42} className="w-32 h-auto" />
+                    </DialogTitle>
                     <DialogDescription className="font-bold">
                         Let's get you logged in!
                     </DialogDescription>

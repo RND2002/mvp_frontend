@@ -2,9 +2,9 @@ export enum NavItemName {
     // Portfolio = "Portfolio",
     // Services = "Services",
     // Industries = "Industries",
-    AboutUs = "About Us",
-    OurServices = "Our Services",
-    RideVisionStudio = "RideVision Studio",
+    // AboutUs = "About Us",
+    // OurServices = "Our Services",
+    // RideVisionStudio = "RideVision Studio",
 }
 
 export enum ListArrowPosition {

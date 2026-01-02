@@ -1,0 +1,17 @@
+<svg viewBox="0 0 340 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Product+Sans&amp;display=swap');
+    </style>
+  </defs>
+  <text x="50%" y="50%" 
+        font-family="'Product Sans', 'Google Sans', 'Roboto', sans-serif" 
+        font-size="100" 
+        font-weight="500" 
+        fill="#DCFF1E" 
+        text-anchor="middle" 
+        dominant-baseline="central"
+        letter-spacing="0">
+    vroom
+  </text>
+</svg>

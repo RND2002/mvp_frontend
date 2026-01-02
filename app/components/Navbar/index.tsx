@@ -56,14 +56,7 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
         className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-4 relative"
       >
         <div className="flex items-center gap-16">
-          <Link href="/" className="relative h-10 w-[140px] lg:w-[170px]">
-            <Image
-              src="/assets/icons/logoipsum-365.svg"
-              className="object-contain "
-              fill
-              alt="Logo"
-            />
-          </Link>
+
           {/* <AutoSlider
               className="mb-0! hidden md:flex"
               slideClassName="!p-0"
@@ -89,7 +82,7 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
           }
         />
       </div>
-      {showFoodNavbar && (
+      {/* {showFoodNavbar && (
         <FoodNavbar
           items={navbarData.foodNavItems}
           open={openNav.food}
@@ -100,7 +93,7 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
             )
           }
         />
-      )}
+      )} */}
     </nav>
   );
 };

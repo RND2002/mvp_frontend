@@ -3,15 +3,11 @@ import React, { useCallback, useState } from "react";
 import { NavbarData, NavItem } from "@/app/lib/types";
 import Link from "next/link";
 import Image from "next/image";
-import PrimaryButton from "@/app/components/common/PrimaryButton";
-import ArrowUpIcon from "@/public/assets/icons/arrow-up.svg";
-// import HamburgerIcon from "@/assets/icons/hamburger.svg";
+import Logo from "@/app/assets/icons/logo.svg";
 import DropdownSection from "@/app/components/Navbar/DropdownSection";
 import ServicesSection from "@/app/components/Navbar/ServicesSection";
 import useStickyNavbar from "@/app/hooks/useStickyNavbar";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
-import MobileMainNavbar from "@/app/components/Navbar/MobileMainNavbar";
-import CustomButton from "@/app/ui/button/CustomButton";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import LoginDialog from "@/app/components/Auth/LoginDialog";
 
@@ -100,39 +96,56 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
   // }
   return (
     <>
-      <div className="lg:hidden flex items-center justify-end w-full gap-4">
-        {/* <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} /> */}
-        <Avatar className="h-10 w-10 bg-blue-500 cursor-pointer" onClick={() => setIsLoginOpen(true)}>
-          <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="@shadcn"
-          />
-        </Avatar>
-      </div>
-      <div className="hidden lg:flex items-center gap-8 relative">
-        {navbarData.navItems
-          .filter((item) => item.visibleIn === "both")
-          .map((item) => (
-            <div key={item.name} className="relative">
-              {renderNavItems(item)}
-              <DropdownSection
-                isVisible={item.section === "our-services" && showOurServices}
-                items={navbarData.resourcesSection.items}
-                onMouseEnter={() => setShowOurServices(true)}
-                onMouseLeave={() => handleMouseLeave("our-services")}
-              />
-            </div>
-          ))}
+      <div className="lg:hidden flex items-center justify-between w-full px-4 py-4">
+        <div className="flex items-center gap-2">
+          <Link href="/">
+            <Image src={Logo} alt="Vroom" width={80} height={30} className="w-20 h-auto" />
+          </Link>
+        </div>
 
-        {/* <CustomButton onClick={() => alert("Custom Button Clicked")}>
-          Sign In
-        </CustomButton> */}
-        <Avatar className="h-10 w-10 bg-blue-500 cursor-pointer" onClick={() => setIsLoginOpen(true)}>
-          <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="@shadcn"
-          />
-        </Avatar>
+        <div className="flex items-center gap-4">
+          {/* <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} /> */}
+          <Avatar className="h-9 w-9 bg-blue-500 cursor-pointer" onClick={() => setIsLoginOpen(true)}>
+            <AvatarImage
+              src="https://github.com/shadcn.png"
+              alt="@shadcn"
+            />
+          </Avatar>
+        </div>
+      </div>
+      <div className="hidden lg:flex items-center w-full justify-between">
+        <Link href="/" className="flex-shrink-0 mr-12">
+          <Image src={Logo} alt="Vroom" width={112} height={40} className="w-28 h-auto" />
+        </Link>
+
+        {/* Navigation Items */}
+        <div className="flex items-center gap-8">
+          {navbarData.navItems
+            .filter((item) => item.visibleIn === "both")
+            .map((item) => (
+              <div key={item.name} className="relative">
+                {renderNavItems(item)}
+                <DropdownSection
+                  isVisible={item.section === "our-services" && showOurServices}
+                  items={navbarData.resourcesSection.items}
+                  onMouseEnter={() => setShowOurServices(true)}
+                  onMouseLeave={() => handleMouseLeave("our-services")}
+                />
+              </div>
+            ))}
+        </div>
+
+        <div className="flex items-center gap-4 ml-auto">
+          {/* <CustomButton onClick={() => alert("Custom Button Clicked")}>
+            Sign In
+            </CustomButton> */}
+          <Avatar className="h-10 w-10 bg-blue-500 cursor-pointer" onClick={() => setIsLoginOpen(true)}>
+            <AvatarImage
+              src="https://github.com/shadcn.png"
+              alt="@shadcn"
+            />
+          </Avatar>
+        </div>
         <LoginDialog open={isLoginOpen} setOpen={setIsLoginOpen} />
 
 
