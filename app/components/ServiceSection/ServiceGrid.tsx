@@ -123,9 +123,9 @@ const PartnerGrid: React.FC<PartnerGirdProps> = ({ data }) => {
                             ref={(el) => {
                                 sectionRefs.current[idx] = el;
                             }}
-                            className="relative bg-card flex flex-col text-left p-6 pb-14 text-white rounded-[20px] h-full"
+                            className="relative bg-primaryCard border border-secondary-theme hover:border-primaryBorder flex flex-col text-left p-6 pb-14 text-white rounded-[20px] h-full"
                         >
-                            <h3 className="text-[1.5rem] lg:text-[2.5rem] font-normal mb-2">
+                            <h3 className="text-[1.5rem] lg:text-[2.5rem] text-primaryText font-normal mb-2">
                                 {item.content.heading}
                             </h3>
                             <p className="text-white text-[14px] 2xl:text-[18px] max-w-lg">
@@ -140,24 +140,24 @@ const PartnerGrid: React.FC<PartnerGirdProps> = ({ data }) => {
                                     <div
                                         key={tech.name}
                                         className={clsx(
-                                            "relative flex flex-col items-center justify-center bg-white text-text-dark lg:p-4 p-2 rounded-lg cursor-pointer",
-                                            "group hover:bg-primary hover:scale-[1.05] transition-all duration-300 ease-in-out aspect-square h-full"
+                                            "relative flex flex-col items-center justify-center bg-partnerLists text-text-dark lg:p-4 p-2 rounded-lg cursor-pointer",
+                                            "group hover:bg-partner-button hover:scale-[1.05] transition-all duration-300 ease-in-out aspect-square h-full"
                                         )}
                                         onClick={handleOnClickRedirect}
                                     >
-                                        <InlineSVG
+                                        {/* <InlineSVG
                                             src={tech.icon}
                                             preserveColors={tech.preserveColor || false}
                                             className="lg:w-8 w-6 lg:h-10 h-6 mb-2 text-primary group-hover:text-white transition-colors"
-                                        />
-                                        <p className="text-center text-primary-dark group-hover:text-white text-[11px] lg:text-[14px] 2xl:text-[18px]">
+                                        /> */}
+                                        <p className="text-center text-white text-[11px] lg:text-[14px] 2xl:text-[18px]">
                                             {tech.name}
                                         </p>
                                         <InlineSVG src={arrowRightSrc} className="absolute w-5 h-5 top-2 right-2 opacity-0 text-white group-hover:opacity-100 transition-opacity duration-200 [&_path]:stroke-[3px]" />
                                     </div>
                                 ))}
                             </div>
-                            <h4 className="2xl:text-2xl lg:text-xl text-[15px] font-normal mt-4 mb-2">
+                            {/* <h4 className="2xl:text-2xl lg:text-xl text-[15px] font-normal mt-4 mb-2">
                                 {data?.labels?.futureProducts}
                             </h4>
                             <div className="flex gap-3 flex-wrap">
@@ -177,7 +177,7 @@ const PartnerGrid: React.FC<PartnerGirdProps> = ({ data }) => {
                                         </div>
                                     </button>
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                     ))}
                 </div>

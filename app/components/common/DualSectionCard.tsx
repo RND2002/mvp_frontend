@@ -16,7 +16,7 @@ const DualSectionCard: React.FC<DualSectionCardProps> = ({
     return (
         <PopupTrigger as="div">
             <div className="flex py-5 flex-col h-full">
-                <div className="relative backdrop-blur-0 bg-insight-text/10 rounded-[20px] p-6 flex flex-col gap-4 h-full justify-start aspect-6/6 lg:min-h-[380px] lg:aspect-13/16 group overflow-hidden z-0">
+                <div className="relative backdrop-blur-0 bg-primaryCard border border-secondary-theme hover:border-primaryBorder  rounded-[20px] p-6 flex flex-col gap-4 h-full justify-start aspect-6/6 lg:min-h-[380px] lg:aspect-13/16 group overflow-hidden z-0">
                     {showHoverCircle && (
                         <>
                             <Image
@@ -33,7 +33,7 @@ const DualSectionCard: React.FC<DualSectionCardProps> = ({
                                 height={200}
                                 className="absolute w-[30%] bottom-0 right-0 opacity-0 translate-x-20 translate-y-20 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 z-5"
                             />
-                            <span className="absolute inset-0 rounded-2xl bg-transparent transition-colors duration-300 group-hover:bg-insight-text z-0" />
+                            <span className="absolute inset-0 rounded-2xl bg-transparent transition-colors duration-300  z-0" />
                         </>
                     )}
                     <div className="relative w-full h-full rounded-xl z-10">

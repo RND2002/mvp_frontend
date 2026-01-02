@@ -29,7 +29,7 @@ const actions = [
 const QuickActions: React.FC = () => {
     return (
         <section className="container mx-auto px-4 py-8">
-            <h2 className="text-lg font-bold mb-4 text-gray-800">Quick Actions</h2>
+            <h2 className="text-lg font-bold mb-4 text-primaryText">Quick Actions</h2>
 
             <div className="grid grid-cols-4 gap-2 md:flex md:justify-center md:gap-12">
                 {actions.map((action, idx) => (

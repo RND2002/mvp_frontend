@@ -50,16 +50,16 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
 
   useStickyNavbar(100, openNav.main);
   return (
-    <nav id="navbar" className="relative z-500 bg-navbar shadow-navbar">
+    <nav id="navbar" className="relative z-500 bg-secondary-theme shadow-navbar">
       <div
         id="main-navbar-container"
-        className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-1 relative"
+        className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-4 relative"
       >
         <div className="flex items-center gap-16">
-          <Link href="/" className="relative h-15 w-[140px] lg:w-[170px]">
+          <Link href="/" className="relative h-10 w-[140px] lg:w-[170px]">
             <Image
               src="/assets/icons/logoipsum-365.svg"
-              className="object-contain"
+              className="object-contain "
               fill
               alt="Logo"
             />
