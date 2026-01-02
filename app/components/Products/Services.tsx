@@ -24,9 +24,9 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
     const { heading, paragraph, items } = data;
     return (
         <section className="relative [background-image:var(--gradient-generative-ai-solution)] overflow-hidden">
-            <div className="container px-3 lg:px-6 py-6 lg:py-16 w-full mx-auto">
-                <h2 className="2xl:text-4xl md:text-[2.3rem] text-[1.4rem] font-normal text-center leading-normal">
-                    <span className="font-bold primary-gradient-text ![background-image:var(--gradient-chatbot-dev)]">
+            <div className="container bg-primary-theme px-3 lg:px-6 py-6 lg:py-16 w-full mx-auto">
+                <h2 className="2xl:text-4xl md:text-[2.3rem] text-[1.4rem] font-normal text-center text-white leading-normal">
+                    <span className="font-bold primary-gradient-text">
                         {heading.highlighted}
                     </span>
                     <br />

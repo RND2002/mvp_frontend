@@ -40,13 +40,13 @@ export interface ConsultantCategorySectionProps {
 }
 
 const ConsultantCategorySection: React.FC<ConsultantCategorySectionProps> = ({
-    data, cta, className = "[background-image:var(--gradient-red-white)] bg-no-repeat bg-cover "
+    data, cta, 
 }) => {
     return (
-        <div className={clsx("", className)}>
+        <div >
             <Container className="py-12 lg:px-6 px-4 ">
                 <div className="max-w-[720px] mx-auto text-center mb-12">
-                    <h2 className="text-[2.75rem] leading-[3.75rem] tracking-normal text-center">
+                    <h2 className="text-[2.75rem] leading-[3.75rem] tracking-normal text-white text-center">
                         {data.heading}
                         <span className="primary-gradient-text [background-image:var(--gradient-chatbot-dev)] font-bold "> {data.subHeading}</span>
                     </h2>

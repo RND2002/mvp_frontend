@@ -30,7 +30,7 @@ const OurDevelopmentApproach: React.FC<Props> = ({ data, withCta = true }) => {
     return (
         <section className="relative">
             <div className="container px-1 lg:px-0 pb-6 lg:py-0 py-6 w-full mx-auto">
-                <h2 className="2xl:text-4xl md:text-[2.3rem] text-[1.4rem] font-normal leading-normal">
+                <h2 className="2xl:text-4xl md:text-[2.3rem] text-[1.4rem] font-normal text-white leading-normal">
                     Hello Aryan
                     <br />
                     <span className="font-bold primary-gradient-text">{data.highlightedTitle}</span>

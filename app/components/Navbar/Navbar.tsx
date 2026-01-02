@@ -59,10 +59,10 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         return (
           <Link
             href={item.href}
-            className="group relative inline-block whitespace-nowrap text-primary-dark transition-colors hover:text-primary focus:outline-none"
+            className="group relative inline-block whitespace-nowrap text-white transition-colors hover:text-primary focus:outline-none"
           >
             <span className="block font-bold invisible">{item.name}</span>
-            <span className="absolute inset-0 block font-normal group-hover:font-bold">
+            <span className="absolute inset-0 block font-normal ">
               {item.name}
             </span>
           </Link>
@@ -71,7 +71,7 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
 
       return (
         <button
-          className="group relative inline-block whitespace-nowrap text-text-dark transition-colors hover:text-primary focus:outline-none cursor-pointer"
+          className="group relative inline-block whitespace-nowrap text-white transition-colors hover:text-primary focus:outline-none cursor-pointer"
           onMouseEnter={() => handleMouseEnter(item)}
           onMouseLeave={() => handleMouseLeave(item.section || item.name)}
           onFocus={() => handleMouseEnter(item)}
@@ -84,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
           }}
         >
           <span className="block font-bold invisible">{item.name}</span>
-          <span className="absolute inset-0 block font-normal group-hover:font-bold">
+          <span className="absolute inset-0 block font-normal">
             {item.name}
           </span>
         </button>
@@ -110,17 +110,19 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         </Avatar>
       </div>
       <div className="hidden lg:flex items-center gap-8 relative">
-        {navbarData.navItems.filter((item) => item.visibleIn === "both").map((item) => (
-          <div key={item.name} className="relative">
-            {renderNavItems(item)}
-            <DropdownSection
-              isVisible={item.section === "our-services" && showOurServices}
-              items={navbarData.resourcesSection.items}
-              onMouseEnter={() => setShowOurServices(true)}
-              onMouseLeave={() => handleMouseLeave("our-services")}
-            />
-          </div>
-        ))}
+        {navbarData.navItems
+          .filter((item) => item.visibleIn === "both")
+          .map((item) => (
+            <div key={item.name} className="relative">
+              {renderNavItems(item)}
+              <DropdownSection
+                isVisible={item.section === "our-services" && showOurServices}
+                items={navbarData.resourcesSection.items}
+                onMouseEnter={() => setShowOurServices(true)}
+                onMouseLeave={() => handleMouseLeave("our-services")}
+              />
+            </div>
+          ))}
 
         {/* <CustomButton onClick={() => alert("Custom Button Clicked")}>
           Sign In

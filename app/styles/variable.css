@@ -34,7 +34,7 @@
         --color-card: #500101;
         --color-card-red: #f5010b;
         --color-card-accent: #f5010b1f;
-        --color-partner-button: #aa0007;
+        --color-partner-button: #495F21;
         --color-case-studies: #f5010b4d;
         --color-tech-offering: #970208;
         --color-step: #b50209;
@@ -98,6 +98,13 @@
         --color-muted-pink: #faf0f0;
         --color-card-pink: #ffc7c9;
         --color-tech-card: #d3d3d3;
+        --color-primary-theme: #091A23;
+        --color-secondary-theme: #163341;
+        --color-primaryCard:#0D212C;
+        --color-primaryBorder:#5c707a;
+        --color-partnerLists:#2D4754;
+        --color-primaryText:#dcff1e;
+        /* --color-secondary-theme: #779433; */
 
         /* Neutral / supporting colors */
         --color-navbar-label: #00000080;
@@ -186,7 +193,7 @@
                         var(--color-white) 100%);
         --color-primary-gradient: linear-gradient(0deg,
                         var(--color-primary-dark) 11.17%,
-                        var(--color-primary) 57.41%);
+                        var(--color-primaryText) 57.41%);
         --color-primary-gradient-light: linear-gradient(180deg,
                         var(--color-primary) -25.44%,
                         var(--color-white) 135.67%);

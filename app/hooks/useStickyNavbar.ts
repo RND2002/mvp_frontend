@@ -21,7 +21,6 @@ const useStickyNavbar = (threshold: number = 100, isMobileMenuOpen: boolean = fa
                     "fixed!",
                     "top-0",
                     "z-[100000]",
-                    "bg-white",
                     "shadow-md",
                     "w-full"
                 );

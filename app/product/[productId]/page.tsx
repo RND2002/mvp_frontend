@@ -11,7 +11,7 @@ export default function ProductDetailsPage({ params }: { params: { productId: st
     // For MVP, we use the static mock data.
 
     return (
-        <div className="bg-white min-h-screen pb-20">
+        <div className="min-h-screen pb-20">
             <Container className="py-6 lg:py-10 px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 relative">
                     {/* Left - Sticky Gallery */}

@@ -31,7 +31,7 @@ const DropdownSection: React.FC<DropdownSectionProps> = ({
           role="menu"
           aria-hidden={!isVisible}
           tabIndex={-1}
-          className="absolute top-full left-1/2 -translate-x-1/2 w-max bg-navbar shadow-navbar rounded-[1.25rem] z-50 p-4"
+          className="absolute top-full left-1/2 -translate-x-1/2 w-max bg-secondary-theme shadow-navbar rounded-[1.25rem] z-50 p-4"
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           onFocus={onMouseEnter}
@@ -54,7 +54,7 @@ const DropdownSection: React.FC<DropdownSectionProps> = ({
                 key={`${item.logo}-${item.name}`}
                 title={item.name || item.label || ""}
                 href={item.href}
-                className="hover:text-primary transition-colors block py-2"
+                className="hover:text-primary text-white transition-colors block py-2"
               />
             ))}
           </motion.ul>

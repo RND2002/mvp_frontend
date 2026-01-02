@@ -123,7 +123,7 @@ const MobileViewNavbar = ({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 w-full bg-navbar backdrop-blur-sm xl:hidden z-40"
+            className="absolute top-full left-0 w-full bg-secondary-theme backdrop-blur-sm xl:hidden z-40"
           >
             <div className="p-4">
               {items.map((item, index) => {

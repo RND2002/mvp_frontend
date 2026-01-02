@@ -53,7 +53,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
           role="menu"
           aria-hidden={!isVisible}
           tabIndex={-1}
-          className="absolute top-full mt-2 right-0 w-max bg-navbar shadow-navbar rounded-[1.25rem] z-50 px-4 py-6"
+          className="absolute top-full mt-2 right-0 w-max bg-secondary-theme shadow-navbar rounded-[1.25rem] z-50 px-4 py-6"
           onMouseEnter={onMouseEnter}
           // onMouseLeave={() => handleMouseLeave(NavItemName.Services)}
           onFocus={onMouseEnter}
