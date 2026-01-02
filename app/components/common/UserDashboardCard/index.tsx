@@ -8,8 +8,8 @@ import PopupTrigger from "../PopupTrigger";
 type Props = {
     data: {
         title: string;
-        highlightedTitle: string;
-        description: string;
+        // highlightedTitle: string;
+        // description: string;
         cards: any[];
         // cta: {
         //     title: string;
@@ -33,7 +33,7 @@ const OurDevelopmentApproach: React.FC<Props> = ({ data, withCta = true }) => {
                 <h2 className="2xl:text-4xl md:text-[2.3rem] text-[1.4rem] font-normal text-white leading-normal">
                     Hello Aryan
                     <br />
-                    <span className="font-bold primary-gradient-text">{data.highlightedTitle}</span>
+                    {/* <span className="font-bold primary-gradient-text">{data.highlightedTitle}</span> */}
                 </h2>
 
                 {/*  <p className="text-[12px] lg:text-base 2xl:text-[18px] text-paragraph text-center whitespace-pre-line mt-4">{data.description}</p> */}

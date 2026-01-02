@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import InlineSVG from "@/app/components/common/InlineSVG";
-import Arrow from "@/app/assets/icons/right-filled-arrow.svg";
 import clsx from "clsx";
 import PopupTrigger from "../PopupTrigger";
 
@@ -51,7 +50,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
                         </h3>
                     </div>
 
-                    <div
+                    {/* <div
                         className={clsx(
                             "flex justify-center items-center",
                             imageOrderClass
@@ -67,7 +66,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
                                 priority={false}
                             />
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className={clsx("py-6 lg:py-8", descOrderClass)}>
                         <div className="max-w-md mx-auto md:mx-0">
@@ -82,7 +81,6 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
                             <div className="mt-8 flex items-center gap-4 justify-start">
                                 <PopupTrigger as="button" className="cursor-pointer inline-flex items-center gap-2 text-[13px] text-sm 2xl:text-base hover:underline">
                                     {buttonText}
-                                    {/* <Arrow className="w-5 h-5" /> */}
                                 </PopupTrigger>
                             </div>
                         </div>

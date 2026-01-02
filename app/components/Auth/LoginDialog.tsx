@@ -76,7 +76,7 @@ export default function LoginDialog({ open, setOpen }: LoginDialogProps) {
                         />
                     </div>
                     <div className="flex justify-center">
-                        <PrimaryButton type="submit">Login</PrimaryButton>
+                        <Button type="submit">Login</Button>
                     </div>
                 </form>
             </DialogContent>
