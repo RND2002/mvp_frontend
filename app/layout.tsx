@@ -8,6 +8,8 @@ import MainNavbar from "@/app/components/Navbar/index";
 import { ContactUsPopupProvider } from "@/app/components/Providers/ContactUsPopupProvider";
 import { NAVBAR_DATA } from "@/app/lib/navbar-data";
 import MobileBottomNav from "@/app/components/common/MobileBottomNav";
+import { StoreProvider } from "@/app/components/Providers/StoreProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,14 +36,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-primary-theme antialiased`}
       >
-        <AlertProvider>
-          <ContactUsPopupProvider>
-            <MainNavbar navbarData={NAVBAR_DATA} />
-            {children}
-            <MobileBottomNav />
-            {/* <Footer /> */}
-          </ContactUsPopupProvider>
-        </AlertProvider>
+        <StoreProvider>
+          <AlertProvider>
+            <ContactUsPopupProvider>
+              <MainNavbar navbarData={NAVBAR_DATA} />
+              {children}
+              <MobileBottomNav />
+              <Toaster />
+              {/* <Footer /> */}
+            </ContactUsPopupProvider>
+          </AlertProvider>
+        </StoreProvider>
       </body>
     </html>
   );

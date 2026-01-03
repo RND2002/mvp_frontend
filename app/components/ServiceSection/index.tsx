@@ -6,7 +6,7 @@ interface PartnerSectionProps {
   data: PartnerSection;
 }
 
-const PartnerSection: React.FC<PartnerSectionProps> = ({ data }) => {
+const PartnerSectionComponent: React.FC<PartnerSectionProps> = ({ data }) => {
   return (
     <section
       className="bg-no-repeat bg-center bg-cover bg-primary-theme"
@@ -26,4 +26,4 @@ const PartnerSection: React.FC<PartnerSectionProps> = ({ data }) => {
   );
 };
 
-export default PartnerSection;
+export default PartnerSectionComponent;

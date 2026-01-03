@@ -5,11 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/app/assets/icons/logo.svg";
 import DropdownSection from "@/app/components/Navbar/DropdownSection";
-import ServicesSection from "@/app/components/Navbar/ServicesSection";
 import useStickyNavbar from "@/app/hooks/useStickyNavbar";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import LoginDialog from "@/app/components/Auth/LoginDialog";
+import OtpVerificationDialog from "@/app/components/Auth/OtpVerificationDialog";
+import ProfileSettingsDialog from "@/app/components/Auth/ProfileSettingsDialog";
+import { useSelector } from "react-redux";
+import { selectCurrentUser, selectIsAuthenticated } from "@/app/store/slices/authSlice";
 
 interface NavbarProps {
   navbarData: NavbarData;
@@ -24,6 +27,20 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
   const [showOurServices, setShowOurServices] = useState(false);
   const [showServices, setShowServices] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isOtpOpen, setIsOtpOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const currentUser = useSelector(selectCurrentUser);
+
+  const handleAvatarClick = () => {
+    if (isAuthenticated) {
+      setIsSettingsOpen(true);
+    } else {
+      setIsLoginOpen(true);
+    }
+  };
 
   useStickyNavbar(100, open);
 
@@ -47,6 +64,12 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         setShowOurServices(false);
         break;
     }
+  };
+
+  const handleLoginSuccess = (phone: string) => {
+    setPhoneNumber(phone);
+    setIsLoginOpen(false);
+    setIsOtpOpen(true);
   };
 
   const renderNavItems = useCallback(
@@ -86,26 +109,20 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         </button>
       );
     },
-    [navbarData, handleMouseEnter, handleMouseLeave]
+    [navbarData]
   );
 
-  // if (isMobileOrTab) {
-  //   return (
-  //     <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} />
-  //   );
-  // }
   return (
     <>
       <div className="lg:hidden flex items-center justify-between w-full px-4 py-4">
         <div className="flex items-center gap-2">
           <Link href="/">
-            <Image src={Logo} alt="Vroom" width={80} height={30} className="w-20 h-auto" />
+            <Image src={Logo} alt="Vroom" width={810} height={30} className="w-20 h-auto" />
           </Link>
         </div>
 
         <div className="flex items-center gap-4">
-          {/* <MobileMainNavbar items={navbarData.navItems} navbarData={navbarData} open={open} setOpen={setOpen} /> */}
-          <Avatar className="h-9 w-9 bg-blue-500 cursor-pointer" onClick={() => setIsLoginOpen(true)}>
+          <Avatar className="h-9 w-9 bg-blue-500 cursor-pointer" onClick={handleAvatarClick}>
             <AvatarImage
               src="https://github.com/shadcn.png"
               alt="@shadcn"
@@ -117,44 +134,25 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         <Link href="/" className="flex-shrink-0 mr-12">
           <Image src={Logo} alt="Vroom" width={112} height={40} className="w-28 h-auto" />
         </Link>
-
-        {/* Navigation Items */}
-        <div className="flex items-center gap-8">
-          {navbarData.navItems
-            .filter((item) => item.visibleIn === "both")
-            .map((item) => (
-              <div key={item.name} className="relative">
-                {renderNavItems(item)}
-                <DropdownSection
-                  isVisible={item.section === "our-services" && showOurServices}
-                  items={navbarData.resourcesSection.items}
-                  onMouseEnter={() => setShowOurServices(true)}
-                  onMouseLeave={() => handleMouseLeave("our-services")}
-                />
-              </div>
-            ))}
-        </div>
-
         <div className="flex items-center gap-4 ml-auto">
-          {/* <CustomButton onClick={() => alert("Custom Button Clicked")}>
-            Sign In
-            </CustomButton> */}
-          <Avatar className="h-10 w-10 bg-blue-500 cursor-pointer" onClick={() => setIsLoginOpen(true)}>
+          <Avatar className="h-10 w-10 bg-blue-500 cursor-pointer" onClick={handleAvatarClick}>
             <AvatarImage
               src="https://github.com/shadcn.png"
               alt="@shadcn"
             />
           </Avatar>
         </div>
-        <LoginDialog open={isLoginOpen} setOpen={setIsLoginOpen} />
-
-
-        {/* <ServicesSection
-          navbarData={navbarData}
-          onMouseEnter={() => setShowServices(true)}
-          handleMouseLeave={handleMouseLeave}
-          isVisible={showServices}
-        /> */}
+        <LoginDialog open={isLoginOpen} setOpen={setIsLoginOpen} onLoginSuccess={handleLoginSuccess} />
+        <OtpVerificationDialog
+          open={isOtpOpen}
+          setOpen={setIsOtpOpen}
+          phoneNumber={phoneNumber}
+        />
+        <ProfileSettingsDialog
+          open={isSettingsOpen}
+          setOpen={setIsSettingsOpen}
+          user={currentUser}
+        />
       </div>
     </>
   );

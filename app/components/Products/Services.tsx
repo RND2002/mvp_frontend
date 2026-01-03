@@ -1,5 +1,5 @@
 import React from "react";
-import DualSectionCard from "@/app/components/common/DualSectionCard";
+// import DualSectionCard from "@/app/components/common/DualSectionCard";
 import { SpringUp } from "../common/AnimatedWrapper";
 
 interface ServicesItem {
@@ -36,13 +36,13 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
                     {paragraph}
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full flex-shrink-0 items-stretch mt-8">
+                {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full flex-shrink-0 items-stretch mt-8">
                     {items.map((item, idx) => (
                         <SpringUp delay={idx * 0.1} key={idx}>
                             <DualSectionCard showHoverCircle item={item} />
                         </SpringUp>
                     ))}
-                </div>
+                </div> */}
             </div>
         </section>
     );
