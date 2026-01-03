@@ -28,7 +28,14 @@ const actions = [
     }
 ];
 
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "@/app/store/slices/authSlice";
+
 const QuickActions: React.FC = () => {
+    const isAuthenticated = useSelector(selectIsAuthenticated);
+
+    if (!isAuthenticated) return null;
+
     return (
         <section className="container mx-auto px-4 py-8">
             <h2 className="text-lg font-bold mb-4 text-primaryText">Quick Actions</h2>

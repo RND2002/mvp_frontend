@@ -72,6 +72,7 @@ const PhoneInputField = <T extends FieldValues>({
                                 value={value}
                                 onChange={onChange}
                                 id={name}
+                                limitMaxLength={true}
                                 inputRef={ref}
                                 placeholder={placeholder}
                                 className="custom-phone-input"

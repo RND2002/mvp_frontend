@@ -42,7 +42,11 @@ export default function RootLayout({
               <MainNavbar navbarData={NAVBAR_DATA} />
               {children}
               <MobileBottomNav />
-              <Toaster />
+              <Toaster position="top-center" toastOptions={{
+                classNames: {
+                  toast: "text-primaryText border-none"
+                }
+              }} />
               {/* <Footer /> */}
             </ContactUsPopupProvider>
           </AlertProvider>

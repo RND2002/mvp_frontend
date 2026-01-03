@@ -130,7 +130,7 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
                     </p>
                 </DialogHeader>
                 <form onSubmit={handleSubmit(onFormSubmit)} className="grid gap-6 py-4">
-                    <div className="flex justify-center gap-2">
+                    <div className="flex justify-center gap-1 sm:gap-2">
                         {otpState.map((data, index) => {
                             return (
                                 <input
@@ -142,7 +142,7 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
                                     onChange={(e) => handleChange(e.target, index)}
                                     onKeyDown={(e) => handleKeyDown(e, index)}
                                     onPaste={handlePaste}
-                                    className="w-12 h-12 text-center text-xl font-bold bg-[#163341] border border-[#2D5A6E] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                                    className="w-10 h-10 sm:w-12 sm:h-12 text-center text-xl font-bold bg-[#163341] border border-[#2D5A6E] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                                 />
                             );
                         })}

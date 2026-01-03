@@ -4,6 +4,8 @@ import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { useDispatch } from "react-redux"
 import { logout, User } from "@/app/store/slices/authSlice"
+import { useLogoutMutation } from "@/app/beService/auth-service"
+import { useRouter } from "next/navigation"
 import {
     Sheet,
     SheetContent,
@@ -21,10 +23,21 @@ interface ProfileSettingsDialogProps {
 
 export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSettingsDialogProps) {
     const dispatch = useDispatch()
+    const router = useRouter()
+    const [logoutApi, { isLoading }] = useLogoutMutation()
 
-    const handleLogout = () => {
-        dispatch(logout())
-        setOpen(false)
+    const handleLogout = async () => {
+        try {
+            await logoutApi().unwrap()
+            dispatch(logout())
+            setOpen(false)
+            router.push('/')
+        } catch (error) {
+            console.error('Logout failed:', error)
+            dispatch(logout())
+            setOpen(false)
+            router.push('/')
+        }
     }
 
     React.useEffect(() => {
@@ -78,10 +91,20 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                     <Button
                         variant="destructive"
                         onClick={handleLogout}
-                        className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-3"
+                        disabled={isLoading}
+                        className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <LogOut className="w-4 h-4" />
-                        Log Out
+                        {isLoading ? (
+                            <>
+                                <span className="animate-spin w-4 h-4 border-2 border-white/50 border-t-white rounded-full"></span>
+                                Logging Out...
+                            </>
+                        ) : (
+                            <>
+                                <LogOut className="w-4 h-4" />
+                                Log Out
+                            </>
+                        )}
                     </Button>
                 </div>
             </SheetContent>

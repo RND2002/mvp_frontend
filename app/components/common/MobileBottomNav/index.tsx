@@ -35,11 +35,17 @@ const actions = [
     }
 ];
 
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "@/app/store/slices/authSlice";
+
 const MobileBottomNav: React.FC = () => {
     const pathname = usePathname();
+    const isAuthenticated = useSelector(selectIsAuthenticated);
 
     // Hide if not on main screens or if needed (optional)
     // For now showing on all screens as requested
+
+    if (!isAuthenticated) return null;
 
     return (
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 pb-safe">
