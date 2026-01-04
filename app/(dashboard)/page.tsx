@@ -1,9 +1,11 @@
 "use client";
 
-import PartnerSectionComponent from "@/app/components/ServiceSection/index";
-import ProductSection from "@/app/components/Products/Services";
-import partnerData from "@/app/json/partner-data.json";
-import productData from "@/app/json/product-data.json";
+import HeroSection from "@/app/components/Landing/HeroSection";
+import FeatureSection from "@/app/components/Landing/FeatureSection";
+import HowItWorksSection from "@/app/components/Landing/HowItWorksSection";
+import TrustSection from "@/app/components/Landing/TrustSection";
+import CTASection from "@/app/components/Landing/CTASection";
+import Footer from "@/app/components/Landing/Footer";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../store/slices/authSlice";
 import { useRouter } from "next/navigation";
@@ -20,9 +22,13 @@ export default function DashboardPage() {
     }, [isAuthenticated, router]);
 
     return (
-        <main>
-            <PartnerSectionComponent data={partnerData} />
-            <ProductSection data={productData} />
+        <main className="bg-black min-h-screen">
+            <HeroSection />
+            <FeatureSection />
+            {/* <HowItWorksSection /> */}
+            <TrustSection />
+            {/* <CTASection /> */}
+            {/* <Footer /> */}
         </main>
     );
 }

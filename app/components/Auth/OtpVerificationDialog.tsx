@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import { Loader } from "@/components/ui/loader"
 import Logo from "@/app/assets/icons/logo.svg";
 import Image from "next/image";
 import { useForm } from "react-hook-form"
@@ -25,10 +26,11 @@ import { toast } from "sonner";
 interface OtpVerificationDialogProps {
     open: boolean;
     setOpen: (open: boolean) => void;
-    phoneNumber: string;
+    identifier: string;
+    type: 'phone' | 'email';
 }
 
-export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: OtpVerificationDialogProps) {
+export default function OtpVerificationDialog({ open, setOpen, identifier, type }: OtpVerificationDialogProps) {
     const router = useRouter()
     const dispatch = useDispatch()
     const { control, handleSubmit, setValue, formState: { errors } } = useForm({
@@ -40,6 +42,7 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
 
     // Initial otp array state
     const [otpState, setOtpState] = React.useState<string[]>(new Array(6).fill(""));
+    const [isRedirecting, setIsRedirecting] = React.useState(false);
     const inputRefs = React.useRef<(HTMLInputElement | null)[]>([]);
 
     const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
@@ -92,20 +95,19 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
 
 
     const onFormSubmit = async (data: yup.InferType<typeof otpSchema>) => {
-        if (!phoneNumber) {
-            toast.error("Phone number missing. Please define login flow.")
+        if (!identifier) {
+            toast.error("Identifier missing. Please define login flow.")
             return
         }
 
         try {
-            const result = await verifyOtp({
-                phone: phoneNumber,
-                otp: data.otp
-            }).unwrap()
+            const payload = type === 'phone' ? { phone: identifier, otp: data.otp } : { email: identifier, otp: data.otp }
+            const result = await verifyOtp(payload).unwrap()
 
             if (result.success) {
                 dispatch(setCredentials({ user: result.user, token: result.token }))
                 toast.success("User logged in successfully")
+                setIsRedirecting(true)
                 setOpen(false)
                 router.push("/dashboard")
             }
@@ -117,7 +119,8 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] border-[#163341] text-white">
+            {isRedirecting && <Loader fullScreen text="Redirecting to Dashboard..." />}
+            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-vehicle-card-bg border-vehicle-card-border text-white">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">
                         <Image src={Logo} alt="Vroom" width={128} height={42} className="w-32 h-auto drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)]" />
@@ -126,7 +129,7 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
                         Enter Verification Code
                     </DialogDescription>
                     <p className="text-sm text-gray-400">
-                        We have sent a verification code to {phoneNumber || "your phone number"}.
+                        We have sent a verification code to {identifier || "your account"}.
                     </p>
                 </DialogHeader>
                 <form onSubmit={handleSubmit(onFormSubmit)} className="grid gap-6 py-4">
@@ -142,7 +145,7 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
                                     onChange={(e) => handleChange(e.target, index)}
                                     onKeyDown={(e) => handleKeyDown(e, index)}
                                     onPaste={handlePaste}
-                                    className="w-10 h-10 sm:w-12 sm:h-12 text-center text-xl font-bold bg-[#163341] border border-[#2D5A6E] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                                    className="w-10 h-10 sm:w-12 sm:h-12 text-center text-xl font-bold bg-vehicle-card-bg border border-vehicle-card-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
                                 />
                             );
                         })}
@@ -153,7 +156,8 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
                         <Button
                             type="submit"
                             loading={isLoading}
-                            className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 border-none shadow-lg text-white font-bold py-2 rounded-lg transform transition hover:scale-[1.02]"
+                            loadingText="Verifying..."
+                            className="w-full py-3"
                         >
                             Verify & Proceed
                         </Button>
@@ -161,7 +165,7 @@ export default function OtpVerificationDialog({ open, setOpen, phoneNumber }: Ot
 
                     <div className="text-center">
                         <p className="text-sm text-gray-400">
-                            Didn't receive the code? <button type="button" className="text-red-500 font-semibold hover:underline bg-transparent border-none cursor-pointer">Resend</button>
+                            Didn't receive the code? <button type="button" className="text-green-500 font-semibold hover:underline bg-transparent border-none cursor-pointer">Resend</button>
                         </p>
                     </div>
                 </form>

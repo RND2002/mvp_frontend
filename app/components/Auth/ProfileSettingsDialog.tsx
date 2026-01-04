@@ -2,8 +2,10 @@
 
 import * as React from "react"
 import { Button } from "@/components/ui/button"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { logout, User } from "@/app/store/slices/authSlice"
+import { selectVehicle } from "@/app/store/slices/vehicleSlice"
+import { RootState } from "@/app/store/store"
 import { useLogoutMutation } from "@/app/beService/auth-service"
 import { useRouter } from "next/navigation"
 import {
@@ -13,7 +15,11 @@ import {
     SheetHeader,
     SheetTitle,
 } from "@/components/ui/sheet"
+import { Loader } from "@/components/ui/loader"
 import { LogOut, User as UserIcon, ArrowLeft } from "lucide-react"
+import { AddVehicleButton } from "@/app/components/Vehicle/AddVehicleButton"
+import { VehicleCard } from "@/app/components/Vehicle/VehicleCard"
+import supabase from "@/app/api/supabaseClient"
 
 interface ProfileSettingsDialogProps {
     open: boolean
@@ -25,18 +31,34 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
     const dispatch = useDispatch()
     const router = useRouter()
     const [logoutApi, { isLoading }] = useLogoutMutation()
+    const { vehicles, selectedVehicle } = useSelector((state: RootState) => state.vehicle)
+    const [isRedirecting, setIsRedirecting] = React.useState(false)
+
+    const handleSelectVehicle = (id: string) => {
+        dispatch(selectVehicle(id))
+        setIsRedirecting(true)
+        setTimeout(() => {
+            setOpen(false)
+            router.push('/dashboard')
+            setIsRedirecting(false)
+        }, 1000)
+    }
 
     const handleLogout = async () => {
         try {
             await logoutApi().unwrap()
+            await supabase.auth.signOut()
             dispatch(logout())
             setOpen(false)
             router.push('/')
+            router.refresh()
         } catch (error) {
             console.error('Logout failed:', error)
+            await supabase.auth.signOut()
             dispatch(logout())
             setOpen(false)
             router.push('/')
+            router.refresh()
         }
     }
 
@@ -59,8 +81,9 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
-            <SheetContent side="right" className="w-full sm:max-w-[400px] bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] border-l border-[#163341] text-white p-0">
-                <SheetHeader className="p-4 sm:p-6 border-b border-[#163341] flex flex-row items-center gap-4 space-y-0">
+            {isRedirecting && <Loader fullScreen text="Switching vehicle..." />}
+            <SheetContent side="right" className="w-full sm:max-w-[400px] bg-vehicle-card-bg border-l border-vehicle-card-bg text-white p-0">
+                <SheetHeader className="p-4 sm:p-6 border-b border-vehicle-card-bg flex flex-row items-center gap-4 space-y-0">
                     <Button
                         variant="ghost"
                         size="icon"
@@ -71,7 +94,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                     </Button>
                     <div className="flex flex-col gap-1">
                         <SheetTitle className="text-xl font-bold flex items-center gap-2 text-white">
-                            <UserIcon className="w-5 h-5 text-red-500" />
+                            <UserIcon className="w-5 h-5 text-green-500" />
                             Account Settings
                         </SheetTitle>
                         <SheetDescription className="text-gray-400 text-left">
@@ -81,30 +104,53 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                 </SheetHeader>
 
                 <div className="p-6 space-y-6">
-                    <div className="flex flex-col space-y-2 bg-[#163341]/50 p-4 rounded-lg border border-[#2D5A6E]/50">
-                        <span className="text-sm text-gray-400 font-medium">Phone Number</span>
+                    {/* User Info */}
+                    <div className="flex flex-col space-y-2 bg-vehicle-card-bg/50 p-4 rounded-lg border border-vehicle-card-border/50">
+                        <span className="text-sm text-gray-400 font-medium">
+                            {user?.email ? "Email Address" : "Phone Number"}
+                        </span>
                         <span className="text-lg font-semibold text-white tracking-wide">
-                            {user?.phone || user?.id || "N/A"}
+                            {user?.email || user?.phone || user?.id || "N/A"}
                         </span>
                     </div>
 
+                    {/* Vehicle List */}
+                    <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-lg font-semibold text-white">My Vehicles</h3>
+                            <AddVehicleButton
+                                onClick={() => {
+                                    setOpen(false);
+                                    router.push('/dashboard?onboarding=true');
+                                }}
+                            />
+                        </div>
+
+                        <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
+                            {vehicles.map((vehicle) => (
+                                <VehicleCard
+                                    key={vehicle.id}
+                                    vehicle={vehicle}
+                                    isSelected={selectedVehicle?.id === vehicle.id}
+                                    onSelect={handleSelectVehicle}
+                                />
+                            ))}
+                            {vehicles.length === 0 && (
+                                <div className="text-center py-8 text-gray-500 text-sm bg-vehicle-card-bg/20 rounded-lg border border-dashed border-vehicle-card-border/30">
+                                    No vehicles added yet.
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
                     <Button
-                        variant="destructive"
                         onClick={handleLogout}
-                        disabled={isLoading}
-                        className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                        loading={isLoading}
+                        loadingText="Logging Out..."
+                        className="w-full py-3"
                     >
-                        {isLoading ? (
-                            <>
-                                <span className="animate-spin w-4 h-4 border-2 border-white/50 border-t-white rounded-full"></span>
-                                Logging Out...
-                            </>
-                        ) : (
-                            <>
-                                <LogOut className="w-4 h-4" />
-                                Log Out
-                            </>
-                        )}
+                        <LogOut className="w-4 h-4" />
+                        Log Out
                     </Button>
                 </div>
             </SheetContent>

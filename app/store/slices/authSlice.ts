@@ -13,12 +13,14 @@ interface AuthState {
     user: User | null;
     token: string | null;
     isAuthenticated: boolean;
+    isLoginModalOpen: boolean;
 }
 
 const initialState: AuthState = {
     user: null,
     token: null,
     isAuthenticated: false,
+    isLoginModalOpen: false,
 };
 
 const authSlice = createSlice({
@@ -38,11 +40,15 @@ const authSlice = createSlice({
             state.token = null;
             state.isAuthenticated = false;
         },
+        setLoginModalOpen: (state, action: PayloadAction<boolean>) => {
+            state.isLoginModalOpen = action.payload;
+        },
     },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logout, setLoginModalOpen } = authSlice.actions;
 export default authSlice.reducer;
 
 export const selectCurrentUser = (state: { auth: AuthState }) => state.auth.user;
 export const selectIsAuthenticated = (state: { auth: AuthState }) => state.auth.isAuthenticated;
+export const selectIsLoginModalOpen = (state: { auth: AuthState }) => state.auth.isLoginModalOpen;

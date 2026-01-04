@@ -5,17 +5,31 @@ import { cookies } from 'next/headers'
 export async function POST(request: Request) {
     try {
         const body = await request.json()
-        const { phone, otp } = body
+        const { phone, email, otp } = body
 
-        if (!phone || !otp) {
-            return NextResponse.json({ error: 'Phone and OTP required' }, { status: 400 })
+        if ((!phone && !email) || !otp) {
+            return NextResponse.json({ error: 'Phone/Email and OTP required' }, { status: 400 })
         }
 
-        const { data, error } = await supabase.auth.verifyOtp({
-            phone,
-            token: otp,
-            type: 'sms',
-        })
+        let data, error;
+
+        if (email) {
+            const res = await supabase.auth.verifyOtp({
+                email,
+                token: otp,
+                type: 'email',
+            })
+            data = res.data;
+            error = res.error;
+        } else {
+            const res = await supabase.auth.verifyOtp({
+                phone,
+                token: otp,
+                type: 'sms',
+            })
+            data = res.data;
+            error = res.error;
+        }
 
         if (error || !data.session || !data.user) {
             return NextResponse.json({ error: 'Invalid OTP' }, { status: 401 })
@@ -39,14 +53,16 @@ export async function POST(request: Request) {
             maxAge: 30 * 24 * 60 * 60,
         })
 
-        await supabase.from('users').upsert({
-            id: data.user.id,
-            phone,
-        })
+        // Upsert user data
+        const updates: any = { id: data.user.id }
+        if (phone) updates.phone = phone;
+        if (email) updates.email = email;
+
+        await supabase.from('users').upsert(updates)
 
         return NextResponse.json({
             success: true,
-            user: { id: data.user.id, phone },
+            user: { id: data.user.id, phone, email },
             token: access_token
         }, { status: 200 })
     } catch (error) {

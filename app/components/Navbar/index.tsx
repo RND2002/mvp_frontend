@@ -50,7 +50,7 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
 
   useStickyNavbar(100, openNav.main);
   return (
-    <nav id="navbar" className="relative z-500 bg-secondary-theme shadow-navbar">
+    <nav id="navbar" className="relative z-500 bg-vehicle-card-bg shadow-navbar border-b border-vehicle-card-border">
       <div
         id="main-navbar-container"
         className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-4 relative"

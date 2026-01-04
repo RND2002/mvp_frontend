@@ -88,7 +88,7 @@ export default function BookServicePage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-900 pb-24 md:pb-10">
+        <div className="min-h-screen bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] pb-24 md:pb-10">
 
             <ServiceDetailModal
                 isOpen={!!selectedService}
@@ -100,10 +100,7 @@ export default function BookServicePage() {
                 {/* Header */}
                 <div className="flex justify-between items-center mb-6">
                     <div>
-                        <h1 className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                            Hello User
-                        </h1>
-                        <h2 className="text-xl font-bold   text-slate-800 dark:text-white">
+                        <h2 className="text-xl font-bold text-white">
                             Select Your Service to Continue
                         </h2>
                     </div>

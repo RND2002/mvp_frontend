@@ -1,6 +1,6 @@
 import React from "react";
 import { X, Check, Star, ArrowLeft, FileText, Share2 } from "lucide-react";
-import PrimaryButton from "@/app/components/common/PrimaryButton";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 interface ServiceDetailModalProps {
@@ -49,7 +49,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
             ></div>
 
             {/* Modal Content */}
-            <div className="relative w-full max-w-lg md:max-w-xl h-[90vh] md:h-auto md:max-h-[90vh] bg-slate-50 dark:bg-slate-900 rounded-t-[2.5rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:m-4 animate-slide-up">
+            <div className="relative w-full max-w-lg md:max-w-xl h-[90vh] md:h-auto md:max-h-[90vh] bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] rounded-t-[2.5rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:m-4 animate-slide-up border border-vehicle-card-border">
 
                 {/* Scrollable Area */}
                 <div className="flex-1 overflow-y-auto pb-24 md:pb-6 scrollbar-hide">
@@ -90,12 +90,12 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                     </div>
 
                     {/* Content Overlay Card */}
-                    <div className="relative -mt-12 bg-slate-50 dark:bg-slate-900 rounded-t-[2.5rem] px-6 pt-8 pb-8 min-h-[300px]">
+                    <div className="relative -mt-12 bg-[#091A23] rounded-t-[2.5rem] px-6 pt-8 pb-8 min-h-[300px]">
 
                         {/* Mechanic Profile Card */}
-                        <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-4 mb-8">
+                        <div className="bg-vehicle-card-bg rounded-2xl p-4 shadow-sm border border-vehicle-card-border flex items-center gap-4 mb-8">
                             <div className="flex-1">
-                                <h3 className="font-bold text-slate-800 dark:text-white text-lg">{mechanic.name}</h3>
+                                <h3 className="font-bold text-white text-lg">{mechanic.name}</h3>
                                 <p className="text-slate-400 text-xs font-medium mb-1">{mechanic.role}</p>
                                 <div className="flex items-center gap-1 mb-2">
                                     {[...Array(5)].map((_, i) => (
@@ -122,7 +122,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                         {/* Service Includes */}
                         <div className="mb-8">
                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="font-bold text-slate-800 dark:text-white text-lg">Service Includes</h3>
+                                <h3 className="font-bold text-white text-lg">Service Includes</h3>
                                 <button className="flex items-center gap-1 text-blue-600 dark:text-blue-400 font-bold text-xs hover:underline">
                                     Invoice <FileText className="w-3 h-3" />
                                 </button>
@@ -130,7 +130,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
 
                             <ul className="space-y-3">
                                 {serviceIncludes.map((item, index) => (
-                                    <li key={index} className="flex items-start gap-3 text-slate-600 dark:text-slate-300 text-sm font-medium">
+                                    <li key={index} className="flex items-start gap-3 text-gray-300 text-sm font-medium">
                                         <div className="mt-0.5 w-5 h-5 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
                                             <Check className="w-3 h-3 text-blue-600 dark:text-blue-400" />
                                         </div>
@@ -138,33 +138,33 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                                     </li>
                                 ))}
                             </ul>
-                            <button className="text-slate-800 dark:text-white font-bold text-sm mt-4 hover:underline">
+                            <button className="text-white font-bold text-sm mt-4 hover:underline">
                                 View All
                             </button>
                         </div>
 
                         {/* Related Services (Visual Placeholder) */}
                         <div className="mb-4">
-                            <h3 className="font-bold text-slate-800 dark:text-white text-lg mb-4">Related Services</h3>
+                            <h3 className="font-bold text-white text-lg mb-4">Related Services</h3>
                             <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
                                 {/* Mock Related Cards */}
-                                <div className="min-w-[140px] bg-white dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-3">
+                                <div className="min-w-[140px] bg-vehicle-card-bg p-3 rounded-2xl border border-vehicle-card-border flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center">
                                         {/* Icon placeholder */}
                                         <div className="w-4 h-4 bg-yellow-400 rounded-sm"></div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Full Body</span>
+                                        <span className="text-xs font-bold text-white">Full Body</span>
                                         <span className="text-[10px] text-slate-500">Painting</span>
                                     </div>
                                 </div>
-                                <div className="min-w-[140px] bg-white dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-3">
+                                <div className="min-w-[140px] bg-vehicle-card-bg p-3 rounded-2xl border border-vehicle-card-border flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
                                         {/* Icon placeholder */}
                                         <div className="w-4 h-4 bg-pink-400 rounded-sm"></div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Ac</span>
+                                        <span className="text-xs font-bold text-white">Ac</span>
                                         <span className="text-[10px] text-slate-500">Service</span>
                                     </div>
                                 </div>
@@ -175,14 +175,13 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                 </div>
 
                 {/* Floating Action Button */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-50 via-slate-50 to-transparent dark:from-slate-900 dark:via-slate-900">
-                    <PrimaryButton
-                        className="w-full !rounded-full !py-4 text-base font-bold shadow-xl shadow-red-200 !bg-red-500 hover:!bg-red-600 !text-white"
-                        openPopup={false}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#091A23] via-[#091A23] to-transparent">
+                    <Button
+                        className="w-full rounded-full py-6 text-base font-bold shadow-lg shadow-green-900/20"
                         onClick={() => alert("Booking Initiated!")}
                     >
                         Book Service
-                    </PrimaryButton>
+                    </Button>
                 </div>
 
             </div>

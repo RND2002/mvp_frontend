@@ -48,7 +48,7 @@ const MobileBottomNav: React.FC = () => {
     if (!isAuthenticated) return null;
 
     return (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 pb-safe">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-vehicle-card-bg border-t border-vehicle-card-border z-50 pb-safe rounded-t-2xl mx-2 mb-2 shadow-lg">
             <div className="flex justify-around items-center h-16">
                 {actions.map((action, idx) => {
                     const isActive = pathname === action.link || (action.link === "/dashboard" && pathname === "/");
@@ -57,17 +57,17 @@ const MobileBottomNav: React.FC = () => {
                         <Link
                             key={idx}
                             href={action.link}
-                            className="flex flex-col items-center justify-center w-full h-full gap-1 active:bg-gray-50 group"
+                            className="flex flex-col items-center justify-center w-full h-full gap-1 active:bg-white/5 group"
                         >
                             <Icon
                                 className={cn(
                                     "w-6 h-6 transition-colors",
-                                    isActive ? "text-[var(--color-primary)]" : "text-gray-500 group-active:text-[var(--color-primary)]"
+                                    isActive ? "text-green-500" : "text-gray-400 group-hover:text-gray-200"
                                 )}
                             />
                             <span className={cn(
                                 "text-[10px] font-medium leading-none",
-                                isActive ? "text-[var(--color-primary)]" : "text-gray-500 group-active:text-[var(--color-primary)]"
+                                isActive ? "text-green-500" : "text-gray-400 group-hover:text-gray-200"
                             )}>
                                 {action.title}
                             </span>

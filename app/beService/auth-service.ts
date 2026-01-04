@@ -2,11 +2,13 @@ import { baseApi } from '../store/api/baseApi'
 import { User } from '../store/slices/authSlice'
 
 interface SendOtpRequest {
-    phone: string
+    phone?: string
+    email?: string
 }
 
 interface VerifyOtpRequest {
-    phone: string
+    phone?: string
+    email?: string
     otp: string
 }
 

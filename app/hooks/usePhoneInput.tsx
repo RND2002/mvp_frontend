@@ -38,17 +38,16 @@ const PhoneInputField = <T extends FieldValues>({
         labelClassName,
         color === "white"
             ? "text-sm 2xl:text-lg text-white"
-            : "text-sm 2xl:text-lg text-text-dark"
+            : "text-sm 2xl:text-lg text-text-white"
     );
 
     const inputClass = clsx(
         "w-full px-4 py-3",
         "rounded-[12px]",
-        color === "white"
-            ? "bg-transparent border border-white text-white placeholder:text-white/70"
-            : "bg-text-field text-text-dark border border-paragraph/30",
-        "focus:ring-1 focus:border-transparent focus:ring-primary/50 focus:outline-none",
-        error && "border-transparent focus:ring-primary/50",
+        // Always usage dark theme for consistency
+        "bg-vehicle-card-bg text-white border border-vehicle-card-border placeholder:text-gray-500",
+        "focus:border-green-500 focus:ring-green-500/50 focus:outline-none focus:ring-[3px]",
+        error && "border-red-500 focus:ring-red-500/50",
         inputClassName
     );
 

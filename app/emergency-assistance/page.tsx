@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useGeoLocation } from "@/app/hooks/useGeoLocation";
-import PrimaryButton from "@/app/components/common/PrimaryButton";
+import { Button } from "@/components/ui/button";
 import { PhoneCall, AlertTriangle, Navigation, MapPin } from "lucide-react";
 
 export default function EmergencyHelpPage() {
@@ -114,7 +114,7 @@ export default function EmergencyHelpPage() {
                         </div>
                         <div className="flex-1">
                             <h3 className="text-lg font-bold text-slate-800 dark:text-white leading-none mb-1">Eleanor Fant</h3>
-                            <span className="inline-block bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                            <span className="inline-block bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                                 Need Help
                             </span>
                         </div>
@@ -125,7 +125,7 @@ export default function EmergencyHelpPage() {
 
                     {/* Location Info */}
                     <div className="text-center mb-8">
-                        <h4 className="text-red-500 font-bold text-lg mb-2">Need Help</h4>
+                        <h4 className="text-green-500 font-bold text-lg mb-2">Need Help</h4>
                         <p className="text-slate-600 dark:text-slate-300 font-medium text-sm md:text-base px-8 leading-relaxed">
                             {loaded && coordinates
                                 ? `${coordinates.latitude.toFixed(4)} N, ${coordinates.longitude.toFixed(4)} E (Approx)`
@@ -139,13 +139,12 @@ export default function EmergencyHelpPage() {
 
                     {/* Actions */}
                     <div className="w-full">
-                        <PrimaryButton
+                        <Button
                             onClick={handleBookEmergency}
-                            className="w-full !rounded-full py-4 text-base font-bold uppercase tracking-wider !bg-red-500 hover:!bg-red-600 shadow-lg shadow-red-200"
-                            openPopup={false}
+                            className="w-full rounded-full py-6 text-base font-bold uppercase tracking-wider shadow-lg shadow-green-900/20"
                         >
                             Call for Help
-                        </PrimaryButton>
+                        </Button>
                     </div>
                 </div>
             </div>

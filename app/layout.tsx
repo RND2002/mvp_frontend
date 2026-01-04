@@ -10,6 +10,7 @@ import { NAVBAR_DATA } from "@/app/lib/navbar-data";
 import MobileBottomNav from "@/app/components/common/MobileBottomNav";
 import { StoreProvider } from "@/app/components/Providers/StoreProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { VehicleInitializer } from "@/app/components/VehicleInitializer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,22 +38,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-primary-theme antialiased`}
       >
         <StoreProvider>
+          <VehicleInitializer />
           <AlertProvider>
             <ContactUsPopupProvider>
               <MainNavbar navbarData={NAVBAR_DATA} />
               {children}
               <MobileBottomNav />
-              <Toaster position="top-center" toastOptions={{
-                classNames: {
-                  toast: "text-primaryText border-none"
-                }
-              }} />
+              <Toaster position="top-center" />
               {/* <Footer /> */}
             </ContactUsPopupProvider>
           </AlertProvider>
         </StoreProvider>
-      </body>
-    </html>
+      </body >
+    </html >
   );
 }
 
