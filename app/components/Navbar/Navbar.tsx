@@ -203,10 +203,10 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
 
         <div className="flex items-center gap-4">
           <div
-            className="h-9 w-9 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700 transition-colors"
+            className="h-9 w-9 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors"
             onClick={handleAvatarClick}
           >
-            <User className="h-5 w-5 text-gray-400" />
+            <User className="h-5 w-5 text-green-500" />
           </div>
         </div>
       </div>
@@ -222,10 +222,10 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         </Link>
         <div className="flex items-center gap-4 ml-auto">
           <div
-            className="h-10 w-10 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700 transition-colors"
+            className="h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors"
             onClick={handleAvatarClick}
           >
-            <User className="h-6 w-6 text-gray-400" />
+            <User className="h-6 w-6 text-green-500" />
           </div>
         </div>
         <LoginDialog
