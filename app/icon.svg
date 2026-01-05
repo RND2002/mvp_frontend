@@ -1,0 +1,67 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2ECC71;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27AE60;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="darkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F1419;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A2332;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Dark background with rounded corners -->
+  <!-- <rect width="512" height="512" rx="115" fill="url(#darkGrad)"/> -->
+  
+  <!-- Animated speed lines (energy effect) -->
+  <g opacity="0.8">
+    <rect x="50" y="170" width="120" height="14" rx="7" fill="#2ECC71" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;0.9;0.7" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="width" values="120;135;120" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="45" y="225" width="135" height="14" rx="7" fill="#2ECC71" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.85;0.6" dur="2s" repeatCount="indefinite" begin="0.4s"/>
+      <animate attributeName="width" values="135;150;135" dur="2s" repeatCount="indefinite" begin="0.4s"/>
+    </rect>
+    <rect x="50" y="280" width="125" height="14" rx="7" fill="#2ECC71" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="2s" repeatCount="indefinite" begin="0.8s"/>
+      <animate attributeName="width" values="125;140;125" dur="2s" repeatCount="indefinite" begin="0.8s"/>
+    </rect>
+  </g>
+  
+  <!-- Main V shape with glow effect -->
+  <g filter="url(#glow)">
+    <!-- Left side of V -->
+    <path d="M 140 140 L 220 380 L 280 380 L 200 140 Z" fill="url(#greenGrad)"/>
+    
+    <!-- Right side of V -->
+    <path d="M 312 140 L 372 140 L 292 380 L 232 380 Z" fill="url(#greenGrad)"/>
+  </g>
+  
+  <!-- Highlight for 3D depth -->
+  <path d="M 140 140 L 200 140 L 220 200 L 180 200 Z" fill="#FFFFFF" opacity="0.2"/>
+  <path d="M 312 140 L 372 140 L 352 200 L 332 200 Z" fill="#FFFFFF" opacity="0.2"/>
+  
+  <!-- Energy particles floating around -->
+  <circle cx="380" cy="160" r="4" fill="#2ECC71" opacity="0.6">
+    <animate attributeName="cy" values="160;150;160" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="120" cy="320" r="3" fill="#2ECC71" opacity="0.5">
+    <animate attributeName="cy" values="320;310;320" dur="2.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0;0.5" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="390" cy="280" r="3" fill="#2ECC71" opacity="0.4">
+    <animate attributeName="cy" values="280;270;280" dur="2.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0;0.4" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
+</svg>

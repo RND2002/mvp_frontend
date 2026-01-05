@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { NavbarData, NavItem } from "@/app/lib/types";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/app/assets/icons/logo.svg";
+import Logo from "@/app/assets/icons/create-custom.svg";
 import DropdownSection from "@/app/components/Navbar/DropdownSection";
 import useStickyNavbar from "@/app/hooks/useStickyNavbar";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
@@ -153,7 +153,7 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
 
   return (
     <>
-      <div className="lg:hidden flex items-center justify-between w-full px-4 py-4">
+      <div className="lg:hidden flex items-center justify-between w-full px-4 py-1">
         <div className="flex items-center gap-2">
           <Link href="/">
             <Image
@@ -180,9 +180,7 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
           <Image
             src={Logo}
             alt="Vroom"
-            width={112}
-            height={40}
-            className="w-28 h-auto"
+            className="w-48 h-16"
           />
         </Link>
         <div className="flex items-center gap-4 ml-auto">

@@ -20,7 +20,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-vehicle-card-bg group-[.toaster]:text-white group-[.toaster]:border-vehicle-card-border group-[.toaster]:shadow-lg",
+             "group toast animate-[toast-slide-in_0.35s_ease-out] data-[state=closed]:animate-[toast-slide-out_0.25s_ease-in] group-[.toaster]:bg-black group-[.toaster]:text-white group-[.toaster]:border-vehicle-card-border group-[.toaster]:shadow-lg",
           description: "group-[.toast]:text-gray-400",
           actionButton:
             "group-[.toast]:bg-green-500 group-[.toast]:text-white",
@@ -39,19 +39,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
         error: <OctagonXIcon className="size-4 text-red-500" />,
         loading: <Loader2Icon className="size-4 animate-spin text-gray-400" />,
       }}
-      style={
-        {
-          "--normal-bg": "var(--vehicle-card-bg)",
-          "--normal-text": "white",
-          "--normal-border": "var(--vehicle-card-border)",
-          "--success-bg": "var(--vehicle-card-bg)",
-          "--success-text": "#22c55e",
-          "--success-border": "#22c55e",
-          "--error-bg": "var(--vehicle-card-bg)",
-          "--error-text": "#ef4444",
-          "--error-border": "#ef4444",
-        } as React.CSSProperties
-      }
       {...props}
     />
 

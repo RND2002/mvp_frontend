@@ -16,7 +16,7 @@ export default function HeroSection() {
     };
 
     return (
-        <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-black selection:bg-green-500/30">
+        <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-black">
             {/* Abstract Background Effects */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
                 <div className="absolute top-[-10%] left-[20%] w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" />
@@ -46,18 +46,10 @@ export default function HeroSection() {
                     <Button
                         size="lg"
                         onClick={handleOpenLogin}
-                        className="w-full sm:w-auto px-8 h-12 text-base font-semibold bg-green-600 hover:bg-green-500 text-black shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-105"
+                        className="w-full sm:w-auto px-8 h-12 text-base font-semibold bg-green-600 hover:bg-green-500 hover:text-white text-black shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-105"
                     >
                         Get Started
                         <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="lg"
-                        onClick={handleOpenLogin}
-                        className="w-full sm:w-auto px-8 h-12 text-base border-gray-700 bg-white/5 hover:bg-white/10 text-white backdrop-blur-sm transition-all hover:scale-105"
-                    >
-                        Log in
                     </Button>
                 </div>
 

@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 import PhoneInputField from "@/app/hooks/usePhoneInput"
 import { Input } from "@/components/ui/input"
 import { Mail, Phone } from "lucide-react"
-import Logo from "@/app/assets/icons/logo.svg";
+import IconLogo from "@/app/assets/icons/create-custom.svg";
 import Image from "next/image";
 import { toast } from "sonner"
 import { useSendOtpMutation } from "@/app/beService/auth-service"
@@ -22,6 +22,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
+import { CustomLogo } from "@/app/assets/icons"
 
 interface LoginDialogProps {
     open: boolean
@@ -34,7 +35,7 @@ interface LoginDialogProps {
 export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDialogProps) {
     // const isMobile = useIsMobile()
     const router = useRouter()
-    const [loginMethod, setLoginMethod] = React.useState<'phone' | 'email'>('phone')
+    const [loginMethod, setLoginMethod] = React.useState<'phone' | 'email'>('email')
     const [emailSent, setEmailSent] = React.useState(false)
     const { control, handleSubmit, register, reset, getValues, formState: { errors } } = useForm<LoginSchemaType>({
         resolver: yupResolver(loginSchema) as any,
@@ -49,7 +50,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
     React.useEffect(() => {
         reset({ method: loginMethod, phone: "", email: "" })
         setEmailSent(false)
-    }, [loginMethod, reset])
+    }, [loginMethod, reset, setOpen])
 
     const [sendOtp, { isLoading }] = useSendOtpMutation()
 
@@ -59,10 +60,12 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
             const result = await sendOtp(payload).unwrap()
             // console.log("OTP Sent", result)
             if (result.success) {
-                toast.success('OTP sent successfully')
+
                 if (loginMethod === 'email') {
+                    toast.success('Magic link sent successfully')
                     setEmailSent(true)
                 } else {
+                    toast.success('OTP sent successfully')
                     const identifier = data.phone
                     onLoginSuccess?.(identifier, loginMethod)
                 }
@@ -74,11 +77,14 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
     }
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={(val) => {
+            setLoginMethod('email')
+            setOpen(val) 
+            }}>
             <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-vehicle-card-bg border-vehicle-card-border text-white">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">
-                        <Image src={Logo} alt="Vroom" width={128} height={42} className="w-32 h-auto drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)]" />
+                        <Image src={IconLogo as unknown as string} alt="Vroom" className="w-56 h-auto drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)]" />
                     </DialogTitle>
                     <DialogDescription className="text-xl font-bold text-gray-300">
                         Log in to keep your vehicle running smooth!
@@ -92,18 +98,19 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                 <Button
                                     type="button"
                                     variant="ghost"
-                                    onClick={() => setLoginMethod('phone')}
-                                    className={`flex items-center gap-2 ${loginMethod === 'phone' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
-                                >
-                                    <Phone className="w-4 h-4" /> Phone
-                                </Button>
-                                <Button
-                                    type="button"
-                                    variant="ghost"
                                     onClick={() => setLoginMethod('email')}
                                     className={`flex items-center gap-2 ${loginMethod === 'email' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
                                 >
                                     <Mail className="w-4 h-4" /> Email
+                                </Button>
+
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    onClick={() => setLoginMethod('phone')}
+                                    className={`flex items-center gap-2 ${loginMethod === 'phone' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
+                                >
+                                    <Phone className="w-4 h-4" /> Phone
                                 </Button>
                             </div>
 
@@ -124,7 +131,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                         <Input
                                             {...register('email')}
                                             placeholder="Enter your email"
-                                            className="bg-vehicle-card-bg border-vehicle-card-border text-white placeholder:text-gray-500 focus-visible:ring-green-500/50 focus-visible:border-green-500"
+                                            className="bg-vehicle-card-bg border-vehicle-card-border text-white placeholder:text-gray-500 focus-visible:ring-green-500/50 focus-visible:border-green-500 selection:bg-green-500/30"
                                         />
                                         {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                                     </div>

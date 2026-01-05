@@ -1,0 +1,144 @@
+<svg viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg">
+ <!-- Sparkles near text -->
+  <circle cx="65" cy="18" r="1.5" fill="#2ECC71" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.6s" repeatCount="indefinite" begin="0.3s"/>
+  </circle>
+  <circle cx="170" cy="25" r="1.2" fill="#2ECC71" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.9s" repeatCount="indefinite" begin="0.8s"/>
+  </circle>
+  <circle cx="155" cy="48" r="1" fill="#2ECC71" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2.2s" repeatCount="indefinite" begin="1.2s"/>
+  </circle>
+  <defs>
+    <linearGradient id="primaryGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2ECC71"/>
+      <stop offset="100%" stop-color="#27AE60"/>
+    </linearGradient>
+
+    <filter id="strongGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <linearGradient id="energyGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2ECC71" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#2ECC71" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#2ECC71" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2ECC71;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27AE60;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+   <!-- Sparkles near text -->
+  <circle cx="65" cy="18" r="1.5" fill="#2ECC71" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.6s" repeatCount="indefinite" begin="0.3s"/>
+  </circle>
+  <circle cx="170" cy="25" r="1.2" fill="#2ECC71" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.9s" repeatCount="indefinite" begin="0.8s"/>
+  </circle>
+  <circle cx="155" cy="48" r="1" fill="#2ECC71" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2.2s" repeatCount="indefinite" begin="1.2s"/>
+  </circle>
+
+  <!-- Icon -->
+  <g transform="translate(60,70)">
+    <!-- Speed lines -->
+ 
+     <g opacity="0.8">
+    <rect x="-60" y="-22" width="44" height="6" rx="3" fill="#2ECC71" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;0.9;0.7" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="width" values="20;60;20" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="-56" y="-6" width="50" height="6" rx="3" fill="#2ECC71" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.85;0.6" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+      <animate attributeName="width" values="35;60;35" dur="2s" repeatCount="indefinite" begin="0.4s"/>
+    </rect>
+    <rect x="-52" y="10" width="46" height="6" rx="3" fill="#2ECC71" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="2s" repeatCount="indefinite" begin="0.7s"/>
+      <animate attributeName="width" values="25;55;25" dur="2s" repeatCount="indefinite" begin="0.8s"/>
+    </rect>
+  </g>
+
+    <!-- V -->
+     <!-- Main V shape with glow effect -->
+  <g filter="url(#glow)" transform="scale(0.85)">
+    <!-- Left side of V -->
+    <path d="M -18 -40 L -6 -40 L 14 40 L 34 -40 L 46 -40 L 20 60 L 10 60 Z" fill="url(#greenGrad)"/>
+    
+    <!-- Right side of V -->
+    <path d="M -18 -40 L -6 -40 L 14 40 L 34 -40 L 46 -40 L 20 60 L 10 60 Z" fill="url(#greenGrad)"/>
+  </g>
+
+    <!-- Sparkles near text -->
+  <circle cx="65" cy="18" r="1.5" fill="#2ECC71" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.6s" repeatCount="indefinite" begin="0.3s"/>
+  </circle>
+  <circle cx="170" cy="25" r="1.2" fill="#2ECC71" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.9s" repeatCount="indefinite" begin="0.8s"/>
+  </circle>
+  <circle cx="155" cy="48" r="1" fill="#2ECC71" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2.2s" repeatCount="indefinite" begin="1.2s"/>
+  </circle>
+  </g>
+
+  <!-- Text -->
+  <g transform="translate(120,80)">
+    <text x="0" y="0"
+          font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif"
+          font-size="72"
+          font-weight="900"
+          letter-spacing="-2"
+          fill="url(#primaryGreen)">
+      vroom
+    </text>
+
+    <!-- Sparkles near text -->
+  <circle cx="65" cy="18" r="1.5" fill="#2ECC71" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.6s" repeatCount="indefinite" begin="0.3s"/>
+  </circle>
+  <circle cx="170" cy="25" r="1.2" fill="#2ECC71" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.9s" repeatCount="indefinite" begin="0.8s"/>
+  </circle>
+  <circle cx="155" cy="48" r="1" fill="#2ECC71" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2.2s" repeatCount="indefinite" begin="1.2s"/>
+  </circle>
+
+    <!-- underline -->
+    <rect x="0" y="12" width="260" height="5" rx="3" fill="url(#energyGlow)">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- tagline -->
+    <text x="2" y="42"
+          font-family="Arial, sans-serif"
+          font-size="14"
+          letter-spacing="2"
+          fill="#9CA3AF">
+      SMART VEHICLE CARE
+    </text>
+
+     <!-- Sparkles near text -->
+  <circle cx="65" cy="18" r="1.5" fill="#2ECC71" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.6s" repeatCount="indefinite" begin="0.3s"/>
+  </circle>
+  <circle cx="170" cy="25" r="1.2" fill="#2ECC71" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.9s" repeatCount="indefinite" begin="0.8s"/>
+  </circle>
+  <circle cx="155" cy="48" r="1" fill="#2ECC71" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2.2s" repeatCount="indefinite" begin="1.2s"/>
+  </circle>
+  </g>
+</svg>
