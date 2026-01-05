@@ -57,7 +57,7 @@ export const ModelSelectionStep = () => {
                 </div>
             </div>
 
-            <ScrollArea className={cn("flex-1 h-[300px] border border-vehicle-card-border rounded-md p-2", errors.model && "border-red-500")}>
+            <ScrollArea className={cn("flex-1 min-h-0 border border-vehicle-card-border rounded-md p-2", errors.model && "border-red-500")}>
                 {loading ? (
                     <div className="flex items-center justify-center h-full p-4">Loading models...</div>
                 ) : (

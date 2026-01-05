@@ -20,7 +20,15 @@ export const userApi = baseApi.injectEndpoints({
             }),
             providesTags: ['User'],
         }),
+        syncUser: builder.mutation<{ success: boolean; error?: string }, { id: string; email?: string; phone?: string }>({
+            query: (userData) => ({
+                url: '/users',
+                method: 'POST',
+                body: userData,
+            }),
+            invalidatesTags: ['User'],
+        }),
     }),
 });
 
-export const { useGetUserVehiclesQuery } = userApi;
+export const { useGetUserVehiclesQuery, useSyncUserMutation } = userApi;

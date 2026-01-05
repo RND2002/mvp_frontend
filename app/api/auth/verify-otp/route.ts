@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
 import supabase from '@/app/api/supabaseClient'
 import { cookies } from 'next/headers'
 
@@ -53,12 +54,7 @@ export async function POST(request: Request) {
             maxAge: 30 * 24 * 60 * 60,
         })
 
-        // Upsert user data
-        const updates: any = { id: data.user.id }
-        if (phone) updates.phone = phone;
-        if (email) updates.email = email;
 
-        await supabase.from('users').upsert(updates)
 
         return NextResponse.json({
             success: true,

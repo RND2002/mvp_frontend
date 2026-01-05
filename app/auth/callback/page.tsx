@@ -7,12 +7,15 @@ import { setCredentials } from '@/app/store/slices/authSlice'
 import supabase from '@/app/api/supabaseClient'
 import { Loader2 } from 'lucide-react'
 
+import { useSyncUserMutation } from '@/app/beService/user-service'
+
 export default function AuthCallbackPage() {
     const router = useRouter()
     const dispatch = useDispatch()
     const [error, setError] = useState<string | null>(null)
     const [status, setStatus] = useState<string>('Verifying your login...')
     const [showManualRedirect, setShowManualRedirect] = useState(false)
+    const [syncUser] = useSyncUserMutation()
 
     useEffect(() => {
         // Fallback timer
@@ -41,12 +44,19 @@ export default function AuthCallbackPage() {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ access_token: session.access_token }),
                     });
+
+                    // Call centralised user upsert API 
+                    await syncUser({
+                        id: session.user.id,
+                        email: session.user.email,
+                        phone: session.user.phone
+                    }).unwrap()
+
                 } catch (err) {
-                    console.error("Failed to sync session", err);
+                    console.error("Failed to sync session or save user", err);
                 }
 
                 setStatus('Login successful! Redirecting...')
-                // Force hard redirect to ensure state is cleared and dashboard loads
                 window.location.href = '/dashboard'
             }
         }

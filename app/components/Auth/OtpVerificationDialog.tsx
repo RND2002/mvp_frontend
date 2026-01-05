@@ -20,6 +20,7 @@ import {
 import { useDispatch } from "react-redux"
 import { setCredentials } from "@/app/store/slices/authSlice"
 import { useVerifyOtpMutation } from "@/app/beService/auth-service";
+import { useSyncUserMutation } from "@/app/beService/user-service";
 import { toast } from "sonner";
 
 
@@ -46,6 +47,7 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
     const inputRefs = React.useRef<(HTMLInputElement | null)[]>([]);
 
     const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
+    const [syncUser] = useSyncUserMutation()
 
     // Sync local state to form
     React.useEffect(() => {
@@ -106,6 +108,18 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
 
             if (result.success) {
                 dispatch(setCredentials({ user: result.user, token: result.token }))
+
+                // Call centralized user persistence API
+                try {
+                    await syncUser({
+                        id: result.user.id,
+                        email: result.user.email,
+                        phone: result.user.phone
+                    }).unwrap()
+                } catch (e) {
+                    console.error("Failed to sync user data", e)
+                }
+
                 toast.success("User logged in successfully")
                 setIsRedirecting(true)
                 setOpen(false)

@@ -86,7 +86,7 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
             <OnboardingProgress />
 
             {/* Step Content with Animation */}
-            <div className="flex-1 overflow-hidden relative min-h-[300px] container mx-auto max-w-4xl flex flex-col justify-center">
+            <div className="flex-1 overflow-hidden relative min-h-[300px] container mx-auto max-w-4xl flex flex-col justify-start pt-8">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentStep}
@@ -94,7 +94,7 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="w-full"
+                        className="w-full h-full flex flex-col"
                     >
                         {renderStep()}
                     </motion.div>

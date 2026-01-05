@@ -13,6 +13,7 @@ export async function GET(request: Request) {
         user: {
             id: user.id,
             phone: user.phone,
+            email: user.email,
         }
     })
 }
