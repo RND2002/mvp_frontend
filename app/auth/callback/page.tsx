@@ -11,20 +11,18 @@ export default function AuthCallbackPage() {
     const router = useRouter()
     const dispatch = useDispatch()
     const [error, setError] = useState<string | null>(null)
+    const [status, setStatus] = useState<string>('Verifying your login...')
+    const [showManualRedirect, setShowManualRedirect] = useState(false)
 
     useEffect(() => {
-        // Check for error in hash immediately
-        const hashParams = new URLSearchParams(window.location.hash.substring(1))
-        const errorDescription = hashParams.get('error_description')
-        const error = hashParams.get('error')
+        // Fallback timer
+        const timer = setTimeout(() => {
+            setShowManualRedirect(true)
+            setStatus('Taking longer than expected...')
+        }, 3000)
 
-        if (error || errorDescription) {
-            setError(errorDescription || error || 'Authentication failed')
-            return
-        }
-
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-            if (event === 'SIGNED_IN' && session) {
+        const handleSession = async (session: any) => {
+            if (session) {
                 const user = {
                     id: session.user.id,
                     email: session.user.email,
@@ -36,7 +34,60 @@ export default function AuthCallbackPage() {
                     token: session.access_token
                 }))
 
-                router.push('/dashboard')
+                // Sync session with server for middleware cookie
+                try {
+                    await fetch("/api/auth/session", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ access_token: session.access_token }),
+                    });
+                } catch (err) {
+                    console.error("Failed to sync session", err);
+                }
+
+                setStatus('Login successful! Redirecting...')
+                // Force hard redirect to ensure state is cleared and dashboard loads
+                window.location.href = '/dashboard'
+            }
+        }
+
+        // 1. Check for basic error params
+        const hashParams = new URLSearchParams(window.location.hash.substring(1))
+        const errorDescription = hashParams.get('error_description')
+        const error = hashParams.get('error')
+
+        if (error || errorDescription) {
+            setError(errorDescription || error || 'Authentication failed')
+            clearTimeout(timer)
+            return
+        }
+
+        // 2. Try getting session normally
+        supabase.auth.getSession().then(async ({ data: { session } }) => {
+            if (session) {
+                await handleSession(session)
+            } else {
+                // 3. Fallback: Manually check for tokens in hash if getSession failed
+                const accessToken = hashParams.get('access_token')
+                const refreshToken = hashParams.get('refresh_token')
+
+                if (accessToken && refreshToken) {
+                    const { data, error } = await supabase.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                    })
+                    if (data.session) {
+                        await handleSession(data.session)
+                    } else if (error) {
+                        setError(error.message)
+                    }
+                }
+            }
+        })
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                await handleSession(session)
             } else if (event === 'SIGNED_OUT') {
                 const hashParams = new URLSearchParams(window.location.hash.substring(1))
                 if (hashParams.get('error')) {
@@ -47,6 +98,7 @@ export default function AuthCallbackPage() {
 
         return () => {
             subscription.unsubscribe()
+            clearTimeout(timer)
         }
     }, [dispatch, router])
 
@@ -74,7 +126,16 @@ export default function AuthCallbackPage() {
         <div className="flex min-h-screen items-center justify-center bg-black text-white">
             <div className="flex flex-col items-center gap-4">
                 <Loader2 className="h-8 w-8 animate-spin text-green-500" />
-                <p className="text-gray-400">Verifying your login...</p>
+                <p className="text-gray-400">{status}</p>
+
+                {showManualRedirect && (
+                    <button
+                        onClick={() => router.push('/dashboard')}
+                        className="mt-4 px-6 py-2 bg-green-500 hover:bg-green-600 rounded-md transition-colors font-medium text-white animate-in fade-in slide-in-from-bottom-2"
+                    >
+                        Go to Dashboard
+                    </button>
+                )}
             </div>
         </div>
     )

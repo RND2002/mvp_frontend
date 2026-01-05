@@ -39,6 +39,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
     const { control, handleSubmit, register, reset, getValues, formState: { errors } } = useForm<LoginSchemaType>({
         resolver: yupResolver(loginSchema) as any,
         defaultValues: {
+            method: 'phone',
             phone: "",
             email: ""
         }
@@ -46,7 +47,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
 
     // Reset form when switching methods
     React.useEffect(() => {
-        reset({ phone: "", email: "" })
+        reset({ method: loginMethod, phone: "", email: "" })
         setEmailSent(false)
     }, [loginMethod, reset])
 

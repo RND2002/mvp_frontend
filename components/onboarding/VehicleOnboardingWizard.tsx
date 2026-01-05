@@ -72,7 +72,7 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
     };
 
     return (
-        <div className="flex flex-col h-full w-full bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] text-white p-4 md:p-6">
+        <div className="flex flex-col h-full w-full bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] text-white p-4 mt-12 md:p-6">
             {/* Header */}
             <div className="flex justify-between items-center mb-6 container mx-auto max-w-4xl">
                 <Button variant="ghost" size="sm" onClick={handleSkip} className="text-muted-foreground">

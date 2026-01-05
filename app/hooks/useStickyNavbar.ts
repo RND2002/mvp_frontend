@@ -20,7 +20,7 @@ const useStickyNavbar = (threshold: number = 100, isMobileMenuOpen: boolean = fa
                 navbar.classList.add(
                     "fixed!",
                     "top-0",
-                    "z-[100000]",
+                    "z-40",
                     "shadow-md",
                     "w-full"
                 );
@@ -33,7 +33,7 @@ const useStickyNavbar = (threshold: number = 100, isMobileMenuOpen: boolean = fa
                 navbar.classList.remove(
                     "fixed!",
                     "top-0",
-                    "z-[100000]",
+                    "z-40",
                     "bg-white",
                     "shadow-md",
                     "w-full"

@@ -20,7 +20,7 @@ import {
   selectIsLoginModalOpen,
 } from "@/app/store/slices/authSlice";
 import supabase from "@/app/api/supabaseClient";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { User, UserIcon } from "lucide-react";
 
 interface NavbarProps {
@@ -45,8 +45,12 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
   const router = useRouter();
+  const pathname = usePathname();
 
   React.useEffect(() => {
+    // Skip auth listener in Navbar if we are on the callback page to avoid race conditions
+    if (pathname === '/auth/callback') return;
+
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -93,19 +97,20 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         }
 
         // If we just signed in via magic link (detected via hash usually), redirect.
-        if (
-          window.location.hash &&
-          window.location.hash.includes("access_token")
-        ) {
-          router.push("/dashboard");
-        }
+        // REMOVED: conflicting logic with auth/callback page.
+        // if (
+        //   window.location.hash &&
+        //   window.location.hash.includes("access_token")
+        // ) {
+        //   router.push("/dashboard");
+        // }
       }
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [dispatch, router]);
+  }, [dispatch, router, pathname]);
 
   const handleAvatarClick = () => {
     if (isAuthenticated) {
@@ -145,46 +150,6 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
     dispatch(setLoginModalOpen(false));
     setIsOtpOpen(true);
   };
-
-  const renderNavItems = useCallback(
-    (item: NavItem) => {
-      if (item.href) {
-        return (
-          <Link
-            href={item.href}
-            className="group relative inline-block whitespace-nowrap text-white transition-colors hover:text-primary focus:outline-none"
-          >
-            <span className="block font-bold invisible">{item.name}</span>
-            <span className="absolute inset-0 block font-normal ">
-              {item.name}
-            </span>
-          </Link>
-        );
-      }
-
-      return (
-        <button
-          className="group relative inline-block whitespace-nowrap text-white transition-colors hover:text-primary focus:outline-none cursor-pointer"
-          onMouseEnter={() => handleMouseEnter(item)}
-          onMouseLeave={() => handleMouseLeave(item.section || item.name)}
-          onFocus={() => handleMouseEnter(item)}
-          onBlur={() => handleMouseLeave(item.section || item.name)}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") {
-              handleMouseLeave(item.section || item.name);
-              e.currentTarget.blur();
-            }
-          }}
-        >
-          <span className="block font-bold invisible">{item.name}</span>
-          <span className="absolute inset-0 block font-normal">
-            {item.name}
-          </span>
-        </button>
-      );
-    },
-    [navbarData]
-  );
 
   return (
     <>

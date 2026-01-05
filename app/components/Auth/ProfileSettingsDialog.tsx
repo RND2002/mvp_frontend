@@ -110,7 +110,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                             {user?.email ? "Email Address" : "Phone Number"}
                         </span>
                         <span className="text-lg font-semibold text-white tracking-wide">
-                            {user?.email || user?.phone || user?.id || "N/A"}
+                            {user?.email || user?.phone || "N/A"}
                         </span>
                     </div>
 

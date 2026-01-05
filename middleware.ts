@@ -4,15 +4,12 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
 
-    // Define public paths
-    // / is public (dashboard)
-    // /api/auth/* is public (login endpoints)
-    // /_next/* and static files are public
     const isPublicPath = path === '/' ||
+        path.startsWith('/auth/callback') ||
         path.startsWith('/api/auth') ||
         path.startsWith('/_next') ||
         path.startsWith('/static') ||
-        path.includes('.') // file extension (e.g. favicon.ico)
+        path.includes('.')
 
     const token = request.cookies.get('sb_access_token')?.value || ''
 
