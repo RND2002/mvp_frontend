@@ -1,6 +1,14 @@
 import { getAuthenticatedUser } from "@/app/lib/auth";
 import { NextResponse } from "next/server";
 
+export const VEHICLE_TYPE = {
+    TWO_WHEELER: "two_wheeler",
+    THREE_WHEELER: "three_wheeler",
+    FOUR_WHEELER: "four_wheeler",
+    XUV_SUV: "xuv_suv",
+    HEAVY_VEHICLE: "heavy_vehicle"
+}
+
 export async function POST(request: Request) {
     try {
         const body = await request.json()
@@ -14,7 +22,7 @@ export async function POST(request: Request) {
             .from('vehicles')
             .insert({
                 user_id: user.id,
-                type: body.type,
+                vehicle_type: body.vehicle_type,
                 brand: body.brand,
                 model: body.model,
                 year: Number(body.year),

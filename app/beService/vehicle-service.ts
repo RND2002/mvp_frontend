@@ -3,8 +3,11 @@ import { baseApi } from '../store/api/baseApi';
 
 
 export enum VEHICLE_TYPE {
-    CAR = "car",
-    BIKE = "bike"
+    TWO_WHEELER = "two_wheeler",
+    THREE_WHEELER = "three_wheeler",
+    SEDAN = "sedan",
+    XUV_SUV = "xuv_suv",
+    HEAVY_VEHICLE = "heavy_vehicle"
 }
 
 export enum FUEL_TYPE {
@@ -17,7 +20,7 @@ export enum FUEL_TYPE {
 export const vehicleApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         addVehicle: builder.mutation<{ success: boolean; vehicle: any }, {
-            type: VEHICLE_TYPE;
+            vehicle_type: VEHICLE_TYPE;
             brand: string;
             model: string;
             year: number;

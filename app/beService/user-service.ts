@@ -1,3 +1,4 @@
+import { VehicleTypes } from '../api/services/route';
 import { baseApi } from '../store/api/baseApi';
 
 export const userApi = baseApi.injectEndpoints({
@@ -5,7 +6,7 @@ export const userApi = baseApi.injectEndpoints({
         getUserVehicles: builder.query<{
             vehicles: {
                 id: string;
-                type: 'car' | 'bike';
+                vehicle_type: VehicleTypes;
                 brand: string;
                 model: string;
                 year: number;

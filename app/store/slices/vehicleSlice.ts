@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Vehicle {
     id: string;
-    type: 'car' | 'bike';
+    vehicle_type: 'two_wheeler' | 'three_wheeler' | 'four_wheeler' | 'xuv_suv' | 'heavy_vehicle';
     brand: string;
     model: string;
     year: number;

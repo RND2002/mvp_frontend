@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 export const vehicleSchema = yup.object({
-    type: yup.string().oneOf(['car', 'bike']).required('Vehicle type is required'),
+    vehicle_type: yup.string().oneOf(['two_wheeler', 'three_wheeler', 'sedan', 'xuv_suv', 'heavy_vehicle']).required('Vehicle type is required'),
     brand: yup.string().required('Brand is required'),
     model: yup.string().required('Model is required'),
     year: yup
@@ -14,7 +14,7 @@ export const vehicleSchema = yup.object({
     registration_number: yup.string().required('Registration Number is required'),
 });
 
-export const vehicleStep1Schema = yup.object({ type: vehicleSchema.fields.type });
+export const vehicleStep1Schema = yup.object({ vehicle_type: vehicleSchema.fields.vehicle_type });
 export const vehicleStep2Schema = yup.object({ brand: vehicleSchema.fields.brand });
 export const vehicleStep3Schema = yup.object({ model: vehicleSchema.fields.model });
 export const vehicleStep4Schema = yup.object({

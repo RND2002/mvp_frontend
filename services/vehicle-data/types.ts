@@ -1,4 +1,4 @@
-export type VehicleType = 'car' | 'bike';
+export type VehicleType = 'two_wheeler' | 'three_wheeler' | 'sedan' | 'xuv_suv' | 'heavy_vehicle';
 
 export interface Brand {
     id: string;

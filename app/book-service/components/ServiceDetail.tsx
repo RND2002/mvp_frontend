@@ -2,8 +2,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Star, Info, Check, MapPin, Truck } from "lucide-react";
+import { ArrowLeft, Star, Info, Check, MapPin, Truck, Loader2 } from "lucide-react";
 import Image from "next/image";
+import { useGetServiceItemsQuery } from "@/app/beService/service-items";
 
 
 interface ServiceDetailProps {
@@ -15,6 +16,11 @@ interface ServiceDetailProps {
 export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, onProceed }) => {
     const [scrolled, setScrolled] = useState(false);
     const [serviceMode, setServiceMode] = useState<"location" | "pickup" | null>(null);
+
+    const { data, isLoading } = useGetServiceItemsQuery(service.id, {
+        skip: !service.id
+    });
+    const serviceItems = data?.serviceItems || [];
 
     useEffect(() => {
         const handleScroll = () => {
@@ -39,17 +45,8 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
         avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=60&w=200",
     };
 
-    const serviceIncludes = [
-        "Engine oil replacement",
-        "Oil filter replacement",
-        "Air filter cleaning",
-        "Coolant top-up",
-        "Brake pad inspection",
-        "Wiper fluid top-up",
-    ];
-
-    const estimatedPriceMin = 350;
-    const estimatedPriceMax = 450;
+    const estimatedPriceMin = service.base_price || 350;
+    const estimatedPriceMax = (service.base_price || 350) + 100;
 
     const handleProceed = () => {
         if (!serviceMode) return;
@@ -84,12 +81,12 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                             <ArrowLeft className="w-5 h-5" />
                         </button>
                         <span className="ml-4 text-white font-semibold text-lg opacity-0 transition-opacity duration-300" style={{ opacity: scrolled ? 1 : 0 }}>
-                            {service.label}
+                            {service.label || service.name}
                         </span>
                     </div>
 
                     <div className="absolute bottom-6 left-6 right-6">
-                        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{service.label}</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{service.label || service.name}</h1>
                         <p className="text-gray-300 font-medium">Doorstep car & bike servicing</p>
                     </div>
                 </div>
@@ -148,19 +145,24 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                     <div>
                         <h3 className="text-white font-bold text-lg mb-4">Service Includes</h3>
                         <div className="bg-[#1A2C35] rounded-xl p-6 border border-slate-700">
-                            <ul className="space-y-4">
-                                {serviceIncludes.map((item, idx) => (
-                                    <li key={idx} className="flex items-start gap-3">
-                                        <div className="w-5 h-5 rounded-full bg-green-900/40 flex items-center justify-center shrink-0 mt-0.5">
-                                            <Check className="w-3.5 h-3.5 text-green-400" />
-                                        </div>
-                                        <span className="text-slate-300 text-sm font-medium">{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                            <button className="w-full text-center text-green-500 text-sm font-semibold mt-6 hover:underline">
-                                + 12 more checks included
-                            </button>
+                            {isLoading ? (
+                                <div className="flex justify-center py-6">
+                                    <Loader2 className="h-6 w-6 animate-spin text-green-500" />
+                                </div>
+                            ) : serviceItems.length > 0 ? (
+                                <ul className="space-y-4">
+                                    {serviceItems.map((item, idx) => (
+                                        <li key={item.id || idx} className="flex items-start gap-3">
+                                            <div className="w-5 h-5 rounded-full bg-green-900/40 flex items-center justify-center shrink-0 mt-0.5">
+                                                <Check className="w-3.5 h-3.5 text-green-400" />
+                                            </div>
+                                            <span className="text-slate-300 text-sm font-medium">{item.title}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-slate-400 text-sm">No specific items listed for this service.</p>
+                            )}
                         </div>
                     </div>
 

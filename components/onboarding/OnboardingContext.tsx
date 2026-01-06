@@ -24,7 +24,7 @@ export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
         resolver: yupResolver(vehicleSchema),
         mode: "onChange",
         defaultValues: {
-            type: undefined,
+            vehicle_type: undefined,
             brand: '',
             model: '',
             year: undefined,

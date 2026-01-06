@@ -17,7 +17,7 @@ export async function GET() {
             .from('vehicles')
             .select(`
         id,
-        type,
+        vehicle_type,
         brand,
         model,
         year,

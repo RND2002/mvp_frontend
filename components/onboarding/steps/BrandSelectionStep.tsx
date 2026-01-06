@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 export const BrandSelectionStep = () => {
     const { form, nextStep } = useOnboarding();
     const { setValue, watch, formState: { errors } } = form;
-    const type = watch('type');
+    const type = watch('vehicle_type');
     const selectedBrand = watch('brand');
 
     const [brands, setBrands] = useState<Brand[]>([]);
