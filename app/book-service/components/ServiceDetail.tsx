@@ -1,11 +1,20 @@
-
-"use client";
-
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Star, Info, Check, MapPin, Truck, Loader2 } from "lucide-react";
+import { ArrowLeft, Star, Info, Check, MapPin, Truck, Loader2, Car } from "lucide-react";
 import Image from "next/image";
 import { useGetServiceItemsQuery } from "@/app/beService/service-items";
+import { useGetServicesQuery } from "@/app/beService/services-service";
 
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/app/store/store";
+import { selectVehicle, Vehicle } from "@/app/store/slices/vehicleSlice";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { toast } from "sonner"
 
 interface ServiceDetailProps {
     service: any;
@@ -14,13 +23,43 @@ interface ServiceDetailProps {
 }
 
 export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, onProceed }) => {
+    const dispatch = useDispatch();
     const [scrolled, setScrolled] = useState(false);
     const [serviceMode, setServiceMode] = useState<"location" | "pickup" | null>(null);
+    const [isVehicleDialogOpen, setIsVehicleDialogOpen] = useState(false);
 
-    const { data, isLoading } = useGetServiceItemsQuery(service.id, {
+    // Mutations
+
+
+    // Redux State
+    const { selectedVehicle, vehicles } = useSelector((state: RootState) => state.vehicle);
+
+    // Queries
+    const { data: serviceItemsData, isLoading: isItemsLoading } = useGetServiceItemsQuery(service.id, {
         skip: !service.id
     });
-    const serviceItems = data?.serviceItems || [];
+
+    // Fetch pricing for current vehicle
+    const { data: servicesData, isLoading: isServicesLoading } = useGetServicesQuery(
+        { vehicle_type: selectedVehicle?.vehicle_type || "" },
+        { skip: !selectedVehicle }
+    );
+
+    // Derived State
+    // Filter items client-side since API returns all items for the service
+    const rawServiceItems = serviceItemsData?.serviceItems || [];
+    const serviceItems = rawServiceItems.filter((item: any) =>
+        !item.vehicle_type ||
+        (selectedVehicle && item.vehicle_type === selectedVehicle.vehicle_type)
+    );
+
+    // Find current service in the fetched list to get price
+    // We assume service.id is consistent across vehicle types
+    const currentServicePricing = servicesData?.services?.find(s => s.id === service.id);
+    const basePrice = currentServicePricing?.base_price || service.base_price || 350;
+
+    const estimatedPriceMin = basePrice;
+    const estimatedPriceMax = basePrice + 100;
 
     useEffect(() => {
         const handleScroll = () => {
@@ -32,29 +71,32 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const vehicleInfo = {
-        name: "Honda City",
-        type: "Petrol",
-        reg: "KA-01-MJ-1234",
+    const handleVehicleSelect = (vehicle: Vehicle) => {
+        dispatch(selectVehicle(vehicle.id));
+        setIsVehicleDialogOpen(false);
     };
-
-    const mechanic = {
-        name: "Brandon Dan CK",
-        experience: "7+ years",
-        rating: 4.8,
-        avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=60&w=200",
-    };
-
-    const estimatedPriceMin = service.base_price || 350;
-    const estimatedPriceMax = (service.base_price || 350) + 100;
 
     const handleProceed = () => {
-        if (!serviceMode) return;
+        if (!serviceMode || !selectedVehicle) return;
+
+        const bookingData = {
+            service_id: service.id,
+            vehicle_id: selectedVehicle.id,
+            service_mode: serviceMode === "location" ? "doorstep" : "pickup_drop", // mapping to enum
+            price: basePrice,
+            scheduled_at: new Date().toISOString(),
+        };
 
         onProceed({
-            service,
-            vehicle: vehicleInfo,
-            mechanic,
+            service: { ...service, base_price: basePrice },
+            vehicle: selectedVehicle,
+            bookingRequest: bookingData, // Pass the request data specifically
+            mechanic: {
+                name: "Brandon Dan CK",
+                experience: "7+ years",
+                rating: 4.8,
+                avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=60&w=200",
+            },
             priceRange: { min: estimatedPriceMin, max: estimatedPriceMax },
             mode: serviceMode,
         });
@@ -95,13 +137,59 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
                     {/* Section 2: Vehicle Context */}
                     <div className="bg-[#1A2C35] rounded-xl p-4 border border-slate-700 flex justify-between items-center shadow-lg">
-                        <div>
-                            <div className="text-white font-bold text-lg">{vehicleInfo.name} <span className="text-slate-400 font-normal">· {vehicleInfo.type}</span></div>
-                            <div className="text-slate-400 text-sm mt-0.5">{vehicleInfo.reg}</div>
-                        </div>
-                        <button className="text-green-500 text-sm font-semibold hover:text-green-400">
-                            Change
-                        </button>
+                        {selectedVehicle ? (
+                            <div>
+                                <div className="text-white font-bold text-lg">
+                                    {selectedVehicle.brand} {selectedVehicle.model}
+                                    <span className="text-slate-400 font-normal ml-2 text-sm">· {selectedVehicle.fuel_type}</span>
+                                </div>
+                                <div className="text-slate-400 text-sm mt-0.5">{selectedVehicle.registration_number || "No Reg Data"}</div>
+                            </div>
+                        ) : (
+                            <div>
+                                <div className="text-white font-bold text-lg">No Vehicle Selected</div>
+                                <div className="text-slate-400 text-sm mt-0.5">Please select a vehicle</div>
+                            </div>
+                        )}
+
+                        {/* <Dialog open={isVehicleDialogOpen} onOpenChange={setIsVehicleDialogOpen}>
+                            <DialogTrigger asChild>
+                                <button className="text-green-500 text-sm font-semibold hover:text-green-400">
+                                    Change
+                                </button>
+                            </DialogTrigger>
+                            <DialogContent className="bg-[#0D212C] border-slate-700 text-white w-[90%] rounded-2xl">
+                                <DialogHeader>
+                                    <DialogTitle>Select Vehicle</DialogTitle>
+                                </DialogHeader>
+                                <div className="space-y-3 mt-4">
+                                    {vehicles.map((v) => (
+                                        <div
+                                            key={v.id}
+                                            onClick={() => handleVehicleSelect(v)}
+                                            className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${selectedVehicle?.id === v.id
+                                                ? "bg-green-900/20 border-green-500"
+                                                : "bg-[#1A2C35] border-transparent hover:bg-[#233842]"
+                                                }`}
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center">
+                                                    <Car className="w-5 h-5 text-slate-400" />
+                                                </div>
+                                                <div>
+                                                    <div className="font-bold text-sm text-white">{v.brand} {v.model}</div>
+                                                    <div className="text-xs text-slate-400">{v.registration_number}</div>
+                                                </div>
+                                            </div>
+                                            {selectedVehicle?.id === v.id && <Check className="w-5 h-5 text-green-500" />}
+                                        </div>
+                                    ))}
+                                    {vehicles.length === 0 && (
+                                        <p className="text-slate-400 text-center py-4">No vehicles found. Please add a vehicle in your profile.</p>
+                                    )}
+                                </div>
+                            </DialogContent>
+                        </Dialog> */}
                     </div>
 
                     {/* Section 3: Price Transparency */}
@@ -110,48 +198,25 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                             <span className="text-slate-400 font-medium text-sm flex items-center gap-1">
                                 Estimated Price <Info className="w-4 h-4 text-slate-500" />
                             </span>
+                            {isServicesLoading && <Loader2 className="w-4 h-4 animate-spin text-green-500" />}
                         </div>
                         <div className="text-3xl font-bold text-white mb-1">
-                            ${estimatedPriceMin} – ${estimatedPriceMax}
+                            ₹{estimatedPriceMin} – ₹{estimatedPriceMax}
                         </div>
-                        <p className="text-slate-400 text-xs">Final price confirmed after inspection</p>
-                    </div>
-
-                    {/* Section 4: Mechanic (Recommendation) */}
-                    <div className="bg-[#1A2C35] rounded-xl p-6 border border-slate-700">
-                        <div className="flex justify-between items-center mb-4">
-                            <span className="text-slate-300 font-semibold">Recommended Mechanic</span>
-                            <button className="text-green-500 text-xs font-semibold hover:underline">View all</button>
-                        </div>
-                        <div className="flex items-center gap-4 bg-[#122026] p-4 rounded-lg border border-slate-800">
-                            <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-slate-600">
-                                <Image src={mechanic.avatar} alt={mechanic.name} fill className="object-cover" />
-                            </div>
-                            <div className="flex-1">
-                                <div className="text-white font-bold">{mechanic.name}</div>
-                                <div className="flex items-center gap-2 text-xs text-slate-400 mt-1">
-                                    <span>{mechanic.experience}</span>
-                                    <span>•</span>
-                                    <span className="flex items-center text-yellow-400 gap-0.5">
-                                        {mechanic.rating} <Star className="w-3 h-3 fill-current" />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <p className="text-slate-500 text-xs mt-3 text-center">You can change mechanic after booking</p>
+                        <p className="text-slate-400 text-xs text-wrap break-words">Final price confirmed after inspection. Base price for {selectedVehicle?.vehicle_type?.replace("_", " ") || "vehicle"}.</p>
                     </div>
 
                     {/* Section 5: Service Includes */}
                     <div>
                         <h3 className="text-white font-bold text-lg mb-4">Service Includes</h3>
                         <div className="bg-[#1A2C35] rounded-xl p-6 border border-slate-700">
-                            {isLoading ? (
+                            {isItemsLoading ? (
                                 <div className="flex justify-center py-6">
                                     <Loader2 className="h-6 w-6 animate-spin text-green-500" />
                                 </div>
                             ) : serviceItems.length > 0 ? (
                                 <ul className="space-y-4">
-                                    {serviceItems.map((item, idx) => (
+                                    {serviceItems.map((item: any, idx: number) => (
                                         <li key={item.id || idx} className="flex items-start gap-3">
                                             <div className="w-5 h-5 rounded-full bg-green-900/40 flex items-center justify-center shrink-0 mt-0.5">
                                                 <Check className="w-3.5 h-3.5 text-green-400" />
@@ -203,13 +268,13 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                 <div className="max-w-4xl mx-auto">
                     <button
                         onClick={handleProceed}
-                        disabled={!serviceMode}
-                        className={`w-full py-4 rounded-xl font-bold text-lg shadow-xl transition-all ${serviceMode
+                        disabled={!serviceMode || !selectedVehicle}
+                        className={`w-full py-4 rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-2 ${serviceMode && selectedVehicle
                             ? "bg-green-600 text-white hover:bg-green-700 shadow-green-900/20"
                             : "bg-slate-700 text-slate-400 cursor-not-allowed"
                             }`}
                     >
-                        {serviceMode ? `Proceed · Est. $${estimatedPriceMin}` : "Select Service Mode"}
+                        {serviceMode ? `Proceed · Est. ₹${estimatedPriceMin}` : "Select Service Mode"}
                     </button>
                 </div>
             </div>

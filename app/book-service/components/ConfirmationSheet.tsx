@@ -10,13 +10,14 @@ interface ConfirmationSheetProps {
     onConfirm: () => void;
     onCancel: () => void;
     onEdit: () => void;
+    isLoading?: boolean;
 }
-
 export const ConfirmationSheet: React.FC<ConfirmationSheetProps> = ({
     bookingDetails,
     onConfirm,
     onCancel,
-    onEdit
+    onEdit,
+    isLoading
 }) => {
     if (!bookingDetails) return null;
     console.log(bookingDetails)
@@ -51,14 +52,14 @@ export const ConfirmationSheet: React.FC<ConfirmationSheetProps> = ({
                     <div className="bg-[#122026] rounded-2xl p-4 border border-slate-700 mb-6 flex gap-4">
                         <div className="w-16 h-16 rounded-xl bg-slate-800 shrink-0 overflow-hidden relative">
                             {/* Fallback icon or image */}
-                            <div className={`absolute inset-0 flex items-center justify-center ${service.color}`}>
+                            <div className={`absolute inset-0 flex items-center justify-center ${service?.color || 'bg-slate-700'}`}>
                                 {/* Since we might not have the icon component directly serializable, we can use a generic fallback or pass it differently. 
                                    For now, trusting the color. */}
-                                <span className="text-xs font-bold">{service.label[0]}</span>
+                                <span className="text-xs font-bold">{(service?.label || service?.name || "?")[0]}</span>
                             </div>
                         </div>
                         <div className="flex-1">
-                            <h3 className="font-bold text-white text-lg">{service.label}</h3>
+                            <h3 className="font-bold text-white text-lg">{service?.label || service?.name}</h3>
                             <p className="text-slate-400 text-sm">{vehicle.name} · {vehicle.reg}</p>
                         </div>
                         <div className="text-right">
@@ -81,15 +82,23 @@ export const ConfirmationSheet: React.FC<ConfirmationSheetProps> = ({
                             </span>
                         </div>
 
-                        <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
+                        {/* <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
                             <div className="flex items-center gap-3 text-slate-300">
                                 <div className="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center">
                                     <Calendar className="w-4 h-4 text-orange-400" />
                                 </div>
                                 <span className="font-medium text-sm">Date & Time</span>
                             </div>
-                            <span className="text-white font-semibold text-sm">Today, 4:00 PM</span>
-                        </div>
+                            <span className="text-white font-semibold text-sm">
+                                {new Date(bookingDetails.bookingRequest?.scheduled_at || Date.now()).toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    hour: 'numeric',
+                                    minute: 'numeric',
+                                    hour12: true
+                                })}
+                            </span>
+                        </div> */}
 
                         <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
                             <div className="flex items-center gap-3 text-slate-300">
@@ -103,14 +112,12 @@ export const ConfirmationSheet: React.FC<ConfirmationSheetProps> = ({
                     </div>
 
                     {/* Mechanic Note */}
-                    <div className="flex items-center gap-3 bg-slate-800/50 p-3 rounded-xl mb-6">
+                    {/* <div className="flex items-center gap-3 bg-slate-800/50 p-3 rounded-xl mb-6">
                         <div className="relative w-8 h-8 rounded-full overflow-hidden">
                             <Image src={mechanic.avatar} alt="Mechanic" fill className="object-cover" />
                         </div>
-                        <p className="text-xs text-slate-400">
-                            <span className="text-white font-bold">{mechanic.name}</span> will be assigned to your service.
-                        </p>
-                    </div>
+                        
+                    </div> */}
 
                     {/* Actions */}
                     <div className="flex gap-3">
@@ -122,10 +129,17 @@ export const ConfirmationSheet: React.FC<ConfirmationSheetProps> = ({
                         </button>
                         <button
                             onClick={onConfirm}
-                            className="flex-[2] py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 group"
+                            disabled={isLoading}
+                            className={`flex-[2] py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 group ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
-                            Confirm Booking
-                            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            {isLoading ? (
+                                <>Processing...</>
+                            ) : (
+                                <>
+                                    Confirm Booking
+                                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </>
+                            )}
                         </button>
                     </div>
 

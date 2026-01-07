@@ -10,6 +10,7 @@ interface ServiceHistoryCardProps {
     status: "Pending" | "Paid" | "Completed";
     serviceColor?: string; // e.g. "text-yellow-500"
     onInvoiceClick?: () => void;
+    onCardClick?: () => void;
 }
 
 export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
@@ -19,38 +20,47 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     vehicleNumber,
     date,
     status,
-    serviceColor = "text-yellow-500",
+    serviceColor, // We can keep this if it maps to a theme color, or map it inside
     onInvoiceClick,
+    onCardClick
 }) => {
-    const statusColor = status === "Pending" ? "text-red-500" : "text-blue-600";
+    // Map status to theme colors if needed, or rely on passed classes
+    const statusColor = status === "Pending" ? "text-destructive" : "text-primary";
+    const activeServiceColor = serviceColor || "text-primary";
 
     return (
-        <div className="bg-white dark:bg-slate-800 rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-slate-700 w-full mb-4">
+        <div
+            onClick={onCardClick}
+            className="group bg-vehicle-card-bg/30 hover:bg-vehicle-card-bg/50 transition-colors rounded-3xl p-5 shadow-sm border border-vehicle-card-border/30 w-full mb-4 cursor-pointer"
+        >
             <div className="flex justify-between items-start mb-1">
-                <h3 className="text-base font-bold text-slate-800 dark:text-white">
+                <h3 className="text-base font-bold text-white group-hover:text-primary transition-colors">
                     {providerName}
                 </h3>
-                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                <span className="text-xs font-semibold text-gray-400">
                     {date}
                 </span>
             </div>
 
             <div className="flex justify-between items-center mb-2">
-                <p className="text-xs text-slate-400 font-medium">
+                <p className="text-xs text-gray-400 font-medium">
                     Booking ID - {bookingId}
                 </p>
                 <button
-                    onClick={onInvoiceClick}
-                    className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onInvoiceClick?.();
+                    }}
+                    className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
                 >
                     <FileText className="w-4 h-4" />
                 </button>
             </div>
 
-            <h4 className={`text-sm font-bold mb-2 ${serviceColor}`}>{serviceName}</h4>
+            <h4 className={`text-sm font-bold mb-2 ${activeServiceColor}`}>{serviceName}</h4>
 
             <div className="flex justify-between items-end">
-                <p className="text-xs font-bold text-slate-800 dark:text-slate-300">
+                <p className="text-xs font-bold text-white/80">
                     Vehicle Number - {vehicleNumber}
                 </p>
                 <span className={`text-xs font-bold ${statusColor}`}>{status}</span>

@@ -6,6 +6,8 @@ import { ServiceDiscovery } from "@/app/book-service/components/ServiceDiscovery
 import { ServiceDetail } from "@/app/book-service/components/ServiceDetail";
 import { ConfirmationSheet } from "@/app/book-service/components/ConfirmationSheet";
 import { SuccessView } from "@/app/book-service/components/SuccessView";
+import { useCreateBookingMutation } from "@/app/beService/booking-service";
+import { toast } from "sonner";
 
 export default function BookServicePage() {
     const [step, setStep] = useState<"discovery" | "detail" | "confirmation" | "success">("discovery");
@@ -38,9 +40,19 @@ export default function BookServicePage() {
         setStep("detail");
     };
 
-    const handleConfirmBooking = () => {
-        // Here we would call the API
-        setStep("success");
+    const [createBooking, { isLoading: isBookingLoading }] = useCreateBookingMutation();
+
+    const handleConfirmBooking = async () => {
+        if (!bookingDetails?.bookingRequest) return;
+
+        try {
+            const result = await createBooking(bookingDetails.bookingRequest).unwrap();
+            setStep("success");
+            toast.success("Booking created successfully");
+        } catch (error) {
+            console.error("Booking creation failed:", error);
+            toast.error("Failed to create booking. Please try again.");
+        }
     };
 
     return (
@@ -64,6 +76,7 @@ export default function BookServicePage() {
                     onConfirm={handleConfirmBooking}
                     onCancel={handleConfirmationCancel}
                     onEdit={handleConfirmationEdit}
+                    isLoading={isBookingLoading}
                 />
             )}
 
