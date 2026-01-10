@@ -12,15 +12,16 @@ const actions = [
         link: "/book-service"
     },
     {
-        title: "Modify Ride",
+        title: "Gear Up",
         icon: MdTune,
-        link: "/modify-ride"
+        link: "/gear-up"
     },
     {
         title: "Emergency Help",
         icon: MdEmergency,
         link: "/emergency-assistance"
     },
+
     {
         title: "Service History",
         icon: FaHistory,

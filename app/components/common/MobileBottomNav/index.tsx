@@ -19,9 +19,9 @@ const actions = [
         link: "/book-service"
     },
     {
-        title: "Modify",
+        title: "GearUp",
         icon: MdTune,
-        link: "/modify-ride"
+        link: "/gear-up"
     },
     {
         title: "Emergency",
