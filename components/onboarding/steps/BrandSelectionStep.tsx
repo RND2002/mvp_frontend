@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useOnboarding } from '../OnboardingContext';
-import { getBrands } from '@/services/vehicle-data/brandService';
-import { Brand } from '@/services/vehicle-data/types';
+import { useGetVehicleKeyDataQuery } from '@/app/beService/car-model-service';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Search, ChevronRight } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Loader2 } from 'lucide-react';
 
 export const BrandSelectionStep = () => {
     const { form, nextStep } = useOnboarding();
@@ -14,21 +14,14 @@ export const BrandSelectionStep = () => {
     const type = watch('vehicle_type');
     const selectedBrand = watch('brand');
 
-    const [brands, setBrands] = useState<Brand[]>([]);
-    const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
 
-    useEffect(() => {
-        const fetchBrands = async () => {
-            if (type) {
-                setLoading(true);
-                const data = await getBrands(type);
-                setBrands(data);
-                setLoading(false);
-            }
-        };
-        fetchBrands();
-    }, [type]);
+    const { data, isLoading, isError } = useGetVehicleKeyDataQuery(
+        { type: 'brand', vehicle_type: type },
+        { skip: !type }
+    );
+
+    const brands = data?.brands || [];
 
     const filteredBrands = brands.filter(b =>
         b.name.toLowerCase().includes(search.toLowerCase())
@@ -58,8 +51,15 @@ export const BrandSelectionStep = () => {
             </div>
 
             <ScrollArea className={cn("flex-1 min-h-0 border border-vehicle-card-border rounded-md p-2", errors.brand && "border-red-500")}>
-                {loading ? (
-                    <div className="flex items-center justify-center h-full p-4">Loading brands...</div>
+                {isLoading ? (
+                    <div className="flex items-center justify-center h-full p-4">
+                        <Loader2 className="w-6 h-6 animate-spin text-green-500" />
+                        <span className="ml-2 text-muted-foreground">Loading brands...</span>
+                    </div>
+                ) : isError ? (
+                    <div className="flex items-center justify-center h-full p-4 text-red-400">
+                        Failed to load brands. Please try again.
+                    </div>
                 ) : (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         {filteredBrands.map((brand) => (

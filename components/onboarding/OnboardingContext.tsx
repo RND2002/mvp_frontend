@@ -30,6 +30,7 @@ export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
             year: undefined,
             fuel_type: '',
             registration_number: '',
+            vehicle_model_id: '',
         }
     });
 

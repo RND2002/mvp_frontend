@@ -21,7 +21,9 @@ import {
 } from "@/app/store/slices/authSlice";
 import supabase from "@/app/api/supabaseClient";
 import { useRouter, usePathname } from "next/navigation";
-import { User, UserIcon } from "lucide-react";
+import { User, UserIcon, ShoppingCart } from "lucide-react";
+import { useGetCartItemsQuery } from "@/app/beService/cart-items-service";
+import { selectSelectedVehicle } from "@/app/store/slices/vehicleSlice";
 
 interface NavbarProps {
   navbarData: NavbarData;
@@ -46,6 +48,14 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
+
+  const selectedVehicle = useSelector(selectSelectedVehicle);
+  const { data: cartData } = useGetCartItemsQuery(
+    { vehicle_id: selectedVehicle?.id || "" },
+    { skip: !selectedVehicle }
+  );
+
+  const cartItemCount = cartData?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
   React.useEffect(() => {
     // Skip auth listener in Navbar if we are on the callback page to avoid race conditions
@@ -167,6 +177,14 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         </div>
 
         <div className="flex items-center gap-4">
+          <Link href="/cart" className="relative h-9 w-9 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors">
+            <ShoppingCart className="h-5 w-5 text-green-500" />
+            {cartItemCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 bg-brand-primary-500 text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-primary-theme">
+                {cartItemCount > 9 ? '9+' : cartItemCount}
+              </span>
+            )}
+          </Link>
           <div
             className="h-9 w-9 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors"
             onClick={handleAvatarClick}
@@ -184,6 +202,14 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
           />
         </Link>
         <div className="flex items-center gap-4 ml-auto">
+          <Link href="/cart" className="relative h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors">
+            <ShoppingCart className="h-5 w-5 text-green-500" />
+            {cartItemCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-brand-primary-500 text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-primary-theme">
+                {cartItemCount > 9 ? '9+' : cartItemCount}
+              </span>
+            )}
+          </Link>
           <div
             className="h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors"
             onClick={handleAvatarClick}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShoppingCart, CheckCircle, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Product {
     id: string;
@@ -19,7 +20,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
-        <div className="group relative w-full h-full bg-primaryCard rounded-xl border border-secondary-theme hover:border-brand-primary-500/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+        <Link href={`/product/${product.id}`} className="group relative w-full h-full bg-primaryCard rounded-xl border border-secondary-theme hover:border-brand-primary-500/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col block">
             {/* Image Container */}
             <div className="relative w-full aspect-[4/3] bg-secondary-theme overflow-hidden">
                 {product.image_urls && product.image_urls.length > 0 ? (
@@ -79,12 +80,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     <button
                         className="p-2 bg-brand-primary-500 hover:bg-brand-primary-600 text-white rounded-lg shadow-lg shadow-brand-primary-500/20 active:scale-95 transition-all duration-200"
                         aria-label="Add to cart"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Add to cart logic here
+                        }}
                     >
                         <ShoppingCart className="w-4 h-4" />
                     </button>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

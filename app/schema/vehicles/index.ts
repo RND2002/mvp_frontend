@@ -12,6 +12,7 @@ export const vehicleSchema = yup.object({
         .max(new Date().getFullYear(), 'Year cannot be in the future'),
     fuel_type: yup.string().required('Fuel type is required'),
     registration_number: yup.string().required('Registration Number is required'),
+    vehicle_model_id: yup.string().optional().default(''),
 });
 
 export const vehicleStep1Schema = yup.object({ vehicle_type: vehicleSchema.fields.vehicle_type });

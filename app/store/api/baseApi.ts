@@ -6,6 +6,6 @@ export const baseApi = createApi({
         baseUrl: '/api',
         credentials: 'include',
     }),
-    tagTypes: ['User', 'Booking', 'Product'],
+    tagTypes: ['User', 'Booking', 'Product', 'Cart', 'Order'],
     endpoints: () => ({}),
 })

@@ -32,7 +32,14 @@ export const productApi = baseApi.injectEndpoints({
             }),
             providesTags: ['Product'],
         }),
+        getProductById: builder.query<{ success: boolean; product: Product }, string>({
+            query: (id) => ({
+                url: `/product-recommendations?id=${id}`,
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [{ type: 'Product', id }],
+        }),
     }),
 });
 
-export const { useGetRecommendationsQuery } = productApi;
+export const { useGetRecommendationsQuery, useGetProductByIdQuery } = productApi;

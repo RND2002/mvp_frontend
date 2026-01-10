@@ -15,6 +15,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner"
+import { Button } from "@/components/ui/button";
 
 interface ServiceDetailProps {
     service: any;
@@ -104,7 +105,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
     return (
         <>
-            <div className="min-h-screen pb-32 animate-slide-up">
+            <div className="min-h-screen pb-32 md:pb-48 animate-slide-up">
                 {/* Section 1: Service Header */}
                 <div className="relative w-full h-64 md:h-80">
                     <Image
@@ -264,9 +265,9 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
             </div>
 
             {/* Section 7: Sticky Bottom CTA */}
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#091A23] via-[#091A23] to-transparent z-[5000]">
+            <div className="fixed bottom-[80px] md:bottom-24 left-0 right-0 p-4 bg-gradient-to-t from-[#091A23] via-[#091A23] to-transparent z-[50] md:bg-[#091A23] md:border-t md:border-slate-800 md:rounded-t-2xl md:max-w-4xl md:mx-auto">
                 <div className="max-w-4xl mx-auto">
-                    <button
+                    <Button
                         onClick={handleProceed}
                         disabled={!serviceMode || !selectedVehicle}
                         className={`w-full py-4 rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-2 ${serviceMode && selectedVehicle
@@ -275,7 +276,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                             }`}
                     >
                         {serviceMode ? `Proceed · Est. ₹${estimatedPriceMin}` : "Select Service Mode"}
-                    </button>
+                    </Button>
                 </div>
             </div>
         </>

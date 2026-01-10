@@ -26,6 +26,7 @@ export const vehicleApi = baseApi.injectEndpoints({
             year: number;
             fuel_type: string;
             registration_number?: string;
+            vehicle_model_id?: string;
         }>({
             query: (body) => ({
                 url: '/vehicles',

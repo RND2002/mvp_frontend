@@ -18,6 +18,26 @@ export async function GET(request: Request) {
             );
         }
 
+        const id = searchParams.get("id");
+        if (id) {
+            const { data, error } = await supabaseClient
+                .from('products')
+                .select('*')
+                .eq('id', id)
+                .single();
+
+            if (error) {
+                console.error("Error fetching product by ID:", error);
+                return NextResponse.json({ error: error.message }, { status: 500 });
+            }
+
+            return NextResponse.json({
+                success: true,
+                product: data
+            });
+        }
+
+
         if (vehicle_id) {
             const { data, error } = await supabaseClient.rpc('get_vehicle_upgrades', {
                 p_vehicle_id: vehicle_id,

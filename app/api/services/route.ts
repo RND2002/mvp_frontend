@@ -60,6 +60,7 @@ export async function GET(request: Request) {
 
         console.log("Data:", data);
 
+
         // 4️⃣ Normalize response for frontend
         const services = data.map((service: any) => ({
             id: service.id,

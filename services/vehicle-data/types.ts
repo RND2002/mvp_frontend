@@ -5,6 +5,7 @@ export interface Brand {
     name: string;
     type: VehicleType;
     logoUrl?: string;
+    domain?: string;
 }
 
 export interface Model {

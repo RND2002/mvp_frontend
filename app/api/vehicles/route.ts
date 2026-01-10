@@ -28,6 +28,7 @@ export async function POST(request: Request) {
                 year: Number(body.year),
                 fuel_type: body.fuel_type,
                 registration_number: body.registration_number,
+                vehicle_model_id: body.vehicle_model_id,
                 // variant is excluded as it doesn't exist in DB
             })
             .select()

@@ -8,6 +8,7 @@ import MainNavbar from "@/app/components/Navbar/index";
 import { ContactUsPopupProvider } from "@/app/components/Providers/ContactUsPopupProvider";
 import { NAVBAR_DATA } from "@/app/lib/navbar-data";
 import MobileBottomNav from "@/app/components/common/MobileBottomNav";
+import DesktopFloatingDock from "@/app/components/common/DesktopFloatingDock";
 import { StoreProvider } from "@/app/components/Providers/StoreProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { VehicleInitializer } from "@/app/components/VehicleInitializer";
@@ -44,6 +45,7 @@ export default function RootLayout({
               <MainNavbar navbarData={NAVBAR_DATA} />
               {children}
               <MobileBottomNav />
+              <DesktopFloatingDock />
               <Toaster position="bottom-right" richColors />
               {/* <Footer /> */}
             </ContactUsPopupProvider>
