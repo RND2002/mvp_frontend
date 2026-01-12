@@ -22,10 +22,6 @@ interface VerifyOtpResponse {
     token: string
 }
 
-interface ErrorResponse {
-    error: string
-}
-
 export const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         sendOtp: builder.mutation<SendOtpResponse, SendOtpRequest>({

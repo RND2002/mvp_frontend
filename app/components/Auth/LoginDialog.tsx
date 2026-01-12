@@ -1,13 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { useIsMobile } from "@/hooks/use-mobile"
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from "yup"
-import { loginSchema, LoginSchemaType } from "@/app/schema/login/loginSchema"
-import { useRouter } from "next/navigation"
+import { loginSchema, MAIL_PROVIDERS } from "@/app/schema/login/loginSchema"
 import PhoneInputField from "@/app/hooks/usePhoneInput"
 import { Input } from "@/components/ui/input"
 import { Mail, Phone } from "lucide-react"
@@ -15,6 +12,7 @@ import IconLogo from "@/app/assets/icons/create-custom.svg";
 import Image from "next/image";
 import { toast } from "sonner"
 import { useSendOtpMutation } from "@/app/beService/auth-service"
+import * as yup from "yup"
 import {
     Dialog,
     DialogContent,
@@ -29,21 +27,33 @@ interface LoginDialogProps {
     onLoginSuccess?: (phoneOrEmail: string, type: 'phone' | 'email') => void
 }
 
+type LoginSchemaType = yup.InferType<typeof loginSchema>;
+
 
 
 export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDialogProps) {
     // const isMobile = useIsMobile()
-    const router = useRouter()
     const [loginMethod, setLoginMethod] = React.useState<'phone' | 'email'>('email')
     const [emailSent, setEmailSent] = React.useState(false)
-    const { control, handleSubmit, register, reset, getValues, formState: { errors } } = useForm<LoginSchemaType>({
-        resolver: yupResolver(loginSchema) as any,
+
+
+    const {
+        control,
+        handleSubmit,
+        register,
+        reset,
+        getValues,
+        formState: { errors },
+    } = useForm<LoginSchemaType>({
+        resolver: yupResolver(loginSchema),
         defaultValues: {
-            method: 'phone',
+            method: "phone",
             phone: "",
-            email: ""
-        }
-    })
+            email: "",
+        },
+    });
+
+
 
     // Reset form when switching methods
     React.useEffect(() => {
@@ -53,7 +63,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
 
     const [sendOtp, { isLoading }] = useSendOtpMutation()
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: LoginSchemaType) => {
         try {
             const payload = loginMethod === 'phone' ? { phone: data.phone } : { email: data.email }
             const result = await sendOtp(payload).unwrap()
@@ -66,20 +76,35 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                 } else {
                     toast.success('OTP sent successfully')
                     const identifier = data.phone
-                    onLoginSuccess?.(identifier, loginMethod)
+                    onLoginSuccess?.(identifier!, loginMethod)
                 }
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error(error)
-            toast.error(error?.data?.error || "Failed to send OTP")
+            toast.error((error as { data: { error: string } })?.data?.error || "Failed to send OTP")
         }
     }
+
+    const openUserMail = (email: string) => {
+        if (!email) return;
+
+        const domain = email.split("@")[1]?.toLowerCase();
+        const mailUrl = MAIL_PROVIDERS[domain];
+
+        if (mailUrl) {
+            window.open(mailUrl, "_blank");
+        } else {
+            // fallback – open default mail client
+            window.location.href = "mailto:";
+        }
+    }
+
 
     return (
         <Dialog open={open} onOpenChange={(val) => {
             setLoginMethod('email')
-            setOpen(val) 
-            }}>
+            setOpen(val)
+        }}>
             <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-vehicle-card-bg border-vehicle-card-border text-white">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">
@@ -160,14 +185,26 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                             <p className="text-sm text-gray-500">
                                 Click the link in the email to sign in.
                             </p>
-                            <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() => setEmailSent(false)}
-                                className="mt-4 border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
-                            >
-                                Back to login
-                            </Button>
+                            <div className="flex gap-5">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => setEmailSent(false)}
+                                    className="mt-4 border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
+                                >
+                                    Back To Login
+                                </Button>
+
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => openUserMail(getValues('email') ?? '')}
+                                    className="mt-4 border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
+                                >
+                                    Go To Mail
+                                </Button>
+                            </div>
+
                         </div>
                     )}
                 </form>

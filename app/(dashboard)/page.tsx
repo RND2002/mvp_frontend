@@ -2,10 +2,7 @@
 
 import HeroSection from "@/app/components/Landing/HeroSection";
 import FeatureSection from "@/app/components/Landing/FeatureSection";
-import HowItWorksSection from "@/app/components/Landing/HowItWorksSection";
 import TrustSection from "@/app/components/Landing/TrustSection";
-import CTASection from "@/app/components/Landing/CTASection";
-import Footer from "@/app/components/Landing/Footer";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../store/slices/authSlice";
 import { useRouter } from "next/navigation";
