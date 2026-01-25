@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/app/assets/icons/create-custom.svg";
 import DropdownSection from "@/app/components/Navbar/DropdownSection";
+import LocationHeader from "@/app/components/Location/LocationHeader";
 import useStickyNavbar from "@/app/hooks/useStickyNavbar";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -194,13 +195,14 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         </div>
       </div>
       <div className="hidden lg:flex items-center w-full justify-between">
-        <Link href="/" className="flex-shrink-0 mr-12">
+        <Link href="/" className="flex-shrink-0 mr-4">
           <Image
             src={Logo}
             alt="Vroom"
             className="w-48 h-16"
           />
         </Link>
+        <LocationHeader />
         <div className="flex items-center gap-4 ml-auto">
           <Link href="/cart" className="relative h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors">
             <ShoppingCart className="h-5 w-5 text-green-500" />

@@ -126,8 +126,8 @@ export default function ModifyRidePage() {
                                     className={`
                                         px-5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200
                                         ${selectedCategory === cat.id
-                                            ? "bg-brand-primary-500 text-white shadow-lg shadow-brand-primary-500/25 scale-105"
-                                            : "bg-secondary-theme text-zinc-300 border border-transparent hover:border-brand-primary-500/50 hover:text-white"
+                                            ? "bg-theme-green text-theme-white shadow-lg shadow-theme-green/25 scale-105"
+                                            : "bg-secondary-theme text-zinc-300 border border-transparent hover:border-theme-green/50 hover:text-theme-white"
                                         }
                                     `}
                                 >
@@ -168,7 +168,7 @@ export default function ModifyRidePage() {
                         {/* Loading & Status States */}
                         <div className="py-12 flex justify-center w-full">
                             {isFetching && (
-                                <Loader2 className="w-8 h-8 animate-spin text-brand-primary-500" />
+                                <Loader2 className="w-8 h-8 animate-spin text-theme-green" />
                             )}
 
                             {!isFetching && products.length === 0 && (

@@ -78,8 +78,8 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
     return (
         <Dialog open={open} onOpenChange={(val) => {
             setLoginMethod('email')
-            setOpen(val) 
-            }}>
+            setOpen(val)
+        }}>
             <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-vehicle-card-bg border-vehicle-card-border text-white">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">

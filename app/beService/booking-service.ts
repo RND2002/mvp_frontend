@@ -6,6 +6,11 @@ export interface CreateBookingRequest {
     service_mode: string;
     scheduled_at?: string;
     price: number;
+    userLocation?: {
+        lat: number;
+        lng: number;
+        city: string;
+    };
 }
 
 export type BookingStatus = 'requested' | 'garage_assigned' | 'in_progress' | 'completed' | 'cancelled' | 'cancelled_by_user' | 'cancelled_by_garage' | 'work_in_progress' | 'inspection_completed' | 'payment_completed' | 'service_started' | 'garage_accepted';
@@ -53,8 +58,9 @@ export interface Garage {
     id: string;
     name: string;
     address?: string;
-    phone?: string;
-    rating?: number;
+    contact?: string;
+    rating?: string | number;
+    location?: string;
 }
 
 export interface Booking {
@@ -107,12 +113,20 @@ export const bookingApi = baseApi.injectEndpoints({
         }),
         getBookingById: builder.query<{ success: boolean; booking: Booking }, string>({
             query: (id) => ({
-                url: `/booking?id=${id}`,
+                url: `/booking/${id}`,
                 method: 'GET',
             }),
             providesTags: (result, error, id) => [{ type: 'Booking', id }],
         }),
+        updateBookingStatus: builder.mutation<{ success: boolean; booking: Booking }, { booking_id: string; status: BookingStatus; event_type: BookingEventType; meta_data?: any; updates?: any }>({
+            query: (body) => ({
+                url: '/booking',
+                method: 'PATCH',
+                body,
+            }),
+            invalidatesTags: (result, error, { booking_id }) => ['Booking', { type: 'Booking', id: booking_id }],
+        }),
     }),
 });
 
-export const { useCreateBookingMutation, useGetBookingsQuery, useGetBookingByIdQuery } = bookingApi;
+export const { useCreateBookingMutation, useGetBookingsQuery, useGetBookingByIdQuery, useUpdateBookingStatusMutation } = bookingApi;

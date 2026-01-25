@@ -52,6 +52,11 @@
   --radius-4xl: calc(var(--radius) + 16px);
   --color-vehicle-card-bg: var(--vehicle-card-bg);
   --color-vehicle-card-border: var(--vehicle-card-border);
+  --color-status-success: var(--status-success);
+  --color-status-error: var(--status-error);
+  --color-theme-green: var(--theme-green);
+  --color-theme-white: var(--theme-white);
+  --color-theme-red: var(--theme-red);
 }
 
 :root {
@@ -89,6 +94,13 @@
   --sidebar-ring: oklch(0.708 0 0);
   --vehicle-card-bg: oklch(27.8% 0.068 238.6);
   --vehicle-card-border: oklch(44.6% 0.082 238.6);
+  --status-success: var(--theme-green);
+  --status-error: var(--theme-red);
+  --theme-green: oklch(0.623 0.17 149.184);
+  /* Green 500 */
+  --theme-white: oklch(1 0 0);
+  --theme-red: oklch(0.627 0.265 303.9);
+  /* Red 500 */
 }
 
 .dark {
@@ -125,6 +137,12 @@
   --sidebar-ring: oklch(0.556 0 0);
   --vehicle-card-bg: oklch(27.8% 0.068 238.6);
   --vehicle-card-border: oklch(44.6% 0.082 238.6);
+  --status-success: var(--theme-green);
+  --status-error: var(--theme-red);
+  --theme-green: oklch(0.623 0.17 149.184);
+  --theme-white: oklch(0.985 0 0);
+  /* Slightly off-white for dark mode text if preferred, or stick to pure white */
+  --theme-red: oklch(0.627 0.265 303.9);
 }
 
 @layer base {

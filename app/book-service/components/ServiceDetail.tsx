@@ -7,6 +7,7 @@ import { useGetServicesQuery } from "@/app/beService/services-service";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { selectVehicle, Vehicle } from "@/app/store/slices/vehicleSlice";
+import { selectLocation } from "@/app/store/slices/locationSlice";
 import {
     Dialog,
     DialogContent,
@@ -34,6 +35,9 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
     // Redux State
     const { selectedVehicle, vehicles } = useSelector((state: RootState) => state.vehicle);
+    const { lat, lng, city } = useSelector(selectLocation);
+
+    console.log("location", lat, lng, city);
 
     // Queries
     const { data: serviceItemsData, isLoading: isItemsLoading } = useGetServiceItemsQuery(service.id, {
@@ -86,6 +90,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
             service_mode: serviceMode === "location" ? "doorstep" : "pickup_drop", // mapping to enum
             price: basePrice,
             scheduled_at: new Date().toISOString(),
+            userLocation: (lat && lng && city) ? { lat, lng, city } : undefined
         };
 
         onProceed({

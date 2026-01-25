@@ -11,6 +11,8 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
 
     const { data, isLoading, error } = useGetBookingByIdQuery(id, { skip: !id });
     const booking = data?.booking;
+    console.log({ data });
+    console.log("Booking Data:", booking);
 
     if (isLoading) {
         return (
@@ -24,7 +26,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
         return (
             <div className="min-h-screen bg-vehicle-card-bg flex items-center justify-center text-white flex-col">
                 <p className="mb-4">Booking not found or error loading data.</p>
-                <button onClick={() => router.back()} className="ml-4 underline text-primary">Go Back</button>
+                <button onClick={() => router.back()} className="ml-4 underline text-theme-green">Go Back</button>
             </div>
         );
     }
@@ -70,10 +72,10 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
             current: index === currentStepIndex
         })),
         garage: {
-            name: booking.service_center_id ? "Authorized Center" : "Pending Assignment",
-            rating: 4.8,
-            address: "Garaged Location Info",
-            phone: "+91 98765 43210"
+            name: booking.garage?.name || (booking.service_center_id ? "Authorized Center" : "Pending Assignment"),
+            rating: booking.garage?.rating || 4.8,
+            address: booking.garage?.address || "Garage Location Info",
+            phone: booking.garage?.contact || "+91 98765 43210"
         },
         order: {
             id: booking.id,
@@ -118,15 +120,15 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <p className="text-sm text-gray-400 font-medium mb-1">Current Status</p>
-                            <h2 className={`text-2xl font-bold ${isCancelled ? "text-red-500" : "text-primary"}`}>
+                            <h2 className={`text-2xl font-bold ${isCancelled ? "text-theme-red" : "text-theme-green"}`}>
                                 {trackingData.status}
                             </h2>
                         </div>
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${isCancelled ? "bg-red-500/20" : "bg-primary/20 animate-pulse"}`}>
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${isCancelled ? "bg-theme-red/20" : "bg-theme-green/20 animate-pulse"}`}>
                             {isCancelled ? (
-                                <XCircle className="w-6 h-6 text-red-500" />
+                                <XCircle className="w-6 h-6 text-theme-red" />
                             ) : (
-                                <Clock className="w-6 h-6 text-primary" />
+                                <Clock className="w-6 h-6 text-theme-green" />
                             )}
                         </div>
                     </div>
@@ -138,13 +140,13 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
 
                         {trackingData.timeline.map((step, idx) => (
                             <div key={idx} className="flex gap-4 items-start relative z-0">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-4 border-vehicle-card-bg/30 ${step.completed ? "bg-primary text-primary-foreground" :
-                                    step.current ? "bg-primary text-primary-foreground" : "bg-gray-800 text-gray-500"
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-4 border-vehicle-card-bg/30 ${step.completed ? "bg-theme-green text-theme-white" :
+                                    step.current ? "bg-theme-green text-theme-white" : "bg-gray-800 text-gray-500"
                                     }`}>
                                     {step.completed ? <CheckCircle2 className="w-5 h-5" /> : <div className="w-3 h-3 rounded-full bg-current" />}
                                 </div>
                                 <div className="pt-2">
-                                    <h4 className={`text-sm font-bold ${step.completed || step.current ? "text-white" : "text-gray-500"}`}>
+                                    <h4 className={`text-sm font-bold ${step.completed || step.current ? "text-theme-white" : "text-gray-500"}`}>
                                         {step.status}
                                     </h4>
                                     <p className="text-xs text-gray-500">{step.time}</p>
@@ -168,10 +170,16 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                     </div>
 
                     <div className="flex gap-3 mb-4">
-                        <button className="flex-1 py-3 rounded-xl bg-black/20 hover:bg-black/30 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors border border-vehicle-card-border/30">
+                        <button
+                            onClick={() => window.location.href = `tel:${trackingData.garage.phone}`}
+                            className="flex-1 py-3 rounded-xl bg-black/20 hover:bg-black/30 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors border border-vehicle-card-border/30"
+                        >
                             <Phone className="w-4 h-4" /> Call
                         </button>
-                        <button className="flex-1 py-3 rounded-xl bg-black/20 hover:bg-black/30 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors border border-vehicle-card-border/30">
+                        <button
+                            onClick={() => window.open(`https://wa.me/${trackingData.garage.phone.replace(/[^0-9]/g, '')}`, '_blank')}
+                            className="flex-1 py-3 rounded-xl bg-black/20 hover:bg-black/30 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors border border-vehicle-card-border/30"
+                        >
                             <MessageSquare className="w-4 h-4" /> Chat
                         </button>
                     </div>
@@ -196,15 +204,15 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                     <div className="space-y-3 mb-4">
                         {trackingData.services.map((service: string, idx: number) => (
                             <div key={idx} className="flex items-center gap-3">
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></div>
-                                <span className="text-sm text-gray-300">{service}</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-theme-green shrink-0"></div>
+                                <span className="text-sm text-theme-green">{service}</span>
                             </div>
                         ))}
                     </div>
 
                     <div className="pt-4 border-t border-vehicle-card-border flex justify-between items-center">
-                        <span className="font-semibold text-white">Estimated Total</span>
-                        <span className="font-bold text-xl text-primary">{trackingData.totalEstimation}</span>
+                        <span className="font-semibold text-theme-white">Estimated Total</span>
+                        <span className="font-bold text-xl text-theme-green">{trackingData.totalEstimation}</span>
                     </div>
                 </div>
 

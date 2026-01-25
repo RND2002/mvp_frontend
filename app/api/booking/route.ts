@@ -1,5 +1,7 @@
 import { getAuthenticatedUser } from "@/app/lib/auth";
 import { NextResponse } from "next/server";
+import { findNearestGarage } from "@/app/lib/garage/assignment";
+import { transitionBookingStatus } from "@/app/lib/booking/booking-service-server";
 
 export enum BookingStatus {
     Requested = "requested",
@@ -31,6 +33,7 @@ export enum BookingEventType {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
+        console.log("Booking Body:", body);
         const { service_id, vehicle_id, service_mode, scheduled_at, price } = body;
 
         if (!service_id || !vehicle_id || !service_mode) {
@@ -105,8 +108,40 @@ export async function POST(request: Request) {
             console.error("Error creating booking event:", eventError);
         }
 
+        // 4. Trigger Garage Assignment (Immediate)
+        let assignedGarage = null;
+        if (body.userLocation && body.userLocation.lat && body.userLocation.lng && body.userLocation.city) {
+            const { lat, lng, city } = body.userLocation;
+            console.log("User Location:", { lat, lng, city });
+
+            const nearestGarage = await findNearestGarage(
+                supabaseClient,
+                lat,
+                lng,
+                city
+            );
+            console.log("Nearest Garage:", nearestGarage, booking.id);
+
+            if (nearestGarage) {
+                // Assign logic
+                const response = await transitionBookingStatus(
+                    booking.id,
+                    BookingStatus.GarageAssigned,
+                    BookingEventType.GarageAssigned,
+                    nearestGarage.id,
+                    "Auto-assigned based on proximity" //Booking Event description
+                );
+                console.log("Transition Response:", response);
+                assignedGarage = nearestGarage;
+            }
+        }
+
         return NextResponse.json(
-            { success: true, booking },
+            {
+                success: true,
+                booking: { ...booking, garage_id: assignedGarage?.id }, // optimistically return assigned id
+                garage: assignedGarage
+            },
             { status: 201 }
         );
     } catch (err) {
@@ -120,7 +155,6 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
     const vehicle_id = searchParams.get("vehicle_id");
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
@@ -134,32 +168,6 @@ export async function GET(request: Request) {
                 { error: authError || "Unauthorized" },
                 { status: 401 }
             );
-        }
-
-        // Case 1: Fetch Single Booking Detail (by ID)
-        if (id) {
-            const { data: booking, error } = await supabaseClient
-                .from("bookings")
-                .select(`
-                    *,
-                    service:services(
-                        *,
-                        service_items(*),
-                        service_pricing(*)
-                    ),
-                    vehicle:vehicles(*),
-                    items:booking_items(*),
-                    events:booking_events(*)
-                `)
-                .eq("id", id)
-                .single();
-
-            if (error) {
-                console.error("Error fetching booking:", error);
-                return NextResponse.json({ error: error.message }, { status: 500 });
-            }
-
-            return NextResponse.json({ success: true, booking });
         }
 
         // Case 2: Fetch Bookings List (by Vehicle ID)
@@ -181,7 +189,7 @@ export async function GET(request: Request) {
                 return NextResponse.json({ error: error.message }, { status: 500 });
             }
             if (bookings.length > 0) {
-                console.log("First booking items:", JSON.stringify(bookings[0].items, null, 2));
+                // console.log("First booking items:", JSON.stringify(bookings[0].items, null, 2));
             }
             return NextResponse.json({
                 success: true,
@@ -201,6 +209,44 @@ export async function GET(request: Request) {
         console.error("GET Error:", err);
         return NextResponse.json(
             { error: "Internal Server Error" },
+            { status: 500 }
+        );
+    }
+}
+
+export async function PATCH(request: Request) {
+    try {
+        const body = await request.json();
+        const { booking_id, status, event_type, meta_data, updates } = body;
+
+        if (!booking_id || !status || !event_type) {
+            return NextResponse.json(
+                { error: "Missing required fields (booking_id, status, event_type)" },
+                { status: 400 }
+            );
+        }
+
+        const { user, error: authError } = await getAuthenticatedUser();
+        if (authError || !user) {
+            return NextResponse.json(
+                { error: authError || "Unauthorized" },
+                { status: 401 }
+            );
+        }
+
+        const updatedBooking = await transitionBookingStatus(
+            booking_id,
+            status,
+            event_type,
+            meta_data,
+            updates
+        );
+
+        return NextResponse.json({ success: true, booking: updatedBooking });
+    } catch (err: any) {
+        console.error("PATCH Booking Error:", err);
+        return NextResponse.json(
+            { error: err.message || "Internal Server Error" },
             { status: 500 }
         );
     }

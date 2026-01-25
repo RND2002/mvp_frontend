@@ -29,7 +29,7 @@ export default function ServiceHistoryPage() {
         vehicleNumber: b.vehicle?.registration_number || selectedVehicle?.registration_number || "",
         date: new Date(b.created_at).toLocaleDateString(),
         status: "Pending" as any,
-        serviceColor: "text-primary",
+        serviceColor: "text-theme-green",
         rawStatus: b.status,
         bookingIdFull: b.id
     }));

@@ -25,7 +25,7 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     onCardClick
 }) => {
     // Map status to theme colors if needed, or rely on passed classes
-    const statusColor = status === "Pending" ? "text-destructive" : "text-primary";
+    const statusColor = status === "Pending" ? "text-theme-green" : "text-theme-green";
     const activeServiceColor = serviceColor || "text-primary";
 
     return (
@@ -51,7 +51,7 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                         e.stopPropagation();
                         onInvoiceClick?.();
                     }}
-                    className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
+                    className="w-8 h-8 rounded-full bg-theme-green/10 flex items-center justify-center text-theme-green hover:bg-theme-green/20 transition-colors"
                 >
                     <FileText className="w-4 h-4" />
                 </button>
