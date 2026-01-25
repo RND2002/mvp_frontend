@@ -12,6 +12,7 @@ import DesktopFloatingDock from "@/app/components/common/DesktopFloatingDock";
 import { StoreProvider } from "@/app/components/Providers/StoreProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { VehicleInitializer } from "@/app/components/VehicleInitializer";
+import LocationPermissionDialog from "@/app/components/Location/LocationPermissionDialog";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
       >
         <StoreProvider>
           <VehicleInitializer />
+          <LocationPermissionDialog />
           <AlertProvider>
             <ContactUsPopupProvider>
               <MainNavbar navbarData={NAVBAR_DATA} />

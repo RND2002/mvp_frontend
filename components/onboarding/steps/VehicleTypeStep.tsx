@@ -51,14 +51,14 @@ export const VehicleTypeStep = () => {
                     <Card
                         key={option.id}
                         className={cn(
-                            "cursor-pointer hover:border-green-500 transition-all p-6 flex flex-col items-center justify-center gap-4 h-40 w-full bg-vehicle-card-bg border-vehicle-card-border text-white hover:bg-white/5",
+                            "cursor-pointer hover:border-green-500 transition-all p-4 flex flex-col items-center justify-center gap-3 h-32 w-full bg-vehicle-card-bg border-vehicle-card-border text-white hover:bg-white/5",
                             vehicle_type === option.id && "border-green-500 bg-green-500/10",
                             errors.vehicle_type && "border-red-500"
                         )}
                         onClick={() => handleSelect(option.id)}
                     >
                         <option.icon
-                            size={48}
+                            size={40}
                             className={cn(
                                 "transition-colors duration-200",
                                 vehicle_type === option.id ? "text-green-500" : "text-gray-400 group-hover:text-green-400"

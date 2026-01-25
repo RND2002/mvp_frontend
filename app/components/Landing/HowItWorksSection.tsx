@@ -23,7 +23,7 @@ export default function HowItWorksSection() {
     ];
 
     return (
-        <section className="py-24 bg-zinc-950 border-t border-white/5">
+        <section className="py-0 bg-zinc-950 border-t border-white/5">
             <div className="container px-4 md:px-6">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
@@ -34,9 +34,9 @@ export default function HowItWorksSection() {
                     </p>
                 </div>
 
-                <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="relative grid grid-cols-1 md:grid-cols-3 gap-1">
                     {/* Connector Line (Desktop) */}
-                    <div className="hidden md:block absolute top-[2.25rem] left-[16%] right-[16%] h-[2px] bg-gradient-to-r from-gray-800 via-green-900 to-gray-800" />
+                    <div className="hidden md:block absolute top-4 left-[16%] right-[16%] h-[2px] bg-gradient-to-r from-gray-800 via-green-900 to-gray-800" />
 
                     {steps.map((step, index) => (
                         <div key={index} className="relative flex flex-col items-center text-center z-10">

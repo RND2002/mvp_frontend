@@ -175,6 +175,9 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
               className="w-20 h-auto"
             />
           </Link>
+          <div className="scale-75 origin-left -ml-2">
+            <LocationHeader />
+          </div>
         </div>
 
         <div className="flex items-center gap-4">

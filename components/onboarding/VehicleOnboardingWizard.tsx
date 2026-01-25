@@ -71,9 +71,9 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
     };
 
     return (
-        <div className="flex flex-col h-full w-full bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] text-white p-4 md:p-6 max-">
+        <div className="flex flex-col h-full w-full bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] text-white p-4 md:p-6 overflow-hidden">
             {/* Header */}
-            <div className="flex justify-between items-center mb-6 container mx-auto max-w-4xl">
+            <div className="flex justify-between items-center mb-2 container mx-auto max-w-4xl shrink-0">
                 <Button variant="ghost" size="sm" onClick={handleSkip} className="text-muted-foreground">
                     Skip Setup
                 </Button>
@@ -85,7 +85,7 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
             <OnboardingProgress />
 
             {/* Step Content with Animation */}
-            <div className="flex-1 overflow-hidden relative min-h-[300px] container mx-auto max-w-4xl flex flex-col justify-start pt-8">
+            <div className="flex-1 overflow-y-auto relative container mx-auto max-w-4xl flex flex-col justify-start pt-2 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentStep}
@@ -134,7 +134,7 @@ interface VehicleOnboardingWizardProps {
 export const VehicleOnboardingWizard = ({ open, onClose }: VehicleOnboardingWizardProps) => {
     return (
         <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
-            <DialogContent className="flex justify-center items-center max-w-[100vw] max-h-[80vh] w-screen border-none shadow-none bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] text-white p-0 [&>button]:hidden rounded-none flex-col z-[9999]">
+            <DialogContent className="flex justify-center items-center h-screen w-screen max-w-none max-h-none border-none shadow-none bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] text-theme-white p-0 [&>button]:hidden rounded-none flex-col z-[9999]">
                 <OnboardingProvider>
                     <WizardContent onClose={onClose} />
                 </OnboardingProvider>

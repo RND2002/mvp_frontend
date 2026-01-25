@@ -63,7 +63,7 @@ export default function ProductDetailsPage() {
     if (isFetching) {
         return (
             <div className="bg-primary-theme min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-primary-500 text-brand-primary-500"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-theme-green text-theme-green"></div>
             </div>
         );
     }
@@ -140,7 +140,7 @@ export default function ProductDetailsPage() {
                                     <button
                                         key={idx}
                                         onClick={() => setCurrentImageIndex(idx)}
-                                        className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${currentImageIndex === idx ? 'border-brand-primary-500 opacity-100' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                                        className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${currentImageIndex === idx ? 'border-theme-green opacity-100' : 'border-transparent opacity-60 hover:opacity-100'}`}
                                     >
                                         <Image
                                             src={url}
@@ -157,7 +157,7 @@ export default function ProductDetailsPage() {
                     {/* RIGHT: Product Info */}
                     <div className="flex flex-col">
                         <div className="mb-2 flex items-center justify-between">
-                            <span className="px-3 py-1 bg-secondary-theme text-brand-primary-400 text-xs font-bold uppercase rounded-full tracking-wider border border-border-primaryBorder">
+                            <span className="px-3 py-1 bg-secondary-theme text-theme-green text-xs font-bold uppercase rounded-full tracking-wider border border-border-primaryBorder">
                                 {product.category}
                             </span>
                             <button className="p-2 text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-secondary-theme">
@@ -181,12 +181,12 @@ export default function ProductDetailsPage() {
                             {/* Stock Status Badge */}
                             <div className="mb-1.5">
                                 {product.stock_quantity > 0 ? (
-                                    <div className="flex items-center gap-1.5 text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full text-sm font-medium">
+                                    <div className="flex items-center gap-1.5 text-theme-green bg-theme-green/10 px-3 py-1 rounded-full text-sm font-medium">
                                         <CheckCircle className="w-4 h-4" />
                                         In Stock
                                     </div>
                                 ) : (
-                                    <div className="flex items-center gap-1.5 text-red-400 bg-red-500/10 px-3 py-1 rounded-full text-sm font-medium">
+                                    <div className="flex items-center gap-1.5 text-theme-red bg-theme-red/10 px-3 py-1 rounded-full text-sm font-medium">
                                         <AlertCircle className="w-4 h-4" />
                                         Out of Stock
                                     </div>
@@ -196,11 +196,11 @@ export default function ProductDetailsPage() {
 
                         {/* Compatibility */}
                         {selectedVehicle && (
-                            <div className="mb-6 bg-brand-primary-500/10 border border-brand-primary-500/20 rounded-xl p-4 flex items-start gap-3">
-                                <CheckCircle className="w-5 h-5 text-brand-primary-400 flex-shrink-0 mt-0.5" />
+                            <div className="mb-6 bg-theme-green/10 border border-theme-green/20 rounded-xl p-4 flex items-start gap-3">
+                                <CheckCircle className="w-5 h-5 text-theme-green flex-shrink-0 mt-0.5" />
                                 <div>
-                                    <h4 className="text-brand-primary-100 font-medium text-sm">Compatible with your vehicle</h4>
-                                    <p className="text-brand-primary-200/80 text-xs mt-1">
+                                    <h4 className="text-theme-white font-medium text-sm">Compatible with your vehicle</h4>
+                                    <p className="text-theme-white/80 text-xs mt-1">
                                         Verified fit for {selectedVehicle.brand} {selectedVehicle.model}
                                     </p>
                                 </div>
@@ -210,10 +210,10 @@ export default function ProductDetailsPage() {
                         {/* Installation Awareness */}
                         {product.requires_installation && (
                             <div className="mb-8 bg-zinc-900 border border-secondary-theme rounded-xl p-5 relative overflow-hidden group">
-                                <div className="absolute right-0 top-0 w-24 h-24 bg-brand-primary-500/10 rounded-bl-full -mr-4 -mt-4 z-0" />
+                                <div className="absolute right-0 top-0 w-24 h-24 bg-theme-green/10 rounded-bl-full -mr-4 -mt-4 z-0" />
 
                                 <div className="relative z-10 flex items-start gap-3">
-                                    <div className="p-2.5 bg-secondary-theme rounded-lg text-brand-primary-400 shrink-0">
+                                    <div className="p-2.5 bg-secondary-theme rounded-lg text-theme-green shrink-0">
                                         <Wrench className="w-6 h-6" />
                                     </div>
                                     <div>
@@ -268,9 +268,9 @@ export default function ProductDetailsPage() {
                                 onClick={handleAddToCart}
                                 disabled={product.stock_quantity === 0 || isAddingToCart}
                                 className={`
-                                    flex-1 sm:flex-none py-3 px-4 sm:px-8 rounded-xl font-bold text-white text-sm sm:text-base shadow-lg shadow-brand-primary-500/25 transition-all active:scale-95 flex items-center justify-center gap-2
+                                    flex-1 sm:flex-none py-3 px-4 sm:px-8 rounded-xl font-bold text-theme-white text-sm sm:text-base shadow-lg shadow-theme-green/25 transition-all active:scale-95 flex items-center justify-center gap-2
                                     ${product.stock_quantity > 0 && !isAddingToCart
-                                        ? 'bg-brand-primary-500 hover:bg-brand-primary-600'
+                                        ? 'bg-theme-green hover:bg-theme-green/80'
                                         : 'bg-zinc-700 cursor-not-allowed text-zinc-400 shadow-none'
                                     }
                                 `}

@@ -196,7 +196,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                     <div className="flex justify-between items-center mb-4 pb-4 border-b border-vehicle-card-border">
                         <span className="text-gray-400 text-sm">Vehicle</span>
                         <div className="text-right">
-                            <div className="font-bold text-white">{trackingData.vehicle.name}</div>
+                            <div className="font-bold text-white">{trackingData.vehicle.name.toUpperCase()}</div>
                             <div className="text-xs text-gray-400">{trackingData.vehicle.reg}</div>
                         </div>
                     </div>

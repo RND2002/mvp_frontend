@@ -84,13 +84,23 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
     const handleProceed = () => {
         if (!serviceMode || !selectedVehicle) return;
 
+        // Validate Location
+        if (lat === null || lng === null) {
+            toast.error("Location missing. Please enable location permissions.");
+            return;
+        }
+
         const bookingData = {
             service_id: service.id,
             vehicle_id: selectedVehicle.id,
             service_mode: serviceMode === "location" ? "doorstep" : "pickup_drop", // mapping to enum
             price: basePrice,
             scheduled_at: new Date().toISOString(),
-            userLocation: (lat && lng && city) ? { lat, lng, city } : undefined
+            userLocation: {
+                lat,
+                lng,
+                city: city || "Unknown"
+            }
         };
 
         onProceed({
@@ -110,7 +120,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
     return (
         <>
-            <div className="min-h-screen pb-32 md:pb-48 animate-slide-up">
+            <div className="min-h-screen pb-64 md:pb-64 animate-slide-up">
                 {/* Section 1: Service Header */}
                 <div className="relative w-full h-64 md:h-80">
                     <Image
@@ -275,8 +285,8 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                     <Button
                         onClick={handleProceed}
                         disabled={!serviceMode || !selectedVehicle}
-                        className={`w-full py-4 rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-2 ${serviceMode && selectedVehicle
-                            ? "bg-green-600 text-white hover:bg-green-700 shadow-green-900/20"
+                        className={`w-full py-6 rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-2 ${serviceMode && selectedVehicle
+                            ? "bg-theme-green text-theme-white hover:bg-theme-green/90 shadow-theme-green/20"
                             : "bg-slate-700 text-slate-400 cursor-not-allowed"
                             }`}
                     >

@@ -7,7 +7,7 @@ export const OnboardingProgress = () => {
     const { currentStep, totalSteps } = useOnboarding();
 
     return (
-        <div className="flex items-center justify-center w-full max-w-sm mx-auto mb-8">
+        <div className="flex items-center justify-center w-full max-w-sm mx-auto mb-2">
             {Array.from({ length: totalSteps }).map((_, index) => {
                 const stepNumber = index + 1;
                 const isCompleted = stepNumber < currentStep;
