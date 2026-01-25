@@ -1,4 +1,3 @@
-import React from 'react';
 import Hero from '@/app/components/Hero/index';
 import heroData from '@/app/json/upgrade.json';
 import categoryData from '@/app/json/services.json';

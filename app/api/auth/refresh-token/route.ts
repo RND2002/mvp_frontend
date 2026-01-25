@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import supabase from '@/app/api/supabaseClient'
 import { cookies } from 'next/headers'
 
-export async function POST(request: Request) {
+export async function POST() {
     try {
         const cookieStore = await cookies()
         const refreshToken = cookieStore.get('sb_refresh_token')

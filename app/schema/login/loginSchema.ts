@@ -1,22 +1,40 @@
-import * as yup from "yup"
+import * as yup from "yup";
 
 export const loginSchema = yup.object({
-    method: yup.string().oneOf(['phone', 'email']).required(),
-    phone: yup.string().when('method', {
-        is: 'phone',
-        then: (schema) => schema.required("Phone number is required"),
-        otherwise: (schema) => schema.optional()
+  method: yup
+    .mixed<"phone" | "email">()
+    .oneOf(["phone", "email"])
+    .required(),
+
+  phone: yup
+    .string()
+    .defined() 
+    .transform((value) => (value === "" ? undefined : value))
+    .when("method", {
+      is: "phone",
+      then: (schema) => schema.required("Phone number is required"),
+      otherwise: (schema) => schema.optional(),
     }),
-    email: yup.string().when('method', {
-        is: 'email',
-        then: (schema) => schema.email("Invalid email").required("Email is required"),
-        otherwise: (schema) => schema.optional()
+
+  email: yup
+    .string()
+    .defined() 
+    .transform((value) => (value === "" ? undefined : value))
+    .when("method", {
+      is: "email",
+      then: (schema) =>
+        schema.email("Invalid email").required("Email is required"),
+      otherwise: (schema) => schema.optional(),
     }),
 });
 
-type InferredType = yup.InferType<typeof loginSchema>;
-
-// Force keys to be required (though values can be undefined) to match useForm/Control behavior
-export type LoginSchemaType = {
-    [K in keyof InferredType]-?: InferredType[K]
+export const MAIL_PROVIDERS: Record<string, string> = {
+  "gmail.com": "https://mail.google.com",
+  "yahoo.com": "https://mail.yahoo.com",
+  "outlook.com": "https://outlook.live.com/mail",
+  "hotmail.com": "https://outlook.live.com/mail",
+  "icloud.com": "https://www.icloud.com/mail",
+  "proton.me": "https://mail.proton.me",
+  "protonmail.com": "https://mail.proton.me",
+  "yopmail.com": "https://yopmail.com",
 };
