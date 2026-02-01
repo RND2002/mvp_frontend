@@ -1,5 +1,5 @@
-import { getAuthenticatedUser } from "@/app/lib/auth";
 import { NextResponse } from "next/server";
+import { backend } from "@/app/lib/backend-client";
 
 export async function GET(
     request: Request,
@@ -8,34 +8,15 @@ export async function GET(
     const { id } = await params;
 
     try {
-        const { user, supabaseClient, error: authError } = await getAuthenticatedUser();
+        const res = await backend.get(`/orders/${id}`);
 
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        if (!res.success) {
+            return NextResponse.json({ error: res.error }, { status: res.status || 404 });
         }
 
-        const { data: order, error } = await supabaseClient
-            .from("orders")
-            .select(`
-                *,
-                order_items (
-                    *,
-                    product:products(*)
-                ),
-                order_fulfillments (
-                    *
-                )
-            `)
-            .eq("id", id)
-            .eq("user_id", user.id)
-            .single();
-
-        if (error) {
-            return NextResponse.json({ error: error.message }, { status: 404 });
-        }
-
-        return NextResponse.json({ success: true, order });
+        return NextResponse.json(res);
     } catch (err: any) {
-        return NextResponse.json({ error: err.message }, { status: 500 });
+        console.error("GET Order Detail Error:", err);
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

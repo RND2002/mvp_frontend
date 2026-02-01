@@ -18,12 +18,23 @@ interface ProductCardProps {
     product: Product;
 }
 
+const isValidUrl = (url: string) => {
+    if (!url) return false;
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        // Handle relative paths or invalid strings
+        return url.startsWith('/') || url.startsWith('http');
+    }
+};
+
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
         <Link href={`/product/${product.id}`} className="group relative w-full h-full bg-primaryCard rounded-xl border border-secondary-theme hover:border-theme-green/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col block">
             {/* Image Container */}
             <div className="relative w-full aspect-[4/3] bg-secondary-theme overflow-hidden">
-                {product.image_urls && product.image_urls.length > 0 ? (
+                {product.image_urls && product.image_urls.length > 0 && isValidUrl(product.image_urls[0]) ? (
                     <Image
                         src={product.image_urls[0]}
                         alt={product.name}
@@ -31,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                 ) : (
-                    <div className="flex items-center justify-center w-full h-full text-zinc-500 text-xs">
+                    <div className="flex items-center justify-center w-full h-full text-zinc-500 text-xs bg-zinc-900/50">
                         No Image
                     </div>
                 )}

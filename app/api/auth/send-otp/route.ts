@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import supabase from "@/app/api/supabaseClient"
+import { backend } from '@/app/lib/backend-client'
 
 export async function POST(request: Request) {
     try {
@@ -10,30 +10,15 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Phone number or Email required' }, { status: 400 })
         }
 
-        const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+        const res = await backend.post('/auth/otp', { phone, email })
 
-        let error;
-        if (email) {
-            const { error: err } = await supabase.auth.signInWithOtp({
-                email,
-                options: {
-                    emailRedirectTo: `${origin}/auth/callback`,
-                }
-            })
-            error = err;
-        } else {
-            const { error: err } = await supabase.auth.signInWithOtp({
-                phone,
-            })
-            error = err;
-        }
-
-        if (error) {
-            return NextResponse.json({ error: error.message }, { status: 400 })
+        if (!res.success) {
+            return NextResponse.json({ error: res.error }, { status: 400 })
         }
 
         return NextResponse.json({ success: true }, { status: 200 })
     } catch (error) {
+        console.error('Send OTP Error:', error)
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
     }
 }

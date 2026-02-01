@@ -1,64 +1,29 @@
 import { NextResponse } from "next/server";
-import { findNearestGarage } from "@/app/lib/garage/assignment";
-import { getAuthenticatedUser } from "@/app/lib/auth";
-import { BookingStatus, BookingEventType } from "@/app/api/booking/route";
+import { backend } from "@/app/lib/backend-client";
 
 export async function POST(request: Request) {
     try {
-        const { userLat, userLng, city, bookingId } = await request.json();
-
+        const body = await request.json();
+        const { userLat, userLng, city, bookingId } = body;
 
         if (!userLat || !userLng || !city) {
-            return NextResponse.json(
-                { error: "Missing location data (lat, lng, city)" },
-                { status: 400 }
-            );
+            return NextResponse.json({ error: "Missing location data" }, { status: 400 });
         }
 
-        // Optional: Auth check
-        const { supabaseClient } = await getAuthenticatedUser();
-        // We might allow system calls (cron) later without user session? 
-        // For now, if called from frontend, user likely exists.
-
-        const nearestGarage = await findNearestGarage(
-            supabaseClient,
-            userLat,
-            userLng,
-            city
-        );
-
-        if (!nearestGarage) {
-            return NextResponse.json(
-                { success: false, message: "No available garages found in this city." },
-                { status: 404 }
-            );
-        }
-
-        // If bookingId is provided, perform the actual assignment in DB
-        // i.e., update booking with garage_id using the robust service
-        if (bookingId) {
-            const { transitionBookingStatus } = await import("@/app/lib/booking/booking-service-server");
-
-            await transitionBookingStatus(
-                bookingId,
-                BookingStatus.GarageAssigned,
-                BookingEventType.GarageAssigned,
-                nearestGarage.id,
-                "Auto-assigned based on proximity" //Booking Event description
-            );
-        }
-
-        return NextResponse.json({
-            success: true,
-            assigned: true,
-            garage: nearestGarage
+        const res = await backend.post("/garages/assign", {
+            lat: userLat,
+            lng: userLng,
+            city,
+            bookingId
         });
 
+        if (!res.success) {
+            return NextResponse.json({ error: res.error }, { status: res.status || 500 });
+        }
+
+        return NextResponse.json(res);
     } catch (err: any) {
         console.error("Assignment API Error:", err);
-        return NextResponse.json(
-            { error: "Internal Server Error" },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
