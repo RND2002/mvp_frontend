@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
 import { backend } from '@/app/lib/backend-client'
 
-export async function POST(request: Request) {
+export async function GET() {
     try {
-        const body = await request.json()
-        const res = await backend.post('/users', body)
+        const res = await backend.get('/users/me')
 
         if (!res.success) {
             return NextResponse.json({ error: res.error }, { status: res.status || 500 })
@@ -12,7 +11,7 @@ export async function POST(request: Request) {
 
         return NextResponse.json(res)
     } catch (error) {
-        console.error('POST User Error:', error)
+        console.error('GET Users/Me Error:', error)
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
     }
 }
