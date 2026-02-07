@@ -40,6 +40,11 @@ export const VehicleTypeStep = () => {
             id: VEHICLE_TYPE.HEAVY_VEHICLE,
             label: "Heavy Vehicle",
             icon: Truck,
+        },
+        {
+            id: VEHICLE_TYPE.FOUR_WHEELER,
+            label: "Four Wheeler",
+            icon: Car,
         }
     ];
 

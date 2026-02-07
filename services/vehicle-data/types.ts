@@ -1,4 +1,6 @@
-export type VehicleType = 'two_wheeler' | 'three_wheeler' | 'sedan' | 'xuv_suv' | 'heavy_vehicle';
+import { VEHICLE_TYPE } from "@/app/beService/vehicle-service";
+
+export type VehicleType = VEHICLE_TYPE;
 
 export interface Brand {
     id: string;

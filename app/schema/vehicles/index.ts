@@ -1,7 +1,8 @@
 import * as yup from 'yup';
+import { VEHICLE_TYPE } from '@/app/beService/vehicle-service';
 
 export const vehicleSchema = yup.object({
-    vehicle_type: yup.string().oneOf(['two_wheeler', 'three_wheeler', 'sedan', 'xuv_suv', 'heavy_vehicle']).required('Vehicle type is required'),
+    vehicle_type: yup.mixed<VEHICLE_TYPE>().oneOf(Object.values(VEHICLE_TYPE)).required('Vehicle type is required'),
     brand: yup.string().required('Brand is required'),
     model: yup.string().required('Model is required'),
     year: yup
