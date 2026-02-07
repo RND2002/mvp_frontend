@@ -1,6 +1,6 @@
 "use client";
 
-import { VehicleHealthCard } from "@/app/components/Dashboard/VehicleHealthCard";
+import { HealthDashboard } from "@/app/components/Health/HealthDashboard";
 import myVehicleData from "@/app/json/my-vehicle.json";
 import productData from "@/app/json/product-data.json";
 import ConsultantCategorySection from "../components/common/CategoryCards";
@@ -38,7 +38,7 @@ function DashboardContent() {
                 {/* <QuickActions /> */}
 
                 <div className="mb-6">
-                    <VehicleHealthCard />
+                    <HealthDashboard />
                 </div>
 
             </div>

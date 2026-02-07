@@ -10,7 +10,7 @@ export interface ServiceItem {
 
 export const serviceItemsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getServiceItems: builder.query<{ success: boolean; serviceItems: ServiceItem[] }, string>({
+        getServiceItems: builder.query<{ success: boolean; items: ServiceItem[] }, string>({
             query: (serviceId) => ({
                 url: `/service-items`,
                 method: 'GET',

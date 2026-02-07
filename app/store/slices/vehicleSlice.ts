@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { VEHICLE_TYPE } from '@/app/beService/vehicle-service';
 
 export interface Vehicle {
     id: string;
-    vehicle_type: 'two_wheeler' | 'three_wheeler' | 'four_wheeler' | 'xuv_suv' | 'heavy_vehicle';
+    vehicle_type: VEHICLE_TYPE;
     brand: string;
     model: string;
     year: number;
