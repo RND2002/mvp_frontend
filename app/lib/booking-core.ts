@@ -1,5 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { BookingEventType, BookingStatus } from "../api/booking/route";
+import { BookingEventType, BookingStatus } from "@/app/beService/booking-service";
 
 export interface CreateBookingParams {
     userId: string;

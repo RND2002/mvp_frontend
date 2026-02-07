@@ -13,8 +13,33 @@ export interface CreateBookingRequest {
     };
 }
 
-export type BookingStatus = 'requested' | 'garage_assigned' | 'in_progress' | 'completed' | 'cancelled' | 'cancelled_by_user' | 'cancelled_by_garage' | 'work_in_progress' | 'inspection_completed' | 'payment_completed' | 'service_started' | 'garage_accepted';
-export type BookingEventType = 'booking_created' | 'garage_assigned' | 'garage_accepted' | 'service_started' | 'inspection_completed' | 'work_in_progress' | 'service_completed' | 'payment_completed' | 'cancelled_by_user' | 'cancelled_by_garage';
+export enum BookingStatus {
+    Requested = 'requested',
+    GarageAssigned = 'garage_assigned',
+    InProgress = 'in_progress',
+    Completed = 'completed',
+    Cancelled = 'cancelled',
+    CancelledByUser = 'cancelled_by_user',
+    CancelledByGarage = 'cancelled_by_garage',
+    WorkInProgress = 'work_in_progress',
+    InspectionCompleted = 'inspection_completed',
+    PaymentCompleted = 'payment_completed',
+    ServiceStarted = 'service_started',
+    GarageAccepted = 'garage_accepted'
+}
+
+export enum BookingEventType {
+    BookingCreated = 'booking_created',
+    GarageAssigned = 'garage_assigned',
+    GarageAccepted = 'garage_accepted',
+    ServiceStarted = 'service_started',
+    InspectionCompleted = 'inspection_completed',
+    WorkInProgress = 'work_in_progress',
+    ServiceCompleted = 'service_completed',
+    PaymentCompleted = 'payment_completed',
+    CancelledByUser = 'cancelled_by_user',
+    CancelledByGarage = 'cancelled_by_garage'
+}
 
 export interface Vehicle {
     id: string;

@@ -1,4 +1,4 @@
-import { BookingEventType, BookingStatus } from "@/app/api/booking/route";
+import { BookingEventType, BookingStatus } from "@/app/beService/booking-service";
 import { supabaseService } from "@/app/api/supabaseServiceClient";
 
 /**
