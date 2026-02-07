@@ -45,7 +45,9 @@ export default function RootLayout({
           <AlertProvider>
             <ContactUsPopupProvider>
               <MainNavbar navbarData={NAVBAR_DATA} />
-              {children}
+              <main className="pb-24 md:pb-0">
+                {children}
+              </main>
               <MobileBottomNav />
               <DesktopFloatingDock />
               <Toaster position="bottom-right" richColors />

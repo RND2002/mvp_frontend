@@ -1,8 +1,13 @@
+"use client"
+
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Star, Info, Check, MapPin, Truck, Loader2, Car } from "lucide-react";
+import { ArrowLeft, Star, Info, Check, MapPin, Truck, Loader2, Car, Sparkles, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useGetServiceItemsQuery } from "@/app/beService/service-items";
 import { useGetServicesQuery } from "@/app/beService/services-service";
+import { VroomButton } from "../../components/common/VroomButton";
+import { ServiceIncludes } from "./ServiceIncludes";
+import { cn } from "@/lib/utils";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
@@ -52,7 +57,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
     // Derived State
     // Filter items client-side since API returns all items for the service
-    const rawServiceItems = serviceItemsData?.serviceItems || [];
+    const rawServiceItems = serviceItemsData?.items || [];
     const serviceItems = rawServiceItems.filter((item: any) =>
         !item.vehicle_type ||
         (selectedVehicle && item.vehicle_type === selectedVehicle.vehicle_type)
@@ -152,125 +157,105 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                 <div className="px-4 max-w-4xl mx-auto space-y-8 -mt-4 relative z-10">
 
                     {/* Section 2: Vehicle Context */}
-                    <div className="bg-[#1A2C35] rounded-xl p-4 border border-slate-700 flex justify-between items-center shadow-lg">
+                    <div className="bg-vehicle-card-bg rounded-3xl p-5 border border-vehicle-card-border flex justify-between items-center shadow-lg group">
                         {selectedVehicle ? (
-                            <div>
-                                <div className="text-white font-bold text-lg">
-                                    {selectedVehicle.brand} {selectedVehicle.model}
-                                    <span className="text-slate-400 font-normal ml-2 text-sm">· {selectedVehicle.fuel_type}</span>
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
+                                    <Car className="w-6 h-6 text-gray-400 group-hover:text-theme-green transition-colors" />
                                 </div>
-                                <div className="text-slate-400 text-sm mt-0.5">{selectedVehicle.registration_number || "No Reg Data"}</div>
+                                <div>
+                                    <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-0.5">Selected Vehicle</p>
+                                    <div className="flex items-center gap-2">
+                                        <h3 className="text-sm font-black text-white">
+                                            {selectedVehicle.brand.toUpperCase()} {selectedVehicle.model.toUpperCase()}
+                                        </h3>
+                                        <span className="w-1 h-1 rounded-full bg-gray-600"></span>
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase">{selectedVehicle.fuel_type}</span>
+                                    </div>
+                                    <div className="text-gray-500 text-[10px] font-medium mt-0.5">{selectedVehicle.registration_number || "NO REG DATA"}</div>
+                                </div>
                             </div>
                         ) : (
-                            <div>
-                                <div className="text-white font-bold text-lg">No Vehicle Selected</div>
-                                <div className="text-slate-400 text-sm mt-0.5">Please select a vehicle</div>
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
+                                    <Car className="w-6 h-6 text-gray-600" />
+                                </div>
+                                <div>
+                                    <h3 className="text-sm font-black text-gray-400">No Vehicle Selected</h3>
+                                    <p className="text-xs text-gray-600">Please select a vehicle in profile</p>
+                                </div>
                             </div>
                         )}
-
-                        {/* <Dialog open={isVehicleDialogOpen} onOpenChange={setIsVehicleDialogOpen}>
-                            <DialogTrigger asChild>
-                                <button className="text-green-500 text-sm font-semibold hover:text-green-400">
-                                    Change
-                                </button>
-                            </DialogTrigger>
-                            <DialogContent className="bg-[#0D212C] border-slate-700 text-white w-[90%] rounded-2xl">
-                                <DialogHeader>
-                                    <DialogTitle>Select Vehicle</DialogTitle>
-                                </DialogHeader>
-                                <div className="space-y-3 mt-4">
-                                    {vehicles.map((v) => (
-                                        <div
-                                            key={v.id}
-                                            onClick={() => handleVehicleSelect(v)}
-                                            className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${selectedVehicle?.id === v.id
-                                                ? "bg-green-900/20 border-green-500"
-                                                : "bg-[#1A2C35] border-transparent hover:bg-[#233842]"
-                                                }`}
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center">
-                                                    <Car className="w-5 h-5 text-slate-400" />
-                                                </div>
-                                                <div>
-                                                    <div className="font-bold text-sm text-white">{v.brand} {v.model}</div>
-                                                    <div className="text-xs text-slate-400">{v.registration_number}</div>
-                                                </div>
-                                            </div>
-                                            {selectedVehicle?.id === v.id && <Check className="w-5 h-5 text-green-500" />}
-                                        </div>
-                                    ))}
-                                    {vehicles.length === 0 && (
-                                        <p className="text-slate-400 text-center py-4">No vehicles found. Please add a vehicle in your profile.</p>
-                                    )}
-                                </div>
-                            </DialogContent>
-                        </Dialog> */}
                     </div>
 
                     {/* Section 3: Price Transparency */}
-                    <div className="bg-[#1A2C35] rounded-xl p-6 border border-slate-700">
-                        <div className="flex justify-between items-start mb-2">
-                            <span className="text-slate-400 font-medium text-sm flex items-center gap-1">
-                                Estimated Price <Info className="w-4 h-4 text-slate-500" />
-                            </span>
-                            {isServicesLoading && <Loader2 className="w-4 h-4 animate-spin text-green-500" />}
+                    <div className="bg-vehicle-card-bg rounded-3xl p-6 border border-vehicle-card-border shadow-xl relative overflow-hidden">
+                        <div className="relative z-10">
+                            <div className="flex justify-between items-start mb-3">
+                                <span className="text-gray-500 font-black text-[10px] uppercase tracking-widest flex items-center gap-1.5">
+                                    Estimated Price <Info className="w-3.5 h-3.5 text-gray-700" />
+                                </span>
+                                {isServicesLoading && <Loader2 className="w-4 h-4 animate-spin text-theme-green" />}
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-4xl font-black text-white">₹{estimatedPriceMin}</span>
+                                <span className="text-gray-500 font-bold text-lg"> – ₹{estimatedPriceMax}</span>
+                            </div>
+                            <p className="text-gray-600 text-[10px] font-medium mt-3 leading-relaxed">
+                                Final price confirmed after inspection. Base price for {selectedVehicle?.vehicle_type?.replace("_", " ") || "vehicle"}.
+                            </p>
                         </div>
-                        <div className="text-3xl font-bold text-white mb-1">
-                            ₹{estimatedPriceMin} – ₹{estimatedPriceMax}
-                        </div>
-                        <p className="text-slate-400 text-xs text-wrap break-words">Final price confirmed after inspection. Base price for {selectedVehicle?.vehicle_type?.replace("_", " ") || "vehicle"}.</p>
+                        {/* Subtle glow */}
+                        <div className="absolute bottom-0 right-0 w-24 h-24 bg-theme-green/5 rounded-full blur-2xl -mr-12 -mb-12"></div>
                     </div>
 
                     {/* Section 5: Service Includes */}
-                    <div>
-                        <h3 className="text-white font-bold text-lg mb-4">Service Includes</h3>
-                        <div className="bg-[#1A2C35] rounded-xl p-6 border border-slate-700">
-                            {isItemsLoading ? (
-                                <div className="flex justify-center py-6">
-                                    <Loader2 className="h-6 w-6 animate-spin text-green-500" />
-                                </div>
-                            ) : serviceItems.length > 0 ? (
-                                <ul className="space-y-4">
-                                    {serviceItems.map((item: any, idx: number) => (
-                                        <li key={item.id || idx} className="flex items-start gap-3">
-                                            <div className="w-5 h-5 rounded-full bg-green-900/40 flex items-center justify-center shrink-0 mt-0.5">
-                                                <Check className="w-3.5 h-3.5 text-green-400" />
-                                            </div>
-                                            <span className="text-slate-300 text-sm font-medium">{item.title}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p className="text-slate-400 text-sm">No specific items listed for this service.</p>
-                            )}
-                        </div>
-                    </div>
+                    <ServiceIncludes
+                        items={serviceItems}
+                        isLoading={isItemsLoading}
+                    />
 
-                    {/* Section 6: User Choice (Mandatory) */}
+                    {/* Section 6: User Choice (Service Mode) */}
                     <div>
-                        <h3 className="text-white font-bold text-lg mb-4">Service Mode</h3>
+                        <h3 className="text-white font-black text-lg mb-4 flex items-center gap-2">
+                            <Truck className="w-5 h-5 text-theme-green" />
+                            Service Mode
+                        </h3>
                         <div className="grid grid-cols-2 gap-4">
                             <button
                                 onClick={() => setServiceMode("location")}
-                                className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all ${serviceMode === "location"
-                                    ? "bg-green-600/20 border-green-500 text-white"
-                                    : "bg-[#1A2C35] border-transparent text-slate-400 hover:bg-[#233842]"
-                                    }`}
+                                className={cn(
+                                    "p-6 rounded-3xl border-2 flex flex-col items-center gap-3 transition-all duration-300",
+                                    serviceMode === "location"
+                                        ? "bg-theme-green/10 border-theme-green text-white shadow-[0_0_20px_rgba(34,197,94,0.1)] scale-[1.02]"
+                                        : "bg-vehicle-card-bg border-vehicle-card-border text-gray-500 hover:border-gray-700"
+                                )}
                             >
-                                <MapPin className={`w-6 h-6 ${serviceMode === "location" ? "text-green-500" : "text-slate-500"}`} />
-                                <span className="text-sm font-bold">At my location</span>
+                                <div className={cn(
+                                    "w-12 h-12 rounded-2xl flex items-center justify-center transition-colors",
+                                    serviceMode === "location" ? "bg-theme-green/20" : "bg-white/5"
+                                )}>
+                                    <MapPin className={cn("w-6 h-6", serviceMode === "location" ? "text-theme-green" : "text-gray-600")} />
+                                </div>
+                                <span className="text-sm font-black uppercase tracking-wider text-center">At my location</span>
                             </button>
 
                             <button
                                 onClick={() => setServiceMode("pickup")}
-                                className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all ${serviceMode === "pickup"
-                                    ? "bg-green-600/20 border-green-500 text-white"
-                                    : "bg-[#1A2C35] border-transparent text-slate-400 hover:bg-[#233842]"
-                                    }`}
+                                className={cn(
+                                    "p-6 rounded-3xl border-2 flex flex-col items-center gap-3 transition-all duration-300",
+                                    serviceMode === "pickup"
+                                        ? "bg-theme-green/10 border-theme-green text-white shadow-[0_0_20px_rgba(34,197,94,0.1)] scale-[1.02]"
+                                        : "bg-vehicle-card-bg border-vehicle-card-border text-gray-500 hover:border-gray-700"
+                                )}
                             >
-                                <Truck className={`w-6 h-6 ${serviceMode === "pickup" ? "text-green-500" : "text-slate-500"}`} />
-                                <span className="text-sm font-bold">Pickup & Drop</span>
+                                <div className={cn(
+                                    "w-12 h-12 rounded-2xl flex items-center justify-center transition-colors",
+                                    serviceMode === "pickup" ? "bg-theme-green/20" : "bg-white/5"
+                                )}>
+                                    <Truck className={cn("w-6 h-6", serviceMode === "pickup" ? "text-theme-green" : "text-gray-600")} />
+                                </div>
+                                <span className="text-sm font-black uppercase tracking-wider text-center">Pickup & Drop</span>
                             </button>
                         </div>
                     </div>
@@ -280,18 +265,23 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
             </div>
 
             {/* Section 7: Sticky Bottom CTA */}
-            <div className="fixed bottom-[80px] md:bottom-24 left-0 right-0 p-4 bg-gradient-to-t from-[#091A23] via-[#091A23] to-transparent z-[50] md:bg-[#091A23] md:border-t md:border-slate-800 md:rounded-t-2xl md:max-w-4xl md:mx-auto">
+            <div className="fixed bottom-[80px] md:bottom-24 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/90 to-transparent z-[50] md:max-w-4xl md:mx-auto">
                 <div className="max-w-4xl mx-auto">
-                    <Button
+                    <VroomButton
                         onClick={handleProceed}
                         disabled={!serviceMode || !selectedVehicle}
-                        className={`w-full py-6 rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-2 ${serviceMode && selectedVehicle
-                            ? "bg-theme-green text-theme-white hover:bg-theme-green/90 shadow-theme-green/20"
-                            : "bg-slate-700 text-slate-400 cursor-not-allowed"
-                            }`}
+                        size="lg"
+                        className="w-full h-16 rounded-3xl text-xl shadow-[0_8px_30px_rgba(34,197,94,0.3)]"
+                        icon={<ChevronRight className="w-6 h-6" />}
                     >
-                        {serviceMode ? `Proceed · Est. ₹${estimatedPriceMin}` : "Select Service Mode"}
-                    </Button>
+                        {serviceMode ? (
+                            <div className="flex items-center gap-2">
+                                <span>Proceed</span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-black/30"></span>
+                                <span className="opacity-80 font-medium whitespace-nowrap">Est. ₹{estimatedPriceMin}</span>
+                            </div>
+                        ) : "Select Service Mode"}
+                    </VroomButton>
                 </div>
             </div>
         </>

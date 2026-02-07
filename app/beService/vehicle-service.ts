@@ -7,7 +7,8 @@ export enum VEHICLE_TYPE {
     THREE_WHEELER = "three_wheeler",
     SEDAN = "sedan",
     XUV_SUV = "xuv_suv",
-    HEAVY_VEHICLE = "heavy_vehicle"
+    HEAVY_VEHICLE = "heavy_vehicle",
+    FOUR_WHEELER = "four_wheeler"
 }
 
 export enum FUEL_TYPE {

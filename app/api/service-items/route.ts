@@ -10,7 +10,8 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: "Missing service_id" }, { status: 400 });
         }
 
-        const res = await backend.get(`/vehicle-service-items?service_id=${serviceId}`);
+        const res = await backend.get(`/services/${serviceId}/items`);
+        // console.log(res);
 
         if (!res.success) {
             return NextResponse.json({ error: res.error }, { status: res.status || 500 });

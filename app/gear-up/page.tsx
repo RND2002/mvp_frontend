@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import { useSelector } from "react-redux";
 import { selectSelectedVehicle } from "../store/slices/vehicleSlice";
 import { Loader2 } from "lucide-react";
+import { PillFilters } from "../components/common/PillFilters";
 
 // Hardcoded categories as requested, acting as the "Amazon-style" filter strip.
 // In a real scenario, these might also be fetched from an API.
@@ -118,23 +119,12 @@ export default function ModifyRidePage() {
                 {/* Category Filters (Sticky "Amazon-style" Strip) */}
                 {vehicleId && (
                     <div className="sticky top-20 z-20 bg-primary-theme/95 backdrop-blur-sm -mx-4 sm:-mx-6 lg:-mx-8 mb-6 py-2">
-                        <div className="flex overflow-x-auto gap-3 scrollbar-none pb-2 px-4 sm:px-6 lg:px-8">
-                            {CATEGORIES.map((cat) => (
-                                <button
-                                    key={cat.id}
-                                    onClick={() => setSelectedCategory(cat.id)}
-                                    className={`
-                                        px-5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200
-                                        ${selectedCategory === cat.id
-                                            ? "bg-theme-green text-theme-white shadow-lg shadow-theme-green/25 scale-105"
-                                            : "bg-secondary-theme text-zinc-300 border border-transparent hover:border-theme-green/50 hover:text-theme-white"
-                                        }
-                                    `}
-                                >
-                                    {cat.label}
-                                </button>
-                            ))}
-                        </div>
+                        <PillFilters
+                            items={CATEGORIES}
+                            selectedId={selectedCategory}
+                            onSelect={setSelectedCategory}
+                            className="px-4 sm:px-6 lg:px-8"
+                        />
                     </div>
                 )}
 
