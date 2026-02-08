@@ -2,8 +2,9 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, CheckCircle2, Clock, MapPin, Phone, MessageSquare, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Clock, MapPin, Phone, MessageSquare, XCircle, Hash, Car, ReceiptText, Sparkles } from "lucide-react";
 import { useGetBookingByIdQuery } from "@/app/beService/booking-service";
+import { cn } from "@/lib/utils";
 
 export default function BookingTrackingPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = React.use(params);
@@ -11,22 +12,32 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
 
     const { data, isLoading, error } = useGetBookingByIdQuery(id, { skip: !id });
     const booking = data?.booking;
-    console.log({ data });
-    console.log("Booking Data:", booking);
 
     if (isLoading) {
         return (
             <div className="min-h-screen bg-vehicle-card-bg flex items-center justify-center text-white">
-                <p>Loading tracking info...</p>
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-theme-green/20 border-t-theme-green rounded-full animate-spin"></div>
+                    <p className="font-bold tracking-widest text-xs uppercase">Loading Tracking Info...</p>
+                </div>
             </div>
         );
     }
 
     if (error || !booking) {
         return (
-            <div className="min-h-screen bg-vehicle-card-bg flex items-center justify-center text-white flex-col">
-                <p className="mb-4">Booking not found or error loading data.</p>
-                <button onClick={() => router.back()} className="ml-4 underline text-theme-green">Go Back</button>
+            <div className="min-h-screen bg-vehicle-card-bg flex items-center justify-center text-white flex-col p-6 text-center">
+                <div className="w-20 h-20 bg-theme-red/10 rounded-full flex items-center justify-center mb-6">
+                    <XCircle className="w-10 h-10 text-theme-red" />
+                </div>
+                <h2 className="text-xl font-bold mb-2">Booking Not Found</h2>
+                <p className="text-gray-400 text-sm mb-8 max-w-xs">We couldn't find the booking details you're looking for.</p>
+                <button
+                    onClick={() => router.back()}
+                    className="px-8 py-3 bg-white/5 border border-white/10 rounded-xl font-bold text-sm hover:bg-white/10 transition-colors"
+                >
+                    Go Back
+                </button>
             </div>
         );
     }
@@ -34,18 +45,15 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
     const isCancelled = ['cancelled', 'cancelled_by_user', 'cancelled_by_garage'].includes(booking.status);
     const bookingStatusDisplay = booking.status.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
 
-    // Helper to get event time
     const getEventTime = (eventTypes: string[]) => {
         const event = booking.events?.find((e: any) => eventTypes.includes(e.event_type));
-        return event ? new Date(event.created_at).toLocaleString() : "-";
+        return event ? new Date(event.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "-";
     };
 
-    // Helper to check if step is completed
     const isStepCompleted = (eventTypes: string[]) => {
         return booking.events?.some((e: any) => eventTypes.includes(e.event_type));
     };
 
-    // Define timeline definition
     const timelineSteps = [
         { label: "Booking Requested", events: ["booking_created"] },
         { label: "Garage Assigned", events: ["garage_assigned", "garage_accepted"] },
@@ -54,7 +62,6 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
         { label: "Ready for Delivery", events: ["service_completed", "payment_completed"] },
     ];
 
-    // Find current active step index for highlighting
     let currentStepIndex = -1;
     for (let i = timelineSteps.length - 1; i >= 0; i--) {
         if (isStepCompleted(timelineSteps[i].events)) {
@@ -74,19 +81,13 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
         garage: {
             name: booking.garage?.name || (booking.service_center_id ? "Authorized Center" : "Pending Assignment"),
             rating: booking.garage?.rating || 4.8,
-            address: booking.garage?.address || "Garage Location Info",
-            phone: booking.garage?.contact || "+91 98765 43210"
-        },
-        order: {
-            id: booking.id,
-            date: new Date(booking.created_at).toLocaleDateString(),
-            total: `₹${booking.estimated_price}`
+            address: booking.garage?.address || "Location will be shared once assigned",
+            phone: booking.garage?.contact || ""
         },
         vehicle: {
             name: `${booking.vehicle?.brand} ${booking.vehicle?.model}` || "Vehicle",
             reg: booking.vehicle?.registration_number || ""
         },
-        // Display booking items if available, else master service items, else service name
         services: (booking.items && booking.items.length > 0)
             ? booking.items.map((item: any) => item.title)
             : (booking.service?.service_items && booking.service.service_items.length > 0)
@@ -96,35 +97,43 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
     };
 
     return (
-        <div className="min-h-screen bg-vehicle-card-bg pb-20" >
+        <div className="min-h-screen bg-vehicle-card-bg pb-24">
             {/* Header */}
-            < div className="bg-vehicle-card-bg shadow-sm border-b border-vehicle-card-border sticky top-0 z-10" >
-                <div className="max-w-md mx-auto px-4 py-4 flex items-center gap-4">
+            <div className="sticky top-0 z-40 bg-vehicle-card-bg/80 backdrop-blur-xl border-b border-white/5">
+                <div className="max-w-2xl mx-auto px-6 py-4 flex items-center gap-6">
                     <button
                         onClick={() => router.back()}
-                        className="w-10 h-10 rounded-full bg-black/20 hover:bg-black/30 flex items-center justify-center transition-colors"
+                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors group"
                     >
-                        <ArrowLeft className="w-5 h-5 text-white" />
+                        <ArrowLeft className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
                     </button>
                     <div>
-                        <h1 className="text-lg font-bold text-white">Track Booking</h1>
-                        <p className="text-xs text-gray-400">ID: {id}</p>
+                        <p className="text-theme-green text-[9px] font-black uppercase tracking-[0.2em] mb-0.5">Track Your Service</p>
+                        <h1 className="text-lg font-bold text-white tracking-tight">Booking Details</h1>
                     </div>
                 </div>
-            </div >
+            </div>
 
-            <div className="max-w-md mx-auto px-4 py-6 space-y-6">
+            <div className="max-w-xl mx-auto px-6 py-6 space-y-5">
 
                 {/* Status Card */}
-                <div className="bg-vehicle-card-bg/30 rounded-3xl p-6 border border-vehicle-card-border/30 shadow-sm">
-                    <div className="flex justify-between items-start mb-6">
+                <div className="relative bg-vehicle-card-bg border border-vehicle-card-border rounded-4xl p-6 shadow-xl shadow-black/40 overflow-hidden">
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-theme-green/5 rounded-full blur-[80px] -mr-24 -mt-24 pointer-events-none"></div>
+
+                    <div className="flex justify-between items-start mb-8 relative z-10">
                         <div>
-                            <p className="text-sm text-gray-400 font-medium mb-1">Current Status</p>
-                            <h2 className={`text-2xl font-bold ${isCancelled ? "text-theme-red" : "text-theme-green"}`}>
+                            <p className="text-gray-500 text-[9px] font-black uppercase tracking-[0.2em] mb-1">Current Progress</p>
+                            <h2 className={cn(
+                                "text-2xl font-black tracking-tighter uppercase",
+                                isCancelled ? "text-theme-red" : "text-theme-green"
+                            )}>
                                 {trackingData.status}
                             </h2>
                         </div>
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${isCancelled ? "bg-theme-red/20" : "bg-theme-green/20 animate-pulse"}`}>
+                        <div className={cn(
+                            "w-12 h-12 rounded-xl flex items-center justify-center border transition-all duration-1000",
+                            isCancelled ? "bg-theme-red/10 border-theme-red/20" : "bg-theme-green/10 border-theme-green/20 animate-pulse"
+                        )}>
                             {isCancelled ? (
                                 <XCircle className="w-6 h-6 text-theme-red" />
                             ) : (
@@ -134,89 +143,134 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                     </div>
 
                     {/* Timeline */}
-                    <div className="space-y-6 relative pl-2">
+                    <div className="space-y-6 relative pl-4 z-10">
                         {/* Connecting Line */}
-                        <div className="absolute top-2 bottom-2 left-[19px] w-0.5 bg-gray-700 -z-10"></div>
+                        <div className="absolute top-0 bottom-0 left-[23px] w-0.5 bg-white/5"></div>
 
                         {trackingData.timeline.map((step, idx) => (
-                            <div key={idx} className="flex gap-4 items-start relative z-0">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-4 border-vehicle-card-bg/30 ${step.completed ? "bg-theme-green text-theme-white" :
-                                    step.current ? "bg-theme-green text-theme-white" : "bg-gray-800 text-gray-500"
-                                    }`}>
-                                    {step.completed ? <CheckCircle2 className="w-5 h-5" /> : <div className="w-3 h-3 rounded-full bg-current" />}
+                            <div key={idx} className="flex gap-5 items-start relative group">
+                                <div className={cn(
+                                    "w-3.5 h-3.5 rounded-full mt-1.5 relative z-10 border-4 border-vehicle-card-bg transition-all duration-500 shadow-lg shadow-black/50",
+                                    step.completed || step.current ? "bg-theme-green scale-110" : "bg-gray-800"
+                                )}>
+                                    {(step.completed || step.current) && (
+                                        <div className="absolute inset-0 bg-theme-green rounded-full animate-ping opacity-20"></div>
+                                    )}
                                 </div>
-                                <div className="pt-2">
-                                    <h4 className={`text-sm font-bold ${step.completed || step.current ? "text-theme-white" : "text-gray-500"}`}>
+                                <div className="space-y-0.5">
+                                    <h4 className={cn(
+                                        "text-[12px] font-black uppercase tracking-widest transition-colors duration-500",
+                                        step.completed || step.current ? "text-white" : "text-gray-600"
+                                    )}>
                                         {step.status}
                                     </h4>
-                                    <p className="text-xs text-gray-500">{step.time}</p>
+                                    <p className="text-[9px] font-bold text-gray-500 tracking-wider">
+                                        {step.completed ? step.time : "Pending"}
+                                    </p>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* Garage Info */}
-                <div className="bg-vehicle-card-bg/30 rounded-3xl p-6 border border-vehicle-card-border/30 shadow-sm">
-                    <h3 className="text-lg font-bold text-white mb-4">Garage Assigned</h3>
-                    <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 rounded-full bg-black/30 flex items-center justify-center text-lg font-bold text-white border border-vehicle-card-border/30">
-                            {trackingData.garage.name[0]}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* Garage Info */}
+                    <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-4xl p-5 shadow-xl shadow-black/40">
+                        <div className="flex items-center gap-2 text-theme-green mb-4">
+                            <Sparkles className="w-3.5 h-3.5" />
+                            <span className="text-[9px] font-black uppercase tracking-[0.2em]">Partner Garage</span>
                         </div>
-                        <div>
-                            <h4 className="font-bold text-white">{trackingData.garage.name}</h4>
-                            <p className="text-xs text-gray-400">Rating: {trackingData.garage.rating} ★</p>
-                        </div>
-                    </div>
 
-                    <div className="flex gap-3 mb-4">
-                        <button
-                            onClick={() => window.location.href = `tel:${trackingData.garage.phone}`}
-                            className="flex-1 py-3 rounded-xl bg-black/20 hover:bg-black/30 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors border border-vehicle-card-border/30"
-                        >
-                            <Phone className="w-4 h-4" /> Call
-                        </button>
-                        <button
-                            onClick={() => window.open(`https://wa.me/${trackingData.garage.phone.replace(/[^0-9]/g, '')}`, '_blank')}
-                            className="flex-1 py-3 rounded-xl bg-black/20 hover:bg-black/30 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors border border-vehicle-card-border/30"
-                        >
-                            <MessageSquare className="w-4 h-4" /> Chat
-                        </button>
-                    </div>
-
-                    <div className="flex items-start gap-2 text-sm text-gray-400 bg-black/20 p-3 rounded-xl border border-vehicle-card-border/30">
-                        <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
-                        {trackingData.garage.address}
-                    </div>
-                </div>
-
-                {/* Order Summary */}
-                <div className="bg-vehicle-card-bg/30 rounded-3xl p-6 border border-vehicle-card-border/30 shadow-sm">
-                    <h3 className="text-lg font-bold text-white mb-4">Order Details</h3>
-                    <div className="flex justify-between items-center mb-4 pb-4 border-b border-vehicle-card-border">
-                        <span className="text-gray-400 text-sm">Vehicle</span>
-                        <div className="text-right">
-                            <div className="font-bold text-white">{trackingData.vehicle.name.toUpperCase()}</div>
-                            <div className="text-xs text-gray-400">{trackingData.vehicle.reg}</div>
-                        </div>
-                    </div>
-
-                    <div className="space-y-3 mb-4">
-                        {trackingData.services.map((service: string, idx: number) => (
-                            <div key={idx} className="flex items-center gap-3">
-                                <div className="w-1.5 h-1.5 rounded-full bg-theme-green shrink-0"></div>
-                                <span className="text-sm text-theme-green">{service}</span>
+                        <div className="flex items-center gap-3 mb-5">
+                            <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-lg font-black text-white">
+                                {trackingData.garage.name[0]}
                             </div>
-                        ))}
+                            <div>
+                                <h4 className="text-sm font-bold text-white tracking-tight">{trackingData.garage.name}</h4>
+                                <div className="flex items-center gap-1 mt-0.5">
+                                    <span className="text-theme-green text-[10px]">★</span>
+                                    <span className="text-[10px] font-bold text-gray-400">{trackingData.garage.rating}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {trackingData.garage.phone && (
+                            <div className="grid grid-cols-2 gap-2 mb-5">
+                                <button
+                                    onClick={() => window.location.href = `tel:${trackingData.garage.phone}`}
+                                    className="h-9 rounded-lg bg-white/5 border border-white/10 text-white font-bold text-[10px] flex items-center justify-center gap-1.5 hover:bg-white/10 transition-colors"
+                                >
+                                    <Phone className="w-3 h-3" /> CALL
+                                </button>
+                                <button
+                                    onClick={() => window.open(`https://wa.me/${trackingData.garage.phone.replace(/[^0-9]/g, '')}`, '_blank')}
+                                    className="h-9 rounded-lg bg-theme-green/10 border border-theme-green/20 text-theme-green font-bold text-[10px] flex items-center justify-center gap-1.5 hover:bg-theme-green/20 transition-colors"
+                                >
+                                    <MessageSquare className="w-3 h-3" /> CHAT
+                                </button>
+                            </div>
+                        )}
+
+                        <div className="flex items-start gap-2.5 p-3 rounded-xl bg-black/20 border border-white/5 italic">
+                            <MapPin className="w-3.5 h-3.5 text-gray-500 shrink-0 mt-0.5" />
+                            <p className="text-[11px] text-gray-400 font-medium leading-relaxed">
+                                {trackingData.garage.address}
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="pt-4 border-t border-vehicle-card-border flex justify-between items-center">
-                        <span className="font-semibold text-theme-white">Estimated Total</span>
-                        <span className="font-bold text-xl text-theme-green">{trackingData.totalEstimation}</span>
+                    {/* Vehicle & Services */}
+                    <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-4xl p-5 shadow-xl shadow-black/40 space-y-5">
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-2 text-theme-green">
+                                <Car className="w-3.5 h-3.5" />
+                                <span className="text-[9px] font-black uppercase tracking-[0.2em]">Service Details</span>
+                            </div>
+                            <div className="p-3 rounded-xl bg-white/5 border border-white/10">
+                                <p className="text-white font-black tracking-tighter text-base mb-0.5">{trackingData.vehicle.name.toUpperCase()}</p>
+                                <div className="flex items-center gap-2 text-gray-400">
+                                    <Hash className="w-2.5 h-2.5 text-gray-500" />
+                                    <span className="text-[9px] font-bold tracking-widest uppercase">{trackingData.vehicle.reg}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            {trackingData.services.map((service: string, idx: number) => (
+                                <div key={idx} className="flex items-center gap-2.5 px-0.5">
+                                    <div className="w-1 h-1 rounded-full bg-theme-green/40"></div>
+                                    <span className="text-[11px] font-bold text-gray-300 tracking-tight">{service}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="pt-3 border-t border-white/5 flex justify-between items-center">
+                            <div className="flex items-center gap-2 text-gray-500">
+                                <ReceiptText className="w-3.5 h-3.5" />
+                                <span className="text-[9px] font-black uppercase tracking-[0.2em]">Estimation</span>
+                            </div>
+                            <span className="text-xl font-black text-theme-green tracking-tighter">{trackingData.totalEstimation}</span>
+                        </div>
                     </div>
                 </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                    <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                        <Hash className="w-3.5 h-3.5 text-gray-500" />
+                        <div>
+                            <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest">Booking ID</p>
+                            <p className="text-[10px] font-bold text-white tracking-widest uppercase">{id.substring(0, 12)}...</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                        <Clock className="w-3.5 h-3.5 text-gray-500" />
+                        <div>
+                            <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest">Est. Pickup</p>
+                            <p className="text-[10px] font-bold text-white tracking-widest">TBD</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div >
+        </div>
     );
 }

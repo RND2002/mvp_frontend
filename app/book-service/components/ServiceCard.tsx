@@ -4,6 +4,7 @@ import React from "react"
 import { cn } from "@/lib/utils"
 import { LucideIcon } from "lucide-react"
 import { VroomButton } from "../../components/common/VroomButton"
+import Link from "next/link"
 
 interface ServiceCardProps {
     name: string;
@@ -41,12 +42,14 @@ export const ServiceCard = ({
                     <p className="text-gray-500 text-xs font-medium">{description}</p>
                 </div>
             </div>
-            <VroomButton
-                size="sm"
-                className="h-10 px-5 rounded-xl text-xs active:scale-95 transition-transform"
-            >
-                Book Now
-            </VroomButton>
+            <Link href="/book-service" className="block">
+                <VroomButton
+                    size="sm"
+                    className="h-10 px-5 rounded-xl text-xs active:scale-95 transition-transform"
+                >
+                    Book Now
+                </VroomButton>
+            </Link>
         </div>
     )
 }

@@ -72,24 +72,26 @@ export default function ServiceHistoryPage() {
 
     return (
         <div className="min-h-screen bg-vehicle-card-bg pb-24 md:pb-10">
-            <div className="max-w-4xl mx-auto px-4 pt-6">
+            <div className="max-w-4xl mx-auto px-6 pt-8">
                 {/* Header */}
-                <div className="flex justify-between items-center mb-8">
-                    {/* Left Spacer to Center Title */}
-                    <div className="w-10"></div>
-
-                    <h1 className="text-lg font-bold text-center text-white uppercase">
-                        My Services
+                <div className="mb-8 text-center">
+                    <p className="text-theme-green text-[9px] font-black uppercase tracking-[0.3em] mb-1.5">Activities</p>
+                    <h1 className="text-2xl font-black text-white tracking-tighter uppercase">
+                        Service History
                     </h1>
                 </div>
 
                 {/* Ongoing Service Section */}
-                <div className="mb-8">
-                    <h2 className="text-xl font-bold text-white mb-4">
-                        Ongoing Service
-                    </h2>
+                <div className="mb-10">
+                    <div className="flex items-center gap-2.5 mb-5">
+                        <div className="h-px flex-1 bg-white/5"></div>
+                        <h2 className="text-[10px] font-black text-gray-500 uppercase tracking-[0.25em] whitespace-nowrap">
+                            Ongoing Services
+                        </h2>
+                        <div className="h-px flex-1 bg-white/5"></div>
+                    </div>
                     {ongoingServices.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                             {ongoingServices.map((service: any, index: number) => (
                                 <ServiceHistoryCard
                                     key={index}
@@ -99,26 +101,35 @@ export default function ServiceHistoryPage() {
                             ))}
                         </div>
                     ) : (
-                        <p className="text-gray-400 text-sm italic">No ongoing services.</p>
+                        <div className="bg-white/5 border border-dashed border-white/10 rounded-2xl p-8 text-center">
+                            <p className="text-gray-500 text-xs font-bold tracking-tight">No active services at the moment</p>
+                        </div>
                     )}
                 </div>
 
                 {/* Last Services Section */}
                 <div>
-                    <h2 className="text-xl font-bold text-white mb-4">
-                        Last Services
-                    </h2>
+                    <div className="flex items-center gap-2.5 mb-5">
+                        <div className="h-px flex-1 bg-white/5"></div>
+                        <h2 className="text-[10px] font-black text-gray-500 uppercase tracking-[0.25em] whitespace-nowrap">
+                            Past Services
+                        </h2>
+                        <div className="h-px flex-1 bg-white/5"></div>
+                    </div>
                     {lastServices.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                             {lastServices.map((service: any, index: number) => (
                                 <ServiceHistoryCard
                                     key={index}
                                     {...service}
+                                    onCardClick={() => handleCardClick(service.bookingIdFull)}
                                 />
                             ))}
                         </div>
                     ) : (
-                        <p className="text-gray-400 text-sm italic">No past services.</p>
+                        <div className="bg-white/5 border border-dashed border-white/10 rounded-2xl p-8 text-center">
+                            <p className="text-gray-500 text-xs font-bold tracking-tight">Your service history will appear here</p>
+                        </div>
                     )}
                 </div>
             </div>

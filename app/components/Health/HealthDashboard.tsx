@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "@/app/store/store"
+import { setDetailedReportOpen } from "@/app/store/slices/uiSlice"
 import { HealthReport } from "./HealthReport"
 import { HealthSidebar } from "./HealthSidebar"
 import { HealthSummary } from "./HealthSummary"
@@ -15,6 +16,7 @@ import { useGetVehicleHealthQuery } from "@/app/beService/health-service"
 import { toast } from "sonner"
 
 export const HealthDashboard = () => {
+    const dispatch = useDispatch();
     const { selectedVehicle } = useSelector((state: RootState) => state.vehicle)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [showFullReport, setShowFullReport] = useState(false)
@@ -27,6 +29,10 @@ export const HealthDashboard = () => {
             toast.error("Failed to fetch vehicle health data")
         }
     }, [isError])
+
+    useEffect(() => {
+        dispatch(setDetailedReportOpen(showFullReport));
+    }, [showFullReport, dispatch]);
 
     const handleOpenSidebar = () => setIsSidebarOpen(true)
 
@@ -69,7 +75,7 @@ export const HealthDashboard = () => {
     if (showFullReport && healthData?.health) {
         return (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-                <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center gap-4 mb-4">
                     <VroomButton
                         variant="ghost"
                         size="icon"

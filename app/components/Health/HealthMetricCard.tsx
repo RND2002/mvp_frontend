@@ -31,7 +31,7 @@ export const HealthMetricCard = ({
     const statusColor = getStatusColor(status);
 
     return (
-        <div className="bg-vehicle-card-bg/80 border border-vehicle-card-border rounded-xl p-4 mb-3 backdrop-blur-sm">
+        <div className="bg-vehicle-card-bg/80 border border-vehicle-card-border rounded-xl p-4 mb-2 backdrop-blur-sm">
             <div className="flex justify-between items-start mb-2">
                 <div>
                     <h4 className="text-gray-400 text-xs uppercase tracking-wider mb-1">{label}</h4>

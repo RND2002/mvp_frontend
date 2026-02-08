@@ -54,7 +54,7 @@ export const VehicleHealthCard = () => {
                 <div className="flex justify-between items-start mb-4">
                     <div>
                         <h3 className="text-gray-400 text-sm font-medium uppercase tracking-wider">
-                            Vehicle Health
+                            Vehicle Healths
                         </h3>
                         <h2 className="text-2xl font-bold mt-1">
                             {selectedVehicle

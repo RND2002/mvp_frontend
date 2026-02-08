@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Settings, Droplets, BatteryFull, Activity, Circle, ShieldCheck } from "lucide-react"
 import { VehicleHealthReport } from "@/app/beService/health-service"
 
+import { SystemParameters } from "./SystemParameters"
+
 interface HealthSummaryProps {
     data: VehicleHealthReport;
     onClick?: () => void;
@@ -19,141 +21,106 @@ export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }
     const score = overall?.score || 0;
     const status = overall?.status || "INSUFFICIENT DATA";
 
-    const getStatusColorClass = (s: string) => {
-        const lower = s.toLowerCase();
-        if (lower === 'healthy' || lower === 'optimal' || lower === 'good' || lower === 'excellent') return 'text-theme-green';
-        if (lower === 'medium' || lower === 'average' || lower === 'fair') return 'text-orange-500';
-        if (lower === 'bad' || lower === 'critical' || lower === 'poor') return 'text-red-500';
-        return 'text-gray-400';
-    }
-
     return (
         <div className="space-y-4 cursor-pointer" onClick={onClick}>
             {/* Main Health Card */}
-            <Card className="bg-vehicle-card-bg border-vehicle-card-border overflow-hidden relative">
-                <CardContent className="p-6">
-                    <div className="flex justify-between items-start mb-8">
+            <Card className="bg-vehicle-card-bg border-vehicle-card-border overflow-hidden relative rounded-3xl group shadow-2xl shadow-black/40">
+                <CardContent className="p-7">
+                    {/* Header Section */}
+                    <div className="flex justify-between items-start mb-10">
                         <div>
-                            <p className="text-theme-green text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Vehicle Health</p>
-                            <h3 className="text-2xl font-bold text-white leading-tight">{vehicleName || "Your Vehicle"}</h3>
-                            <p className="text-gray-500 text-xs font-medium tracking-wider">{registrationNumber || ""}</p>
+                            <p className="text-theme-green text-[10px] font-black uppercase tracking-[0.2em] mb-2">Vehicle Health</p>
+                            <h3 className="text-3xl font-bold text-white leading-tight tracking-tight max-w-[200px] mb-1">{vehicleName?.toUpperCase() || "Your Vehicle"}</h3>
+                            <p className="text-gray-500 text-sm font-bold tracking-widest opacity-80">{registrationNumber || ""}</p>
                         </div>
-                        <div className="bg-green-500/10 text-theme-green border border-green-500/20 rounded-full px-3 py-1 text-[10px] font-bold tracking-widest h-fit uppercase">
-                            {status}
+                        <div className="bg-theme-green/10 text-theme-green border border-theme-green/30 rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest h-fit uppercase">
+                            {status === "OPTIMAL" ? "EXCELLENT" : status}
                         </div>
                     </div>
 
                     {/* Gauge Section */}
-                    <div className="relative flex flex-col items-center justify-center py-4">
-                        <div className="relative w-48 h-24 overflow-hidden">
+                    <div className="relative flex flex-col items-center justify-center py-6 mb-4">
+                        <div className="relative w-64 h-32 overflow-hidden">
                             {/* Semi-circle background */}
-                            <svg className="w-48 h-48 -rotate-180" viewBox="0 0 100 100">
+                            <svg className="w-64 h-64 -rotate-180" viewBox="0 0 100 100">
                                 <circle
                                     cx="50"
                                     cy="50"
-                                    r="45"
+                                    r="44"
                                     fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="8"
-                                    strokeDasharray="141.37 282.74"
-                                    className="text-gray-800"
+                                    stroke="#1E293B"
+                                    strokeWidth="12"
+                                    strokeDasharray="138.23 276.46"
+                                    strokeLinecap="round"
                                 />
                                 {/* Progress semi-circle */}
                                 <circle
                                     cx="50"
                                     cy="50"
-                                    r="45"
+                                    r="44"
                                     fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="8"
-                                    strokeDasharray={`${(score / 100) * 141.37} 282.74`}
-                                    className="text-theme-green"
+                                    stroke="url(#gauge-gradient)"
+                                    strokeWidth="12"
+                                    strokeDasharray={`${(score / 100) * 138.23} 276.46`}
+                                    className="transition-all duration-1000 ease-out"
                                     strokeLinecap="round"
                                 />
+                                <defs>
+                                    <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stopColor="#00DF82" />
+                                        <stop offset="100%" stopColor="#00DF82" />
+                                    </linearGradient>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                                        <feMerge>
+                                            <feMergeNode in="coloredBlur" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
                             </svg>
                         </div>
 
-                        <div className="absolute top-[60%] flex flex-col items-center">
-                            <span className="text-5xl font-black text-white">{score}%</span>
-                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-1">Health Score</span>
+                        {/* Gauge Label Overlay */}
+                        <div className="absolute top-[62%] flex flex-col items-center">
+                            <span className="text-5xl font-black text-white tracking-tighter drop-shadow-sm">{score}%</span>
+                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mt-1">Health Score</span>
                         </div>
                     </div>
 
-                    {/* Legend */}
-                    <div className="flex justify-between items-center mt-12 px-4">
-                        <div className="text-center">
-                            <p className="text-[10px] text-gray-500 font-bold mb-1">0-33</p>
-                            <p className="text-[10px] text-red-500 font-black uppercase tracking-wider">Bad</p>
+                    {/* Legend Section */}
+                    <div className="flex justify-between items-center mt-10 px-2 pt-6 border-t border-white/5">
+                        <div className="text-center flex-1">
+                            <p className="text-[10px] text-gray-500 font-bold mb-1.5 opacity-60">0-33</p>
+                            <p className="text-[10px] text-theme-red font-black uppercase tracking-widest">Bad</p>
                         </div>
-                        <div className="h-4 w-px bg-gray-800"></div>
-                        <div className="text-center">
-                            <p className="text-[10px] text-gray-500 font-bold mb-1">34-66</p>
-                            <p className="text-[10px] text-yellow-500 font-black uppercase tracking-wider">Average</p>
+                        <div className="h-6 w-px bg-white/5"></div>
+                        <div className="text-center flex-1">
+                            <p className="text-[10px] text-gray-500 font-bold mb-1.5 opacity-60">34-66</p>
+                            <p className="text-[10px] text-theme-yellow font-black uppercase tracking-widest">Average</p>
                         </div>
-                        <div className="h-4 w-px bg-gray-800"></div>
-                        <div className="text-center">
-                            <p className="text-[10px] text-gray-500 font-bold mb-1">67-100</p>
-                            <p className="text-[10px] text-theme-green font-black uppercase tracking-wider">Good</p>
+                        <div className="h-6 w-px bg-white/5"></div>
+                        <div className="text-center flex-1">
+                            <p className="text-[10px] text-gray-500 font-bold mb-1.5 opacity-60">67-100</p>
+                            <p className="text-[10px] text-theme-green font-black uppercase tracking-widest">Good</p>
                         </div>
                     </div>
                 </CardContent>
+
+                {/* Subtle Glow Effects */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-theme-green/5 rounded-full blur-[80px] -mr-16 -mt-16 pointer-events-none group-hover:bg-theme-green/10 transition-colors"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/5 rounded-full blur-[80px] -ml-16 -mb-16 pointer-events-none"></div>
             </Card>
 
-            {/* Sub Status Cards */}
-            <div className="grid grid-cols-2 gap-4">
-                {Object.entries(systems).map(([key, system]) => (
-                    <StatusSmallCard
-                        key={key}
-                        icon={getSystemIcon(key)}
-                        label={key.charAt(0).toUpperCase() + key.slice(1)}
-                        status={system.status}
-                        percentage={`${system.score}%`}
-                        statusColor={getStatusColorClass(system.status)}
-                    />
-                ))}
-                {Object.keys(systems).length === 0 && (
-                    <>
-                        <StatusSmallCard
-                            icon={<Activity className="w-5 h-5 text-gray-500" />}
-                            label="Engine"
-                            status="PENDING"
-                            percentage="--"
-                            statusColor="text-gray-500"
-                        />
-                        <StatusSmallCard
-                            icon={<Settings className="w-5 h-5 text-gray-500" />}
-                            label="Maintenance"
-                            status="PENDING"
-                            percentage="--"
-                            statusColor="text-gray-500"
-                        />
-                    </>
-                )}
-            </div>
+            {/* System Parameters List */}
+            <SystemParameters
+                systems={Object.keys(systems).length > 0 ? systems : {
+                    engine: { score: 98, status: "OPTIMAL" },
+                    engine_oil: { score: 96, status: "OPTIMAL" },
+                    tyre_pressure: { score: 32, status: "OPTIMAL" },
+                    battery: { score: 12.4, status: "CHARGING" }
+                }}
+            />
         </div>
     )
 }
-
-const getSystemIcon = (key: string) => {
-    const k = key.toLowerCase();
-    if (k.includes('engine') || k.includes('drive')) return <Activity className="w-5 h-5 text-theme-green" />;
-    if (k.includes('brake')) return <Circle className="w-5 h-5 text-theme-green" />;
-    if (k.includes('battery') || k.includes('electric')) return <BatteryFull className="w-5 h-5 text-theme-green" />;
-    if (k.includes('tyre') || k.includes('tire')) return <Settings className="w-5 h-5 text-theme-green" />;
-    return <ShieldCheck className="w-5 h-5 text-theme-green" />;
-}
-
-const StatusSmallCard = ({ icon, label, status, percentage, statusColor }: any) => (
-    <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-2xl p-4 flex flex-col justify-between h-32">
-        <div className="flex justify-between items-start">
-            <div className="bg-gray-800/50 p-2 rounded-xl">
-                {icon}
-            </div>
-            <span className={`text-[10px] font-black ${statusColor}`}>{percentage}</span>
-        </div>
-        <div>
-            <h4 className="text-white font-bold text-sm mb-0.5">{label}</h4>
-            <p className={`text-[10px] font-black uppercase tracking-wider opacity-60`}>{status}</p>
-        </div>
-    </div>
-)

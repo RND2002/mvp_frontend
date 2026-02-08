@@ -34,7 +34,7 @@ function DashboardContent() {
     return (
         <div className="w-full">
             <VehicleOnboardingWizard open={showOnboarding} onClose={() => setShowOnboarding(false)} />
-            <div className="px-4 mt-10 lg:px-0">
+            <div className="px-2 mt-4 lg:px-0">
                 {/* <QuickActions /> */}
 
                 <div className="mb-6">

@@ -26,7 +26,6 @@ const useStickyNavbar = (threshold: number = 100, isMobileMenuOpen: boolean = fa
                 );
 
                 if (mainContainer && aiNavbar) {
-                    mainContainer.classList.add("hidden");
                     mainContainer.classList.add("fixed");
                 }
             } else {
@@ -40,7 +39,7 @@ const useStickyNavbar = (threshold: number = 100, isMobileMenuOpen: boolean = fa
                 );
 
                 if (mainContainer && aiNavbar) {
-                    mainContainer.classList.remove("hidden");
+                    mainContainer.classList.remove("fixed");
                 }
             }
         };

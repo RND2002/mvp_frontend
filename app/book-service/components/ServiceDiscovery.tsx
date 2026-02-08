@@ -16,12 +16,13 @@ import {
     PhoneCall,
     ChevronRight,
     Loader2,
-    Bell,
     CheckCircle2,
     Zap,
     Flame,
-    Sparkles
+    Sparkles,
+    ArrowLeft
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { VroomButton } from "../../components/common/VroomButton";
 import { ServiceCard } from "./ServiceCard";
 import { PillFilters, FilterItem } from "../../components/common/PillFilters";
@@ -78,6 +79,7 @@ const CATEGORIES: FilterItem[] = [
 ];
 
 export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSelect }) => {
+    const router = useRouter();
     const selectedVehicle = useSelector((state: RootState) => state.vehicle.selectedVehicle);
     const [selectedCategory, setSelectedCategory] = React.useState("General");
 
@@ -89,30 +91,29 @@ export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSel
     const services = data?.services || [];
 
     return (
-        <div className="max-w-xl mx-auto px-6 pt-6 pb-24 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
             {/* High-Fidelity Header */}
             <div className="flex justify-between items-center mb-10">
-                <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-theme-green/10 rounded-2xl flex items-center justify-center border border-theme-green/20">
-                        <Car className="w-6 h-6 text-theme-green" />
-                    </div>
-                    <div>
-                        <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Active Vehicle</p>
-                        <div className="flex items-center gap-1.5">
-                            <h3 className="text-sm font-black text-white">{selectedVehicle?.brand.toUpperCase()} {selectedVehicle?.model.toUpperCase()}</h3>
-                            <CheckCircle2 className="w-3.4 h-3.5 text-theme-green fill-theme-green/20" />
+                <div className="flex items-center gap-5">
+                    <button
+                        onClick={() => router.push('/dashboard')}
+                        className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all active:scale-95"
+                    >
+                        <ArrowLeft className="w-5 h-5" />
+                    </button>
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20">
+                            <Car className="w-5 h-5 text-theme-green" />
+                        </div>
+                        <div>
+                            <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Active Vehicle</p>
+                            <div className="flex items-center gap-1.5">
+                                <h3 className="text-xs font-black text-white leading-none uppercase">{selectedVehicle?.brand} {selectedVehicle?.model}</h3>
+                                <CheckCircle2 className="w-3 h-3 text-theme-green fill-theme-green/20" />
+                            </div>
                         </div>
                     </div>
                 </div>
-                {/* <div className="flex gap-3">
-                    <button className="w-10 h-10 bg-vehicle-card-bg border border-vehicle-card-border rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors relative">
-                        <Bell className="w-5 h-5" />
-                        <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-theme-green rounded-full border-2 border-vehicle-card-bg"></span>
-                    </button>
-                    <div className="w-10 h-10 bg-[#E8C0A0] rounded-full overflow-hidden border-2 border-vehicle-card-border">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" className="w-full h-full object-cover" />
-                    </div>
-                </div> */}
             </div>
 
             {/* Title Section */}

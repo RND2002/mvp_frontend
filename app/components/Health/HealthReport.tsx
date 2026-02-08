@@ -6,6 +6,7 @@ import { Activity, Circle, CircleDot, Zap, ChevronLeft } from "lucide-react"
 import { FUEL_TYPE } from "@/app/beService/vehicle-service"
 import { useSelector } from "react-redux"
 import { RootState } from "@/app/store/store"
+import Link from "next/link"
 
 interface HealthReportProps {
     data: VehicleHealthReport;
@@ -28,9 +29,9 @@ export const HealthReport = ({ data }: HealthReportProps) => {
     const overallColor = getOverallColor(overall?.score || null)
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4">
             {/* Overall Condition Card */}
-            <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-2xl p-6 relative overflow-hidden shadow-xl shadow-black/20">
+            <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-2xl p-4 relative overflow-hidden shadow-xl shadow-black/20">
                 <div className="relative z-10 flex justify-between items-start">
                     <div>
                         <h4 className="text-gray-400 text-xs uppercase tracking-widest mb-2">Overall Condition</h4>
@@ -93,9 +94,11 @@ export const HealthReport = ({ data }: HealthReportProps) => {
             )}
 
             <div className="pt-6">
-                <button className="w-full bg-theme-green text-white font-bold h-14 rounded-xl text-lg hover:bg-theme-green/90 transition-all flex items-center justify-center gap-2">
-                    Book Service Now <Zap className="w-5 h-5" />
-                </button>
+                <Link href="/book-service" className="block">
+                    <button className="w-full bg-theme-green text-white font-bold h-14 rounded-xl text-lg hover:bg-theme-green/90 transition-all flex items-center justify-center gap-2">
+                        Book Service Now <Zap className="w-5 h-5" />
+                    </button>
+                </Link>
             </div>
         </div>
     )

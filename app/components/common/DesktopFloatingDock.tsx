@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { FaCalendarCheck, FaHistory } from "react-icons/fa";
-import { MdTune, MdEmergency, MdDashboard } from "react-icons/md";
+import { MdTune, MdEmergency, MdDashboard, MdShoppingCart } from "react-icons/md";
 import { motion } from "framer-motion";
 
 const actions = [
@@ -25,9 +25,9 @@ const actions = [
         link: "/gear-up"
     },
     {
-        title: "Emergency",
-        icon: MdEmergency,
-        link: "/emergency-assistance"
+        title: "Cart",
+        icon: MdShoppingCart,
+        link: "/cart"
     },
     {
         title: "History",

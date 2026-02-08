@@ -1,6 +1,7 @@
 "use client"
 
 import { VroomButton } from "../common/VroomButton"
+import Link from "next/link"
 
 interface NextServiceBannerProps {
     kmRemaining?: number;
@@ -21,13 +22,15 @@ export const NextServiceBanner = ({ kmRemaining = 1250, onClick }: NextServiceBa
                 <h4 className="text-xl font-black text-black">In {kmRemaining.toLocaleString()} KM</h4>
             </div>
 
-            <VroomButton
-                onClick={onClick}
-                variant="secondary"
-                className="bg-black hover:bg-black/80 text-white font-black text-xs uppercase tracking-widest px-6 h-10 rounded-xl transition-transform active:scale-95 border-none"
-            >
-                Book Now
-            </VroomButton>
+            <Link href="/book-service" className="block">
+                <VroomButton
+                    onClick={onClick}
+                    variant="secondary"
+                    className="bg-black hover:bg-black/80 text-white font-black text-xs uppercase tracking-widest px-6 h-10 rounded-xl transition-transform active:scale-95 border-none"
+                >
+                    Book Now
+                </VroomButton>
+            </Link>
         </div>
     )
 }

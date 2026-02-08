@@ -1,5 +1,6 @@
 import React from "react";
-import { FileText } from "lucide-react";
+import { FileText, Calendar, Hash, Car } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ServiceHistoryCardProps {
     providerName: string;
@@ -7,8 +8,8 @@ interface ServiceHistoryCardProps {
     serviceName: string;
     vehicleNumber: string;
     date: string;
-    status: "Pending" | "Paid" | "Completed";
-    serviceColor?: string; // e.g. "text-yellow-500"
+    status: "Pending" | "Paid" | "Completed" | "Cancelled";
+    serviceColor?: string;
     onInvoiceClick?: () => void;
     onCardClick?: () => void;
 }
@@ -20,51 +21,82 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     vehicleNumber,
     date,
     status,
-    serviceColor, // We can keep this if it maps to a theme color, or map it inside
     onInvoiceClick,
     onCardClick
 }) => {
-    // Map status to theme colors if needed, or rely on passed classes
-    const statusColor = status === "Pending" ? "text-theme-green" : "text-theme-green";
-    const activeServiceColor = serviceColor || "text-primary";
+    const getStatusStyles = (status: string) => {
+        switch (status) {
+            case "Pending":
+                return "text-theme-yellow bg-theme-yellow/10 border-theme-yellow/20";
+            case "Completed":
+            case "Paid":
+                return "text-theme-green bg-theme-green/10 border-theme-green/20";
+            case "Cancelled":
+                return "text-theme-red bg-theme-red/10 border-theme-red/20";
+            default:
+                return "text-gray-400 bg-gray-400/10 border-gray-400/20";
+        }
+    };
 
     return (
         <div
             onClick={onCardClick}
-            className="group bg-vehicle-card-bg/30 hover:bg-vehicle-card-bg/50 transition-colors rounded-3xl p-5 shadow-sm border border-vehicle-card-border/30 w-full mb-4 cursor-pointer"
+            className="group relative bg-vehicle-card-bg border border-vehicle-card-border rounded-3xl p-5 shadow-xl shadow-black/40 cursor-pointer overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-theme-green/30"
         >
-            <div className="flex justify-between items-start mb-1">
-                <h3 className="text-base font-bold text-white group-hover:text-primary transition-colors">
-                    {providerName}
-                </h3>
-                <span className="text-xs font-semibold text-gray-400">
-                    {date}
-                </span>
+            {/* Background Glow */}
+            <div className="absolute top-0 right-0 w-24 h-24 bg-theme-green/5 rounded-full blur-[50px] -mr-12 -mt-12 pointer-events-none group-hover:bg-theme-green/10 transition-colors"></div>
+
+            <div className="flex justify-between items-start mb-4">
+                <div className="space-y-0.5">
+                    <p className="text-theme-green text-[9px] font-black uppercase tracking-[0.2em]">Service Provider</p>
+                    <h3 className="text-lg font-bold text-white tracking-tight">{providerName}</h3>
+                </div>
+                <div className={cn(
+                    "px-2.5 py-0.5 rounded-full border text-[9px] font-black tracking-widest uppercase",
+                    getStatusStyles(status)
+                )}>
+                    {status}
+                </div>
             </div>
 
-            <div className="flex justify-between items-center mb-2">
-                <p className="text-xs text-gray-400 font-medium">
-                    Booking ID - {bookingId}
-                </p>
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onInvoiceClick?.();
-                    }}
-                    className="w-8 h-8 rounded-full bg-theme-green/10 flex items-center justify-center text-theme-green hover:bg-theme-green/20 transition-colors"
-                >
-                    <FileText className="w-4 h-4" />
-                </button>
+            <div className="mb-4">
+                <h4 className="text-xl font-black text-white tracking-tighter leading-none mb-1.5">
+                    {serviceName.toUpperCase()}
+                </h4>
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1.5 text-gray-400">
+                        <Calendar className="w-3 h-3" />
+                        <span className="text-[10px] font-bold tracking-wider">{date}</span>
+                    </div>
+                </div>
             </div>
 
-            <h4 className={`text-sm font-bold mb-2 ${activeServiceColor}`}>{serviceName}</h4>
-
-            <div className="flex justify-between items-end">
-                <p className="text-xs font-bold text-white/80">
-                    Vehicle Number - {vehicleNumber}
-                </p>
-                <span className={`text-xs font-bold ${statusColor}`}>{status}</span>
+            <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-white/5">
+                <div className="space-y-0.5">
+                    <div className="flex items-center gap-1.5 text-gray-500">
+                        <Hash className="w-2.5 h-2.5" />
+                        <span className="text-[8px] font-black uppercase tracking-[0.2em]">Booking ID</span>
+                    </div>
+                    <p className="text-[10px] font-bold text-white tracking-widest">{bookingId}</p>
+                </div>
+                <div className="space-y-0.5">
+                    <div className="flex items-center gap-1.5 text-gray-500">
+                        <Car className="w-2.5 h-2.5" />
+                        <span className="text-[8px] font-black uppercase tracking-[0.2em]">Vehicle</span>
+                    </div>
+                    <p className="text-[10px] font-bold text-white tracking-widest">{vehicleNumber}</p>
+                </div>
             </div>
+
+            <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onInvoiceClick?.();
+                }}
+                className="absolute bottom-5 right-5 w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 hover:text-theme-green hover:border-theme-green/30 hover:bg-theme-green/10 transition-all duration-300"
+            >
+                <FileText className="w-4 h-4" />
+            </button>
         </div>
     );
 };

@@ -8,6 +8,8 @@ import Image from "next/image";
 import AutoSlider from "@/app/components/common/AutoSlider";
 import AiNavbar from "@/app/components/Navbar/AiNavbar";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store/store";
 import Link from "next/link";
 import FoodNavbar from "@/app/components/Navbar/FoodNavbar";
 import { NavbarName } from "@/app/lib/constants";
@@ -25,6 +27,7 @@ interface MainNavbarProps {
 }
 
 const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
+  const { detailedReportOpen } = useSelector((state: RootState) => state.ui);
   const pathname = usePathname();
   const showFoodNavbar = navbarData?.foodNavItems.some((item) =>
     pathname.endsWith(item.href || "")
@@ -50,10 +53,10 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
 
   useStickyNavbar(100, openNav.main);
 
-  if (pathname === "/cart") return null;
+  if (pathname === "/cart" || pathname.startsWith("/book-service") || pathname.startsWith("/service-history") || pathname.startsWith("/booking/track") || pathname.startsWith("/gear-up") || detailedReportOpen) return null;
 
   return (
-    <nav id="navbar" className="relative z-40 bg-vehicle-card-bg shadow-navbar border-b border-vehicle-card-border">
+    <nav id="navbar" className="relative z-40 bg-transparent">
       <div
         id="main-navbar-container"
         className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-2 relative"
