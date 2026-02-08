@@ -49,6 +49,9 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
   };
 
   useStickyNavbar(100, openNav.main);
+
+  if (pathname === "/cart") return null;
+
   return (
     <nav id="navbar" className="relative z-40 bg-vehicle-card-bg shadow-navbar border-b border-vehicle-card-border">
       <div

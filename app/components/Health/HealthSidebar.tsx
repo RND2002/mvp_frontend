@@ -9,15 +9,17 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/app/store/store"
 import { toast } from "sonner"
 import { ChevronLeft } from "lucide-react"
+import { useUpdateVehicleMutation } from "@/app/beService/health-service"
 
 interface HealthSidebarProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    onMockSubmit?: () => void;
+    onSuccess?: () => void;
 }
 
-export const HealthSidebar = ({ open, onOpenChange, onMockSubmit }: HealthSidebarProps) => {
+export const HealthSidebar = ({ open, onOpenChange, onSuccess }: HealthSidebarProps) => {
     const { selectedVehicle } = useSelector((state: RootState) => state.vehicle)
+    const [updateVehicle, { isLoading }] = useUpdateVehicleMutation()
 
     const handleSubmit = async (data: { kilometers_driven: number, last_service_date: string }) => {
         if (!selectedVehicle) {
@@ -25,10 +27,19 @@ export const HealthSidebar = ({ open, onOpenChange, onMockSubmit }: HealthSideba
             return
         }
 
-        // Bypassing API for mock demo
-        toast.success("Health score calculated successfully!")
-        onOpenChange(false)
-        if (onMockSubmit) onMockSubmit()
+        try {
+            await updateVehicle({
+                id: selectedVehicle.id,
+                baseline_odometer_reading: data.kilometers_driven,
+                baseline_last_service_date: data.last_service_date
+            }).unwrap()
+
+            toast.success("Vehicle health data updated!")
+            onOpenChange(false)
+            if (onSuccess) onSuccess()
+        } catch (err: any) {
+            toast.error(err.data?.error || "Failed to update health data")
+        }
     }
 
     return (
@@ -43,7 +54,7 @@ export const HealthSidebar = ({ open, onOpenChange, onMockSubmit }: HealthSideba
                         <span className="text-sm font-medium">Vehicle History Details</span>
                     </button>
 
-                    <HealthInputForm onSubmit={handleSubmit} isLoading={false} />
+                    <HealthInputForm onSubmit={handleSubmit} isLoading={isLoading} />
                 </div>
             </SheetContent>
         </Sheet>

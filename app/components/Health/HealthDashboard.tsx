@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "@/app/store/store"
 import { HealthReport } from "./HealthReport"
@@ -11,46 +11,28 @@ import { VroomButton } from "../common/VroomButton"
 import { Card, CardContent } from "@/components/ui/card"
 import { Sparkles, ShieldCheck, AlertCircle, ChevronLeft } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
-import { VehicleHealthReport } from "@/app/beService/health-service"
+import { useGetVehicleHealthQuery } from "@/app/beService/health-service"
+import { toast } from "sonner"
 
 export const HealthDashboard = () => {
     const { selectedVehicle } = useSelector((state: RootState) => state.vehicle)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-    const [mockData, setMockData] = useState<VehicleHealthReport | null>(null)
-    const [isLoading, setIsLoading] = useState(false)
     const [showFullReport, setShowFullReport] = useState(false)
-
-    // Dummy data generator
-    const generateMockData = (): VehicleHealthReport => ({
-        overall_score: 84,
-        overall_status: "Excellent",
-        last_updated: "Just now",
-        engine: {
-            temperature: { value: 88, status: "healthy", percentage: 75 },
-            oil_level: { value: "Medium", status: "medium", percentage: 45 }
-        },
-        tyres: {
-            front_psi: { value: 29, status: "optimal" },
-            rear_psi: { value: 33, status: "optimal" },
-            tread_depth: { value: 4.2, percentage: 65, status: "healthy" }
-        },
-        braking: {
-            brake_pad_wear: { value: 65, status: "healthy", percentage: 65 },
-            brake_fluid_status: { value: "Good", status: "good" }
-        },
-        electricals: {
-            battery_voltage: { value: 12.8, status: "optimal" }
-        }
+    const { data: healthData, isLoading: isFetchingHealth, isError } = useGetVehicleHealthQuery(selectedVehicle?.id || "", {
+        skip: !selectedVehicle?.id
     })
+
+    useEffect(() => {
+        if (isError) {
+            toast.error("Failed to fetch vehicle health data")
+        }
+    }, [isError])
 
     const handleOpenSidebar = () => setIsSidebarOpen(true)
 
-    const handleMockSubmit = () => {
-        setIsLoading(true)
-        setTimeout(() => {
-            setMockData(generateMockData())
-            setIsLoading(false)
-        }, 1500)
+    const handleHealthUpdateSuccess = () => {
+        setIsSidebarOpen(false)
+        setShowFullReport(true)
     }
 
     if (!selectedVehicle) {
@@ -71,7 +53,7 @@ export const HealthDashboard = () => {
         )
     }
 
-    if (isLoading) {
+    if (isFetchingHealth) {
         return (
             <div className="space-y-6">
                 <Skeleton className="h-64 w-full bg-vehicle-card-bg/20 rounded-2xl" />
@@ -84,7 +66,7 @@ export const HealthDashboard = () => {
     }
 
     // Full Report View
-    if (showFullReport && mockData) {
+    if (showFullReport && healthData?.health) {
         return (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
                 <div className="flex items-center gap-4 mb-6">
@@ -103,7 +85,7 @@ export const HealthDashboard = () => {
                     </div>
                 </div>
 
-                <HealthReport data={mockData} />
+                <HealthReport data={healthData} />
 
                 <div className="mt-8">
                     <VroomButton
@@ -115,13 +97,18 @@ export const HealthDashboard = () => {
                     </VroomButton>
                 </div>
 
-                <HealthSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} onMockSubmit={handleMockSubmit} />
+                <HealthSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} onSuccess={handleHealthUpdateSuccess} />
             </div>
         )
     }
 
     // Default Case: No health data found or CTA
-    if (!mockData) {
+    const needsSetup = !healthData?.health || healthData.health.overall?.score === null;
+
+    if (needsSetup) {
+        const message = healthData?.health?.overall?.message || "Analyze your vehicle's engine, brakes, and electricals using our AI-powered diagnostic engine.";
+        const title = healthData?.health?.overall?.score === null ? "Add vehicle details" : "Check your vehicle health";
+
         return (
             <Card className="bg-vehicle-card-bg border-vehicle-card-border text-white relative overflow-hidden group">
                 <CardContent className="p-8">
@@ -131,9 +118,9 @@ export const HealthDashboard = () => {
                                 <ShieldCheck className="w-5 h-5" />
                                 <span className="text-xs font-bold uppercase tracking-wider">Smart Health Check</span>
                             </div>
-                            <h3 className="text-2xl font-bold">Check your vehicle health</h3>
+                            <h3 className="text-2xl font-bold">{title}</h3>
                             <p className="text-gray-400 text-sm max-w-md">
-                                Analyze your vehicle's engine, brakes, and electricals using our AI-powered diagnostic engine.
+                                {message}
                             </p>
                         </div>
                         <VroomButton
@@ -149,7 +136,7 @@ export const HealthDashboard = () => {
                     <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl -ml-16 -mb-16 pointer-events-none"></div>
                 </CardContent>
 
-                <HealthSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} onMockSubmit={handleMockSubmit} />
+                <HealthSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} onSuccess={handleHealthUpdateSuccess} />
             </Card>
         )
     }
@@ -158,14 +145,14 @@ export const HealthDashboard = () => {
     return (
         <div className="animate-in fade-in duration-500">
             <HealthSummary
-                data={mockData}
+                data={healthData}
                 onClick={() => setShowFullReport(true)}
                 vehicleName={`${selectedVehicle.brand} ${selectedVehicle.model}`}
                 registrationNumber={selectedVehicle.registration_number}
             />
             <NextServiceBanner onClick={() => { }} />
 
-            <HealthSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} onMockSubmit={handleMockSubmit} />
+            <HealthSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} onSuccess={handleHealthUpdateSuccess} />
         </div>
     )
 }

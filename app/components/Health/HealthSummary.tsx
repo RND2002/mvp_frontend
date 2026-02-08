@@ -1,18 +1,31 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Settings, Droplets, BatteryFull } from "lucide-react"
+import { Settings, Droplets, BatteryFull, Activity, Circle, ShieldCheck } from "lucide-react"
+import { VehicleHealthReport } from "@/app/beService/health-service"
 
 interface HealthSummaryProps {
-    data: any;
+    data: VehicleHealthReport;
     onClick?: () => void;
     registrationNumber?: string;
     vehicleName?: string;
 }
 
 export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }: HealthSummaryProps) => {
-    const score = data.overall_score || 84;
-    const status = data.overall_status || "EXCELLENT";
+    const health = data.health;
+    const overall = health.overall;
+    const systems = health.systems || {};
+
+    const score = overall?.score || 0;
+    const status = overall?.status || "INSUFFICIENT DATA";
+
+    const getStatusColorClass = (s: string) => {
+        const lower = s.toLowerCase();
+        if (lower === 'healthy' || lower === 'optimal' || lower === 'good' || lower === 'excellent') return 'text-theme-green';
+        if (lower === 'medium' || lower === 'average' || lower === 'fair') return 'text-orange-500';
+        if (lower === 'bad' || lower === 'critical' || lower === 'poor') return 'text-red-500';
+        return 'text-gray-400';
+    }
 
     return (
         <div className="space-y-4 cursor-pointer" onClick={onClick}>
@@ -22,10 +35,10 @@ export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }
                     <div className="flex justify-between items-start mb-8">
                         <div>
                             <p className="text-theme-green text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Vehicle Health</p>
-                            <h3 className="text-2xl font-bold text-white leading-tight">{vehicleName || "TVS APACHE RTR 160"}</h3>
-                            <p className="text-gray-500 text-xs font-medium tracking-wider">{registrationNumber || "UP65AW4547"}</p>
+                            <h3 className="text-2xl font-bold text-white leading-tight">{vehicleName || "Your Vehicle"}</h3>
+                            <p className="text-gray-500 text-xs font-medium tracking-wider">{registrationNumber || ""}</p>
                         </div>
-                        <div className="bg-green-500/10 text-theme-green border border-green-500/20 rounded-full px-3 py-1 text-[10px] font-bold tracking-widest h-fit">
+                        <div className="bg-green-500/10 text-theme-green border border-green-500/20 rounded-full px-3 py-1 text-[10px] font-bold tracking-widest h-fit uppercase">
                             {status}
                         </div>
                     </div>
@@ -88,40 +101,46 @@ export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }
 
             {/* Sub Status Cards */}
             <div className="grid grid-cols-2 gap-4">
-                <StatusSmallCard
-                    icon={<Settings className="w-5 h-5 text-theme-green" />}
-                    label="Engine"
-                    status="HEALTHY"
-                    percentage="92%"
-                    statusColor="text-theme-green"
-                />
-                <StatusSmallCard
-                    icon={<div className="relative w-5 h-5 flex items-center justify-center">
-                        <div className="absolute inset-0 border-2 border-orange-500 rounded-full border-dashed animate-[spin_10s_linear_infinite]" />
-                        <div className="w-2 h-2 bg-orange-500 rounded-full" />
-                    </div>}
-                    label="Tyres"
-                    status="CHECK SOON"
-                    percentage="65%"
-                    statusColor="text-orange-500"
-                />
-                <StatusSmallCard
-                    icon={<Droplets className="w-5 h-5 text-theme-green" />}
-                    label="Brake Oil"
-                    status="HEALTHY"
-                    percentage="88%"
-                    statusColor="text-theme-green"
-                />
-                <StatusSmallCard
-                    icon={<BatteryFull className="w-5 h-5 text-theme-green" />}
-                    label="Battery"
-                    status="HEALTHY"
-                    percentage="95%"
-                    statusColor="text-theme-green"
-                />
+                {Object.entries(systems).map(([key, system]) => (
+                    <StatusSmallCard
+                        key={key}
+                        icon={getSystemIcon(key)}
+                        label={key.charAt(0).toUpperCase() + key.slice(1)}
+                        status={system.status}
+                        percentage={`${system.score}%`}
+                        statusColor={getStatusColorClass(system.status)}
+                    />
+                ))}
+                {Object.keys(systems).length === 0 && (
+                    <>
+                        <StatusSmallCard
+                            icon={<Activity className="w-5 h-5 text-gray-500" />}
+                            label="Engine"
+                            status="PENDING"
+                            percentage="--"
+                            statusColor="text-gray-500"
+                        />
+                        <StatusSmallCard
+                            icon={<Settings className="w-5 h-5 text-gray-500" />}
+                            label="Maintenance"
+                            status="PENDING"
+                            percentage="--"
+                            statusColor="text-gray-500"
+                        />
+                    </>
+                )}
             </div>
         </div>
     )
+}
+
+const getSystemIcon = (key: string) => {
+    const k = key.toLowerCase();
+    if (k.includes('engine') || k.includes('drive')) return <Activity className="w-5 h-5 text-theme-green" />;
+    if (k.includes('brake')) return <Circle className="w-5 h-5 text-theme-green" />;
+    if (k.includes('battery') || k.includes('electric')) return <BatteryFull className="w-5 h-5 text-theme-green" />;
+    if (k.includes('tyre') || k.includes('tire')) return <Settings className="w-5 h-5 text-theme-green" />;
+    return <ShieldCheck className="w-5 h-5 text-theme-green" />;
 }
 
 const StatusSmallCard = ({ icon, label, status, percentage, statusColor }: any) => (

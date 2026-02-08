@@ -13,14 +13,19 @@ interface HealthReportProps {
 
 export const HealthReport = ({ data }: HealthReportProps) => {
     const { selectedVehicle } = useSelector((state: RootState) => state.vehicle)
+    const health = data.health;
+    const overall = health.overall;
+    const systems = health.systems || {};
+    const recommendations = health.recommendations || [];
 
-    const getOverallColor = (score: number) => {
+    const getOverallColor = (score: number | null) => {
+        if (score === null) return "var(--theme-gray)"
         if (score >= 67) return "var(--theme-green)"
-        if (score >= 34) return "#FFFFFF"
+        if (score >= 34) return "#EAB308" // Yellow
         return "var(--theme-red)"
     }
 
-    const overallColor = getOverallColor(data.overall_score)
+    const overallColor = getOverallColor(overall?.score || null)
 
     return (
         <div className="space-y-6">
@@ -30,7 +35,7 @@ export const HealthReport = ({ data }: HealthReportProps) => {
                     <div>
                         <h4 className="text-gray-400 text-xs uppercase tracking-widest mb-2">Overall Condition</h4>
                         <div className="flex items-baseline gap-2">
-                            <span className="text-5xl font-bold" style={{ color: overallColor }}>{data.overall_score}%</span>
+                            <span className="text-5xl font-bold" style={{ color: overallColor }}>{overall?.score !== null ? `${overall?.score}%` : "N/A"}</span>
                         </div>
                     </div>
                     <div className="text-right">
@@ -38,103 +43,54 @@ export const HealthReport = ({ data }: HealthReportProps) => {
                             className="bg-theme-green/20 text-theme-green text-[10px] font-bold uppercase px-3 py-1 rounded-full border border-theme-green/30"
                             style={{ color: overallColor, borderColor: `${overallColor}50`, backgroundColor: `${overallColor}10` }}
                         >
-                            {data.overall_status}
+                            {overall?.status || "PENDING"}
                         </span>
-                        <p className="text-[10px] text-gray-500 mt-2 italic">Updated {data.last_updated}</p>
+                        {overall?.last_service_date && (
+                            <p className="text-[10px] text-gray-500 mt-2 italic">Last Service: {new Date(overall.last_service_date).toLocaleDateString()}</p>
+                        )}
                     </div>
                 </div>
                 {/* Decorative glow */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-theme-green/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
             </div>
 
-            {/* Engine & Powertrain */}
+            {/* Health Systems */}
             <section className="space-y-4">
                 <div className="flex items-center gap-2 text-theme-green">
                     <Activity className="w-5 h-5" />
-                    <h3 className="font-bold uppercase tracking-wider text-sm">Engine & Powertrain</h3>
+                    <h3 className="font-bold uppercase tracking-wider text-sm">Vital Systems</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <HealthMetricCard
-                        label="Temperature"
-                        value={`${data.engine.temperature.value}°C`}
-                        status={data.engine.temperature.status}
-                        percentage={data.engine.temperature.percentage}
-                        subLabel="Optimal Range: 80-105°C"
-                    />
-                    <HealthMetricCard
-                        label="Engine Oil Level"
-                        value={data.engine.oil_level.value}
-                        status={data.engine.oil_level.status}
-                        percentage={data.engine.oil_level.percentage}
-                        subLabel="Scheduled Top-up in 450 km"
-                    />
+                    {Object.entries(systems).map(([key, system]) => (
+                        <HealthMetricCard
+                            key={key}
+                            label={key.charAt(0).toUpperCase() + key.slice(1)}
+                            value={`${system.score}%`}
+                            status={system.status}
+                            percentage={system.score}
+                            subLabel={system.basis}
+                        />
+                    ))}
                 </div>
             </section>
 
-            {/* Tyres & Traction */}
-            <section className="space-y-4">
-                <div className="flex items-center gap-2 text-theme-green">
-                    <Circle className="w-5 h-5" />
-                    <h3 className="font-bold uppercase tracking-wider text-sm">Tyres & Traction</h3>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                    <HealthMetricCard
-                        label="Front"
-                        value={`${data.tyres.front_psi.value} PSI`}
-                        status={data.tyres.front_psi.status}
-                        showProgress={false}
-                    />
-                    <HealthMetricCard
-                        label="Rear"
-                        value={`${data.tyres.rear_psi.value} PSI`}
-                        status={data.tyres.rear_psi.status}
-                        showProgress={false}
-                    />
-                </div>
-                <HealthMetricCard
-                    label="Tread Depth"
-                    value={`${data.tyres.tread_depth.value} mm`}
-                    percentage={data.tyres.tread_depth.percentage}
-                />
-            </section>
-
-            {/* Braking System */}
-            <section className="space-y-4">
-                <div className="flex items-center gap-2 text-theme-green">
-                    <CircleDot className="w-5 h-5" />
-                    <h3 className="font-bold uppercase tracking-wider text-sm">Braking System</h3>
-                </div>
-                <HealthMetricCard
-                    label="Brake Pad Wear"
-                    value={`${data.braking.brake_pad_wear.value}% Life`}
-                    status={data.braking.brake_pad_wear.status}
-                    percentage={data.braking.brake_pad_wear.percentage}
-                />
-                <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-xl p-4 flex justify-between items-center">
-                    <h4 className="text-gray-400 text-xs uppercase tracking-wider">Brake Fluid Status</h4>
-                    <span className="text-theme-green font-bold uppercase text-sm">{data.braking.brake_fluid_status.value}</span>
-                </div>
-            </section>
-
-            {/* Electricals */}
-            <section className="space-y-4">
-                <div className="flex items-center gap-2 text-theme-green">
-                    <Zap className="w-5 h-5" />
-                    <h3 className="font-bold uppercase tracking-wider text-sm">Electricals</h3>
-                </div>
-                <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-xl p-4 flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                        <div className="bg-theme-green/20 p-2 rounded-lg">
-                            <Zap className="w-4 h-4 text-theme-green" />
-                        </div>
-                        <div>
-                            <h4 className="text-white text-[13px] font-bold">Battery Voltage</h4>
-                            <p className="text-[10px] text-gray-500 uppercase">Normal Range Detected</p>
-                        </div>
+            {/* Recommendations */}
+            {recommendations.length > 0 && (
+                <section className="space-y-4">
+                    <div className="flex items-center gap-2 text-theme-green">
+                        <CircleDot className="w-5 h-5" />
+                        <h3 className="font-bold uppercase tracking-wider text-sm">AI Recommendations</h3>
                     </div>
-                    <span className="text-white font-bold text-lg">{data.electricals.battery_voltage.value}V</span>
-                </div>
-            </section>
+                    <div className="space-y-3">
+                        {recommendations.map((rec, index) => (
+                            <div key={index} className="bg-vehicle-card-bg border border-vehicle-card-border rounded-xl p-4 flex gap-3 items-start">
+                                <Zap className="w-5 h-5 text-theme-green shrink-0 mt-0.5" />
+                                <p className="text-gray-300 text-sm leading-relaxed">{rec}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             <div className="pt-6">
                 <button className="w-full bg-theme-green text-white font-bold h-14 rounded-xl text-lg hover:bg-theme-green/90 transition-all flex items-center justify-center gap-2">
