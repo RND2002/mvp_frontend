@@ -3,7 +3,7 @@ import { backend } from "@/app/lib/backend-client";
 
 export async function GET(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const { id } = await params;
