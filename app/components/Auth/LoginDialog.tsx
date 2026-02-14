@@ -88,34 +88,26 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
     const openUserMail = (email: string) => {
         if (!email) return;
 
-        const domain = email.split("@")[1]?.toLowerCase();
-        // @ts-ignore
-        const mailUrl = MAIL_PROVIDERS[domain];
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const ua = navigator.userAgent.toLowerCase();
 
+        const isAndroid = ua.includes("android");
+        const isIOS = ua.includes("iphone") || ua.includes("ipad");
+
+        if (isAndroid) {
+            window.location.href =
+                "intent://#Intent;scheme=mailto;package=com.google.android.gm;end";
+            return;
+        }
+
+        if (isIOS) {
+            window.location.href = "googlegmail://";
+            return;
+        }
+
+        const domain = email.split("@")[1]?.toLowerCase();
+        const mailUrl = MAIL_PROVIDERS[domain];
 
         if (mailUrl) {
-
-            if (isMobile) {
-                if (domain === 'gmail.com') {
-                    window.location.href = "googlegmail://";
-                    setTimeout(() => { window.location.href = mailUrl; }, 1000);
-                    return;
-                } else if (domain === 'outlook.com' || domain === 'hotmail.com') {
-                    window.location.href = "ms-outlook://";
-                    setTimeout(() => { window.location.href = mailUrl; }, 1000);
-                    return;
-                } else if (domain === 'yahoo.com') {
-                    window.location.href = "ymail://";
-                    setTimeout(() => { window.location.href = mailUrl; }, 1000);
-                    return;
-                }
-            }
-
-
-
-
-            // For Android or other providers, web URL is often handled by app intents or opens in browser
             window.open(mailUrl, "_blank");
         } else {
             // fallback – open default mail client
