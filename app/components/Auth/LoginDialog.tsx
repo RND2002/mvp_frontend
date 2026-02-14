@@ -88,6 +88,22 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
     const openUserMail = (email: string) => {
         if (!email) return;
 
+        const ua = navigator.userAgent.toLowerCase();
+
+        const isAndroid = ua.includes("android");
+        const isIOS = ua.includes("iphone") || ua.includes("ipad");
+
+        if (isAndroid) {
+            window.location.href =
+                "intent://#Intent;scheme=mailto;package=com.google.android.gm;end";
+            return;
+        }
+
+        if (isIOS) {
+            window.location.href = "googlegmail://";
+            return;
+        }
+
         const domain = email.split("@")[1]?.toLowerCase();
         const mailUrl = MAIL_PROVIDERS[domain];
 
