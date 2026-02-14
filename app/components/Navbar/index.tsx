@@ -56,7 +56,7 @@ const MainNavbar: React.FC<MainNavbarProps> = ({ navbarData }) => {
   if (pathname === "/cart" || pathname.startsWith("/book-service") || pathname.startsWith("/service-history") || pathname.startsWith("/booking/track") || pathname.startsWith("/gear-up") || detailedReportOpen) return null;
 
   return (
-    <nav id="navbar" className="relative z-40 bg-transparent">
+    <nav id="navbar" className="relative z-40">
       <div
         id="main-navbar-container"
         className="container mx-auto flex items-center justify-between px-3 md:px-4 lg:px-6 py-2 relative"

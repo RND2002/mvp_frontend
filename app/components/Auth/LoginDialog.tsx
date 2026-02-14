@@ -88,6 +88,13 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
     const openUserMail = (email: string) => {
         if (!email) return;
 
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (isMobile) {
+            window.location.href = "mailto:";
+            return;
+        }
+
         const domain = email.split("@")[1]?.toLowerCase();
         const mailUrl = MAIL_PROVIDERS[domain];
 

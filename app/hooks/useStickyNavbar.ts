@@ -22,7 +22,8 @@ const useStickyNavbar = (threshold: number = 100, isMobileMenuOpen: boolean = fa
                     "top-0",
                     "z-40",
                     "shadow-md",
-                    "w-full"
+                    "w-full",
+                    "bg-black"
                 );
 
                 if (mainContainer && aiNavbar) {
@@ -33,9 +34,9 @@ const useStickyNavbar = (threshold: number = 100, isMobileMenuOpen: boolean = fa
                     "fixed!",
                     "top-0",
                     "z-40",
-                    "bg-white",
                     "shadow-md",
-                    "w-full"
+                    "w-full",
+                    "bg-black",
                 );
 
                 if (mainContainer && aiNavbar) {
