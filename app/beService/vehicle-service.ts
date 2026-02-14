@@ -5,10 +5,9 @@ import { baseApi } from '../store/api/baseApi';
 export enum VEHICLE_TYPE {
     TWO_WHEELER = "two_wheeler",
     THREE_WHEELER = "three_wheeler",
-    SEDAN = "sedan",
+    FOUR_WHEELER = "four_wheeler",
     XUV_SUV = "xuv_suv",
-    HEAVY_VEHICLE = "heavy_vehicle",
-    FOUR_WHEELER = "four_wheeler"
+    HEAVY_VEHICLE = "heavy_vehicle"
 }
 
 export enum FUEL_TYPE {

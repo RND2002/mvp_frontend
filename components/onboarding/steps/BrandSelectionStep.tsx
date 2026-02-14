@@ -79,7 +79,7 @@ export const BrandSelectionStep = () => {
                                         }}
                                     />
                                 )}
-                                <span className="text-sm font-medium text-wrap text-center">{brand.name}</span>
+                                <span className="text-sm font-medium text-wrap text-center capitalize">{brand.name}</span>
                             </Button>
                         ))}
                         {filteredBrands.length === 0 && (

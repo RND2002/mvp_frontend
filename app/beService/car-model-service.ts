@@ -27,17 +27,36 @@ export const carModelApi = baseApi.injectEndpoints({
                     brand: params.brand
                 }
             }),
-            transformResponse: (response: GetVehicleDataResponse) => {
-                // Enrich brands with logoUrl if missing from API but available locally
-                if (response.brands) {
+            transformResponse: (response: any, meta, arg) => {
+                const results = response.results || [];
+
+                if (arg.type === 'brand') {
                     return {
-                        ...response,
-                        brands: response.brands.map(b => ({
-                            ...b,
-                            logoUrl: b.logoUrl || (b.domain ? getBrandLogo(b.domain) : undefined)
+                        success: response.success,
+                        brands: results.map((b: any) => ({
+                            id: b.id,
+                            name: b.name,
+                            domain: b.domain,
+                            type: arg.vehicle_type, // Preserve requested vehicle type
+                            logoUrl: b.domain ? getBrandLogo(b.domain) : undefined
                         }))
                     };
                 }
+
+                if (arg.type === 'model') {
+                    return {
+                        success: response.success,
+                        models: results.map((m: any) => ({
+                            id: m.id,
+                            name: m.name || m.model, // Support both 'name' and 'model' fields
+                            brandId: arg.brand,
+                            type: m.vehicle_type || arg.vehicle_type,
+                            year: m.year,
+                            fuel_type: m.fuel_type
+                        }))
+                    };
+                }
+
                 return response;
             }
         }),

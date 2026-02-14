@@ -28,22 +28,20 @@ export const ModelSelectionStep = () => {
     );
 
     const handleSelect = (modelId: string, modelName: string) => {
-        // Set both ID and Name if needed. The backend expects model name in 'model' field historically?
-        // Wait, the new requirement is to save `vehicle_model_id`.
-        // I will set `vehicle_model_id` to the UUID.
-        // And I should probably keep `model` as the name for display or backward compatibility until migration is full.
-        // But the previous code was: setValue('model', modelId). 
-        // If `model` field is used for display in next steps, it might break if it's an ID.
-        // Let's check `DetailsStep.tsx` or `VehicleOnboardingWizard` later.
-        // For now, I will set `vehicle_model_id` and `model` (as name) to be safe?
-        // Or assume `model` field in form currently holds the name?
-        // In previous `getModels` implementation: `id: name, name: name`. So `model` form field held the NAME.
-        // Now `id` is UUID.
-        // So I should set `vehicle_model_id` = modelId.
-        // AND `model` = modelName.
-
         setValue('vehicle_model_id', modelId);
         setValue('model', modelName, { shouldValidate: true });
+
+        // Find the selected model to pre-fill other fields
+        const model = models.find(m => m.id === modelId);
+        if (model) {
+            if (model.year) {
+                setValue('year', model.year);
+            }
+            if (model.fuel_type) {
+                setValue('fuel_type', model.fuel_type);
+            }
+        }
+
         nextStep();
     };
 
@@ -84,7 +82,14 @@ export const ModelSelectionStep = () => {
                                 className={`h-16 justify-start px-4 bg-vehicle-card-bg border-vehicle-card-border text-white hover:bg-vehicle-card-bg/80 hover:border-green-500 hover:text-white ${selectedModel === model.name ? 'border-green-500 bg-vehicle-card-bg' : ''}`}
                                 onClick={() => handleSelect(model.id, model.name)}
                             >
-                                <span className="text-base font-medium">{model.name}</span>
+                                <div className="flex flex-col items-start">
+                                    <span className="text-base font-medium">{model.name}</span>
+                                    {(model.year || model.fuel_type) && (
+                                        <span className="text-xs text-muted-foreground">
+                                            {model.year} {model.fuel_type && `• ${model.fuel_type}`}
+                                        </span>
+                                    )}
+                                </div>
                             </Button>
                         ))}
                         {filteredModels.length === 0 && (

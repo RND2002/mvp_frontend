@@ -24,11 +24,11 @@ export const VehicleTypeStep = () => {
         {
             id: VEHICLE_TYPE.THREE_WHEELER,
             label: "Three Wheeler",
-            icon: Bus, // Representing larger/shared transport or distinct from standard car
+            icon: Bus,
         },
         {
-            id: VEHICLE_TYPE.SEDAN,
-            label: "Sedan",
+            id: VEHICLE_TYPE.FOUR_WHEELER,
+            label: "Four Wheeler",
             icon: Car,
         },
         {
@@ -40,11 +40,6 @@ export const VehicleTypeStep = () => {
             id: VEHICLE_TYPE.HEAVY_VEHICLE,
             label: "Heavy Vehicle",
             icon: Truck,
-        },
-        {
-            id: VEHICLE_TYPE.FOUR_WHEELER,
-            label: "Four Wheeler",
-            icon: Car,
         }
     ];
 

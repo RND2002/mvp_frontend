@@ -15,6 +15,8 @@ export interface Model {
     name: string;
     brandId: string;
     type: VehicleType;
+    year?: number;
+    fuel_type?: string;
 }
 
 export interface Vehicle {

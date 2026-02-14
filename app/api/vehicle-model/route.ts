@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     const brand = searchParams.get("brand");
 
     try {
-        let url = `/vehicle-models?type=${type}`;
+        let url = `/vehicle-models/search?type=${type}`;
         if (vehicleType) url += `&vehicle_type=${vehicleType}`;
         if (brand) url += `&brand=${brand}`;
 

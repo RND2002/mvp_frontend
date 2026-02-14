@@ -18,7 +18,7 @@ export const getBrands = async (type: VehicleType): Promise<Brand[]> => {
             logoUrl: getBrandLogo(make.domain)
         }));
     } else {
-        // Fallback for sedan, xuv_suv, heavy_vehicle -> show car brands
+        // Fallback for four_wheeler, xuv_suv, heavy_vehicle -> show car brands
         // Note: Heavy vehicles might need a different list but we use carMakes for now as per plan
         return carMakes.map(make => ({
             id: make.id,
@@ -34,11 +34,11 @@ export const getModels = async (brandId: string): Promise<Model[]> => {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     let models: string[] = [];
-    let type: VehicleType = VEHICLE_TYPE.SEDAN; // Default to SEDAN for car database matches
+    let type: VehicleType = VEHICLE_TYPE.FOUR_WHEELER; // Default to FOUR_WHEELER for car database matches
 
     if (brandId in carModelsIndia) {
         models = carModelsIndia[brandId];
-        type = VEHICLE_TYPE.SEDAN; // Map generic car models to SEDAN type for compatibility
+        type = VEHICLE_TYPE.FOUR_WHEELER; // Map generic car models to FOUR_WHEELER type for compatibility
     } else if (brandId in bikeModelsIndia) {
         models = bikeModelsIndia[brandId];
         type = VEHICLE_TYPE.TWO_WHEELER; // Map generic bike models to TWO_WHEELER
