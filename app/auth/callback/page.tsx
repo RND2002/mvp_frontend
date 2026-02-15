@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '@/app/store/slices/authSlice'
-import supabase from '@/app/api/supabaseClient'
 import { Loader2 } from 'lucide-react'
-
 import { useSyncUserMutation } from '@/app/beService/user-service'
 
 export default function AuthCallbackPage() {
@@ -24,93 +22,77 @@ export default function AuthCallbackPage() {
             setStatus('Taking longer than expected...')
         }, 3000)
 
-        const handleSession = async (session: any) => {
-            if (session) {
-                const user = {
-                    id: session.user.id,
-                    email: session.user.email,
-                    phone: session.user.phone,
+        const handleAuth = async (accessToken: string) => {
+            try {
+                // 1. Sync session with server for middleware cookie
+                const sessionRes = await fetch("/api/auth/session", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ access_token: accessToken }),
+                });
+
+                if (!sessionRes.ok) throw new Error("Failed to set session cookie");
+
+                // 2. Fetch user details from our backend
+                const userRes = await fetch("/api/users/me");
+                const userData = await userRes.json();
+
+                if (!userData.success || !userData.user) {
+                    throw new Error("Failed to fetch user details from backend");
                 }
 
+                const user = {
+                    id: userData.user.id,
+                    email: userData.user.email,
+                    phone: userData.user.phone,
+                }
+
+                // 3. Update Redux store
                 dispatch(setCredentials({
                     user,
-                    token: session.access_token
+                    token: accessToken
                 }))
 
-                // Sync session with server for middleware cookie
-                try {
-                    await fetch("/api/auth/session", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ access_token: session.access_token }),
-                    });
-
-                    // Call centralised user upsert API 
-                    await syncUser({
-                        id: session.user.id,
-                        email: session.user.email,
-                        phone: session.user.phone
-                    }).unwrap()
-
-                } catch (err) {
-                    console.error("Failed to sync session or save user", err);
-                }
+                // 4. Call centralised user upsert API 
+                await syncUser({
+                    id: userData.user.id,
+                    email: userData.user.email,
+                    phone: userData.user.phone
+                }).unwrap()
 
                 setStatus('Login successful! Redirecting...')
                 window.location.href = '/dashboard'
+            } catch (err: any) {
+                console.error("Auth callback error:", err);
+                setError(err.message || "Authentication failed during sync");
             }
         }
 
-        // 1. Check for basic error params
+        // 1. Check for basic error params in hash or query
         const hashParams = new URLSearchParams(window.location.hash.substring(1))
-        const errorDescription = hashParams.get('error_description')
-        const error = hashParams.get('error')
+        const searchParams = new URLSearchParams(window.location.search)
 
-        if (error || errorDescription) {
-            setError(errorDescription || error || 'Authentication failed')
+        const errorDescription = hashParams.get('error_description') || searchParams.get('error_description')
+        const errorType = hashParams.get('error') || searchParams.get('error')
+
+        if (errorType || errorDescription) {
+            setError(errorDescription || errorType || 'Authentication failed')
             clearTimeout(timer)
             return
         }
 
-        // 2. Try getting session normally
-        supabase.auth.getSession().then(async ({ data: { session } }) => {
-            if (session) {
-                await handleSession(session)
-            } else {
-                // 3. Fallback: Manually check for tokens in hash if getSession failed
-                const accessToken = hashParams.get('access_token')
-                const refreshToken = hashParams.get('refresh_token')
+        // 2. Extract tokens from hash
+        const accessToken = hashParams.get('access_token')
 
-                if (accessToken && refreshToken) {
-                    const { data, error } = await supabase.auth.setSession({
-                        access_token: accessToken,
-                        refresh_token: refreshToken,
-                    })
-                    if (data.session) {
-                        await handleSession(data.session)
-                    } else if (error) {
-                        setError(error.message)
-                    }
-                }
-            }
-        })
-
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-            if (event === 'SIGNED_IN' && session) {
-                await handleSession(session)
-            } else if (event === 'SIGNED_OUT') {
-                const hashParams = new URLSearchParams(window.location.hash.substring(1))
-                if (hashParams.get('error')) {
-                    setError(hashParams.get('error_description') || 'Authentication failed')
-                }
-            }
-        })
-
-        return () => {
-            subscription.unsubscribe()
-            clearTimeout(timer)
+        if (accessToken) {
+            handleAuth(accessToken)
+        } else {
+            // If no token, maybe it's a slow redirect or an invalid hit
+            console.log("No token found in hash yet...");
         }
-    }, [dispatch, router])
+
+        return () => clearTimeout(timer)
+    }, [dispatch, router, syncUser])
 
     if (error) {
         return (

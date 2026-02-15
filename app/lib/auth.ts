@@ -1,38 +1,24 @@
-import { cookies } from 'next/headers'
-import { createClient } from '@supabase/supabase-js'
-import supabase from '@/app/api/supabaseClient'
+import { cookies } from 'next/headers';
+import { backend } from './backend-client';
 
-// Helper to get authenticated user or mock user
+// Helper to get authenticated user from Backend API
 export async function getAuthenticatedUser() {
-
-    const cookieStore = await cookies()
-    const token = cookieStore.get('sb_access_token')?.value
+    const cookieStore = await cookies();
+    const token = cookieStore.get('sb_access_token')?.value;
 
     if (!token) {
-        return { user: null, supabaseClient: supabase, error: 'Unauthorized' }
+        return { user: null, error: 'Unauthorized' };
     }
 
-    const { data: userData, error: userError } = await supabase.auth.getUser(token)
+    // Verify session by calling backend /users/me
+    const res = await backend.get('/users/me');
 
-    if (userError || !userData.user) {
-        return { user: null, supabaseClient: supabase, error: 'Invalid session' }
+    if (!res.success || !res.user) {
+        return { user: null, error: res.error || 'Invalid session' };
     }
-
-    const authenticatedClient = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        {
-            global: {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        }
-    )
 
     return {
-        user: userData.user,
-        supabaseClient: authenticatedClient,
+        user: res.user,
         error: null
-    }
+    };
 }

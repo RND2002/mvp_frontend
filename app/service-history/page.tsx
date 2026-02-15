@@ -75,8 +75,8 @@ export default function ServiceHistoryPage() {
             <div className="max-w-4xl mx-auto px-6 pt-8">
                 {/* Header */}
                 <div className="mb-8 text-center">
-                    <p className="text-theme-green text-[9px] font-black uppercase tracking-[0.3em] mb-1.5">Activities</p>
-                    <h1 className="text-2xl font-black text-white tracking-tighter uppercase">
+                    {/* <p className="text-theme-green text-[9px] font-black uppercase tracking-[0.3em] mb-1.5">Activities</p> */}
+                    <h1 className="text-2xl font-bold text-white tracking-tighter uppercase">
                         Service History
                     </h1>
                 </div>

@@ -5,13 +5,76 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle2, Clock, MapPin, Phone, MessageSquare, XCircle, Hash, Car, ReceiptText, Sparkles } from "lucide-react";
 import { useGetBookingByIdQuery } from "@/app/beService/booking-service";
 import { cn } from "@/lib/utils";
+import { socket, joinBookingRoom, leaveBookingRoom } from "@/lib/socket";
+import { toast } from "sonner";
 
 export default function BookingTrackingPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = React.use(params);
     const router = useRouter();
 
-    const { data, isLoading, error } = useGetBookingByIdQuery(id, { skip: !id });
+    const { data, isLoading, error, refetch } = useGetBookingByIdQuery(id, { skip: !id });
     const booking = data?.booking;
+
+    React.useEffect(() => {
+        if (!id) return;
+
+        // Join the booking room for real-time updates
+        joinBookingRoom(id);
+
+        // Listen for updates from the backend
+        const handleUpdate = (update: any) => {
+            console.log("[Socket] Received update:", update);
+            refetch();
+        };
+
+        const handleGarageAssigned = (data: any) => {
+            console.log("[Socket] Garage Assigned:", data);
+            refetch();
+            toast.success(`Garage Assigned: ${data.garage?.name || 'Partner Found'}`, {
+                description: "A mechanic will be assigned soon."
+            });
+        };
+
+        const handleStatusInProgress = (data: any) => {
+            console.log("[Socket] Status: In Progress", data);
+            refetch();
+            toast.info("Service Started", {
+                description: "The mechanic has started working on your vehicle."
+            });
+        };
+
+        const handleStatusCompleted = (data: any) => {
+            console.log("[Socket] Status: Completed", data);
+            refetch();
+            toast.success("Service Completed!", {
+                description: "Your vehicle is ready for pickup/delivery."
+            });
+        };
+
+        const handleStatusCancelled = (data: any) => {
+            console.log("[Socket] Status: Cancelled", data);
+            refetch();
+            toast.error("Booking Cancelled", {
+                description: data.description || "The booking has been cancelled."
+            });
+        };
+
+        socket.on("bookingUpdate", handleUpdate);
+        socket.on("garage_assigned", handleGarageAssigned);
+        socket.on("status_changed:in_progress", handleStatusInProgress);
+        socket.on("status_changed:completed", handleStatusCompleted);
+        socket.on("status_changed:cancelled", handleStatusCancelled);
+
+        // Cleanup: leave the room and stop listening when the component unmounts
+        return () => {
+            leaveBookingRoom(id);
+            socket.off("bookingUpdate", handleUpdate);
+            socket.off("garage_assigned", handleGarageAssigned);
+            socket.off("status_changed:in_progress", handleStatusInProgress);
+            socket.off("status_changed:completed", handleStatusCompleted);
+            socket.off("status_changed:cancelled", handleStatusCancelled);
+        };
+    }, [id, refetch]);
 
     if (isLoading) {
         return (

@@ -1,15 +1,15 @@
 import { getAuthenticatedUser } from "@/app/lib/auth";
 import { NextResponse } from "next/server";
+import { backend } from "@/app/lib/backend-client";
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const vehicle_id = searchParams.get("vehicle_id");
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || "10");
-    const offset = (page - 1) * limit;
+    const page = searchParams.get("page") || "1";
+    const limit = searchParams.get("limit") || "10";
 
     try {
-        const { user, supabaseClient, error: authError } = await getAuthenticatedUser();
+        const { user, error: authError } = await getAuthenticatedUser();
 
         if (authError || !user) {
             return NextResponse.json(
@@ -18,33 +18,19 @@ export async function GET(request: Request) {
             );
         }
 
-        let query = supabaseClient
-            .from('orders')
-            .select('*, order_items(*), order_fulfillments(*)')
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false })
-            .range(offset, offset + limit - 1);
-
+        let url = `/orders?page=${page}&limit=${limit}`;
         if (vehicle_id) {
-            query = query.eq('vehicle_id', vehicle_id);
+            url += `&vehicle_id=${vehicle_id}`;
         }
 
-        const { data, error } = await query;
+        const res = await backend.get(url);
 
-        if (error) {
-            console.error("Error fetching orders:", error);
-            return NextResponse.json({ error: error.message }, { status: 500 });
+        if (!res.success) {
+            console.error("Error fetching orders:", res.error);
+            return NextResponse.json({ error: res.error }, { status: res.status || 500 });
         }
 
-        return NextResponse.json({
-            success: true,
-            orders: data,
-            pagination: {
-                page,
-                limit,
-                hasMore: data && data.length === limit // Simple heuristic
-            }
-        });
+        return NextResponse.json(res);
 
     } catch (err: any) {
         console.error("GET Error:", err);
