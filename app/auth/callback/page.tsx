@@ -13,7 +13,7 @@ export default function AuthCallbackPage() {
     const [error, setError] = useState<string | null>(null)
     const [status, setStatus] = useState<string>('Verifying your login...')
     const [showManualRedirect, setShowManualRedirect] = useState(false)
-    const [syncUser] = useSyncUserMutation()
+    // const [syncUser] = useSyncUserMutation()
 
     useEffect(() => {
         // Fallback timer
@@ -54,11 +54,11 @@ export default function AuthCallbackPage() {
                 }))
 
                 // 4. Call centralised user upsert API 
-                await syncUser({
-                    id: userData.user.id,
-                    email: userData.user.email,
-                    phone: userData.user.phone
-                }).unwrap()
+                // await syncUser({
+                //     id: userData.user.id,
+                //     email: userData.user.email,
+                //     phone: userData.user.phone
+                // }).unwrap()
 
                 setStatus('Login successful! Redirecting...')
                 window.location.href = '/dashboard'
@@ -92,7 +92,7 @@ export default function AuthCallbackPage() {
         }
 
         return () => clearTimeout(timer)
-    }, [dispatch, router, syncUser])
+    }, [dispatch, router])
 
     if (error) {
         return (
