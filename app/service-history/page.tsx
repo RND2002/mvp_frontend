@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { useGetBookingsQuery, Booking } from "@/app/beService/booking-service";
+import { formatDate } from "@/lib/utils";
 
 export default function ServiceHistoryPage() {
     const router = useRouter();
@@ -26,8 +27,8 @@ export default function ServiceHistoryPage() {
         providerName: "Garage Assigned", // Placeholder until garage name is available
         bookingId: b.id.substring(0, 8).toUpperCase(),
         serviceName: b.service?.name || "Car Service",
-        vehicleNumber: b.vehicle?.registration_number || selectedVehicle?.registration_number || "",
-        date: new Date(b.created_at).toLocaleDateString(),
+        vehicleNumber: b.vehicles?.registration_number || selectedVehicle?.registration_number || "",
+        date: formatDate(b.scheduled_at),
         status: "Pending" as any,
         serviceColor: "text-theme-green",
         rawStatus: b.status,
@@ -41,8 +42,8 @@ export default function ServiceHistoryPage() {
         providerName: "Service Completed",
         bookingId: b.id.substring(0, 8).toUpperCase(),
         serviceName: b.service?.name || "Car Service",
-        vehicleNumber: b.vehicle?.registration_number || selectedVehicle?.registration_number || "", // Fallback
-        date: new Date(b.created_at).toLocaleDateString(),
+        vehicleNumber: b.vehicles?.registration_number || selectedVehicle?.registration_number || "", // Fallback
+        date: formatDate(b.scheduled_at),
         status: (['cancelled', 'cancelled_by_user', 'cancelled_by_garage'].includes(b.status) ? "Cancelled" : (b.status === "completed" || b.status === "payment_completed" ? "Completed" : "Paid")) as any,
         serviceColor: "text-muted-foreground",
         rawStatus: b.status,

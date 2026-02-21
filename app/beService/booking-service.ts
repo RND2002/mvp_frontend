@@ -104,10 +104,10 @@ export interface Booking {
     garage_assigned_at?: string;
 
     // Relations
-    vehicle?: Vehicle;
+    vehicles?: Vehicle;
     service?: Service;
-    items?: BookingItem[];
-    events?: BookingEvent[];
+    booking_items?: BookingItem[];
+    booking_events?: BookingEvent[];
     garage?: Garage; // Depending on if your API joins 'garages' or similar
     service_center_id?: string; // Sometimes used for garage ID
 }

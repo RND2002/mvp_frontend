@@ -19,6 +19,11 @@ const AuthInitializer = ({ children }: { children: React.ReactNode }) => {
                             token: "cookie" // Token is HttpOnly, effectively present
                         }));
                     }
+                } else if (res.status === 401) {
+                    // Force redirect to home/login if session is invalid
+                    if (window.location.pathname !== '/') {
+                        window.location.href = '/';
+                    }
                 }
             } catch (error) {
                 console.error("Auth check failed", error);

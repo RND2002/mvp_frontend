@@ -26,6 +26,9 @@ export async function apiRequest<TResponse = any, TPayload = any>(
         const data = await res.json().catch(() => ({}));
 
         if (!res.ok) {
+            if (res.status === 401 && typeof window !== 'undefined') {
+                window.location.href = '/';
+            }
             return { success: false, error: data?.message || "Request failed" };
         }
 

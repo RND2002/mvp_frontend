@@ -18,61 +18,47 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
     React.useEffect(() => {
         if (!id) return;
 
+        console.log(`[Socket] Setting up listeners for booking: ${id}`);
+
         // Join the booking room for real-time updates
         joinBookingRoom(id);
 
-        // Listen for updates from the backend
+        // Generic update handler that uses payload description
         const handleUpdate = (update: any) => {
-            console.log("[Socket] Received update:", update);
+            console.log("[Socket] Received 'bookingUpdate':", update);
             refetch();
+            if (update.description) {
+                const isSuccess = update.type === "COMPLETED" || update.type === "GARAGE_ASSIGNED";
+                const isError = update.type?.includes("CANCELLED");
+
+                if (isSuccess) {
+                    toast.success(update.description);
+                } else if (isError) {
+                    toast.error(update.description);
+                } else {
+                    toast.info(update.description);
+                }
+            }
         };
 
-        const handleGarageAssigned = (data: any) => {
-            console.log("[Socket] Garage Assigned:", data);
-            refetch();
-            toast.success(`Garage Assigned: ${data.garage?.name || 'Partner Found'}`, {
-                description: "A mechanic will be assigned soon."
-            });
-        };
-
-        const handleStatusInProgress = (data: any) => {
-            console.log("[Socket] Status: In Progress", data);
-            refetch();
-            toast.info("Service Started", {
-                description: "The mechanic has started working on your vehicle."
-            });
-        };
-
-        const handleStatusCompleted = (data: any) => {
-            console.log("[Socket] Status: Completed", data);
-            refetch();
-            toast.success("Service Completed!", {
-                description: "Your vehicle is ready for pickup/delivery."
-            });
-        };
-
-        const handleStatusCancelled = (data: any) => {
-            console.log("[Socket] Status: Cancelled", data);
-            refetch();
-            toast.error("Booking Cancelled", {
-                description: data.description || "The booking has been cancelled."
-            });
-        };
+        // Standard socket events for debugging
+        const onConnect = () => console.log("[Socket] Connected to backend");
+        const onDisconnect = (reason: any) => console.log("[Socket] Disconnected from backend:", reason);
+        const onConnectError = (err: any) => console.error("[Socket] Connection error:", err);
 
         socket.on("bookingUpdate", handleUpdate);
-        socket.on("garage_assigned", handleGarageAssigned);
-        socket.on("status_changed:in_progress", handleStatusInProgress);
-        socket.on("status_changed:completed", handleStatusCompleted);
-        socket.on("status_changed:cancelled", handleStatusCancelled);
+        socket.on("connect", onConnect);
+        socket.on("disconnect", onDisconnect);
+        socket.on("connect_error", onConnectError);
 
         // Cleanup: leave the room and stop listening when the component unmounts
         return () => {
+            console.log(`[Socket] Cleaning up listeners for booking: ${id}`);
             leaveBookingRoom(id);
             socket.off("bookingUpdate", handleUpdate);
-            socket.off("garage_assigned", handleGarageAssigned);
-            socket.off("status_changed:in_progress", handleStatusInProgress);
-            socket.off("status_changed:completed", handleStatusCompleted);
-            socket.off("status_changed:cancelled", handleStatusCancelled);
+            socket.off("connect", onConnect);
+            socket.off("disconnect", onDisconnect);
+            socket.off("connect_error", onConnectError);
         };
     }, [id, refetch]);
 
@@ -109,36 +95,72 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
     const bookingStatusDisplay = booking.status.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
 
     const getEventTime = (eventTypes: string[]) => {
-        const event = booking.events?.find((e: any) => eventTypes.includes(e.event_type));
+        const event = booking.booking_events?.find((e: any) =>
+            eventTypes.some(type => type.toLowerCase() === e.event_type.toLowerCase())
+        );
         return event ? new Date(event.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "-";
-    };
-
-    const isStepCompleted = (eventTypes: string[]) => {
-        return booking.events?.some((e: any) => eventTypes.includes(e.event_type));
     };
 
     const timelineSteps = [
         { label: "Booking Requested", events: ["booking_created"] },
         { label: "Garage Assigned", events: ["garage_assigned", "garage_accepted"] },
         { label: "Inspection Done", events: ["inspection_completed"] },
-        { label: "Work in Progress", events: ["work_in_progress", "service_started"] },
+        { label: "Service Started", events: ["service_started"] },
+        { label: "Work in Progress", events: ["work_in_progress"] },
         { label: "Ready for Delivery", events: ["service_completed", "payment_completed"] },
     ];
 
+    const isStepCompleted = (eventTypes: string[]) => {
+        return !!booking.booking_events?.some((e: any) =>
+            eventTypes.some(type => type.toLowerCase() === (e.event_type || "").toLowerCase())
+        );
+    };
+
+    // Robust mapping of status to step index with fuzzy matching
+    const statusToStepIndex = (status: string): number => {
+        if (!status) return -1;
+        const s = status.toLowerCase().trim();
+
+        if (s === "completed" || s === "ready_for_delivery" || s === "payment_completed" || s === "service_completed") return 5;
+        if (s === "work_in_progress") return 4;
+        if (s === "service_started" || s === "in_progress") return 3;
+        if (s === "inspection_completed" || s === "inspection") return 2;
+        if (s === "garage_assigned" || s === "garage_accepted") return 1;
+        if (s === "booking_created" || s === "requested") return 0;
+
+        return -1;
+    };
+
+    const statusBaselineIndex = statusToStepIndex(booking.status);
+    console.log("[Booking Tracking] Status Baseline Index:", statusBaselineIndex);
+
     let currentStepIndex = -1;
     for (let i = timelineSteps.length - 1; i >= 0; i--) {
-        if (isStepCompleted(timelineSteps[i].events)) {
+        const stepHasEvents = isStepCompleted(timelineSteps[i].events);
+        if (stepHasEvents || i === statusBaselineIndex) {
             currentStepIndex = i;
             break;
         }
     }
+
+    // Always ensure at least the first step is active if the booking exists
+    if (currentStepIndex === -1 && booking) {
+        currentStepIndex = 0;
+    }
+
+    // If we're further along by status than events show, use the status index
+    if (currentStepIndex < statusBaselineIndex) {
+        currentStepIndex = statusBaselineIndex;
+    }
+
+    console.log("[Booking Tracking] Calculated Current Step Index:", currentStepIndex);
 
     const trackingData = {
         status: bookingStatusDisplay,
         timeline: timelineSteps.map((step, index) => ({
             status: step.label,
             time: getEventTime(step.events),
-            completed: isStepCompleted(step.events),
+            completed: isStepCompleted(step.events) || index < currentStepIndex,
             current: index === currentStepIndex
         })),
         garage: {
@@ -148,11 +170,11 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
             phone: booking.garage?.contact || ""
         },
         vehicle: {
-            name: `${booking.vehicle?.brand} ${booking.vehicle?.model}` || "Vehicle",
-            reg: booking.vehicle?.registration_number || ""
+            name: `${booking.vehicles?.brand} ${booking.vehicles?.model}` || "Vehicle",
+            reg: booking.vehicles?.registration_number || ""
         },
-        services: (booking.items && booking.items.length > 0)
-            ? booking.items.map((item: any) => item.title)
+        services: (booking.booking_items && booking.booking_items.length > 0)
+            ? booking.booking_items.map((item: any) => item.title)
             : (booking.service?.service_items && booking.service.service_items.length > 0)
                 ? booking.service.service_items.map((item: any) => item.title)
                 : [booking.service?.name || "Service"],
