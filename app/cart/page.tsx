@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { ChevronLeft, ShoppingBag, History } from "lucide-react";
+import { ShoppingBag, History } from "lucide-react";
+import { PageHeader } from "@/app/components/common/PageHeader";
 
 import Container from "@/app/components/common/Container";
 import CartItem from "@/app/components/Cart/CartItem";
@@ -98,38 +99,30 @@ export default function CartPage() {
     }
 
     return (
-        <div className="bg-primary-theme min-h-screen flex flex-col">
-            {/* Header */}
-            <div className="sticky top-0 z-30 bg-primary-theme/95 backdrop-blur-sm border-b border-secondary-theme">
-                <Container className="py-4 px-4">
-                    <div className="flex items-center gap-4 w-full">
-                        <button
-                            onClick={() => router.back()}
-                            className="p-2 -ml-2 text-zinc-400 hover:text-white transition-colors"
-                        >
-                            <ChevronLeft className="w-6 h-6" />
-                        </button>
-                        <h1 className="text-xl font-bold text-white">My Cart</h1>
-
-                        <div className="ml-auto flex items-center gap-4">
-                            <span className="text-sm text-zinc-400">
-                                {totalItems} items
-                            </span>
+        <div className="bg-primary-theme min-h-screen flex flex-col overflow-x-hidden">
+            <Container className="pt-8 px-4">
+                {/* Standardized Premium Page Header */}
+                <PageHeader
+                    title={<>My <span className="text-theme-green">Cart</span></>}
+                    subtitle={`You have ${totalItems} items ready for checkout.`}
+                    backUrl="/dashboard"
+                    rightElement={(
+                        <div className="flex items-center gap-4">
                             {activeDeliveryOrders && activeDeliveryOrders.length > 0 && (
                                 <button
                                     onClick={() => setShowOngoingOrders(true)}
-                                    className="relative p-2 text-zinc-400 hover:text-white transition-colors"
+                                    className="relative p-3 bg-white/5 border border-white/10 rounded-2xl text-zinc-400 hover:text-white transition-all active:scale-95 group"
                                 >
-                                    <History className="w-6 h-6" />
-                                    <span className="absolute top-1 right-0 w-4 h-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full">
+                                    <History className="w-6 h-6 group-hover:rotate-[-20deg] transition-transform" />
+                                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-primary-theme shadow-lg shadow-red-500/20">
                                         {activeDeliveryOrders.length}
                                     </span>
                                 </button>
                             )}
                         </div>
-                    </div>
-                </Container>
-            </div>
+                    )}
+                />
+            </Container>
 
             {/* Scrollable Content */}
             <div

@@ -1,10 +1,11 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Star, Info, Check, MapPin, Truck, Loader2, Car, Sparkles, ChevronRight } from "lucide-react";
+import { ArrowLeft, Star, Info, Check, MapPin, Truck, Loader2, Car, Bike, Sparkles, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useGetServiceItemsQuery } from "@/app/beService/service-items";
 import { useGetServicesQuery } from "@/app/beService/services-service";
+import { VEHICLE_TYPE } from "@/app/beService/vehicle-service";
 import { VroomButton } from "../../components/common/VroomButton";
 import { ServiceIncludes } from "./ServiceIncludes";
 import { cn } from "@/lib/utils";
@@ -125,160 +126,211 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
     return (
         <>
-            <div className="min-h-screen pb-64 md:pb-64 animate-slide-up">
-                {/* Section 1: Service Header */}
-                <div className="relative w-full h-64 md:h-80">
-                    <Image
+            <div className="min-h-screen pb-40 lg:pb-24 animate-slide-up bg-background overflow-x-hidden">
+                {/* Header Section: Dramatically improved for desktop */}
+                <div className="relative w-full h-[200px] md:h-[300px]">
+                    {/* <Image
                         src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=1000"
                         alt="Service Header"
                         fill
                         className="object-cover opacity-60"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#091A23]/50 to-[#091A23]"></div>
+                        priority
+                    /> */}
+                    {/* <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div> */}
+                    {/* <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-transparent"></div> */}
 
-                    <div className="absolute top-0 left-0 right-0 p-6 flex items-center">
+                    {/* Navigation - Premium Desktop Refinement */}
+                    <div className="absolute top-0 left-0 right-0 p-6 lg:px-12 lg:py-8 flex items-center justify-between z-20">
                         <button
                             onClick={onBack}
-                            className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/60 transition-colors"
+                            className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all hover:border-white/20 active:scale-95 group"
                         >
-                            <ArrowLeft className="w-5 h-5" />
+                            <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-1 transition-transform" />
                         </button>
-                        <span className="ml-4 text-white font-semibold text-lg opacity-0 transition-opacity duration-300" style={{ opacity: scrolled ? 1 : 0 }}>
+                    </div>
+
+                    {/* Hero Text - Left-aligned for Desktop */}
+                    <div className="absolute bottom-12 left-6 right-6 lg:left-12 lg:bottom-16 max-w-7xl">
+                        <h1 className="text-4xl md:text-7xl font-black text-white mb-2 md:mb-4 uppercase italic tracking-tighter leading-none">
                             {service.label || service.name}
-                        </span>
-                    </div>
-
-                    <div className="absolute bottom-6 left-6 right-6">
-                        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{service.label || service.name}</h1>
-                        <p className="text-gray-300 font-medium">Doorstep car & bike servicing</p>
-                    </div>
-                </div>
-
-                <div className="px-4 max-w-4xl mx-auto space-y-8 -mt-4 relative z-10">
-
-                    {/* Section 2: Vehicle Context */}
-                    <div className="bg-vehicle-card-bg rounded-3xl p-5 border border-vehicle-card-border flex justify-between items-center shadow-lg group">
-                        {selectedVehicle ? (
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
-                                    <Car className="w-6 h-6 text-gray-400 group-hover:text-theme-green transition-colors" />
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-0.5">Selected Vehicle</p>
-                                    <div className="flex items-center gap-2">
-                                        <h3 className="text-sm font-black text-white">
-                                            {selectedVehicle.brand.toUpperCase()} {selectedVehicle.model.toUpperCase()}
-                                        </h3>
-                                        <span className="w-1 h-1 rounded-full bg-gray-600"></span>
-                                        <span className="text-[10px] font-bold text-gray-400 uppercase">{selectedVehicle.fuel_type}</span>
-                                    </div>
-                                    <div className="text-gray-500 text-[10px] font-medium mt-0.5">{selectedVehicle.registration_number || "NO REG DATA"}</div>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
-                                    <Car className="w-6 h-6 text-gray-600" />
-                                </div>
-                                <div>
-                                    <h3 className="text-sm font-black text-gray-400">No Vehicle Selected</h3>
-                                    <p className="text-xs text-gray-600">Please select a vehicle in profile</p>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Section 3: Price Transparency */}
-                    <div className="bg-vehicle-card-bg rounded-3xl p-6 border border-vehicle-card-border shadow-xl relative overflow-hidden">
-                        <div className="relative z-10">
-                            <div className="flex justify-between items-start mb-3">
-                                <span className="text-gray-500 font-black text-[10px] uppercase tracking-widest flex items-center gap-1.5">
-                                    Estimated Price <Info className="w-3.5 h-3.5 text-gray-700" />
-                                </span>
-                                {isServicesLoading && <Loader2 className="w-4 h-4 animate-spin text-theme-green" />}
-                            </div>
-                            <div className="flex items-baseline gap-1">
-                                <span className="text-4xl font-black text-white">₹{estimatedPriceMin}</span>
-                                <span className="text-gray-500 font-bold text-lg"> – ₹{estimatedPriceMax}</span>
-                            </div>
-                            <p className="text-gray-600 text-[10px] font-medium mt-3 leading-relaxed">
-                                Final price confirmed after inspection. Base price for {selectedVehicle?.vehicle_type?.replace("_", " ") || "vehicle"}.
+                        </h1>
+                        <div className="flex items-center gap-3">
+                            <p className="text-theme-green font-black text-xs md:text-xl uppercase tracking-[0.3em] flex items-center gap-2">
+                                <Sparkles className="w-4 h-4 md:w-6 md:h-6" />
+                                Professional care
                             </p>
                         </div>
-                        {/* Subtle glow */}
-                        <div className="absolute bottom-0 right-0 w-24 h-24 bg-theme-green/5 rounded-full blur-2xl -mr-12 -mb-12"></div>
                     </div>
-
-                    {/* Section 5: Service Includes */}
-                    <ServiceIncludes
-                        items={serviceItems}
-                        isLoading={isItemsLoading}
-                    />
-
-                    {/* Section 6: User Choice (Service Mode) */}
-                    <div>
-                        <h3 className="text-white font-black text-lg mb-4 flex items-center gap-2">
-                            <Truck className="w-5 h-5 text-theme-green" />
-                            Service Mode
-                        </h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <button
-                                onClick={() => setServiceMode("location")}
-                                className={cn(
-                                    "p-6 rounded-3xl border-2 flex flex-col items-center gap-3 transition-all duration-300",
-                                    serviceMode === "location"
-                                        ? "bg-theme-green/10 border-theme-green text-white shadow-[0_0_20px_rgba(34,197,94,0.1)] scale-[1.02]"
-                                        : "bg-vehicle-card-bg border-vehicle-card-border text-gray-500 hover:border-gray-700"
-                                )}
-                            >
-                                <div className={cn(
-                                    "w-12 h-12 rounded-2xl flex items-center justify-center transition-colors",
-                                    serviceMode === "location" ? "bg-theme-green/20" : "bg-white/5"
-                                )}>
-                                    <MapPin className={cn("w-6 h-6", serviceMode === "location" ? "text-theme-green" : "text-gray-600")} />
-                                </div>
-                                <span className="text-sm font-black uppercase tracking-wider text-center">At my location</span>
-                            </button>
-
-                            <button
-                                onClick={() => setServiceMode("pickup")}
-                                className={cn(
-                                    "p-6 rounded-3xl border-2 flex flex-col items-center gap-3 transition-all duration-300",
-                                    serviceMode === "pickup"
-                                        ? "bg-theme-green/10 border-theme-green text-white shadow-[0_0_20px_rgba(34,197,94,0.1)] scale-[1.02]"
-                                        : "bg-vehicle-card-bg border-vehicle-card-border text-gray-500 hover:border-gray-700"
-                                )}
-                            >
-                                <div className={cn(
-                                    "w-12 h-12 rounded-2xl flex items-center justify-center transition-colors",
-                                    serviceMode === "pickup" ? "bg-theme-green/20" : "bg-white/5"
-                                )}>
-                                    <Truck className={cn("w-6 h-6", serviceMode === "pickup" ? "text-theme-green" : "text-gray-600")} />
-                                </div>
-                                <span className="text-sm font-black uppercase tracking-wider text-center">Pickup & Drop</span>
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
 
+                {/* Main Content: Responsive 2-Column Grid */}
+                <div className="px-4 lg:px-12 max-w-4xl lg:max-w-7xl mx-auto lg:mx-0 space-y-8 -mt-10 lg:-mt-12 relative z-10 lg:grid lg:grid-cols-12 lg:gap-12 lg:space-y-0">
+
+                    {/* Left Column: Information */}
+                    <div className="lg:col-span-7 space-y-10">
+                        {/* Service Description Card - Just for desktop */}
+                        <div className="hidden lg:block bg-vehicle-card-bg border border-vehicle-card-border rounded-3xl p-8 shadow-xl">
+                            <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-4 italic">Service Overview</h2>
+                            <p className="text-gray-400 font-medium leading-relaxed text-lg italic">
+                                Our comprehensive automotive service is designed to keep your vehicle running like new.
+                                We perform detailed inspections and use high-grade parts to ensure maximum performance and safety.
+                            </p>
+                        </div>
+
+                        {/* Service Includes Section */}
+                        <ServiceIncludes
+                            items={serviceItems}
+                            isLoading={isItemsLoading}
+                        />
+                    </div>
+
+                    {/* Right Column: Sticky Selection Sidebar */}
+                    <div className="lg:col-span-5 space-y-6">
+                        <div className="lg:sticky lg:top-12 space-y-6">
+
+                            {/* Selected Vehicle Card */}
+                            <div className="bg-vehicle-card-bg rounded-3xl p-6 border border-vehicle-card-border flex justify-between items-center shadow-2xl relative overflow-hidden group">
+                                {selectedVehicle ? (
+                                    <div className="flex items-center gap-5 relative z-10">
+                                        <div className="w-14 h-14 bg-theme-green/10 rounded-2xl flex items-center justify-center border border-theme-green/20">
+                                            {selectedVehicle.vehicle_type === VEHICLE_TYPE.TWO_WHEELER ? (
+                                                <Bike className="w-7 h-7 text-theme-green" />
+                                            ) : (
+                                                <Car className="w-7 h-7 text-theme-green" />
+                                            )}
+                                        </div>
+                                        <div>
+                                            <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1.5">Selected Vehicle</p>
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <h3 className="text-base font-black text-white uppercase tracking-tight">
+                                                    {selectedVehicle.brand} {selectedVehicle.model}
+                                                </h3>
+                                                <div className="w-1 h-1 rounded-full bg-theme-green/50"></div>
+                                                <span className="text-[10px] font-bold text-theme-green uppercase tracking-wider">{selectedVehicle.fuel_type}</span>
+                                            </div>
+                                            <div className="text-gray-500 text-[10px] font-bold tracking-widest uppercase">{selectedVehicle.registration_number || "NO REG DATA"}</div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-4 relative z-10">
+                                        <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
+                                            <Car className="w-6 h-6 text-gray-600" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest">No Vehicle Selected</h3>
+                                            <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest leading-none mt-1">Select from profile</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {/* Corner Glow */}
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-theme-green/5 rounded-full blur-2xl -mr-12 -mt-12 group-hover:bg-theme-green/10 transition-colors"></div>
+                            </div>
+
+                            {/* Price Card */}
+                            <div className="bg-vehicle-card-bg rounded-3xl p-8 border border-vehicle-card-border shadow-2xl relative overflow-hidden group">
+                                <div className="relative z-10">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <span className="text-gray-500 font-black text-[11px] uppercase tracking-[0.2em] flex items-center gap-2">
+                                            Total Estimated Price <Info className="w-4 h-4 text-gray-700" />
+                                        </span>
+                                        {isServicesLoading && <Loader2 className="w-5 h-5 animate-spin text-theme-green" />}
+                                    </div>
+                                    <div className="flex items-baseline gap-2 mb-4">
+                                        <span className="text-5xl font-black text-white tracking-tighter italic">₹{estimatedPriceMin}</span>
+                                        <span className="text-gray-500 font-bold text-xl tracking-tighter italic">— ₹{estimatedPriceMax}</span>
+                                    </div>
+                                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                                        <p className="text-gray-500 text-[10px] font-medium leading-relaxed uppercase tracking-wider">
+                                            Final price confirmed after inspection. Base price for <span className="text-theme-green">{selectedVehicle?.vehicle_type?.replace("_", " ") || "vehicle"}</span>.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="absolute bottom-0 right-0 w-32 h-32 bg-theme-green/5 rounded-full blur-3xl -mr-16 -mb-16 group-hover:bg-theme-green/10 transition-colors"></div>
+                            </div>
+
+                            {/* Service Mode Selection */}
+                            <div className="space-y-4">
+                                <h3 className="text-white font-black text-lg uppercase italic tracking-tighter flex items-center gap-2 px-1">
+                                    <Truck className="w-5 h-5 text-theme-green" />
+                                    Choose Service Mode
+                                </h3>
+                                <div className="grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+                                    <button
+                                        onClick={() => setServiceMode("location")}
+                                        className={cn(
+                                            "p-6 rounded-3xl border-2 flex flex-col items-center gap-4 transition-all duration-300 relative overflow-hidden group",
+                                            serviceMode === "location"
+                                                ? "bg-theme-green/10 border-theme-green text-white shadow-[0_0_30px_rgba(34,197,94,0.15)] scale-[1.02]"
+                                                : "bg-vehicle-card-bg border-vehicle-card-border text-gray-500 hover:border-white/20"
+                                        )}
+                                    >
+                                        <div className={cn(
+                                            "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300",
+                                            serviceMode === "location" ? "bg-theme-green/20 scale-110" : "bg-white/5"
+                                        )}>
+                                            <MapPin className={cn("w-6 h-6", serviceMode === "location" ? "text-theme-green shadow-[0_0_10px_rgba(34,197,94,0.5)]" : "text-gray-600")} />
+                                        </div>
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-center">At my location</span>
+                                    </button>
+
+                                    <button
+                                        onClick={() => setServiceMode("pickup")}
+                                        className={cn(
+                                            "p-6 rounded-3xl border-2 flex flex-col items-center gap-4 transition-all duration-300 relative overflow-hidden group",
+                                            serviceMode === "pickup"
+                                                ? "bg-theme-green/10 border-theme-green text-white shadow-[0_0_30px_rgba(34,197,94,0.15)] scale-[1.02]"
+                                                : "bg-vehicle-card-bg border-vehicle-card-border text-gray-500 hover:border-white/20"
+                                        )}
+                                    >
+                                        <div className={cn(
+                                            "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300",
+                                            serviceMode === "pickup" ? "bg-theme-green/20 scale-110" : "bg-white/5"
+                                        )}>
+                                            <Truck className={cn("w-6 h-6", serviceMode === "pickup" ? "text-theme-green" : "text-gray-600")} />
+                                        </div>
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-center">Pickup & Drop</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Desktop Proceed Button - Hidden on mobile */}
+                            <div className="hidden lg:block pt-4">
+                                <VroomButton
+                                    onClick={handleProceed}
+                                    disabled={!serviceMode || !selectedVehicle}
+                                    size="lg"
+                                    className="w-full h-16 rounded-3xl text-xl font-black uppercase tracking-[0.2em] shadow-[0_12px_40px_rgba(0,223,130,0.3)] bg-theme-green text-black border-none"
+                                    icon={<ChevronRight className="w-6 h-6" />}
+                                >
+                                    {serviceMode ? (
+                                        <div className="flex items-center gap-3">
+                                            <span>Proceed</span>
+                                            <div className="w-1.5 h-1.5 rounded-full bg-black/40"></div>
+                                            <span className="font-bold opacity-80">₹{estimatedPriceMin}</span>
+                                        </div>
+                                    ) : "Select Service Mode"}
+                                </VroomButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {/* Section 7: Sticky Bottom CTA */}
-            <div className="fixed bottom-[80px] md:bottom-24 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/90 to-transparent z-[50] md:max-w-4xl md:mx-auto">
+            {/* Mobile Sticky CTA - Hidden on Laptop screens */}
+            <div className="fixed bottom-[80px] left-0 right-0 p-4 bg-gradient-to-t from-background via-background/95 to-transparent z-[50] lg:hidden">
                 <div className="max-w-4xl mx-auto">
                     <VroomButton
                         onClick={handleProceed}
                         disabled={!serviceMode || !selectedVehicle}
                         size="lg"
-                        className="w-full h-16 rounded-3xl text-xl shadow-[0_8px_30px_rgba(34,197,94,0.3)]"
+                        className="w-full h-16 rounded-3xl text-lg font-black uppercase tracking-wider shadow-[0_12px_40px_rgba(0,223,130,0.35)] bg-theme-green text-black border-none"
                         icon={<ChevronRight className="w-6 h-6" />}
                     >
                         {serviceMode ? (
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-3">
                                 <span>Proceed</span>
-                                <span className="w-1.5 h-1.5 rounded-full bg-black/30"></span>
-                                <span className="opacity-80 font-medium whitespace-nowrap">Est. ₹{estimatedPriceMin}</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-black/40"></div>
+                                <span className="font-bold">₹{estimatedPriceMin}</span>
                             </div>
                         ) : "Select Service Mode"}
                     </VroomButton>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Container from "@/app/components/common/Container";
+import { PageHeader } from "@/app/components/common/PageHeader";
 import { useGetRecommendationsQuery, Product } from "../beService/product-service";
 import ProductCard from "@/components/ProductCard";
 import { useSelector } from "react-redux";
@@ -107,14 +108,13 @@ export default function ModifyRidePage() {
     return (
         <div className="bg-primary-theme min-h-screen pb-20">
             <Container className="py-8 px-4 sm:px-6 lg:px-8">
-                <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-white mb-2">
-                        Gear Up Your Ride
-                    </h1>
-                    <p className="text-zinc-400">
-                        Premium upgrades and accessories tailored for your {selectedVehicle ? `${selectedVehicle.brand} ${selectedVehicle.model}` : "vehicle"}.
-                    </p>
-                </header>
+                {/* Standardized Page Header */}
+                <PageHeader
+                    title={<>Gear <span className="text-theme-green">Up</span></>}
+                    subtitle={`Premium upgrades and accessories tailored for your ${selectedVehicle ? `${selectedVehicle.brand} ${selectedVehicle.model}` : "vehicle"}.`}
+                    backUrl="/dashboard"
+                    className="mb-8"
+                />
 
                 {/* Category Filters (Sticky "Amazon-style" Strip) */}
                 {vehicleId && (

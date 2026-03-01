@@ -19,7 +19,6 @@ import { Loader } from "@/components/ui/loader"
 import { LogOut, User as UserIcon, ArrowLeft } from "lucide-react"
 import { AddVehicleButton } from "@/app/components/Vehicle/AddVehicleButton"
 import { VehicleCard } from "@/app/components/Vehicle/VehicleCard"
-import supabase from "@/app/api/supabaseClient"
 
 interface ProfileSettingsDialogProps {
     open: boolean
@@ -47,14 +46,13 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
     const handleLogout = async () => {
         try {
             await logoutApi().unwrap()
-            await supabase.auth.signOut()
             dispatch(logout())
             setOpen(false)
             router.push('/')
             router.refresh()
         } catch (error) {
             console.error('Logout failed:', error)
-            await supabase.auth.signOut()
+            // Still logout locally if API fails to ensure user isn't stuck
             dispatch(logout())
             setOpen(false)
             router.push('/')

@@ -3,6 +3,8 @@
 import React from "react";
 import { useSelector } from 'react-redux';
 import { cn } from "@/lib/utils";
+import { PageHeader } from "@/app/components/common/PageHeader";
+
 import {
     Settings,
     PaintBucket,
@@ -78,6 +80,7 @@ const CATEGORIES: FilterItem[] = [
     { id: "Cleaning", label: "Cleaning" }
 ];
 
+
 export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSelect }) => {
     const router = useRouter();
     const selectedVehicle = useSelector((state: RootState) => state.vehicle.selectedVehicle);
@@ -91,36 +94,27 @@ export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSel
     const services = data?.services || [];
 
     return (
-        <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
-            {/* High-Fidelity Header */}
-            <div className="flex justify-between items-center mb-10">
-                <div className="flex items-center gap-5">
-                    <button
-                        onClick={() => router.push('/dashboard')}
-                        className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all active:scale-95"
-                    >
-                        <ArrowLeft className="w-5 h-5" />
-                    </button>
-                    <div className="flex items-center gap-3">
+        <div className="max-w-3xl lg:max-w-7xl lg:mx-0 lg:px-12 mx-auto px-4 pt-6 pb-24">
+            {/* Standardized Premium Header */}
+            <PageHeader
+                title={<>Book a <span className="text-theme-green">Service</span></>}
+                subtitle="Select a category to find specialized care for your vehicle."
+                backUrl="/dashboard"
+                rightElement={selectedVehicle && (
+                    <div className="flex items-center gap-3 bg-white/5 border border-white/10 p-3 rounded-2xl">
                         <div className="w-10 h-10 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20">
                             <Car className="w-5 h-5 text-theme-green" />
                         </div>
                         <div>
                             <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Active Vehicle</p>
                             <div className="flex items-center gap-1.5">
-                                <h3 className="text-xs font-black text-white leading-none uppercase">{selectedVehicle?.brand} {selectedVehicle?.model}</h3>
+                                <h3 className="text-xs font-black text-white leading-none uppercase">{selectedVehicle.brand} {selectedVehicle.model}</h3>
                                 <CheckCircle2 className="w-3 h-3 text-theme-green fill-theme-green/20" />
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            {/* Title Section */}
-            <div className="mb-8">
-                <h1 className="text-4xl font-black text-white mb-2">Book a <span className="text-theme-green">Service</span></h1>
-                <p className="text-gray-500 font-medium">Select a category to find specialized care.</p>
-            </div>
+                )}
+            />
 
             {/* Category Pills */}
             <PillFilters
@@ -131,7 +125,7 @@ export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSel
             />
 
             {/* Emergency Action Card */}
-            <div className="bg-red-500/5 border border-red-500/10 rounded-3xl p-5 mb-10 flex items-center justify-between relative overflow-hidden group">
+            <div className="bg-red-500/5 border border-red-500/10 rounded-3xl p-5 mb-10 flex items-center justify-between relative overflow-hidden group max-w-4xl">
                 <div className="relative z-10 flex items-center gap-4">
                     <div className="w-12 h-12 bg-red-500/20 rounded-2xl flex items-center justify-center">
                         <Flame className="w-6 h-6 text-red-500" />
@@ -152,39 +146,46 @@ export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSel
             </div>
 
             {/* Recommended Services Title */}
-            <div className="mb-6">
-                <h2 className="text-xl font-black text-white">Recommended Services</h2>
+            <div className="mb-8 flex items-center gap-4">
+                <h2 className="text-2xl font-black text-white uppercase tracking-tight italic shrink-0">Recommended Services</h2>
+                <div className="h-px bg-white/5 flex-1 hidden md:block"></div>
             </div>
 
-            {/* Services Vertical List */}
-            <div className="space-y-4">
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {isLoading ? (
-                    <div className="flex justify-center items-center h-40">
+                    <div className="col-span-full flex justify-center items-center h-40">
                         <Loader2 className="h-8 w-8 animate-spin text-theme-green" />
                     </div>
                 ) : services.length > 0 ? (
-                    services.map((service, index) => {
-                        const asset = SERVICE_ASSETS[service.name] || {
-                            icon: Settings,
-                            category: "MAINTENANCE",
-                            description: "Professional care for your ride",
-                            color: "bg-gray-800/10",
-                            iconColor: "text-gray-400"
-                        };
+                    services
+                        .filter(s => {
+                            if (selectedCategory === "General") return true;
+                            const asset = SERVICE_ASSETS[s.name];
+                            return asset?.category.toLowerCase() === selectedCategory.toLowerCase();
+                        })
+                        .map((service, index) => {
+                            const asset = SERVICE_ASSETS[service.name] || {
+                                icon: Settings,
+                                category: "MAINTENANCE",
+                                description: "Professional care for your ride",
+                                color: "bg-gray-800/10",
+                                iconColor: "text-gray-400"
+                            };
 
-                        return (
-                            <ServiceCard
-                                key={service.id || index}
-                                name={service.name}
-                                category={asset.category}
-                                description={asset.description}
-                                icon={asset.icon}
-                                color={asset.color}
-                                iconColor={asset.iconColor}
-                                onClick={() => onServiceSelect(service)}
-                            />
-                        );
-                    })
+                            return (
+                                <ServiceCard
+                                    key={service.id || index}
+                                    name={service.name}
+                                    category={asset.category}
+                                    description={asset.description}
+                                    icon={asset.icon}
+                                    color={asset.color}
+                                    iconColor={asset.iconColor}
+                                    onClick={() => onServiceSelect(service)}
+                                />
+                            );
+                        })
                 ) : (
                     <div className="text-center text-slate-400 py-10 bg-vehicle-card-bg border border-dashed border-vehicle-card-border rounded-3xl">
                         No services available for this category yet.

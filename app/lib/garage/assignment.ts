@@ -1,4 +1,4 @@
-import supabase from "@/app/api/supabaseClient";
+// import supabase from "@/app/api/supabaseClient";
 
 export interface Garage {
     id: string;

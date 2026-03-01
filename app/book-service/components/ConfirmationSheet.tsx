@@ -130,7 +130,7 @@ export const ConfirmationSheet: React.FC<ConfirmationSheetProps> = ({
                         <button
                             onClick={onConfirm}
                             disabled={isLoading}
-                            className={`flex-[2] py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 group ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                            className={`flex-[2] cursor-pointer py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 group ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
                             {isLoading ? (
                                 <>Processing...</>

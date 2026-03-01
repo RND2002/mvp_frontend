@@ -47,7 +47,7 @@ const MobileBottomNav: React.FC = () => {
     // Hide if not on main screens or if needed (optional)
     // For now showing on all screens as requested
 
-    if (!isAuthenticated || detailedReportOpen) return null;
+    if (!isAuthenticated) return null;
 
     return (
         <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-[400px] bg-vehicle-card-bg/80 backdrop-blur-xl border border-white/10 z-50 rounded-full shadow-2xl shadow-black/40 px-2 overflow-hidden">

@@ -20,7 +20,7 @@ import {
   setLoginModalOpen,
   selectIsLoginModalOpen,
 } from "@/app/store/slices/authSlice";
-import supabase from "@/app/api/supabaseClient";
+// import supabase from "@/app/api/supabaseClient";
 import { useRouter, usePathname } from "next/navigation";
 import { User, UserIcon, ShoppingCart } from "lucide-react";
 import { useGetCartItemsQuery } from "@/app/beService/cart-items-service";
@@ -58,70 +58,45 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
 
   const cartItemCount = cartData?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
-  React.useEffect(() => {
-    // Skip auth listener in Navbar if we are on the callback page to avoid race conditions
-    if (pathname === '/auth/callback') return;
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_IN" && session) {
-        // Only dispatch if not already authenticated to avoid loops/redundancy
-        // or effectively rely on Redux to dedupe.
-        // We can check if we have a user in store vs session.
+  // React.useEffect(() => {
+  //   // Skip auth listener in Navbar if we are on the callback page to avoid race conditions
+  //   if (pathname === '/auth/callback') return;
 
-        // However, this listener will fire on EVERY app load if session exists.
-        // We need to be careful not to overwrite custom state or cause re-renders.
-        // But for "Magic Link" landing on root, this is critical.
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange(async (event, session) => {
+  //     if (event === "SIGNED_IN" && session) {
+  //       const user = {
+  //         id: session.user.id,
+  //         email: session.user.email,
+  //         phone: session.user.phone,
+  //       };
 
-        // We can check if the URL contains access_token to be more specific?
-        // Or just let it sync. For now, sync is safe as long as it doesn't loop.
+  //       dispatch(
+  //         setCredentials({
+  //           user,
+  //           token: session.access_token,
+  //         })
+  //       );
 
-        const user = {
-          id: session.user.id,
-          email: session.user.email,
-          phone: session.user.phone,
-        };
+  //       // Sync session with server for cookie-based auth
+  //       try {
+  //         await fetch("/api/auth/session", {
+  //           method: "POST",
+  //           headers: { "Content-Type": "application/json" },
+  //           body: JSON.stringify({ access_token: session.access_token }),
+  //         });
+  //       } catch (err) {
+  //         console.error("Failed to sync session", err);
+  //       }
+  //     }
+  //   });
 
-        // We only dispatch if we don't have a user, OR if this is a fresh sign-in event.
-        // But onAuthStateChange fires 'INITIAL_SESSION' on load too.
-        // Let's assume this is strictly for catching the redirect flow for now.
-        // Explicitly check for hash to avoid running on every reload if not needed?
-        // Actually, syncing auth state on mount is generally good practice.
-
-        dispatch(
-          setCredentials({
-            user,
-            token: session.access_token,
-          })
-        );
-
-        // Sync session with server for cookie-based auth
-        try {
-          await fetch("/api/auth/session", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ access_token: session.access_token }),
-          });
-        } catch (err) {
-          console.error("Failed to sync session", err);
-        }
-
-        // If we just signed in via magic link (detected via hash usually), redirect.
-        // REMOVED: conflicting logic with auth/callback page.
-        // if (
-        //   window.location.hash &&
-        //   window.location.hash.includes("access_token")
-        // ) {
-        //   router.push("/dashboard");
-        // }
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [dispatch, router, pathname]);
+  //   return () => {
+  //     subscription.unsubscribe();
+  //   };
+  // }, [dispatch, router, pathname]);
 
   const handleAvatarClick = () => {
     if (isAuthenticated) {
@@ -198,7 +173,7 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
         </div>
       </div>
       <div className="hidden lg:flex items-center w-full justify-between">
-        <Link href="/" className="flex-shrink-0 mr-4">
+        <Link href="/" className="shrink-0 mr-4">
           <Image
             src={Logo}
             alt="Vroom"

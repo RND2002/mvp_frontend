@@ -139,7 +139,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     type="button"
                                     variant="ghost"
                                     onClick={() => setLoginMethod('email')}
-                                    className={`flex items-center gap-2 ${loginMethod === 'email' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
+                                    className={`flex cursor-pointer items-center gap-2 ${loginMethod === 'email' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
                                 >
                                     <Mail className="w-4 h-4" /> Email
                                 </Button>
@@ -148,7 +148,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     type="button"
                                     variant="ghost"
                                     onClick={() => setLoginMethod('phone')}
-                                    className={`flex items-center gap-2 ${loginMethod === 'phone' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
+                                    className={`flex cursor-pointer items-center gap-2 ${loginMethod === 'phone' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
                                 >
                                     <Phone className="w-4 h-4" /> Phone
                                 </Button>
@@ -183,7 +183,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     type="submit"
                                     loading={isLoading}
                                     loadingText="Logging in..."
-                                    className="w-full py-3"
+                                    className="w-full py-3 cursor-pointer"
                                 >
                                     Login
                                 </Button>
@@ -206,7 +206,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     type="button"
                                     variant="outline"
                                     onClick={() => setEmailSent(false)}
-                                    className="mt-4 border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
+                                    className="mt-4 cursor-pointer border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
                                 >
                                     Back To Login
                                 </Button>
@@ -215,7 +215,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     type="button"
                                     variant="outline"
                                     onClick={() => openUserMail(getValues('email') ?? '')}
-                                    className="mt-4 border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
+                                    className="mt-4 cursor-pointer border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
                                 >
                                     Go To Mail
                                 </Button>

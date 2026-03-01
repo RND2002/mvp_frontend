@@ -58,6 +58,7 @@ export default function DesktopFloatingDock() {
 
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "@/app/store/slices/authSlice";
+import { RootState } from "@/app/store/store";
 
 function DesktopFloatingDockContent() {
     const pathname = usePathname();

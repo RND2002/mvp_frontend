@@ -19,7 +19,7 @@ export default function CTASection() {
                             Join thousands of smart vehicle owners today. Track, maintain, and upgrade seamlessly.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
-                            <Button size="lg" className="bg-green-600 hover:bg-green-500 text-black font-bold h-12 px-8">
+                            <Button size="lg" className="bg-green-600 cursor-pointer hover:bg-green-500 text-black font-bold h-12 px-8">
                                 Get Started Now
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>

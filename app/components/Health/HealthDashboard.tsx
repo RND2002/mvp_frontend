@@ -131,7 +131,7 @@ export const HealthDashboard = () => {
                         </div>
                         <VroomButton
                             onClick={handleOpenSidebar}
-                            className="px-8 h-14 rounded-xl text-lg group-hover:scale-105 transition-transform"
+                            className="px-8 h-14 cursor-pointer rounded-xl text-lg group-hover:scale-105 transition-transform"
                             icon={<Sparkles className="w-5 h-5" />}
                         >
                             Start Analysis
@@ -156,7 +156,9 @@ export const HealthDashboard = () => {
                 vehicleName={`${selectedVehicle.brand} ${selectedVehicle.model}`}
                 registrationNumber={selectedVehicle.registration_number}
             />
-            <NextServiceBanner onClick={() => { }} />
+            <div className="md:mb-24">
+                <NextServiceBanner onClick={() => { }} />
+            </div>
 
             <HealthSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} onSuccess={handleHealthUpdateSuccess} />
         </div>

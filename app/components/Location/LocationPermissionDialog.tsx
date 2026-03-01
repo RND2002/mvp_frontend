@@ -107,27 +107,39 @@ export default function LocationPermissionDialog() {
     return (
         <Dialog open={open} onOpenChange={() => { }}>
             {/* prevent closing by clicking outside/esc by passing empty handler or controlled open without setOpen exposed */}
-            <DialogContent className="sm:max-w-[425px] [&>button]:hidden bg-slate-900 text-white border-slate-800">
-                {/* [&>button]:hidden hides the close X button */}
-                <DialogHeader>
-                    <div className="flex justify-center mb-4">
-                        <div className="h-16 w-16 bg-blue-500/20 rounded-full flex items-center justify-center animate-bounce">
-                            <MapPin className="w-8 h-8 text-blue-500" />
+            <DialogContent className="sm:max-w-[425px] [&>button]:hidden bg-vehicle-card-bg text-foreground border-vehicle-card-border rounded-[2.5rem] shadow-2xl shadow-black/60 p-0 overflow-hidden">
+                <div className="relative p-8 pt-10">
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-theme-green/5 rounded-full blur-[80px] -mr-24 -mt-24 pointer-events-none"></div>
+
+                    <DialogHeader className="relative z-10">
+                        <div className="flex justify-center mb-6">
+                            <div className="h-20 w-20 bg-theme-green/10 border border-theme-green/20 rounded-2xl flex items-center justify-center animate-pulse shadow-[0_0_30px_rgba(0,223,130,0.1)]">
+                                <MapPin className="w-10 h-10 text-theme-green" />
+                            </div>
                         </div>
+                        <div className="space-y-2">
+                            <p className="text-theme-green text-center text-[10px] font-black uppercase tracking-[0.3em] mb-1">Authorization Required</p>
+                            <DialogTitle className="text-center text-2xl font-black tracking-tighter uppercase text-white">Location Access</DialogTitle>
+                        </div>
+                        <DialogDescription className="text-center text-gray-400 font-medium leading-relaxed pt-2 px-2">
+                            To find the best mechanics near you and provide accurate service times, we need access to your device's location.
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    <div className="flex justify-center pt-8 relative z-10">
+                        <Button
+                            onClick={handleAllowLocation}
+                            disabled={loading}
+                            className="w-full h-14 bg-theme-green hover:bg-theme-green/90 text-[#020617] font-black uppercase tracking-widest text-xs rounded-2xl transition-all duration-300 shadow-lg shadow-theme-green/20"
+                        >
+                            {loading ? (
+                                <div className="flex items-center gap-2">
+                                    <div className="w-4 h-4 border-2 border-[#020617]/20 border-t-[#020617] rounded-full animate-spin"></div>
+                                    Detecting...
+                                </div>
+                            ) : "Allow Access"}
+                        </Button>
                     </div>
-                    <DialogTitle className="text-center text-xl">Location Access Required</DialogTitle>
-                    <DialogDescription className="text-center text-gray-400 pt-2">
-                        To provide you with the best mechanics nearby and accurate service times, we need access to your device's location.
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="flex justify-center pt-4">
-                    <Button
-                        onClick={handleAllowLocation}
-                        disabled={loading}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                    >
-                        {loading ? "Detecting..." : "Allow Location Access"}
-                    </Button>
                 </div>
             </DialogContent>
         </Dialog>

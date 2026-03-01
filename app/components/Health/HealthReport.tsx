@@ -95,7 +95,7 @@ export const HealthReport = ({ data }: HealthReportProps) => {
 
             <div className="pt-6">
                 <Link href="/book-service" className="block">
-                    <button className="w-full bg-theme-green text-white font-bold h-14 rounded-xl text-lg hover:bg-theme-green/90 transition-all flex items-center justify-center gap-2">
+                    <button className="w-full cursor-pointer bg-theme-green text-white font-bold h-14 rounded-xl text-lg hover:bg-theme-green/90 transition-all flex items-center justify-center gap-2">
                         Book Service Now <Zap className="w-5 h-5" />
                     </button>
                 </Link>

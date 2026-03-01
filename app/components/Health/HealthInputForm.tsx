@@ -8,9 +8,20 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Gauge, Calendar as CalendarIcon, Info, Sparkles } from "lucide-react"
 
+const today = new Date().toISOString().split("T")[0];
+
 const schema = yup.object({
     kilometers_driven: yup.number().required("Total kilometers is required").positive("Must be positive").typeError("Must be a number"),
-    last_service_date: yup.string().required("Last service date is required"),
+    last_service_date: yup.string()
+        .required("Last service date is required")
+        .test("not-future", "Service date cannot be in the future", (value) => {
+            if (!value) return true;
+            const inputDate = new Date(value);
+            const todayDate = new Date();
+            // Start of today to allow selecting today
+            todayDate.setHours(23, 59, 59, 999);
+            return inputDate <= todayDate;
+        }),
 }).required()
 
 interface HealthInputFormProps {
@@ -61,6 +72,7 @@ export const HealthInputForm = ({ onSubmit, isLoading }: HealthInputFormProps) =
                         <Input
                             id="last_service_date"
                             type="date"
+                            max={today}
                             {...register("last_service_date")}
                             className="pl-10 h-12 bg-white/5 border-vehicle-card-border text-white placeholder:text-gray-500"
                         />

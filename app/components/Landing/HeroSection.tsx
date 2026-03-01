@@ -46,7 +46,7 @@ export default function HeroSection() {
                     <Button
                         size="lg"
                         onClick={handleOpenLogin}
-                        className="w-full sm:w-auto px-8 h-12 text-base font-semibold bg-green-600 hover:bg-green-500 hover:text-white text-black shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-105"
+                        className="w-full cursor-pointer sm:w-auto px-8 h-12 text-base font-semibold bg-green-600 hover:bg-green-500 hover:text-white text-black shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-105"
                     >
                         Get Started
                         <ArrowRight className="ml-2 h-4 w-4" />

@@ -23,7 +23,7 @@ export const VroomButton = React.forwardRef<HTMLButtonElement, VroomButtonProps>
                 variant={variant}
                 size={size}
                 className={cn(
-                    "relative overflow-hidden transition-all active:scale-95 font-bold tracking-tight",
+                    "relative cursor-pointer overflow-hidden transition-all active:scale-95 font-bold tracking-tight",
                     // Glow effect for primary buttons
                     isPrimary && "bg-theme-green text-black hover:bg-theme-green/90 shadow-[0_0_20px_rgba(34,197,94,0.2)]",
                     // Refined secondary style
