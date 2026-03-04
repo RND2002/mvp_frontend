@@ -10,9 +10,10 @@ export interface CartItem {
     cart_id: string;
     product_id: string;
     quantity: number;
-    price_snapshot: number;
+    price_snapshot: number | string;
     requires_installation: boolean;
     product?: Product;
+    products?: Product; // Support for singular join returned as 'products'
 }
 
 export interface GetCartItemsResponse {

@@ -57,6 +57,17 @@
   --color-theme-green: var(--theme-green);
   --color-theme-white: var(--theme-white);
   --color-theme-red: var(--theme-red);
+
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  --animate-shimmer: shimmer 2s infinite;
 }
 
 :root {

@@ -9,6 +9,9 @@ import { VEHICLE_TYPE } from "@/app/beService/vehicle-service";
 import { VroomButton } from "../../components/common/VroomButton";
 import { ServiceIncludes } from "./ServiceIncludes";
 import { cn } from "@/lib/utils";
+import { LocationSelector } from "@/app/components/Location/LocationSelector";
+import { UserLocation } from "@/app/beService/user-location-service";
+
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
@@ -35,6 +38,8 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
     const [scrolled, setScrolled] = useState(false);
     const [serviceMode, setServiceMode] = useState<"location" | "pickup" | null>(null);
     const [isVehicleDialogOpen, setIsVehicleDialogOpen] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState<UserLocation | null>(null);
+
 
     // Mutations
 
@@ -91,10 +96,16 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
         if (!serviceMode || !selectedVehicle) return;
 
         // Validate Location
-        if (lat === null || lng === null) {
-            toast.error("Location missing. Please enable location permissions.");
+        if (!selectedLocation && (lat === null || lng === null)) {
+            toast.error("Please select a service location.");
             return;
         }
+
+        const finalLat = selectedLocation ? selectedLocation.latitude : lat;
+        const finalLng = selectedLocation ? selectedLocation.longitude : lng;
+        const finalAddress = selectedLocation ? selectedLocation.address : city || "Unknown";
+
+        const combinedDeliveryInfo = `${finalAddress} [Lat: ${finalLat}, Lng: ${finalLng}]`;
 
         const bookingData = {
             service_id: service.id,
@@ -102,12 +113,18 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
             service_mode: serviceMode === "location" ? "doorstep" : "pickup_drop", // mapping to enum
             price: basePrice,
             scheduled_at: new Date().toISOString(),
+            delivery_address: combinedDeliveryInfo,
+            // Keeping userLocation for technical redundancy if needed by other components, 
+            // but the primary schema field is delivery_address
             userLocation: {
-                lat,
-                lng,
-                city: city || "Unknown"
+                lat: finalLat!,
+                lng: finalLng!,
+                city: finalAddress
             }
         };
+
+
+
 
         onProceed({
             service: { ...service, base_price: basePrice },
@@ -151,7 +168,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
                     {/* Hero Text - Left-aligned for Desktop */}
                     <div className="absolute bottom-12 left-6 right-6 lg:left-12 lg:bottom-16 max-w-7xl">
-                        <h1 className="text-4xl md:text-7xl font-black text-white mb-2 md:mb-4 uppercase italic tracking-tighter leading-none">
+                        <h1 className="text-2xl md:text-4xl font-black text-white mb-2 md:mb-4 uppercase italic tracking-tighter leading-none">
                             {service.label || service.name}
                         </h1>
                         <div className="flex items-center gap-3">
@@ -226,6 +243,13 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                                 <div className="absolute top-0 right-0 w-24 h-24 bg-theme-green/5 rounded-full blur-2xl -mr-12 -mt-12 group-hover:bg-theme-green/10 transition-colors"></div>
                             </div>
 
+                            {/* Location Selection */}
+                            <LocationSelector
+                                onLocationSelect={setSelectedLocation}
+                                selectedLocationId={selectedLocation?.id}
+                            />
+
+
                             {/* Price Card */}
                             <div className="bg-vehicle-card-bg rounded-3xl p-8 border border-vehicle-card-border shadow-2xl relative overflow-hidden group">
                                 <div className="relative z-10">
@@ -297,8 +321,9 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                             <div className="hidden lg:block pt-4">
                                 <VroomButton
                                     onClick={handleProceed}
-                                    disabled={!serviceMode || !selectedVehicle}
+                                    disabled={!serviceMode || !selectedVehicle || !selectedLocation}
                                     size="lg"
+
                                     className="w-full h-16 rounded-3xl text-xl font-black uppercase tracking-[0.2em] shadow-[0_12px_40px_rgba(0,223,130,0.3)] bg-theme-green text-black border-none"
                                     icon={<ChevronRight className="w-6 h-6" />}
                                 >
@@ -308,7 +333,8 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                                             <div className="w-1.5 h-1.5 rounded-full bg-black/40"></div>
                                             <span className="font-bold opacity-80">₹{estimatedPriceMin}</span>
                                         </div>
-                                    ) : "Select Service Mode"}
+                                    ) : !selectedLocation ? "Select Location" : "Select Service Mode"}
+
                                 </VroomButton>
                             </div>
                         </div>
@@ -317,12 +343,14 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
             </div>
 
             {/* Mobile Sticky CTA - Hidden on Laptop screens */}
-            <div className="fixed bottom-[80px] left-0 right-0 p-4 bg-gradient-to-t from-background via-background/95 to-transparent z-[50] lg:hidden">
+            <div className="fixed bottom-[80px] left-0 right-0 p-4 bg-linear-to-t from-background via-background/95 to-transparent z-50 lg:hidden">
                 <div className="max-w-4xl mx-auto">
                     <VroomButton
                         onClick={handleProceed}
-                        disabled={!serviceMode || !selectedVehicle}
+
+                        disabled={!serviceMode || !selectedVehicle || !selectedLocation}
                         size="lg"
+
                         className="w-full h-16 rounded-3xl text-lg font-black uppercase tracking-wider shadow-[0_12px_40px_rgba(0,223,130,0.35)] bg-theme-green text-black border-none"
                         icon={<ChevronRight className="w-6 h-6" />}
                     >
@@ -332,7 +360,8 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                                 <div className="w-1.5 h-1.5 rounded-full bg-black/40"></div>
                                 <span className="font-bold">₹{estimatedPriceMin}</span>
                             </div>
-                        ) : "Select Service Mode"}
+                        ) : !selectedLocation ? "Select Location" : "Select Service Mode"}
+
                     </VroomButton>
                 </div>
             </div>

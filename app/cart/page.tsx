@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { ShoppingBag, History } from "lucide-react";
+import { ShoppingBag, History, ArrowRight, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { PageHeader } from "@/app/components/common/PageHeader";
 
 import Container from "@/app/components/common/Container";
@@ -12,15 +13,22 @@ import OngoingOrdersSheet from "@/app/components/Cart/OngoingOrdersSheet";
 import { useGetCartItemsQuery } from "@/app/beService/cart-items-service";
 import { useCheckoutMutation, useGetOrdersQuery, FulfillmentType, OrderStatus } from "@/app/beService/order-service";
 import { selectSelectedVehicle } from "@/app/store/slices/vehicleSlice";
+import { selectLocation } from "@/app/store/slices/locationSlice";
+import { LocationSelector } from "@/app/components/Location/LocationSelector";
+import { UserLocation } from "@/app/beService/user-location-service";
 import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 
 export default function CartPage() {
     const router = useRouter();
     const selectedVehicle = useSelector(selectSelectedVehicle);
+    const { lat, lng, city } = useSelector(selectLocation);
     const [page, setPage] = useState(1);
     const [allItems, setAllItems] = useState<any[]>([]);
     const [showOngoingOrders, setShowOngoingOrders] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState<UserLocation | null>(null);
+
 
     const { data, isFetching, isLoading } = useGetCartItemsQuery(
         { vehicle_id: selectedVehicle?.id || "", page, limit: 10 },
@@ -43,9 +51,18 @@ export default function CartPage() {
     );
 
     const handleCheckout = async () => {
-        if (!selectedVehicle) return;
+        if (!selectedVehicle || !selectedLocation) {
+            toast.error("Please select a delivery location first");
+            return;
+        }
         try {
-            const res = await checkout({ vehicle_id: selectedVehicle.id }).unwrap();
+            const res = await checkout({
+                vehicle_id: selectedVehicle.id,
+                location_id: selectedLocation.id,
+                delivery_address: selectedLocation.address || "",
+                userLocation: (lat && lng && city) ? { lat, lng, city } : undefined
+            }).unwrap();
+
             if (res.success) {
                 toast.success("Order placed successfully!");
                 router.push(`/orders/success/${res.orderId}`);
@@ -77,7 +94,10 @@ export default function CartPage() {
     };
 
     // Calculate Totals
-    const subtotal = allItems.reduce((acc, item) => acc + (item.price_snapshot * item.quantity), 0);
+    const subtotal = allItems.reduce((acc, item) => {
+        const price = typeof item.price_snapshot === 'string' ? parseFloat(item.price_snapshot) : item.price_snapshot;
+        return acc + (price * item.quantity);
+    }, 0);
     const totalItems = allItems.reduce((acc, item) => acc + item.quantity, 0);
 
     if (!selectedVehicle) {
@@ -99,25 +119,46 @@ export default function CartPage() {
     }
 
     return (
-        <div className="bg-primary-theme min-h-screen flex flex-col overflow-x-hidden">
-            <Container className="pt-8 px-4">
+        <div className="bg-primary-theme h-svh flex flex-col overflow-x-hidden">
+            <Container className="pt-8 pb-4 px-4 sticky top-0 bg-primary-theme/80 backdrop-blur-md z-30">
                 {/* Standardized Premium Page Header */}
                 <PageHeader
                     title={<>My <span className="text-theme-green">Cart</span></>}
-                    subtitle={`You have ${totalItems} items ready for checkout.`}
+                    subtitle={`You have ${totalItems} items ready.`}
                     backUrl="/dashboard"
                     rightElement={(
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
+                            {/* History Button */}
                             {activeDeliveryOrders && activeDeliveryOrders.length > 0 && (
                                 <button
                                     onClick={() => setShowOngoingOrders(true)}
-                                    className="relative p-3 bg-white/5 border border-white/10 rounded-2xl text-zinc-400 hover:text-white transition-all active:scale-95 group"
+                                    className="relative p-2.5 bg-white/5 border border-white/10 rounded-xl text-zinc-400 hover:text-white transition-all active:scale-95 group"
                                 >
-                                    <History className="w-6 h-6 group-hover:rotate-[-20deg] transition-transform" />
-                                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-primary-theme shadow-lg shadow-red-500/20">
+                                    <History className="w-5 h-5 group-hover:rotate-[-20deg] transition-transform" />
+                                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[8px] font-bold flex items-center justify-center rounded-full border-2 border-primary-theme">
                                         {activeDeliveryOrders.length}
                                     </span>
                                 </button>
+                            )}
+
+                            {/* Slim Checkout Button at Top */}
+                            {allItems.length > 0 && (
+                                <Button
+                                    onClick={handleCheckout}
+                                    disabled={isCheckingOut || !selectedLocation}
+                                    className={cn(
+                                        "h-11 px-6 relative group overflow-hidden transition-all duration-500 font-bold text-sm rounded-xl flex items-center justify-center gap-2",
+                                        !selectedLocation || isCheckingOut
+                                            ? "bg-white/5 text-gray-600 border border-white/10 cursor-not-allowed"
+                                            : "bg-theme-green text-black shadow-[0_10px_20px_-5px_rgba(0,223,130,0.3)] active:scale-95"
+                                    )}
+                                >
+                                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
+                                    <span className="relative z-10 shrink-0">
+                                        Checkout ₹{subtotal.toLocaleString('en-IN')}
+                                    </span>
+                                    <ArrowRight className="w-3.5 h-3.5 relative z-10 transition-transform duration-300 group-hover:translate-x-1 hidden md:block" />
+                                </Button>
                             )}
                         </div>
                     )}
@@ -126,10 +167,24 @@ export default function CartPage() {
 
             {/* Scrollable Content */}
             <div
-                className="flex-1 overflow-y-auto"
+                className="flex-1 overflow-y-auto scrollbar-hide px-4"
                 onScroll={handleScroll}
             >
-                <Container className="py-6 px-4 pb-40 md:pb-48">
+                <Container className="py-6 pb-24 md:pb-32 p-0!">
+                    {/* Location Selector Move to Top of List */}
+                    {allItems.length > 0 && (
+                        <div className="mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
+                            <div className="flex items-center gap-2 mb-3 px-1">
+                                <div className="w-1 h-3 bg-theme-green rounded-full"></div>
+                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-[0.2em]">Service Location</span>
+                            </div>
+                            <LocationSelector
+                                onLocationSelect={setSelectedLocation}
+                                selectedLocationId={selectedLocation?.id}
+                            />
+                        </div>
+                    )}
+
                     {allItems.length === 0 && !isLoading ? (
                         <div className="flex flex-col items-center justify-center py-20 text-center">
                             <div className="w-20 h-20 bg-secondary-theme rounded-full flex items-center justify-center mb-6">
@@ -162,35 +217,6 @@ export default function CartPage() {
                 </Container>
             </div>
 
-            {/* Bottom Summary Bar */}
-            {allItems.length > 0 && (
-                <div className="sticky bottom-[80px] md:bottom-24 bg-primaryCard border-t md:border-t md:rounded-t-2xl border-secondary-theme p-4 shadow-[0_-4px_20px_rgba(0,0,0,0.3)] z-40 safe-area-bottom max-w-7xl mx-auto w-full left-0 right-0">
-                    <Container className="!py-0 px-4">
-                        <div className="flex flex-col gap-4">
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-zinc-400">Subtotal</span>
-                                <span className="text-white font-bold text-lg">
-                                    ₹{subtotal.toLocaleString('en-IN')}
-                                </span>
-                            </div>
-                            <Button
-                                onClick={handleCheckout}
-                                disabled={isCheckingOut}
-                                className="w-full py-3.5 bg-brand-primary-500 hover:bg-brand-primary-600 text-white font-bold rounded-xl shadow-lg shadow-brand-primary-500/25 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                            >
-                                {isCheckingOut ? (
-                                    <>
-                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                        Processing...
-                                    </>
-                                ) : (
-                                    "Checkout"
-                                )}
-                            </Button>
-                        </div>
-                    </Container>
-                </div>
-            )}
 
             {/* Ongoing Orders Sheet */}
             <OngoingOrdersSheet

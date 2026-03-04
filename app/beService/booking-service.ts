@@ -6,6 +6,7 @@ export interface CreateBookingRequest {
     service_mode: string;
     scheduled_at?: string;
     price: number;
+    delivery_address?: string;
     userLocation?: {
         lat: number;
         lng: number;

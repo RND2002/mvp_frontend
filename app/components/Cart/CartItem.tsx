@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Minus, Plus, Trash2, Wrench } from "lucide-react";
+import { Minus, Plus, Trash2, Wrench, ShoppingBag } from "lucide-react";
 import { CartItem as CartItemType } from "@/app/beService/cart-items-service";
 
 interface CartItemProps {
@@ -10,66 +10,78 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove }) => {
-    const { product, quantity, requires_installation } = item;
+    const product = item.product || item.products;
+    const { quantity, requires_installation } = item;
 
     if (!product) return null;
 
+    const displayPrice = typeof product.price === 'string' ? parseFloat(product.price) : product.price;
+
     return (
-        <div className="flex gap-4 p-4 bg-primaryCard border border-secondary-theme rounded-xl hover:border-brand-primary-500/30 transition-colors">
-            {/* Product Image */}
-            <div className="relative w-24 h-24 shrink-0 bg-secondary-theme rounded-lg overflow-hidden">
+        <div className="group relative flex gap-5 p-5 bg-primaryCard/40 border border-[#5c707a]/20 rounded-[2.5rem] hover:border-theme-green/30 transition-all duration-500 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.4)] overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-theme-green/5 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-theme-green/10 transition-colors duration-700"></div>
+
+            {/* Product Image Section */}
+            <div className="relative w-28 h-28 shrink-0 rounded-[1.75rem] overflow-hidden border border-white/5 bg-primaryCard">
                 {product.image_urls?.[0] ? (
                     <Image
                         src={product.image_urls[0]}
                         alt={product.name}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                 ) : (
-                    <div className="flex items-center justify-center w-full h-full text-zinc-600 text-xs">
-                        No Image
+                    <div className="flex flex-col items-center justify-center w-full h-full text-[#5c707a] bg-linear-to-b from-white/5 to-transparent">
+                        <ShoppingBag className="w-5 h-5 mb-1 opacity-20" />
+                        <span className="text-[8px] font-black uppercase tracking-widest opacity-40">No Image</span>
                     </div>
                 )}
             </div>
 
-            {/* Content */}
-            <div className="flex-1 flex flex-col justify-between">
+            {/* Content Section */}
+            <div className="flex-1 flex flex-col justify-between py-1">
                 <div>
-                    <div className="flex justify-between items-start gap-2">
-                        <div>
-                            <span className="text-[10px] font-bold text-brand-primary-400 uppercase tracking-wider bg-secondary-theme px-2 py-0.5 rounded-full">
-                                {product.category}
-                            </span>
-                            <h3 className="text-white font-semibold line-clamp-2 mt-1 leading-tight">
+                    <div className="flex justify-between items-start gap-3">
+                        <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1.5">
+                                <span className="px-2.5 py-0.5 rounded-full bg-theme-green/10 border border-theme-green/20 text-theme-green text-[8px] font-black uppercase tracking-widest">
+                                    {product.category}
+                                </span>
+                                {requires_installation && (
+                                    <div className="flex items-center gap-1 text-gray-500">
+                                        <Wrench className="w-2.5 h-2.5" />
+                                        <span className="text-[8px] font-black uppercase tracking-widest">Setup Inc.</span>
+                                    </div>
+                                )}
+                            </div>
+                            <h3 className="text-white font-black text-sm uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-theme-green transition-colors">
                                 {product.name}
                             </h3>
                         </div>
                         {onRemove && (
                             <button
                                 onClick={() => onRemove(item.id)}
-                                className="text-zinc-500 hover:text-red-400 p-1 -mr-1 transition-colors"
+                                className="w-9 h-9 flex items-center justify-center rounded-xl bg-red-500/5 text-red-500/40 hover:text-red-500 hover:bg-red-500/10 transition-all active:scale-90"
                             >
                                 <Trash2 className="w-4 h-4" />
                             </button>
                         )}
                     </div>
-
-                    {requires_installation && (
-                        <div className="flex items-center gap-1.5 mt-2 text-xs text-zinc-400">
-                            <Wrench className="w-3.5 h-3.5 text-brand-primary-500" />
-                            <span>Installation included</span>
-                        </div>
-                    )}
                 </div>
 
-                <div className="flex items-center justify-between mt-3">
-                    <div className="text-white font-bold text-lg">
-                        ₹{product.price.toLocaleString('en-IN')}
+                <div className="flex items-end justify-between mt-4">
+                    <div className="flex flex-col">
+                        <span className="text-[8px] font-black text-gray-600 uppercase tracking-widest mb-0.5">Unit Price</span>
+                        <div className="text-white font-black text-xl tracking-tighter">
+                            ₹{displayPrice.toLocaleString('en-IN')}
+                        </div>
                     </div>
 
-                    {/* Quantity Controls (Placeholder for now) */}
-                    <div className="flex items-center justify-center gap-3 bg-secondary-theme rounded-lg p-1">
-                        <span className="text-zinc-400 text-xs px-2">Qty: {quantity}</span>
+                    <div className="flex items-center gap-3 bg-white/5 border border-white/5 rounded-2xl p-1.5 px-4 h-11">
+                        <span className="text-gray-500 text-[9px] font-black uppercase tracking-widest">Qty</span>
+                        <div className="w-px h-3 bg-white/10"></div>
+                        <span className="text-theme-green font-black text-sm">{quantity}</span>
                     </div>
                 </div>
             </div>

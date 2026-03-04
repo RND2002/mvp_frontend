@@ -51,7 +51,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
                     </div>
                 </div>
                 {rightElement && (
-                    <div className="hidden md:block shrink-0">
+                    <div className="shrink-0 flex items-center">
                         {rightElement}
                     </div>
                 )}

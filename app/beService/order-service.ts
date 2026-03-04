@@ -71,6 +71,9 @@ export interface Pagination {
 
 export interface CheckoutRequest {
     vehicle_id: string;
+    location_id: string;
+    delivery_address: string;
+    userLocation?: { lat: number; lng: number; city: string };
 }
 
 export interface CheckoutResponse {
