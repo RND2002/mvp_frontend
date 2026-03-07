@@ -29,6 +29,7 @@ import { useGetUserLocationsQuery, useCreateUserLocationMutation, useDeleteUserL
 import { useGeoLocation } from "@/app/hooks/useGeoLocation";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { Loader } from "@/components/ui/loader";
 
 interface LocationSelectorProps {
     onLocationSelect: (location: UserLocation) => void;
@@ -165,7 +166,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                     </div>
                 </div>
             </SheetTrigger>
-            <SheetContent side="bottom" className="bg-[#020617] border-t border-white/10 h-[80vh] rounded-t-[3rem] p-0 overflow-hidden">
+            <SheetContent side="bottom" className="bg-primaryCard border-t border-secondary-theme h-[80vh] rounded-t-[3rem] p-0 overflow-hidden">
                 <div className="h-full flex flex-col">
                     <div className="p-8 pb-4">
                         <SheetHeader className="text-left mb-6">
@@ -275,7 +276,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                         disabled={isCreating}
                                         className="flex-1 h-14 rounded-2xl bg-theme-green hover:bg-theme-green/90 text-black font-black uppercase tracking-widest"
                                     >
-                                        {isCreating ? <Loader2 className="w-5 h-5 animate-spin" /> : "Save Address"}
+                                        {isCreating ? <Loader size="sm" /> : "Save Address"}
                                     </Button>
                                 </div>
                             </div>
@@ -283,7 +284,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                             <div className="space-y-4">
                                 {isFetching ? (
                                     <div className="flex flex-col items-center justify-center py-20 gap-4">
-                                        <Loader2 className="w-8 h-8 text-theme-green animate-spin" />
+                                        <Loader size="lg" text="Loading Addresses..." />
                                         <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Loading Addresses...</p>
                                     </div>
                                 ) : locations.length === 0 ? (

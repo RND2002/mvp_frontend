@@ -3,7 +3,7 @@
 import React from "react"
 import { Button, ButtonProps } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Loader2 } from "lucide-react"
+import { Loader } from "@/components/ui/loader"
 
 interface VroomButtonProps extends ButtonProps {
     loading?: boolean
@@ -34,7 +34,7 @@ export const VroomButton = React.forwardRef<HTMLButtonElement, VroomButtonProps>
                 {...props}
             >
                 {loading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader size="sm" />
                 ) : (
                     <div className="flex items-center justify-center gap-2">
                         {icon && iconPosition === "left" && icon}

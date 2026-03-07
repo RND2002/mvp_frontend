@@ -46,7 +46,7 @@ export const ModelSelectionStep = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 w-full h-full max-h-[600px]">
+        <div className="flex flex-col gap-4 w-full h-full">
             {errors.model && (
                 <div className="text-red-500 text-sm font-semibold">{errors.model.message}</div>
             )}
@@ -56,14 +56,14 @@ export const ModelSelectionStep = () => {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
                     <Input
                         placeholder="Search models..."
-                        className="pl-9 bg-vehicle-card-bg border-vehicle-card-border text-white placeholder:text-gray-500"
+                        className="pl-9 bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
             </div>
 
-            <ScrollArea className={cn("flex-1 min-h-0 border border-vehicle-card-border rounded-md p-2", errors.model && "border-red-500")}>
+            <ScrollArea className={cn("flex-1 min-h-0 border border-secondary-theme rounded-md p-2", errors.model && "border-red-500")}>
                 {isLoading ? (
                     <div className="flex items-center justify-center h-full p-4">
                         <Loader2 className="w-6 h-6 animate-spin text-green-500" />
@@ -79,7 +79,7 @@ export const ModelSelectionStep = () => {
                             <Button
                                 key={model.id}
                                 variant="outline"
-                                className={`h-16 justify-start px-4 bg-vehicle-card-bg border-vehicle-card-border text-white hover:bg-vehicle-card-bg/80 hover:border-green-500 hover:text-white ${selectedModel === model.name ? 'border-green-500 bg-vehicle-card-bg' : ''}`}
+                                className={`h-16 justify-start px-4 bg-white/5 border-secondary-theme text-white hover:bg-white/10 hover:border-green-500 hover:text-white ${selectedModel === model.name ? 'border-green-500 bg-green-500/10' : ''}`}
                                 onClick={() => handleSelect(model.id, model.name)}
                             >
                                 <div className="flex flex-col items-start">

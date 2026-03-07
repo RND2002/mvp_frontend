@@ -43,7 +43,7 @@ export const HealthDashboard = () => {
 
     if (!selectedVehicle) {
         return (
-            <Card className="bg-vehicle-card-bg border-vehicle-card-border text-white">
+            <Card className="bg-primaryCard border-secondary-theme text-white">
                 <CardContent className="p-8 text-center space-y-4">
                     <div className="bg-gray-800/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
                         <AlertCircle className="w-8 h-8 text-gray-500" />
@@ -62,10 +62,10 @@ export const HealthDashboard = () => {
     if (isFetchingHealth) {
         return (
             <div className="space-y-6">
-                <Skeleton className="h-64 w-full bg-vehicle-card-bg/20 rounded-2xl" />
+                <Skeleton className="h-64 w-full bg-primaryCard/20 rounded-2xl" />
                 <div className="grid grid-cols-2 gap-4">
-                    <Skeleton className="h-32 w-full bg-vehicle-card-bg/20 rounded-xl" />
-                    <Skeleton className="h-32 w-full bg-vehicle-card-bg/20 rounded-xl" />
+                    <Skeleton className="h-32 w-full bg-primaryCard/20 rounded-xl" />
+                    <Skeleton className="h-32 w-full bg-primaryCard/20 rounded-xl" />
                 </div>
             </div>
         )
@@ -80,7 +80,7 @@ export const HealthDashboard = () => {
                         variant="ghost"
                         size="icon"
                         onClick={() => setShowFullReport(false)}
-                        className="bg-vehicle-card-bg border border-vehicle-card-border rounded-xl hover:bg-white/5 h-10 w-10"
+                        className="bg-primaryCard border border-secondary-theme rounded-xl hover:bg-white/5 h-10 w-10"
                         icon={<ChevronLeft className="w-5 h-5 text-white" />}
                         iconPosition="left"
                     >
@@ -116,7 +116,7 @@ export const HealthDashboard = () => {
         const title = healthData?.health?.overall?.score === null ? "Add vehicle details" : "Check your vehicle health";
 
         return (
-            <Card className="bg-vehicle-card-bg border-vehicle-card-border text-white relative overflow-hidden group">
+            <Card className="bg-primaryCard border-secondary-theme text-white relative overflow-hidden group">
                 <CardContent className="p-8">
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="space-y-2 text-center md:text-left">

@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/sheet"
 import { Loader } from "@/components/ui/loader"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { LogOut, User as UserIcon, ArrowLeft, MapPin, Plus, Trash2, Home, Briefcase, Car, Bike, Settings2, ChevronDown, ChevronUp, Loader2 } from "lucide-react"
+import { LogOut, User as UserIcon, ArrowLeft, MapPin, Plus, Trash2, Home, Briefcase, Car, Bike, Settings2, ChevronDown, ChevronUp } from "lucide-react"
 import { AddVehicleButton } from "@/app/components/Vehicle/AddVehicleButton"
 import { VehicleCard } from "@/app/components/Vehicle/VehicleCard"
 import { useGetUserLocationsQuery, useCreateUserLocationMutation, useDeleteUserLocationMutation, UserLocation } from "@/app/beService/user-location-service"
@@ -176,7 +176,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             {isRedirecting && <Loader fullScreen text="Switching vehicle..." />}
-            <SheetContent side="right" className="w-full sm:max-w-[420px] bg-[#020617] border-l border-white/10 text-white p-0 overflow-hidden flex flex-col">
+            <SheetContent side="right" className="w-full sm:max-w-[420px] bg-primaryCard border-l border-secondary-theme text-white p-0 overflow-hidden flex flex-col">
                 <SheetHeader className="p-6 border-b border-white/5 flex flex-row items-center gap-4 space-y-0 relative z-10">
                     <Button
                         variant="ghost"
@@ -353,7 +353,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                 </ScrollArea>
 
                 <Dialog open={isAddLocationOpen} onOpenChange={setIsAddLocationOpen}>
-                    <DialogContent className="bg-[#020617] border border-white/10 text-white rounded-4xl p-8 max-w-md">
+                    <DialogContent className="bg-primaryCard border border-secondary-theme text-white rounded-4xl p-8 max-w-md">
                         <DialogHeader>
                             <DialogTitle className="text-2xl font-black uppercase  tracking-tighter">Add Location</DialogTitle>
                             <DialogDescription className="text-gray-500 font-bold uppercase text-[10px] tracking-widest">
@@ -431,7 +431,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                     disabled={isCreatingLocation || !geo.loaded}
                                     className="flex-1 bg-theme-green hover:bg-theme-green/90 text-black rounded-xl uppercase font-black text-xs"
                                 >
-                                    {isCreatingLocation ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save Location"}
+                                    {isCreatingLocation ? <Loader size="sm" /> : "Save Location"}
                                 </Button>
                             </div>
                         </div>
@@ -447,7 +447,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                     >
                         {isLoading ? (
                             <div className="flex items-center gap-2">
-                                <Loader2 className="w-4 h-4 animate-spin" />
+                                <Loader size="sm" />
                                 <span>Sign Out...</span>
                             </div>
                         ) : (

@@ -44,7 +44,7 @@ export const HealthSidebar = ({ open, onOpenChange, onSuccess }: HealthSidebarPr
 
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetContent side="right" className="w-full sm:max-w-md bg-vehicle-card-bg border-l-vehicle-card-border p-0 overflow-y-auto">
+            <SheetContent side="right" className="w-full sm:max-w-md bg-primaryCard border-l-secondary-theme p-0 overflow-y-auto">
                 <div className="p-6">
                     <button
                         onClick={() => onOpenChange(false)}

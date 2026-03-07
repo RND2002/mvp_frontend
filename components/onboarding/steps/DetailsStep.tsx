@@ -28,7 +28,7 @@ export const DetailsStep = () => {
                         control={control}
                         name="year"
                         render={({ field }) => (
-                            <ScrollArea className={cn("h-[144px] w-full border border-vehicle-card-border rounded-md p-2", errors.year && "border-red-500")}>
+                            <ScrollArea className={cn("h-[144px] w-full border border-secondary-theme rounded-md p-2", errors.year && "border-red-500")}>
                                 <div className="grid grid-cols-4 gap-2">
                                     {YEARS.map((year) => (
                                         <Button
@@ -36,7 +36,7 @@ export const DetailsStep = () => {
                                             type="button"
                                             variant="outline"
                                             onClick={() => field.onChange(year)}
-                                            className={`h-9 px-2 text-xs ${field.value == year ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-vehicle-card-bg border-vehicle-card-border text-white hover:bg-vehicle-card-bg/80"}`}
+                                            className={`h-9 px-2 text-xs ${field.value == year ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
                                         >
                                             {year}
                                         </Button>
@@ -62,7 +62,7 @@ export const DetailsStep = () => {
                                         key={fuel}
                                         type="button"
                                         variant="outline"
-                                        className={`h-9 px-3 ${field.value === fuel ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-vehicle-card-bg border-vehicle-card-border text-white hover:bg-vehicle-card-bg/80"}`}
+                                        className={`h-9 px-3 ${field.value === fuel ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
                                         onClick={() => field.onChange(fuel)}
                                     >
                                         {fuel}
@@ -86,7 +86,7 @@ export const DetailsStep = () => {
                                 {...field}
                                 value={field.value || ''}
                                 className={cn(
-                                    "bg-vehicle-card-bg border-vehicle-card-border text-white placeholder:text-gray-500",
+                                    "bg-white/5 border-secondary-theme text-white placeholder:text-gray-500",
                                     errors.registration_number && "border-red-500 focus-visible:ring-red-500/50"
                                 )}
                                 placeholder="e.g. MH 02 AB 1234"

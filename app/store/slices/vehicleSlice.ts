@@ -28,11 +28,23 @@ const vehicleSlice = createSlice({
     reducers: {
         setVehicles: (state, action: PayloadAction<Vehicle[]>) => {
             state.vehicles = action.payload;
-            // Auto-select first vehicle if none selected or if selection not in new list
-            if (state.vehicles.length > 0) {
-                const currentSelectedStillExists = state.selectedVehicle && state.vehicles.find(v => v.id === state.selectedVehicle?.id);
-                if (!state.selectedVehicle || !currentSelectedStillExists) {
-                    state.selectedVehicle = state.vehicles[0];
+
+            // Try to restore selection from localStorage
+            let restoredVehicle = null;
+            if (typeof window !== 'undefined') {
+                const savedId = localStorage.getItem('selectedVehicleId');
+                if (savedId) {
+                    restoredVehicle = state.vehicles.find(v => v.id === savedId);
+                }
+            }
+
+            if (restoredVehicle) {
+                state.selectedVehicle = restoredVehicle;
+            } else if (state.vehicles.length > 0) {
+                // Default to first if no valid selection restored
+                state.selectedVehicle = state.vehicles[0];
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('selectedVehicleId', state.vehicles[0].id);
                 }
             } else {
                 state.selectedVehicle = null;
@@ -42,12 +54,18 @@ const vehicleSlice = createSlice({
             const vehicle = state.vehicles.find((v) => v.id === action.payload);
             if (vehicle) {
                 state.selectedVehicle = vehicle;
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('selectedVehicleId', action.payload);
+                }
             }
         },
         addVehicle: (state, action: PayloadAction<Vehicle>) => {
             state.vehicles.unshift(action.payload);
             if (!state.selectedVehicle) {
                 state.selectedVehicle = action.payload;
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('selectedVehicleId', action.payload.id);
+                }
             }
         },
         clearVehicles: (state) => {

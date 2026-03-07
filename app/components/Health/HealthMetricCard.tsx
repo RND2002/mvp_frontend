@@ -31,7 +31,7 @@ export const HealthMetricCard = ({
     const statusColor = getStatusColor(status);
 
     return (
-        <div className="bg-vehicle-card-bg/80 border border-vehicle-card-border rounded-xl p-4 mb-2 backdrop-blur-sm">
+        <div className="bg-primaryCard/80 border border-secondary-theme rounded-xl p-4 mb-2 backdrop-blur-sm">
             <div className="flex justify-between items-start mb-2">
                 <div>
                     <h4 className="text-gray-400 text-xs uppercase tracking-wider mb-1">{label}</h4>
@@ -51,7 +51,7 @@ export const HealthMetricCard = ({
 
             {showProgress && percentage !== undefined && (
                 <div className="mt-4">
-                    <div className="h-1.5 w-full bg-[#1E3A4A] rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full bg-secondary-theme rounded-full overflow-hidden">
                         <div
                             className="h-full transition-all duration-500"
                             style={{

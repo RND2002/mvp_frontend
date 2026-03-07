@@ -10,6 +10,7 @@ import ProductShelf from "@/app/components/common/ProductShelf";
 import { useGetUserVehiclesQuery } from "../beService/user-service";
 import { VehicleOnboardingWizard } from "@/components/onboarding/VehicleOnboardingWizard";
 import { useEffect, useState } from "react";
+import Container from "@/app/components/common/Container";
 
 import { useSearchParams } from "next/navigation";
 
@@ -32,16 +33,13 @@ function DashboardContent() {
     }, [vehicles, isLoading, onboarding]);
 
     return (
-        <div className="w-full">
+        <div className="w-full bg-primary-theme min-h-screen">
             <VehicleOnboardingWizard open={showOnboarding} onClose={() => setShowOnboarding(false)} />
-            <div className="px-2 mt-4 lg:px-0">
-                {/* <QuickActions /> */}
-
+            <Container className="py-4">
                 <div className="mb-6">
                     <HealthDashboard />
                 </div>
-
-            </div>
+            </Container>
         </div>
     );
 }

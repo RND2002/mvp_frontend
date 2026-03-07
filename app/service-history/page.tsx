@@ -10,6 +10,7 @@ import { formatDate } from "@/lib/utils";
 import { PillFilters, FilterItem } from "../components/common/PillFilters";
 import { Clock, History as HistoryIcon, CheckCircle2 } from "lucide-react";
 import { PageHeader } from "@/app/components/common/PageHeader";
+import { Loader } from "@/components/ui/loader";
 
 const FILTER_ITEMS: FilterItem[] = [
     { id: "all", label: "View All" },
@@ -70,7 +71,7 @@ export default function ServiceHistoryPage() {
 
     if (!selectedVehicle) {
         return (
-            <div className="min-h-screen bg-vehicle-card-bg flex items-center justify-center text-white">
+            <div className="min-h-screen bg-primary-theme flex items-center justify-center text-white">
                 <div className="text-center">
                     <HistoryIcon className="w-12 h-12 text-gray-700 mx-auto mb-4" />
                     <p className="text-gray-500 font-bold uppercase tracking-widest text-sm">Please select a vehicle to view history.</p>
@@ -80,14 +81,7 @@ export default function ServiceHistoryPage() {
     }
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen bg-vehicle-card-bg flex items-center justify-center text-white">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-10 h-10 border-4 border-theme-green/20 border-t-theme-green rounded-full animate-spin"></div>
-                    <p className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">Syncing history...</p>
-                </div>
-            </div>
-        );
+        return <Loader fullScreen text="Syncing history..." />;
     }
 
     // Filter display lists based on selected filter
@@ -103,7 +97,7 @@ export default function ServiceHistoryPage() {
     });
 
     return (
-        <div className="min-h-screen bg-background pb-24 lg:pb-12 animate-slide-up overflow-x-hidden">
+        <div className="min-h-screen bg-primary-theme pb-24 lg:pb-12 animate-slide-up overflow-x-hidden">
             <div className="max-w-3xl lg:max-w-7xl lg:mx-0 lg:px-12 mx-auto px-4 pt-8">
 
                 {/* Common Header */}
@@ -172,7 +166,7 @@ export default function ServiceHistoryPage() {
                                     ))}
                                 </div>
                             ) : (selectedFilter === "completed" || selectedFilter === "cancelled") && (
-                                <div className="bg-white/3 border border-dashed border-white/5 rounded-4xl p-16 text-center">
+                                <div className="bg-primaryCard/50 border border-dashed border-secondary-theme rounded-4xl p-16 text-center">
                                     <HistoryIcon className="w-12 h-12 text-gray-800 mx-auto mb-4 opacity-20" />
                                     <p className="text-gray-600 text-sm font-bold uppercase tracking-widest italic">
                                         No {selectedFilter} records found
@@ -184,7 +178,7 @@ export default function ServiceHistoryPage() {
 
                     {/* Empty State for Pending when Filtered */}
                     {selectedFilter === "pending" && ongoingServices.length === 0 && (
-                        <div className="bg-white/3 border border-dashed border-white/5 rounded-4xl p-16 text-center">
+                        <div className="bg-primaryCard/50 border border-dashed border-secondary-theme rounded-4xl p-16 text-center">
                             <Clock className="w-12 h-12 text-gray-800 mx-auto mb-4 opacity-20" />
                             <p className="text-gray-600 text-sm font-bold uppercase tracking-widest italic">No pending services found</p>
                         </div>

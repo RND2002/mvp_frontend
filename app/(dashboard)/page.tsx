@@ -1,8 +1,12 @@
 "use client";
 
 import HeroSection from "@/app/components/Landing/HeroSection";
-import FeatureSection from "@/app/components/Landing/FeatureSection";
+import WhatYouCanDoSection from "@/app/components/Landing/WhatYouCanDoSection";
+import HowItWorksSection from "@/app/components/Landing/HowItWorksSection";
 import TrustSection from "@/app/components/Landing/TrustSection";
+import TestimonialSection from "@/app/components/Landing/TestimonialSection";
+import CTASection from "@/app/components/Landing/CTASection";
+import Footer from "@/app/components/Landing/Footer";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../store/slices/authSlice";
 import { useRouter } from "next/navigation";
@@ -19,13 +23,18 @@ export default function DashboardPage() {
     }, [isAuthenticated, router]);
 
     return (
-        <main className="bg-black min-h-screen">
+        <main className="bg-primary-theme min-h-screen">
             <HeroSection />
-            <FeatureSection />
-            {/* <HowItWorksSection /> */}
-            <TrustSection />
-            {/* <CTASection /> */}
-            {/* <Footer /> */}
+            <WhatYouCanDoSection />
+            <div id="how-it-works">
+                <HowItWorksSection />
+            </div>
+            <div id="why-vroom">
+                <TrustSection />
+            </div>
+            <TestimonialSection />
+            <CTASection />
+            <Footer />
         </main>
     );
 }

@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { ShoppingBag, History, ArrowRight, Loader2 } from "lucide-react";
+import { ShoppingBag, History, ArrowRight } from "lucide-react";
+import { Loader } from "@/components/ui/loader";
 import { cn } from "@/lib/utils";
 import { PageHeader } from "@/app/components/common/PageHeader";
 
@@ -206,10 +207,8 @@ export default function CartPage() {
                             ))}
 
                             {isFetching && (
-                                <div className="py-4 flex justify-center">
-                                    <div className="animate-spin text-brand-primary-500">
-                                        <div className="w-6 h-6 border-2 border-current border-t-transparent rounded-full" />
-                                    </div>
+                                <div className="py-8 flex justify-center">
+                                    <Loader size="md" text="Updating Cart..." />
                                 </div>
                             )}
                         </div>

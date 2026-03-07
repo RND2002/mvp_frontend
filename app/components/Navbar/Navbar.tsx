@@ -139,64 +139,91 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
 
   return (
     <>
-      <div className="lg:hidden flex items-center justify-between w-full px-4 py-1">
-        <div className="flex items-center gap-2">
-          <Link href="/">
-            <Image
-              src={Logo}
-              alt="Vroom"
-              width={810}
-              height={30}
-              className="w-20 h-auto"
-            />
-          </Link>
-          <div className="scale-75 origin-left -ml-2">
-            <LocationHeader />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <Link href="/cart" className="relative h-9 w-9 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors">
-            <ShoppingCart className="h-5 w-5 text-green-500" />
-            {cartItemCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 bg-brand-primary-500 text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-primary-theme">
-                {cartItemCount > 9 ? '9+' : cartItemCount}
-              </span>
-            )}
-          </Link>
-          <div
-            className="h-9 w-9 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors"
-            onClick={handleAvatarClick}
-          >
-            <User className="h-5 w-5 text-green-500" />
-          </div>
-        </div>
-      </div>
-      <div className="hidden lg:flex items-center w-full justify-between">
-        <Link href="/" className="shrink-0 mr-4">
+      <div className="lg:hidden flex items-center justify-between w-full px-4 py-3 bg-primary-theme border-b border-white/5">
+        <Link href="/" className="inline-block transition-transform active:scale-95">
           <Image
             src={Logo}
             alt="Vroom"
-            className="w-48 h-16"
+            width={120}
+            height={40}
+            className="w-24 h-auto"
           />
         </Link>
-        <LocationHeader />
-        <div className="flex items-center gap-4 ml-auto">
-          <Link href="/cart" className="relative h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors">
-            <ShoppingCart className="h-5 w-5 text-green-500" />
-            {cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-brand-primary-500 text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-primary-theme">
-                {cartItemCount > 9 ? '9+' : cartItemCount}
-              </span>
-            )}
-          </Link>
-          <div
-            className="h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors"
-            onClick={handleAvatarClick}
+
+        {pathname === "/" ? (
+          <button
+            onClick={() => dispatch(setLoginModalOpen(true))}
+            className="px-5 py-1.5 bg-theme-green text-black font-black text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-theme-green/90 transition-all active:scale-95 shadow-[0_0_15px_rgba(0,223,130,0.2)]"
           >
-            <User className="h-6 w-6 text-green-500" />
+            Sign In
+          </button>
+        ) : (
+          <div className="flex items-center gap-3">
+            <div className="scale-75 origin-right">
+              <LocationHeader />
+            </div>
+            <Link href="/cart" className="relative h-9 w-9 bg-green-500/10 rounded-full flex items-center justify-center cursor-pointer active:bg-green-500/20 transition-colors">
+              <ShoppingCart className="h-4 w-4 text-green-500" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-brand-primary-500 text-white text-[9px] font-bold h-3.5 w-3.5 flex items-center justify-center rounded-full border border-primary-theme">
+                  {cartItemCount > 9 ? '9+' : cartItemCount}
+                </span>
+              )}
+            </Link>
+            <div
+              className="h-9 w-9 bg-green-500/10 rounded-full flex items-center justify-center cursor-pointer active:bg-green-500/20 transition-colors"
+              onClick={handleAvatarClick}
+            >
+              <User className="h-4 w-4 text-green-500" />
+            </div>
           </div>
-        </div>
+        )}
+      </div>
+      <div className="hidden lg:flex items-center w-full justify-between">
+        <Link href="/" className="inline-block transition-transform hover:scale-105 active:scale-95">
+          <Image
+            src={Logo}
+            alt="Vroom Logo"
+            width={120}
+            height={48}
+            className="w-32 h-10"
+          />
+        </Link>
+
+        {pathname === "/" ? (
+          <>
+            <div className="hidden lg:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
+              <Link href="#how-it-works" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors">How It Works</Link>
+              <Link href="#why-vroom" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors">Why Vroom</Link>
+            </div>
+            <button
+              onClick={() => dispatch(setLoginModalOpen(true))}
+              className="ml-auto px-6 py-2 bg-theme-green text-black font-black text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-theme-green/90 transition-all hover:scale-105 shadow-[0_0_20px_rgba(0,223,130,0.2)]"
+            >
+              Sign In
+            </button>
+          </>
+        ) : (
+          <>
+            <LocationHeader />
+            <div className="flex items-center gap-4 ml-auto">
+              <Link href="/cart" className="relative h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors">
+                <ShoppingCart className="h-5 w-5 text-green-500" />
+                {cartItemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-brand-primary-500 text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-primary-theme">
+                    {cartItemCount > 9 ? '9+' : cartItemCount}
+                  </span>
+                )}
+              </Link>
+              <div
+                className="h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors"
+                onClick={handleAvatarClick}
+              >
+                <User className="h-6 w-6 text-green-500" />
+              </div>
+            </div>
+          </>
+        )}
         <LoginDialog
           open={isLoginOpen}
           setOpen={(val) => dispatch(setLoginModalOpen(val))}

@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Star, Info, Check, MapPin, Truck, Loader2, Car, Bike, Sparkles, ChevronRight } from "lucide-react";
+import { ArrowLeft, Star, Info, Check, MapPin, Truck, Car, Bike, Sparkles, ChevronRight } from "lucide-react";
+import { Loader } from "@/components/ui/loader";
 import Image from "next/image";
 import { useGetServiceItemsQuery } from "@/app/beService/service-items";
 import { useGetServicesQuery } from "@/app/beService/services-service";
@@ -257,7 +258,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                                         <span className="text-gray-500 font-black text-[11px] uppercase tracking-[0.2em] flex items-center gap-2">
                                             Total Estimated Price <Info className="w-4 h-4 text-gray-700" />
                                         </span>
-                                        {isServicesLoading && <Loader2 className="w-5 h-5 animate-spin text-theme-green" />}
+                                        {isServicesLoading && <Loader size="sm" />}
                                     </div>
                                     <div className="flex items-baseline gap-2 mb-4">
                                         <span className="text-5xl font-black text-white tracking-tighter italic">₹{estimatedPriceMin}</span>

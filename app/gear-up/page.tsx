@@ -7,7 +7,7 @@ import { useGetRecommendationsQuery, Product } from "../beService/product-servic
 import ProductCard from "@/components/ProductCard";
 import { useSelector } from "react-redux";
 import { selectSelectedVehicle } from "../store/slices/vehicleSlice";
-import { Loader2 } from "lucide-react";
+import { Loader } from "@/components/ui/loader";
 import { PillFilters } from "../components/common/PillFilters";
 
 // Hardcoded categories as requested, acting as the "Amazon-style" filter strip.
@@ -158,7 +158,7 @@ export default function ModifyRidePage() {
                         {/* Loading & Status States */}
                         <div className="py-12 flex justify-center w-full">
                             {isFetching && (
-                                <Loader2 className="w-8 h-8 animate-spin text-theme-green" />
+                                <Loader size="lg" text="Processing..." />
                             )}
 
                             {!isFetching && products.length === 0 && (

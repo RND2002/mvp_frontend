@@ -71,7 +71,7 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
     };
 
     return (
-        <div className="flex flex-col h-full w-full bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] text-white p-4 md:p-6 overflow-hidden">
+        <div className="flex flex-col h-[100dvh] w-full bg-primaryCard text-white p-4 md:p-6 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] overflow-hidden">
             {/* Header */}
             <div className="flex justify-between items-center mb-2 container mx-auto max-w-4xl shrink-0">
                 <Button variant="ghost" size="sm" onClick={handleSkip} className="text-muted-foreground">
@@ -101,7 +101,7 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
             </div>
 
             {/* Footer Navigation */}
-            <div className="container mx-auto max-w-4xl flex justify-between items-center mt-6 pt-4 border-t pb-8">
+            <div className="container mx-auto max-w-4xl flex justify-between items-center mt-6 pt-4 border-t border-secondary-theme pb-8">
                 <Button
                     variant="ghost"
                     onClick={prevStep}
@@ -134,7 +134,7 @@ interface VehicleOnboardingWizardProps {
 export const VehicleOnboardingWizard = ({ open, onClose }: VehicleOnboardingWizardProps) => {
     return (
         <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
-            <DialogContent className="flex justify-center items-center h-screen w-screen max-w-none max-h-none border-none shadow-none bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] text-theme-white p-0 [&>button]:hidden rounded-none flex-col z-[9999]">
+            <DialogContent className="flex justify-center items-center h-[100dvh] w-screen max-w-none max-h-none border-none shadow-none bg-primaryCard text-theme-white p-0 [&>button]:hidden rounded-none flex-col z-[9999]">
                 <OnboardingProvider>
                     <WizardContent onClose={onClose} />
                 </OnboardingProvider>

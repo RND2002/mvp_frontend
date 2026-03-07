@@ -17,13 +17,13 @@ import {
     Droplets,
     PhoneCall,
     ChevronRight,
-    Loader2,
     CheckCircle2,
     Zap,
     Flame,
     Sparkles,
     ArrowLeft
 } from "lucide-react";
+import { Loader } from "@/components/ui/loader";
 import { useRouter } from "next/navigation";
 import { VroomButton } from "../../components/common/VroomButton";
 import { ServiceCard } from "./ServiceCard";
@@ -155,7 +155,7 @@ export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSel
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {isLoading ? (
                     <div className="col-span-full flex justify-center items-center h-40">
-                        <Loader2 className="h-8 w-8 animate-spin text-theme-green" />
+                        <Loader size="lg" text="Finding Services..." />
                     </div>
                 ) : services.length > 0 ? (
                     services

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '@/app/store/slices/authSlice'
-import { Loader2 } from 'lucide-react'
+import { Loader } from "@/components/ui/loader"
 import { useSyncUserMutation } from '@/app/beService/user-service'
 
 export default function AuthCallbackPage() {
@@ -117,7 +117,7 @@ export default function AuthCallbackPage() {
     return (
         <div className="flex min-h-screen items-center justify-center bg-black text-white">
             <div className="flex flex-col items-center gap-4">
-                <Loader2 className="h-8 w-8 animate-spin text-green-500" />
+                <Loader size="lg" text="Authenticating..." />
                 <p className="text-gray-400">{status}</p>
 
                 {showManualRedirect && (

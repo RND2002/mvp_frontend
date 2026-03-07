@@ -134,7 +134,7 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             {isRedirecting && <Loader fullScreen text="Redirecting to Dashboard..." />}
-            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-vehicle-card-bg border-vehicle-card-border text-white">
+            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-primaryCard border-secondary-theme text-white">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">
                         <Image src={Logo} alt="Vroom" width={128} height={42} className="w-32 h-auto drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)]" />

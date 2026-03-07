@@ -7,6 +7,7 @@ import Container from "@/app/components/common/Container";
 import { useGetOrderByIdQuery, FulfillmentType } from "@/app/beService/order-service";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { Loader } from "@/components/ui/loader";
 
 export default function OrderSuccessPage() {
     const params = useParams();
@@ -31,6 +32,10 @@ export default function OrderSuccessPage() {
         );
     }
 
+    if (isLoading) {
+        return <Loader fullScreen text="Verifying Order..." />;
+    }
+
     return (
         <div className="min-h-screen bg-primary-theme py-12 px-4 pb-32">
             <Container>
@@ -40,25 +45,17 @@ export default function OrderSuccessPage() {
                         <div className="relative inline-block mb-6">
                             <div className="absolute inset-0 bg-theme-green/20 blur-3xl rounded-full"></div>
                             <div className="relative w-24 h-24 bg-theme-green/10 rounded-[2.5rem] flex items-center justify-center border border-theme-green/20">
-                                {isLoading ? (
-                                    <Skeleton className="w-12 h-12 rounded-full" />
-                                ) : (
-                                    <CheckCircle2 className="w-12 h-12 text-theme-green" />
-                                )}
+                                <CheckCircle2 className="w-12 h-12 text-theme-green" />
                             </div>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black text-white mb-3 uppercase tracking-tighter italic">
-                            {isLoading ? <Skeleton className="h-10 w-64 mx-auto" /> : "Order Confirmed!"}
+                            Order Confirmed!
                         </h1>
                         <div className="flex items-center justify-center gap-2">
                             <span className="text-gray-500 font-black uppercase text-[10px] tracking-[0.2em]">Transaction ID</span>
-                            {isLoading ? (
-                                <Skeleton className="h-4 w-32" />
-                            ) : (
-                                <span className="text-white font-bold font-mono text-xs bg-white/5 px-2 py-0.5 rounded border border-white/5">
-                                    #{orderId.slice(0, 8).toUpperCase()}
-                                </span>
-                            )}
+                            <span className="text-white font-bold font-mono text-xs bg-white/5 px-2 py-0.5 rounded border border-white/5">
+                                #{orderId.slice(0, 8).toUpperCase()}
+                            </span>
                         </div>
                     </div>
 
@@ -66,7 +63,7 @@ export default function OrderSuccessPage() {
                         {/* Fulfillment Status Cards */}
                         <div className="grid md:grid-cols-2 gap-4">
                             {/* Delivery Card */}
-                            {(isLoading || deliveryFulfillment) && (
+                            {deliveryFulfillment && (
                                 <div className="bg-primaryCard/40 border border-primaryBorder/20 rounded-[2.5rem] p-6 relative overflow-hidden group">
                                     <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 blur-2xl rounded-full -mr-12 -mt-12"></div>
                                     <div className="flex flex-col gap-4 relative z-10">
@@ -84,7 +81,7 @@ export default function OrderSuccessPage() {
                             )}
 
                             {/* Installation Card */}
-                            {(isLoading || installationFulfillment) && (
+                            {installationFulfillment && (
                                 <div className="bg-primaryCard/40 border border-primaryBorder/20 rounded-[2.5rem] p-6 relative overflow-hidden group">
                                     <div className="absolute top-0 right-0 w-24 h-24 bg-theme-green/5 blur-2xl rounded-full -mr-12 -mt-12"></div>
                                     <div className="flex flex-col gap-4 relative z-10">
@@ -110,38 +107,23 @@ export default function OrderSuccessPage() {
                             </div>
 
                             <div className="space-y-6">
-                                {isLoading ? (
-                                    [1, 2].map((i) => (
-                                        <div key={i} className="flex justify-between items-center">
-                                            <div className="flex items-center gap-4">
-                                                <Skeleton className="w-14 h-14 rounded-2xl" />
-                                                <div className="space-y-2">
-                                                    <Skeleton className="h-4 w-32" />
-                                                    <Skeleton className="h-3 w-16" />
-                                                </div>
+                                {order?.order_items?.map((item: any) => (
+                                    <div key={item.id} className="flex justify-between items-center group">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-14 bg-white/5 rounded-2xl overflow-hidden border border-white/5 relative shrink-0">
+                                                <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent"></div>
+                                                <Package className="w-6 h-6 text-gray-700 absolute inset-0 m-auto opacity-20" />
                                             </div>
-                                            <Skeleton className="h-4 w-12" />
-                                        </div>
-                                    ))
-                                ) : (
-                                    order?.order_items?.map((item) => (
-                                        <div key={item.id} className="flex justify-between items-center group">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-14 h-14 bg-white/5 rounded-2xl overflow-hidden border border-white/5 relative shrink-0">
-                                                    <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent"></div>
-                                                    <Package className="w-6 h-6 text-gray-700 absolute inset-0 m-auto opacity-20" />
-                                                </div>
-                                                <div className="min-w-0">
-                                                    <p className="text-white font-black text-xs uppercase tracking-tight line-clamp-1 group-hover:text-theme-green transition-colors italic">
-                                                        {item.product_name || 'Premium Item'}
-                                                    </p>
-                                                    <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Qty: {item.quantity}</p>
-                                                </div>
+                                            <div className="min-w-0">
+                                                <p className="text-white font-black text-xs uppercase tracking-tight line-clamp-1 group-hover:text-theme-green transition-colors italic">
+                                                    {item.product_name || 'Premium Item'}
+                                                </p>
+                                                <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Qty: {item.quantity}</p>
                                             </div>
-                                            <span className="text-white font-black text-sm tracking-tighter shrink-0">₹{item.price_snapshot}</span>
                                         </div>
-                                    ))
-                                )}
+                                        <span className="text-white font-black text-sm tracking-tighter shrink-0">₹{item.price_snapshot}</span>
+                                    </div>
+                                ))}
 
                                 <div className="h-px bg-white/5 my-6"></div>
 
@@ -151,14 +133,8 @@ export default function OrderSuccessPage() {
                                         <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Final Amount</span>
                                     </div>
                                     <div className="text-right flex flex-col items-end">
-                                        {isLoading ? (
-                                            <Skeleton className="h-8 w-24" />
-                                        ) : (
-                                            <>
-                                                <div className="text-3xl font-black text-theme-green tracking-tighter">₹{order?.total_amount}</div>
-                                                <span className="text-[8px] font-medium text-gray-600 uppercase tracking-tighter">Securely Managed by Vroom Pay</span>
-                                            </>
-                                        )}
+                                        <div className="text-3xl font-black text-theme-green tracking-tighter">₹{order?.total_amount}</div>
+                                        <span className="text-[8px] font-medium text-gray-600 uppercase tracking-tighter">Securely Managed by Vroom Pay</span>
                                     </div>
                                 </div>
                             </div>

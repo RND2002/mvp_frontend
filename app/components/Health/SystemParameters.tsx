@@ -64,7 +64,7 @@ export const SystemParameters = ({ systems }: SystemParametersProps) => {
     const systemEntries = Object.entries(systems);
 
     return (
-        <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-3xl overflow-hidden">
+        <div className="bg-primaryCard border border-secondary-theme rounded-3xl overflow-hidden">
             <div className="px-5 py-3.5 border-b border-white/5">
                 <h3 className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em]">
                     System Parameters

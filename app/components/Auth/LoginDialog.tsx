@@ -121,7 +121,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
             setLoginMethod('email')
             setOpen(val)
         }}>
-            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-vehicle-card-bg border-vehicle-card-border text-white">
+            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-primaryCard border-secondary-theme text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">
                         <Image src={IconLogo as unknown as string} alt="Vroom" className="w-56 h-auto drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)]" />
@@ -134,23 +134,23 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                     {!emailSent ? (
                         <>
                             {/* Method Toggle */}
-                            <div className="grid grid-cols-2 gap-2 bg-vehicle-card-bg/50 p-1 rounded-lg border border-vehicle-card-border">
+                            <div className="grid grid-cols-2 gap-2 bg-primary-theme/50 p-1 rounded-lg border border-secondary-theme">
                                 <Button
                                     type="button"
                                     variant="ghost"
                                     onClick={() => setLoginMethod('email')}
-                                    className={`flex cursor-pointer items-center gap-2 ${loginMethod === 'email' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
+                                    className={`flex cursor-pointer items-center justify-center gap-2 h-10 rounded-md font-black uppercase text-[10px] tracking-widest transition-all ${loginMethod === 'email' ? 'bg-theme-green/10 text-theme-green border border-theme-green/30' : 'text-gray-500 hover:text-white'}`}
                                 >
-                                    <Mail className="w-4 h-4" /> Email
+                                    <Mail className="w-3.5 h-3.5" /> Email
                                 </Button>
 
                                 <Button
                                     type="button"
                                     variant="ghost"
                                     onClick={() => setLoginMethod('phone')}
-                                    className={`flex cursor-pointer items-center gap-2 ${loginMethod === 'phone' ? 'bg-green-500/10 text-green-500' : 'text-gray-400'}`}
+                                    className={`flex cursor-pointer items-center justify-center gap-2 h-10 rounded-md font-black uppercase text-[10px] tracking-widest transition-all ${loginMethod === 'phone' ? 'bg-theme-green/10 text-theme-green border border-theme-green/30' : 'text-gray-500 hover:text-white'}`}
                                 >
-                                    <Phone className="w-4 h-4" /> Phone
+                                    <Phone className="w-3.5 h-3.5" /> Phone
                                 </Button>
                             </div>
 
@@ -167,25 +167,27 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     </>
                                 ) : (
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-300">Email Address</label>
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-gray-500">Email Address</label>
                                         <Input
                                             {...register('email')}
                                             placeholder="Enter your email"
-                                            className="bg-vehicle-card-bg border-vehicle-card-border text-white placeholder:text-gray-500 focus-visible:ring-green-500/50 focus-visible:border-green-500 selection:bg-green-500/30"
+                                            className="h-12 bg-primary-theme border-secondary-theme text-white placeholder:text-gray-600 focus-visible:ring-theme-green/30 focus-visible:border-theme-green selection:bg-theme-green/20 rounded-xl"
                                         />
-                                        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+                                        {errors.email && <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1">{errors.email.message}</p>}
                                     </div>
                                 )}
                             </div>
-                            <p className="text-xs text-gray-400 text-center">By continuing, you agree to our <span className="text-green-500 cursor-pointer hover:underline">Terms of Service</span> and <span className="text-green-500 cursor-pointer hover:underline">Privacy Policy</span>.</p>
-                            <div className="flex justify-center">
+                            <p className="text-[10px] font-medium text-gray-600 text-center leading-relaxed">
+                                By continuing, you agree to our <span className="text-theme-green cursor-pointer hover:underline">Terms of Service</span> and <span className="text-theme-green cursor-pointer hover:underline">Privacy Policy</span>.
+                            </p>
+                            <div className="flex justify-center pt-2">
                                 <Button
                                     type="submit"
                                     loading={isLoading}
-                                    loadingText="Logging in..."
-                                    className="w-full py-3 cursor-pointer"
+                                    loadingText="Signing in..."
+                                    className="w-full h-12 cursor-pointer bg-theme-green text-black font-black uppercase text-[10px] tracking-[0.2em] rounded-full hover:bg-theme-green/90 transition-all hover:scale-[1.02] active:scale-95 shadow-[0_10px_30px_rgba(0,223,130,0.2)] border-0"
                                 >
-                                    Login
+                                    Login to Vroom
                                 </Button>
                             </div>
                         </>

@@ -24,7 +24,7 @@ export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }
     return (
         <div className="space-y-4 cursor-pointer" onClick={onClick}>
             {/* Main Health Card */}
-            <Card className="bg-vehicle-card-bg border-vehicle-card-border overflow-hidden relative rounded-3xl group shadow-2xl shadow-black/40">
+            <Card className="bg-primaryCard border-secondary-theme overflow-hidden relative rounded-3xl group shadow-2xl shadow-black/40">
                 <CardContent className="p-7">
                     {/* Header Section */}
                     <div className="flex justify-between items-start mb-10">

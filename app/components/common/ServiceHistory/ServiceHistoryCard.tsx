@@ -41,7 +41,7 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     return (
         <div
             onClick={onCardClick}
-            className="group relative bg-vehicle-card-bg border border-vehicle-card-border rounded-4xl p-6 shadow-2xl shadow-black/60 cursor-pointer overflow-hidden transition-all duration-500 hover:border-theme-green/40 hover:-translate-y-1"
+            className="group relative bg-primaryCard border border-secondary-theme rounded-4xl p-6 shadow-2xl shadow-black/60 cursor-pointer overflow-hidden transition-all duration-500 hover:border-theme-green/40 hover:-translate-y-1"
         >
             {/* Glossy gradient accent */}
             <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-theme-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

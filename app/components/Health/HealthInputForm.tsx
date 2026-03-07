@@ -54,7 +54,7 @@ export const HealthInputForm = ({ onSubmit, isLoading }: HealthInputFormProps) =
                             id="kilometers_driven"
                             {...register("kilometers_driven")}
                             placeholder="e.g. 15,000 km"
-                            className="pl-10 h-12 bg-white/5 border-vehicle-card-border text-white placeholder:text-gray-500"
+                            className="pl-10 h-12 bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
                         />
                     </div>
                     {errors.kilometers_driven && <p className="text-red-500 text-xs">{errors.kilometers_driven.message}</p>}
@@ -74,7 +74,7 @@ export const HealthInputForm = ({ onSubmit, isLoading }: HealthInputFormProps) =
                             type="date"
                             max={today}
                             {...register("last_service_date")}
-                            className="pl-10 h-12 bg-white/5 border-vehicle-card-border text-white placeholder:text-gray-500"
+                            className="pl-10 h-12 bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
                         />
                     </div>
                     {errors.last_service_date && <p className="text-red-500 text-xs">{errors.last_service_date.message}</p>}
@@ -84,7 +84,7 @@ export const HealthInputForm = ({ onSubmit, isLoading }: HealthInputFormProps) =
                 </div>
             </div>
 
-            <div className="bg-vehicle-card-bg/50 border border-vehicle-card-border rounded-xl p-4 mt-8">
+            <div className="bg-primaryCard/50 border border-secondary-theme rounded-xl p-4 mt-8">
                 <div className="flex gap-3">
                     <div className="bg-theme-green/20 p-2 rounded-lg h-fit">
                         <Gauge className="w-5 h-5 text-theme-green" />

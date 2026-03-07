@@ -51,7 +51,7 @@ export const VehicleTypeStep = () => {
                     <Card
                         key={option.id}
                         className={cn(
-                            "cursor-pointer hover:border-green-500 transition-all p-4 flex flex-col items-center justify-center gap-3 h-32 w-full bg-vehicle-card-bg border-vehicle-card-border text-white hover:bg-white/5",
+                            "cursor-pointer hover:border-green-500 transition-all p-4 flex flex-col items-center justify-center gap-3 h-32 w-full bg-white/5 border border-secondary-theme text-white hover:bg-white/10",
                             vehicle_type === option.id && "border-green-500 bg-green-500/10",
                             errors.vehicle_type && "border-red-500"
                         )}

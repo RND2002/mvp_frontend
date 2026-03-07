@@ -31,7 +31,7 @@ export const HealthReport = ({ data }: HealthReportProps) => {
     return (
         <div className="space-y-4">
             {/* Overall Condition Card */}
-            <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-2xl p-4 relative overflow-hidden shadow-xl shadow-black/20">
+            <div className="bg-primaryCard border border-secondary-theme rounded-2xl p-4 relative overflow-hidden shadow-xl shadow-black/20">
                 <div className="relative z-10 flex justify-between items-start">
                     <div>
                         <h4 className="text-gray-400 text-xs uppercase tracking-widest mb-2">Overall Condition</h4>
@@ -84,7 +84,7 @@ export const HealthReport = ({ data }: HealthReportProps) => {
                     </div>
                     <div className="space-y-3">
                         {recommendations.map((rec, index) => (
-                            <div key={index} className="bg-vehicle-card-bg border border-vehicle-card-border rounded-xl p-4 flex gap-3 items-start">
+                            <div key={index} className="bg-primaryCard border border-secondary-theme rounded-xl p-4 flex gap-3 items-start">
                                 <Zap className="w-5 h-5 text-theme-green shrink-0 mt-0.5" />
                                 <p className="text-gray-300 text-sm leading-relaxed">{rec}</p>
                             </div>

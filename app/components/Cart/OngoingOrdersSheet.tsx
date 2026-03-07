@@ -14,7 +14,7 @@ interface OngoingOrdersSheetProps {
 export default function OngoingOrdersSheet({ open, setOpen, orders }: OngoingOrdersSheetProps) {
     return (
         <Sheet open={open} onOpenChange={setOpen}>
-            <SheetContent side="right" className="w-full sm:max-w-[400px] bg-primary-theme border-l border-secondary-theme text-white p-0">
+            <SheetContent side="right" className="w-full sm:max-w-[400px] bg-primaryCard border-l border-secondary-theme text-white p-0">
                 <SheetHeader className="p-4 border-b border-secondary-theme flex flex-row items-center gap-4 space-y-0">
                     <button
                         onClick={() => setOpen(false)}
@@ -59,7 +59,7 @@ export default function OngoingOrdersSheet({ open, setOpen, orders }: OngoingOrd
                                     {order.order_fulfillments?.map((fulfillment: any) => (
                                         <div key={fulfillment.id} className="flex items-center gap-2 text-xs text-zinc-400">
                                             <div className={`w-2 h-2 rounded-full ${fulfillment.status === 'completed' ? 'bg-green-500' :
-                                                    fulfillment.status === 'shipping' ? 'bg-blue-500' : 'bg-yellow-500'
+                                                fulfillment.status === 'shipping' ? 'bg-blue-500' : 'bg-yellow-500'
                                                 }`} />
                                             <span className="capitalize">{fulfillment.fulfillment_type}: {fulfillment.status.replace('_', ' ')}</span>
                                         </div>
