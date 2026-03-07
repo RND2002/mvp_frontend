@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectLocation } from "@/app/store/slices/locationSlice";
 import {
     MapPin,
     Plus,
@@ -50,6 +52,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
 
     // GeoLocation Hook for adding new
     const geo = useGeoLocation();
+    const { city: reduxCity } = useSelector(selectLocation);
 
     // Form State for new location
     const [newLocation, setNewLocation] = useState({
@@ -102,6 +105,8 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
             const result = await createLocation({
                 label: newLocation.label || "Other",
                 address: combinedAddress,
+                delivery_address: combinedAddress,
+                city: reduxCity || undefined,
                 latitude: newLocation.latitude,
                 longitude: newLocation.longitude,
                 is_default: newLocation.is_default

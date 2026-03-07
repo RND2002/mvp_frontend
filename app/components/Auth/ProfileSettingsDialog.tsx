@@ -4,7 +4,8 @@ import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { useDispatch, useSelector } from "react-redux"
 import { logout, User } from "@/app/store/slices/authSlice"
-import { selectVehicle } from "@/app/store/slices/vehicleSlice"
+import { selectVehicle, Vehicle } from "@/app/store/slices/vehicleSlice"
+import { selectLocation } from "@/app/store/slices/locationSlice"
 import { RootState } from "@/app/store/store"
 import { useLogoutMutation } from "@/app/beService/auth-service"
 import { useRouter } from "next/navigation"
@@ -51,6 +52,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
     const [isVehiclesExpanded, setIsVehiclesExpanded] = React.useState(false)
     const [isLocationsExpanded, setIsLocationsExpanded] = React.useState(false)
     const [isAddLocationOpen, setIsAddLocationOpen] = React.useState(false)
+    const { city: reduxCity } = useSelector(selectLocation)
 
     // Location management
     const { data: locationsData, isLoading: isLocationsLoading } = useGetUserLocationsQuery()
@@ -121,6 +123,8 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
             await createLocation({
                 label: newLoc.label,
                 address: combinedAddress,
+                delivery_address: combinedAddress,
+                city: reduxCity || undefined,
                 latitude: geo.coordinates.latitude,
                 longitude: geo.coordinates.longitude,
                 is_default: newLoc.is_default

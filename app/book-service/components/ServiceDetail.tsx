@@ -47,7 +47,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
     // Redux State
     const { selectedVehicle, vehicles } = useSelector((state: RootState) => state.vehicle);
-    const { lat, lng, city } = useSelector(selectLocation);
+    const { lat, lng, city, address } = useSelector(selectLocation);
 
     console.log("location", lat, lng, city);
 
@@ -104,33 +104,33 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
         const finalLat = selectedLocation ? selectedLocation.latitude : lat;
         const finalLng = selectedLocation ? selectedLocation.longitude : lng;
-        const finalAddress = selectedLocation ? selectedLocation.address : city || "Unknown";
+        const finalAddress = selectedLocation ? selectedLocation.address : address || "Unknown";
+        const finalCity = selectedLocation?.city || city || "Unknown";
 
-        const combinedDeliveryInfo = `${finalAddress} [Lat: ${finalLat}, Lng: ${finalLng}]`;
-
+        console.log("!!! ATTENTION: GENERATING BOOKING DATA V3 !!!");
         const bookingData = {
-            service_id: service.id,
-            vehicle_id: selectedVehicle.id,
-            service_mode: serviceMode === "location" ? "doorstep" : "pickup_drop", // mapping to enum
-            price: basePrice,
+            service_id: String(service.id),
+            vehicle_id: String(selectedVehicle.id),
+            service_mode: String(serviceMode === "location" ? "doorstep" : "pickup_drop"),
+            price: Number(basePrice || 0),
             scheduled_at: new Date().toISOString(),
-            delivery_address: combinedDeliveryInfo,
-            // Keeping userLocation for technical redundancy if needed by other components, 
-            // but the primary schema field is delivery_address
+            delivery_address: String(finalAddress || ""),
             userLocation: {
-                lat: finalLat!,
-                lng: finalLng!,
-                city: finalAddress
-            }
+                lat: Number(finalLat || 0),
+                lng: Number(finalLng || 0),
+                city: String(finalCity || "Unknown City")
+            },
+            _v: "v3" // Version flag to detect if new code is running
         };
 
-
-
+        console.log("DEBUG: finalCity =", finalCity);
+        console.log("DEBUG: finalAddress =", finalAddress);
+        console.log("DEBUG: bookingData to proceed:", bookingData);
 
         onProceed({
             service: { ...service, base_price: basePrice },
             vehicle: selectedVehicle,
-            bookingRequest: bookingData, // Pass the request data specifically
+            bookingRequest: bookingData,
             mechanic: {
                 name: "Brandon Dan CK",
                 experience: "7+ years",
@@ -170,7 +170,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
                     {/* Hero Text - Left-aligned for Desktop */}
                     <div className="absolute bottom-12 left-6 right-6 lg:left-12 lg:bottom-16 max-w-7xl">
                         <h1 className="text-2xl md:text-4xl font-black text-white mb-2 md:mb-4 uppercase italic tracking-tighter leading-none">
-                            {service.label || service.name}
+                            {service.label || service.name} <span className="text-[10px] opacity-20">v3</span>
                         </h1>
                         <div className="flex items-center gap-3">
                             <p className="text-theme-green font-black text-xs md:text-xl uppercase tracking-[0.3em] flex items-center gap-2">

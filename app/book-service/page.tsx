@@ -45,6 +45,7 @@ export default function BookServicePage() {
     const handleConfirmBooking = async () => {
         if (!bookingDetails?.bookingRequest) return;
 
+        console.log("DEBUG: Final Booking Payload being sent (V3):", bookingDetails.bookingRequest);
         try {
             const result = await createBooking(bookingDetails.bookingRequest).unwrap();
             setStep("success");

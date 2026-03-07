@@ -4,6 +4,8 @@ export interface UserLocation {
     id: string;
     label?: string;
     address?: string;
+    city?: string;
+    delivery_address?: string;
     latitude: number;
     longitude: number;
     is_default?: boolean;
@@ -13,6 +15,8 @@ export interface UserLocation {
 export interface CreateLocationRequest {
     label?: string;
     address?: string;
+    city?: string;
+    delivery_address?: string;
     latitude: number;
     longitude: number;
     is_default?: boolean;
