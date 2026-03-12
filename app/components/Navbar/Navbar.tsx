@@ -146,7 +146,7 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
             alt="Vroom"
             width={120}
             height={40}
-            className="w-24 h-auto"
+            className="w-28 h-auto"
           />
         </Link>
 
@@ -184,9 +184,9 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
           <Image
             src={Logo}
             alt="Vroom Logo"
-            width={120}
+            width={140}
             height={48}
-            className="w-32 h-10"
+            className="w-36 h-auto"
           />
         </Link>
 

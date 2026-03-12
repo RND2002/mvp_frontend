@@ -69,11 +69,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
         is_default: false
     })
 
-    React.useEffect(() => {
-        if (isAddLocationOpen && !isVehiclesExpanded) {
-            // No-op, just to ensure we have dependency on open state
-        }
-    }, [isAddLocationOpen])
+    // No-op useEffect removed
 
     const handleSelectVehicle = (id: string) => {
         dispatch(selectVehicle(id))
@@ -214,10 +210,10 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     {/* <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">Authenticated Account</p> */}
-                                    <h3 className="text-white font-black text-lg truncate  tracking-tight">
+                                    <h3 className="text-white font-black text-lg tracking-tight leading-tight">
                                         {user?.email?.split('@')[0] || user?.phone || "Guest User"}
                                     </h3>
-                                    <p className="text-gray-500 font-bold text-[10px] truncate  tracking-widest">
+                                    <p className="text-gray-500 font-bold text-[10px] tracking-widest break-all">
                                         {user?.email || "verified member"}
                                     </p>
                                 </div>
@@ -226,62 +222,82 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
 
                         {/* Premium Vehicle List */}
                         <div className="space-y-6">
-                            <div className="flex items-center justify-between px-2">
+                            <div className="flex items-center justify-between w-full px-1">
                                 <div
-                                    className="flex items-center gap-3 cursor-pointer group/header"
+                                    className="flex items-center gap-3 cursor-pointer group/header py-1"
                                     onClick={() => setIsVehiclesExpanded(!isVehiclesExpanded)}
                                 >
-                                    <div className="w-8 h-8 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20">
+                                    <div className="w-8 h-8 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20 group-hover/header:bg-theme-green/20 transition-colors">
                                         <Car className="w-4 h-4 text-theme-green" />
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <h3 className="text-sm font-black text-white uppercase  tracking-tighter">My Vehicles</h3>
-                                        {isVehiclesExpanded ? <ChevronUp className="w-3 h-3 text-gray-500" /> : <ChevronDown className="w-3 h-3 text-gray-500" />}
+                                        <h3 className="text-sm font-black text-white uppercase tracking-tighter">My Vehicles</h3>
+                                        <div className="transition-transform duration-200">
+                                            {isVehiclesExpanded ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                                        </div>
                                     </div>
                                 </div>
-                                <AddVehicleButton
-                                    onClick={() => {
-                                        setOpen(false)
-                                        router.push('/dashboard?onboarding=true')
-                                    }}
-                                />
+                                <div className="shrink-0">
+                                    <AddVehicleButton
+                                        onClick={() => {
+                                            setOpen(false)
+                                            router.push('/dashboard?onboarding=true')
+                                        }}
+                                    />
+                                </div>
                             </div>
 
                             <div className="space-y-3">
-                                {(isVehiclesExpanded ? vehicles : vehicles.filter(v => v.id === selectedVehicle?.id)).map((vehicle) => (
-                                    <div
-                                        key={vehicle.id}
-                                        onClick={() => handleSelectVehicle(vehicle.id)}
-                                        className={cn(
-                                            "group flex items-center p-4 rounded-2xl border transition-all cursor-pointer relative overflow-hidden",
-                                            selectedVehicle?.id === vehicle.id
-                                                ? "bg-theme-green/10 border-theme-green/50 shadow-[0_0_20px_rgba(34,197,94,0.1)]"
-                                                : "bg-white/5 border-white/10 hover:border-white/20"
-                                        )}
-                                    >
-                                        <div className={cn(
-                                            "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
-                                            selectedVehicle?.id === vehicle.id ? "bg-theme-green text-black" : "bg-white/5 text-gray-400 group-hover:text-white"
-                                        )}>
-                                            {getVehicleIcon(vehicle.vehicle_type)}
-                                        </div>
-                                        <div className="ml-4 flex-1">
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-white font-black uppercase text-xs tracking-widest ">{vehicle.brand} {vehicle.model}</span>
-                                                {selectedVehicle?.id === vehicle.id && (
-                                                    <div className="h-4 px-2 flex items-center rounded-full border border-theme-green/30 text-theme-green text-[7px] font-black uppercase tracking-widest bg-theme-green/5">Active</div>
+                                {(() => {
+                                    if (vehicles.length === 0) return null;
+                                    const itemsToDisplay = isVehiclesExpanded
+                                        ? vehicles
+                                        : (selectedVehicle ? [selectedVehicle] : [vehicles[0]]);
+
+                                    return itemsToDisplay.map((vehicle) => {
+                                        const isActive = selectedVehicle?.id === vehicle.id;
+                                        return (
+                                            <div
+                                                key={vehicle.id}
+                                                onClick={() => handleSelectVehicle(vehicle.id)}
+                                                className={cn(
+                                                    "group flex items-center p-4 rounded-2xl border transition-all cursor-pointer relative overflow-hidden",
+                                                    isActive
+                                                        ? "bg-theme-green/10 border-theme-green/50 shadow-[0_0_20px_rgba(34,197,94,0.1)]"
+                                                        : "bg-white/5 border-white/10 hover:border-white/20"
+                                                )}
+                                            >
+                                                <div className={cn(
+                                                    "w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0",
+                                                    isActive ? "bg-theme-green text-black" : "bg-white/5 text-gray-400 group-hover:text-white"
+                                                )}>
+                                                    {getVehicleIcon(vehicle.vehicle_type)}
+                                                </div>
+                                                <div className="ml-4 flex-1 min-w-0">
+                                                    <div className="flex items-start gap-2">
+                                                        <span className="text-white font-black uppercase text-xs tracking-widest whitespace-normal leading-tight">
+                                                            {vehicle.brand} {vehicle.model}
+                                                        </span>
+                                                        {isActive && (
+                                                            <div className="shrink-0 h-4 px-2 flex items-center rounded-full border border-theme-green/30 text-theme-green text-[7px] font-black uppercase tracking-widest bg-theme-green/5">
+                                                                Active
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <p className="text-gray-500 text-[9px] font-bold uppercase tracking-wider mt-0.5 whitespace-normal break-all">
+                                                        {vehicle.registration_number || "PENDING REG"}
+                                                    </p>
+                                                </div>
+                                                <div className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-2">
+                                                    <Settings2 className="w-4 h-4 text-gray-600" />
+                                                </div>
+                                                {isActive && (
+                                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-theme-green rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)]"></div>
                                                 )}
                                             </div>
-                                            <p className="text-gray-500 text-[9px] font-bold uppercase tracking-wider mt-0.5">{vehicle.registration_number || "PENDING REG"}</p>
-                                        </div>
-                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <Settings2 className="w-4 h-4 text-gray-600" />
-                                        </div>
-                                        {selectedVehicle?.id === vehicle.id && (
-                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-theme-green rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)]"></div>
-                                        )}
-                                    </div>
-                                ))}
+                                        );
+                                    });
+                                })()}
                                 {vehicles.length === 0 && (
                                     <div className="text-center py-10 px-4 rounded-3xl border border-dashed border-white/5 bg-white/[0.02]">
                                         <Car className="w-8 h-8 text-white/10 mx-auto mb-3" />
@@ -293,60 +309,71 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
 
                         {/* Premium Saved Locations */}
                         <div className="space-y-6">
-                            <div className="flex items-center justify-between px-2">
+                            <div className="flex items-center justify-between w-full px-1">
                                 <div
-                                    className="flex items-center gap-3 cursor-pointer group/header"
+                                    className="flex items-center gap-3 cursor-pointer group/header py-1"
                                     onClick={() => setIsLocationsExpanded(!isLocationsExpanded)}
                                 >
-                                    <div className="w-8 h-8 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20">
+                                    <div className="w-8 h-8 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20 group-hover/header:bg-theme-green/20 transition-colors">
                                         <MapPin className="w-4 h-4 text-theme-green" />
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <h3 className="text-sm font-black text-white uppercase  tracking-tighter">Saved Locations</h3>
-                                        {isLocationsExpanded ? <ChevronUp className="w-3 h-3 text-gray-500" /> : <ChevronDown className="w-3 h-3 text-gray-500" />}
+                                        <h3 className="text-sm font-black text-white uppercase tracking-tighter">Saved Locations</h3>
+                                        <div className="transition-transform duration-200">
+                                            {isLocationsExpanded ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                                        </div>
                                     </div>
                                 </div>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => setIsAddLocationOpen(true)}
-                                    className="text-[10px] font-black uppercase tracking-widest border-white/10 text-theme-green bg-transparent h-8 rounded-lg"
-                                >
-                                    + Add New
-                                </Button>
+                                <div className="shrink-0">
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => setIsAddLocationOpen(true)}
+                                        className="text-[10px] font-black uppercase tracking-widest border-white/10 text-theme-green bg-transparent h-8 rounded-lg hover:bg-theme-green hover:text-black transition-colors"
+                                    >
+                                        + Add New
+                                    </Button>
+                                </div>
                             </div>
 
                             <div className="space-y-3">
-                                {(isLocationsExpanded ? locations : locations.filter(l => l.is_default).slice(0, 1)).length > 0 ? (
-                                    (isLocationsExpanded ? locations : locations.filter(l => l.is_default).slice(0, 1)).map((loc) => (
+                                {(() => {
+                                    if (locations.length === 0) return null;
+                                    const defaultLoc = locations.find(l => l.is_default);
+                                    const itemsToDisplay = isLocationsExpanded
+                                        ? locations
+                                        : [defaultLoc || locations[0]];
+
+                                    return itemsToDisplay.map((loc) => (
                                         <div
                                             key={loc.id}
                                             className="group flex items-center p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all"
                                         >
-                                            <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-theme-green transition-colors">
+                                            <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-theme-green transition-colors shrink-0">
                                                 {getLocationIcon(loc.label)}
                                             </div>
                                             <div className="ml-4 flex-1 min-w-0">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-white font-black uppercase text-xs tracking-widest">{loc.label}</span>
+                                                <div className="flex items-start gap-2">
+                                                    <span className="text-white font-black uppercase text-xs tracking-widest whitespace-normal leading-tight">{loc.label}</span>
                                                     {loc.is_default && (
-                                                        <div className="h-3.5 px-1.5 flex items-center rounded border border-theme-green/30 text-theme-green text-[6px] font-black uppercase tracking-widest bg-theme-green/5">Default</div>
+                                                        <div className="shrink-0 h-3.5 px-1.5 flex items-center rounded border border-theme-green/30 text-theme-green text-[6px] font-black uppercase tracking-widest bg-theme-green/5">Default</div>
                                                     )}
                                                 </div>
-                                                <p className="text-gray-500 text-[9px] font-bold uppercase tracking-wider mt-0.5 truncate">{loc.address}</p>
+                                                <p className="text-gray-500 text-[9px] font-bold uppercase tracking-wider mt-0.5 whitespace-normal leading-relaxed">{loc.address}</p>
                                             </div>
                                             {isLocationsExpanded && (
                                                 <button
                                                     onClick={() => handleDeleteLocation(loc.id)}
-                                                    className="w-8 h-8 rounded-lg bg-red-500/10 text-red-500 opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white flex items-center justify-center"
+                                                    className="shrink-0 w-8 h-8 rounded-lg bg-red-500/10 text-red-500 opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white flex items-center justify-center ml-2"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
                                             )}
                                         </div>
-                                    ))
-                                ) : (
-                                    <div className="text-center py-10 rounded-3xl border border-dashed border-white/5 bg-white/[0.02]">
+                                    ));
+                                })()}
+                                {locations.length === 0 && (
+                                    <div className="text-center py-10 rounded-3xl border border-dashed border-white/5 bg-white/2">
                                         <MapPin className="w-8 h-8 text-white/10 mx-auto mb-3" />
                                         <p className="text-gray-600 font-bold uppercase text-[9px] tracking-[0.2em]">Quick access addresses will appear here</p>
                                     </div>
@@ -464,6 +491,6 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                     {/* <p className="text-center text-gray-600 text-[8px] font-black uppercase tracking-[0.3em]">Version 2.4.0 • MVP PRO PLATFORM</p> */}
                 </div>
             </SheetContent>
-        </Sheet>
+        </Sheet >
     )
 }
