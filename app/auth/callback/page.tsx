@@ -114,21 +114,5 @@ export default function AuthCallbackPage() {
         )
     }
 
-    return (
-        <div className="flex min-h-screen items-center justify-center bg-black text-white">
-            <div className="flex flex-col items-center gap-4">
-                <Loader size="lg" text="Authenticating..." />
-                <p className="text-gray-400">{status}</p>
-
-                {showManualRedirect && (
-                    <button
-                        onClick={() => router.push('/dashboard')}
-                        className="mt-4 px-6 py-2 bg-green-500 hover:bg-green-600 rounded-md transition-colors font-medium text-white animate-in fade-in slide-in-from-bottom-2"
-                    >
-                        Go to Dashboard
-                    </button>
-                )}
-            </div>
-        </div>
-    )
+    return <Loader fullScreen text={status} />
 }

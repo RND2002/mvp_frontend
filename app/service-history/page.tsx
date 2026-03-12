@@ -80,9 +80,7 @@ export default function ServiceHistoryPage() {
         );
     }
 
-    if (isLoading) {
-        return <Loader fullScreen text="Syncing history..." />;
-    }
+
 
     // Filter display lists based on selected filter
     const showPending = selectedFilter === "all" || selectedFilter === "pending";
@@ -120,8 +118,15 @@ export default function ServiceHistoryPage() {
                 {/* Content Sections */}
                 <div className="space-y-16">
 
+                    {/* Loading State — compact inline, only in the list area */}
+                    {isLoading && (
+                        <div className="flex justify-center py-8">
+                            <Loader size="md" />
+                        </div>
+                    )}
+
                     {/* Pending Section */}
-                    {showPending && ongoingServices.length > 0 && (
+                    {!isLoading && showPending && ongoingServices.length > 0 && (
                         <div className="space-y-6">
                             <div className="flex items-center gap-4">
                                 <h2 className="text-xl font-black text-white uppercase italic tracking-tight shrink-0 flex items-center gap-2">
@@ -143,7 +148,7 @@ export default function ServiceHistoryPage() {
                     )}
 
                     {/* Past Section */}
-                    {(showCompleted || showCancelled || selectedFilter === "all") && (
+                    {!isLoading && (showCompleted || showCancelled || selectedFilter === "all") && (
                         <div className="space-y-6">
                             {(filteredPastRows.length > 0 || selectedFilter !== "all") && (
                                 <div className="flex items-center gap-4">
@@ -177,7 +182,7 @@ export default function ServiceHistoryPage() {
                     )}
 
                     {/* Empty State for Pending when Filtered */}
-                    {selectedFilter === "pending" && ongoingServices.length === 0 && (
+                    {!isLoading && selectedFilter === "pending" && ongoingServices.length === 0 && (
                         <div className="bg-primaryCard/50 border border-dashed border-secondary-theme rounded-4xl p-16 text-center">
                             <Clock className="w-12 h-12 text-gray-800 mx-auto mb-4 opacity-20" />
                             <p className="text-gray-600 text-sm font-bold uppercase tracking-widest italic">No pending services found</p>

@@ -33,7 +33,11 @@ export default function OrderSuccessPage() {
     }
 
     if (isLoading) {
-        return <Loader fullScreen text="Verifying Order..." />;
+        return (
+            <div className="min-h-screen bg-primary-theme flex items-center justify-center">
+                <Loader size="lg" text="Verifying Order..." />
+            </div>
+        );
     }
 
     return (
