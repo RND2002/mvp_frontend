@@ -97,19 +97,19 @@ export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSel
         <div className="max-w-3xl lg:max-w-7xl lg:mx-0 lg:px-12 mx-auto px-4 pt-6 pb-24">
             {/* Standardized Premium Header */}
             <PageHeader
-                title={<>Book a <span className="text-theme-green">Service</span></>}
+                title={<>Book a <span className="text-theme-amber">Service</span></>}
                 subtitle="Select a category to find specialized care for your vehicle."
                 backUrl="/dashboard"
                 rightElement={selectedVehicle && (
-                    <div className="flex items-center gap-3 bg-white/5 border border-white/10 p-3 rounded-2xl">
-                        <div className="w-10 h-10 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20">
-                            <Car className="w-5 h-5 text-theme-green" />
+                    <div className="flex items-center gap-3 bg-bg-secondary border border-border-subtle p-3 rounded-2xl">
+                        <div className="w-10 h-10 bg-theme-amber/12 rounded-xl flex items-center justify-center border border-theme-amber/25">
+                            <Car className="w-5 h-5 text-theme-amber" />
                         </div>
                         <div>
-                            <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Active Vehicle</p>
+                            <p className="text-[9px] font-black text-text-secondary uppercase tracking-widest leading-none mb-1">Active Vehicle</p>
                             <div className="flex items-center gap-1.5">
-                                <h3 className="text-xs font-black text-white leading-none uppercase">{selectedVehicle.brand} {selectedVehicle.model}</h3>
-                                <CheckCircle2 className="w-3 h-3 text-theme-green fill-theme-green/20" />
+                                <h3 className="text-xs font-black text-text-primary leading-none uppercase">{selectedVehicle.brand} {selectedVehicle.model}</h3>
+                                <CheckCircle2 className="w-3 h-3 text-theme-amber fill-theme-amber/20" />
                             </div>
                         </div>
                     </div>
@@ -147,8 +147,8 @@ export const ServiceDiscovery: React.FC<ServiceDiscoveryProps> = ({ onServiceSel
 
             {/* Recommended Services Title */}
             <div className="mb-8 flex items-center gap-4">
-                <h2 className="text-2xl font-black text-white uppercase tracking-tight italic shrink-0">Recommended Services</h2>
-                <div className="h-px bg-white/5 flex-1 hidden md:block"></div>
+                <h2 className="text-2xl font-black text-text-primary uppercase tracking-tight italic shrink-0">Recommended Services</h2>
+                <div className="h-px bg-border-subtle flex-1 hidden md:block"></div>
             </div>
 
             {/* Services Grid */}

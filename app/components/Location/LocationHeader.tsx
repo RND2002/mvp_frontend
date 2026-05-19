@@ -53,7 +53,7 @@ export default function LocationHeader() {
                 </span>
                 <ChevronDown className="w-3 h-3 text-green-500 group-hover:rotate-180 transition-transform duration-200" />
             </div>
-            <div className="text-sm font-medium text-white truncate max-w-[200px] sm:max-w-[300px]">
+            <div className="text-sm font-medium text-text-primary truncate max-w-[200px] sm:max-w-[300px]">
                 {loading ? (
                     <span className="animate-pulse text-gray-400">Locating...</span>
                 ) : (

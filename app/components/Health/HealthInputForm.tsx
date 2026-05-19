@@ -37,62 +37,62 @@ export const HealthInputForm = ({ onSubmit, isLoading }: HealthInputFormProps) =
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">
-                <h2 className="text-3xl font-bold text-white mb-2">Tell us about your ride</h2>
-                <p className="text-gray-400 text-sm">
+                <h2 className="text-3xl font-bold text-text-primary mb-2">Tell us about your ride</h2>
+                <p className="text-text-secondary text-sm">
                     This information helps us analyze your engine health and predict upcoming maintenance needs.
                 </p>
             </div>
 
             <div className="space-y-4 pt-4">
                 <div className="space-y-2">
-                    <Label htmlFor="kilometers_driven" className="text-gray-300 text-sm font-medium">
+                    <Label htmlFor="kilometers_driven" className="text-text-primary text-sm font-medium">
                         Total Kilometers Driven
                     </Label>
                     <div className="relative">
-                        <Gauge className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+                        <Gauge className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary w-5 h-5" />
                         <Input
                             id="kilometers_driven"
                             {...register("kilometers_driven")}
                             placeholder="e.g. 15,000 km"
-                            className="pl-10 h-12 bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
+                            className="pl-10 h-12 bg-bg-tertiary border-border-default text-text-primary placeholder:text-text-secondary"
                         />
                     </div>
                     {errors.kilometers_driven && <p className="text-red-500 text-xs">{errors.kilometers_driven.message}</p>}
-                    <p className="text-[10px] text-gray-500 flex items-center gap-1">
+                    <p className="text-[10px] text-text-secondary flex items-center gap-1">
                         <Info className="w-3 h-3" /> Check your dashboard odometer for accuracy
-                    </p>
+                     </p>
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="last_service_date" className="text-gray-300 text-sm font-medium">
+                    <Label htmlFor="last_service_date" className="text-text-primary text-sm font-medium">
                         Last Service Date
                     </Label>
                     <div className="relative">
-                        <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+                        <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary w-5 h-5" />
                         <Input
                             id="last_service_date"
                             type="date"
                             max={today}
                             {...register("last_service_date")}
-                            className="pl-10 h-12 bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
+                            className="pl-10 h-12 bg-bg-tertiary border-border-default text-text-primary placeholder:text-text-secondary"
                         />
                     </div>
                     {errors.last_service_date && <p className="text-red-500 text-xs">{errors.last_service_date.message}</p>}
-                    <p className="text-[10px] text-gray-500 flex items-center gap-1">
+                    <p className="text-[10px] text-text-secondary flex items-center gap-1">
                         <Info className="w-3 h-3" /> If unknown, estimate to the closest month
                     </p>
                 </div>
             </div>
 
-            <div className="bg-primaryCard/50 border border-secondary-theme rounded-xl p-4 mt-8">
+            <div className="bg-bg-secondary border border-border-default rounded-xl p-4 mt-8">
                 <div className="flex gap-3">
                     <div className="bg-theme-green/20 p-2 rounded-lg h-fit">
                         <Gauge className="w-5 h-5 text-theme-green" />
                     </div>
                     <div>
-                        <h4 className="text-white text-sm font-bold mb-1">Why this matters?</h4>
-                        <p className="text-gray-400 text-xs leading-relaxed">
-                            Our AI engine uses these data points to calculate your current <span className="text-white font-medium">Health Score</span> and generate a personalized maintenance blueprint.
+                        <h4 className="text-text-primary text-sm font-bold mb-1">Why this matters?</h4>
+                        <p className="text-text-secondary text-xs leading-relaxed">
+                            Our AI engine uses these data points to calculate your current <span className="text-text-primary font-medium">Health Score</span> and generate a personalized maintenance blueprint.
                         </p>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ export const HealthInputForm = ({ onSubmit, isLoading }: HealthInputFormProps) =
                 <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-theme-green hover:bg-theme-green/90 text-white font-bold h-14 rounded-xl text-lg flex items-center justify-center gap-2"
+                    className="w-full bg-theme-green hover:bg-theme-green/90 text-black font-bold h-14 rounded-xl text-lg flex items-center justify-center gap-2"
                 >
                     {isLoading ? "Calculating..." : (
                         <>

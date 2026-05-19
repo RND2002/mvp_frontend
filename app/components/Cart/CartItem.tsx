@@ -18,9 +18,9 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
     const displayPrice = typeof product.price === 'string' ? parseFloat(product.price) : product.price;
 
     return (
-        <div className="group relative flex gap-5 p-5 bg-primaryCard/40 border border-[#5c707a]/20 rounded-[2.5rem] hover:border-theme-green/30 transition-all duration-500 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.4)] overflow-hidden">
+        <div className="group relative flex gap-5 p-5 bg-primaryCard/40 border border-[#5c707a]/20 rounded-[2.5rem] hover:border-theme-amber/30 transition-all duration-500 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.4)] overflow-hidden">
             {/* Ambient Background Glow */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-theme-green/5 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-theme-green/10 transition-colors duration-700"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-theme-amber/5 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-theme-amber/10 transition-colors duration-700"></div>
 
             {/* Product Image Section */}
             <div className="relative w-28 h-28 shrink-0 rounded-[1.75rem] overflow-hidden border border-white/5 bg-primaryCard">
@@ -45,7 +45,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
                     <div className="flex justify-between items-start gap-3">
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1.5">
-                                <span className="px-2.5 py-0.5 rounded-full bg-theme-green/10 border border-theme-green/20 text-theme-green text-[8px] font-black uppercase tracking-widest">
+                                <span className="px-2.5 py-0.5 rounded-full bg-[#111111] border border-theme-amber/30 text-theme-amber text-[8px] font-black uppercase tracking-widest">
                                     {product.category}
                                 </span>
                                 {requires_installation && (
@@ -55,7 +55,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
                                     </div>
                                 )}
                             </div>
-                            <h3 className="text-white font-black text-sm uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-theme-green transition-colors">
+                            <h3 className="text-white font-black text-sm uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-theme-amber transition-colors">
                                 {product.name}
                             </h3>
                         </div>
@@ -81,7 +81,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
                     <div className="flex items-center gap-3 bg-white/5 border border-white/5 rounded-2xl p-1.5 px-4 h-11">
                         <span className="text-gray-500 text-[9px] font-black uppercase tracking-widest">Qty</span>
                         <div className="w-px h-3 bg-white/10"></div>
-                        <span className="text-theme-green font-black text-sm">{quantity}</span>
+                        <span className="text-theme-amber font-black text-sm">{quantity}</span>
                     </div>
                 </div>
             </div>

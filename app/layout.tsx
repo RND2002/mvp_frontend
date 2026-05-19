@@ -14,6 +14,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { VehicleInitializer } from "@/app/components/VehicleInitializer";
 import LocationPermissionDialog from "@/app/components/Location/LocationPermissionDialog";
 
+import { cookies } from "next/headers";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,19 +27,37 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vroom — Your Ultimate Vehicle Care & Customization Hub",
-  description: "Vroom is your smart partner for car and bike care—offering doorstep servicing, real-time vehicle health tracking, verified mechanics, and performance customization in one seamless platform.",
+  title: "TORQ — Precision Vehicle Care",
+  description: "TORQ is your smart partner for car and bike care—offering doorstep servicing, real-time vehicle health tracking, verified mechanics, and performance customization in one seamless platform.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const theme = cookieStore.get("theme")?.value || "light";
+
   return (
-    <html lang="en">
+    <html lang="en" data-theme={theme} className={theme === "dark" ? "dark" : ""}>
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            try {
+              var theme = document.cookie.split('; ').find(row => row.startsWith('theme='))?.split('=')[1] || 'light';
+              document.documentElement.setAttribute('data-theme', theme);
+              if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+              } else {
+                document.documentElement.classList.remove('dark');
+              }
+            } catch (e) {}
+          `
+        }} />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-primary-theme antialiased selection:bg-green-500/30`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-primary-theme antialiased selection:bg-amber-500/20`}
       >
         <StoreProvider>
           <VehicleInitializer />

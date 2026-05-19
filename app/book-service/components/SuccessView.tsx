@@ -18,7 +18,7 @@ export const SuccessView = () => {
     }, [router]);
 
     return (
-        <div className="fixed inset-0 z-[200] bg-[#091A23] flex flex-col items-center justify-center animate-in fade-in duration-500">
+        <div className="fixed inset-0 z-[200] bg-[#0A0A0A] flex flex-col items-center justify-center animate-in fade-in duration-500">
             <div className="relative">
                 <div className="absolute inset-0 bg-green-500/20 blur-3xl rounded-full animate-pulse"></div>
                 <div className="relative w-24 h-24 rounded-full bg-green-500 flex items-center justify-center mb-6 shadow-2xl shadow-green-900/50 animate-bounce">

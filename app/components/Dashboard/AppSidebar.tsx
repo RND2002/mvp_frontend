@@ -51,7 +51,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                                 <Home className="size-4" />
                             </div>
-                            <span className="truncate font-semibold text-lg">Vroom</span>
+                            <span className="truncate font-semibold text-lg text-theme-amber">TORQ</span>
                         </div>
                     </SidebarMenuItem>
                 </SidebarMenu>

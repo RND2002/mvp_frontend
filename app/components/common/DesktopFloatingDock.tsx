@@ -68,7 +68,7 @@ function DesktopFloatingDockContent() {
 
     return (
         <div className="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
-            <div className="flex items-center gap-1 p-2 bg-vehicle-card-bg/95 backdrop-blur-md border border-vehicle-card-border rounded-full shadow-2xl shadow-black/50">
+            <div className="flex items-center gap-1 p-2 bg-bg-secondary/95 backdrop-blur-md border border-border-subtle rounded-full shadow-2xl shadow-black/50">
                 {actions.map((action) => {
                     const isActive = pathname === action.link || (action.link === "/dashboard" && pathname === "/");
                     const Icon = action.icon;
@@ -82,18 +82,18 @@ function DesktopFloatingDockContent() {
                             {isActive && (
                                 <motion.div
                                     layoutId="dock-active-pill"
-                                    className="absolute inset-0 bg-green-500 rounded-full"
+                                    className="absolute inset-0 bg-theme-amber rounded-full"
                                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                 />
                             )}
                             <span className="relative z-10 flex items-center gap-2">
                                 <Icon className={cn(
                                     "w-5 h-5 transition-colors duration-200",
-                                    isActive ? "text-white" : "text-zinc-400 group-hover:text-zinc-200"
+                                    isActive ? "text-black" : "text-text-secondary group-hover:text-text-primary"
                                 )} />
                                 <span className={cn(
                                     "text-sm font-medium transition-colors duration-200",
-                                    isActive ? "text-white" : "text-zinc-400 group-hover:text-zinc-200"
+                                    isActive ? "text-black" : "text-text-secondary group-hover:text-text-primary"
                                 )}>
                                     {action.title}
                                 </span>

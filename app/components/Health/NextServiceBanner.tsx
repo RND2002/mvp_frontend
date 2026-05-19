@@ -10,7 +10,7 @@ interface NextServiceBannerProps {
 
 export const NextServiceBanner = ({ kmRemaining = 1250, onClick }: NextServiceBannerProps) => {
     return (
-        <div className="mt-4 bg-theme-green rounded-2xl p-4 flex items-center justify-between relative overflow-hidden group">
+        <div className="mt-4 bg-theme-amber rounded-2xl p-4 flex items-center justify-between relative overflow-hidden group">
             {/* Background design pattern shim */}
             <div className="absolute inset-0 opacity-10 pointer-events-none">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -mr-16 -mt-16 blur-3xl"></div>

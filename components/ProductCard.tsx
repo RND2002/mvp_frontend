@@ -31,7 +31,7 @@ const isValidUrl = (url: string) => {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
-        <Link href={`/product/${product.id}`} className="group relative w-full h-full bg-primaryCard rounded-xl border border-secondary-theme hover:border-theme-green/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col block">
+        <Link href={`/product/${product.id}`} className="group relative w-full h-full bg-primaryCard rounded-xl border border-secondary-theme hover:border-theme-amber/50 transition-all duration-300 overflow-hidden flex flex-col block">
             {/* Image Container */}
             <div className="relative w-full aspect-[4/3] bg-secondary-theme overflow-hidden">
                 {product.image_urls && product.image_urls.length > 0 && isValidUrl(product.image_urls[0]) ? (
@@ -48,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 )}
                 <div className="absolute top-2 right-2">
                     {product.stock_quantity > 0 ? (
-                        <div className="bg-theme-green/90 backdrop-blur-sm text-theme-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                        <div className="bg-[#111111]/90 border border-theme-amber/30 backdrop-blur-sm text-theme-amber text-[10px] font-semibold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
                             <CheckCircle className="w-2.5 h-2.5" />
                             <span>In Stock</span>
                         </div>
@@ -64,12 +64,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {/* Content */}
             <div className="p-3 flex flex-col flex-1">
                 {/* Category */}
-                <span className="text-[10px] font-medium text-theme-green uppercase tracking-wider mb-1">
+                <span className="text-[10px] font-medium text-theme-amber uppercase tracking-wider mb-1">
                     {product.category}
                 </span>
 
                 {/* Title */}
-                <h3 className="text-sm font-bold text-white line-clamp-2 mb-1 group-hover:text-theme-green transition-colors">
+                <h3 className="text-sm font-bold text-white line-clamp-2 mb-1 group-hover:text-theme-amber transition-colors">
                     {product.name}
                 </h3>
 
@@ -88,7 +88,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     </div>
 
                     <button
-                        className="p-2 bg-theme-green hover:bg-theme-green/80 text-theme-white rounded-lg shadow-lg shadow-theme-green/20 active:scale-95 transition-all duration-200"
+                        className="p-2 bg-theme-amber hover:bg-theme-amber-hover text-black rounded-[6px] active:scale-[0.98] transition-all duration-200"
                         aria-label="Add to cart"
                         onClick={(e) => {
                             e.preventDefault();

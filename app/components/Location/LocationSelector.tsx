@@ -159,26 +159,26 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                             <MapPin className="w-6 h-6 text-theme-green" />
                         </div>
                         <div className="flex-1">
-                            <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">Service Location</p>
-                            <h3 className="text-white font-bold text-sm uppercase tracking-tight line-clamp-1">
+                            <p className="text-[10px] font-black text-text-tertiary uppercase tracking-widest mb-1">Service Location</p>
+                            <h3 className="text-text-primary font-bold text-sm uppercase tracking-tight line-clamp-1">
                                 {selectedLocation ? selectedLocation.label || selectedLocation.address : "Select Location"}
                             </h3>
-                            <p className="text-gray-500 text-[10px] font-medium uppercase tracking-wider line-clamp-1">
+                            <p className="text-text-secondary text-[10px] font-medium uppercase tracking-wider line-clamp-1">
                                 {selectedLocation ? selectedLocation.address : "Tap to pick a location"}
                             </p>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-theme-green transition-colors" />
+                        <ChevronRight className="w-5 h-5 text-text-tertiary group-hover:text-theme-green transition-colors" />
                     </div>
                 </div>
             </SheetTrigger>
-            <SheetContent side="bottom" className="bg-primaryCard border-t border-secondary-theme h-[80vh] rounded-t-[3rem] p-0 overflow-hidden">
+            <SheetContent side="bottom" className="bg-bg-elevated border-t border-border-default h-[80vh] rounded-t-[3rem] p-0 overflow-hidden">
                 <div className="h-full flex flex-col">
                     <div className="p-8 pb-4">
                         <SheetHeader className="text-left mb-6">
-                            <SheetTitle className="text-2xl font-black text-white uppercase italic tracking-tighter">
+                            <SheetTitle className="text-2xl font-black text-text-primary uppercase italic tracking-tighter">
                                 {isAdding ? "Add New Location" : "Select Location"}
                             </SheetTitle>
-                            <SheetDescription className="text-gray-500 font-bold uppercase text-[10px] tracking-[0.2em]">
+                            <SheetDescription className="text-text-secondary font-bold uppercase text-[10px] tracking-[0.2em]">
                                 {isAdding ? "Set your service address" : "Where should we provide the service?"}
                             </SheetDescription>
                         </SheetHeader>
@@ -186,7 +186,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                         {!isAdding && (
                             <Button
                                 onClick={handleAddClick}
-                                className="w-full h-14 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-2xl flex items-center justify-between px-6 mb-6 group"
+                                className="w-full h-14 bg-bg-tertiary border border-border-default hover:bg-bg-tertiary/80 text-text-primary rounded-2xl flex items-center justify-between px-6 mb-6 group"
                             >
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 bg-theme-green/20 rounded-lg flex items-center justify-center">
@@ -194,7 +194,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                     </div>
                                     <span className="font-black uppercase text-xs tracking-widest">Add New Address</span>
                                 </div>
-                                <ChevronRight className="w-4 h-4 text-gray-600 group-hover:translate-x-1 transition-transform" />
+                                <ChevronRight className="w-4 h-4 text-text-tertiary group-hover:translate-x-1 transition-transform" />
                             </Button>
                         )}
                     </div>
@@ -204,7 +204,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                             <div className="space-y-6 animate-in slide-in-from-right duration-300">
                                 <div className="space-y-4">
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">Location Label</Label>
+                                        <Label className="text-[10px] font-black text-text-secondary uppercase tracking-widest px-1">Location Label</Label>
                                         <div className="flex gap-2">
                                             {["Home", "Work", "Other"].map(label => (
                                                 <button
@@ -214,7 +214,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                                         "px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all",
                                                         newLocation.label === label
                                                             ? "bg-theme-green border-theme-green text-black"
-                                                            : "bg-white/5 border-white/10 text-gray-500 hover:border-white/20"
+                                                            : "bg-bg-tertiary border-border-default text-text-secondary hover:border-border-strong"
                                                     )}
                                                 >
                                                     {label}
@@ -225,19 +225,19 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
 
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <Label className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">House / Flat No.</Label>
+                                            <Label className="text-[10px] font-black text-text-secondary uppercase tracking-widest px-1">House / Flat No.</Label>
                                             <Input
                                                 placeholder="e.g. 402, 4th Floor"
-                                                className="h-14 bg-white/5 border-white/10 rounded-2xl text-white placeholder:text-gray-600 focus:border-theme-green/50 transition-all"
+                                                className="h-14 bg-bg-tertiary border-border-default rounded-2xl text-text-primary placeholder:text-text-tertiary/75 focus:border-theme-green/50 transition-all"
                                                 value={newLocation.houseNo}
                                                 onChange={(e) => setNewLocation(prev => ({ ...prev, houseNo: e.target.value }))}
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <Label className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">Building/Area</Label>
+                                            <Label className="text-[10px] font-black text-text-secondary uppercase tracking-widest px-1">Building/Area</Label>
                                             <Input
                                                 placeholder="e.g. Green Towers"
-                                                className="h-14 bg-white/5 border-white/10 rounded-2xl text-white placeholder:text-gray-600 focus:border-theme-green/50 transition-all"
+                                                className="h-14 bg-bg-tertiary border-border-default rounded-2xl text-text-primary placeholder:text-text-tertiary/75 focus:border-theme-green/50 transition-all"
                                                 value={newLocation.building}
                                                 onChange={(e) => setNewLocation(prev => ({ ...prev, building: e.target.value }))}
                                             />
@@ -245,10 +245,10 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                     </div>
 
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">Landmark (Optional)</Label>
+                                        <Label className="text-[10px] font-black text-text-secondary uppercase tracking-widest px-1">Landmark (Optional)</Label>
                                         <Input
                                             placeholder="e.g. Near City Mall"
-                                            className="h-14 bg-white/5 border-white/10 rounded-2xl text-white placeholder:text-gray-600 focus:border-theme-green/50 transition-all"
+                                            className="h-14 bg-bg-tertiary border-border-default rounded-2xl text-text-primary placeholder:text-text-tertiary/75 focus:border-theme-green/50 transition-all"
                                             value={newLocation.landmark}
                                             onChange={(e) => setNewLocation(prev => ({ ...prev, landmark: e.target.value }))}
                                         />
@@ -256,12 +256,12 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
 
 
                                     {/* GPS status indicator without coordinates */}
-                                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-3">
+                                    <div className="p-4 rounded-2xl bg-bg-tertiary border border-border-subtle flex items-center gap-3">
                                         <div className={cn(
                                             "w-2 h-2 rounded-full",
-                                            geo.loaded ? "bg-theme-green animate-pulse" : "bg-gray-600"
+                                            geo.loaded ? "bg-theme-green animate-pulse" : "bg-text-tertiary"
                                         )}></div>
-                                        <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest">
+                                        <p className="text-[9px] font-black text-text-secondary uppercase tracking-widest">
                                             {geo.loaded ? "Location Pinpointed via GPS" : "Detecting Location..."}
                                         </p>
                                     </div>
@@ -272,7 +272,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                     <Button
                                         variant="outline"
                                         onClick={() => setIsAdding(false)}
-                                        className="flex-1 h-14 rounded-2xl border-white/10 bg-transparent text-white font-black uppercase tracking-widest"
+                                        className="flex-1 h-14 rounded-2xl border-border-default bg-transparent text-text-primary font-black uppercase tracking-widest"
                                     >
                                         Cancel
                                     </Button>
@@ -290,14 +290,14 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                 {isFetching ? (
                                     <div className="flex flex-col items-center justify-center py-20 gap-4">
                                         <Loader size="lg" text="Loading Addresses..." />
-                                        <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Loading Addresses...</p>
+                                        <p className="text-text-secondary text-[10px] font-black uppercase tracking-widest">Loading Addresses...</p>
                                     </div>
                                 ) : locations.length === 0 ? (
                                     <div className="text-center py-20 space-y-4">
-                                        <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto">
-                                            <MapIcon className="w-8 h-8 text-gray-700" />
+                                        <div className="w-16 h-16 bg-bg-tertiary rounded-full flex items-center justify-center mx-auto">
+                                            <MapIcon className="w-8 h-8 text-text-tertiary" />
                                         </div>
-                                        <p className="text-gray-500 font-bold uppercase text-[10px] tracking-widest">No saved addresses found</p>
+                                        <p className="text-text-secondary font-bold uppercase text-[10px] tracking-widest">No saved addresses found</p>
                                     </div>
                                 ) : (
                                     locations.map(loc => (
@@ -311,25 +311,25 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                                 "p-6 rounded-3xl border transition-all cursor-pointer group flex items-start gap-4",
                                                 selectedLocationId === loc.id
                                                     ? "bg-theme-green/10 border-theme-green"
-                                                    : "bg-white/5 border-white/10 hover:border-white/20"
+                                                    : "bg-bg-tertiary/40 border-border-default hover:border-border-strong"
                                             )}
                                         >
                                             <div className={cn(
                                                 "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
-                                                selectedLocationId === loc.id ? "bg-theme-green text-black" : "bg-white/5 text-gray-400 group-hover:text-white"
+                                                selectedLocationId === loc.id ? "bg-theme-green text-black" : "bg-bg-tertiary text-text-secondary group-hover:text-text-primary"
                                             )}>
                                                 {getIcon(loc.label)}
                                             </div>
                                             <div className="flex-1">
                                                 <div className="flex items-center justify-between mb-1">
-                                                    <span className="text-white font-black uppercase text-xs tracking-widest truncate">{loc.label}</span>
+                                                    <span className="text-text-primary font-black uppercase text-xs tracking-widest truncate">{loc.label}</span>
                                                     {selectedLocationId === loc.id && (
                                                         <div className="w-5 h-5 bg-theme-green rounded-full flex items-center justify-center">
                                                             <Check className="w-3 h-3 text-black" />
                                                         </div>
                                                     )}
                                                 </div>
-                                                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider line-clamp-2 leading-relaxed">
+                                                <p className="text-text-secondary text-[10px] font-bold uppercase tracking-wider line-clamp-2 leading-relaxed">
                                                     {loc.address || "No address provided"}
                                                 </p>
                                             </div>

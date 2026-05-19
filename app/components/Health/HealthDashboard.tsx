@@ -43,14 +43,14 @@ export const HealthDashboard = () => {
 
     if (!selectedVehicle) {
         return (
-            <Card className="bg-primaryCard border-secondary-theme text-white">
+            <Card className="bg-bg-secondary border border-border-default text-text-primary">
                 <CardContent className="p-8 text-center space-y-4">
-                    <div className="bg-gray-800/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                        <AlertCircle className="w-8 h-8 text-gray-500" />
+                    <div className="bg-bg-tertiary w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                        <AlertCircle className="w-8 h-8 text-text-secondary" />
                     </div>
                     <div>
-                        <h3 className="text-xl font-bold">No Vehicle Selected</h3>
-                        <p className="text-gray-400 text-sm max-w-xs mx-auto mt-2">
+                        <h3 className="text-xl font-bold text-text-primary">No vehicles in your garage yet</h3>
+                        <p className="text-text-secondary text-sm max-w-xs mx-auto mt-2">
                             Please select or add a vehicle to view health insights and maintenance predictions.
                         </p>
                     </div>
@@ -62,10 +62,10 @@ export const HealthDashboard = () => {
     if (isFetchingHealth) {
         return (
             <div className="space-y-6">
-                <Skeleton className="h-64 w-full bg-primaryCard/20 rounded-2xl" />
+                <Skeleton className="h-64 w-full bg-bg-secondary/40 rounded-2xl" />
                 <div className="grid grid-cols-2 gap-4">
-                    <Skeleton className="h-32 w-full bg-primaryCard/20 rounded-xl" />
-                    <Skeleton className="h-32 w-full bg-primaryCard/20 rounded-xl" />
+                    <Skeleton className="h-32 w-full bg-bg-secondary/40 rounded-xl" />
+                    <Skeleton className="h-32 w-full bg-bg-secondary/40 rounded-xl" />
                 </div>
             </div>
         )
@@ -80,14 +80,14 @@ export const HealthDashboard = () => {
                         variant="ghost"
                         size="icon"
                         onClick={() => setShowFullReport(false)}
-                        className="bg-primaryCard border border-secondary-theme rounded-xl hover:bg-white/5 h-10 w-10"
-                        icon={<ChevronLeft className="w-5 h-5 text-white" />}
+                        className="bg-bg-secondary border border-border-default rounded-xl hover:bg-bg-tertiary h-10 w-10"
+                        icon={<ChevronLeft className="w-5 h-5 text-text-primary" />}
                         iconPosition="left"
                     >
                     </VroomButton>
                     <div>
-                        <h2 className="text-xl font-bold text-white leading-tight">Detailed Health Report</h2>
-                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">{selectedVehicle.brand} {selectedVehicle.model}</p>
+                        <h2 className="text-xl font-bold text-text-primary leading-tight">Detailed Health Report</h2>
+                        <p className="text-text-secondary text-[10px] font-bold uppercase tracking-widest">{selectedVehicle.brand} {selectedVehicle.model}</p>
                     </div>
                 </div>
 
@@ -116,7 +116,7 @@ export const HealthDashboard = () => {
         const title = healthData?.health?.overall?.score === null ? "Add vehicle details" : "Check your vehicle health";
 
         return (
-            <Card className="bg-primaryCard border-secondary-theme text-white relative overflow-hidden group">
+            <Card className="bg-bg-secondary border border-border-default text-text-primary relative overflow-hidden group">
                 <CardContent className="p-8">
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="space-y-2 text-center md:text-left">
@@ -124,15 +124,15 @@ export const HealthDashboard = () => {
                                 <ShieldCheck className="w-5 h-5" />
                                 <span className="text-xs font-bold uppercase tracking-wider">Smart Health Check</span>
                             </div>
-                            <h3 className="text-2xl font-bold">{title}</h3>
-                            <p className="text-gray-400 text-sm max-w-md">
+                            <h3 className="text-2xl font-bold text-text-primary">{title}</h3>
+                            <p className="text-text-secondary text-sm max-w-md">
                                 {message}
                             </p>
                         </div>
                         <VroomButton
                             onClick={handleOpenSidebar}
                             className="px-8 h-14 cursor-pointer rounded-xl text-lg group-hover:scale-105 transition-transform"
-                            icon={<Sparkles className="w-5 h-5" />}
+                            icon={<Sparkles className="w-5 h-5 text-black" />}
                         >
                             Start Analysis
                         </VroomButton>

@@ -120,13 +120,12 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
         <Dialog open={open} onOpenChange={(val) => {
             setLoginMethod('email')
             setOpen(val)
-        }}>
-            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-primaryCard border-secondary-theme text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        }}>            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-bg-elevated border-border-default text-text-primary shadow-2xl">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">
-                        <Image src={IconLogo as unknown as string} alt="Vroom" className="w-56 h-auto drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)]" />
+                        <span className="text-theme-amber text-3xl font-extrabold tracking-[0.25em] drop-shadow-md">TORQ</span>
                     </DialogTitle>
-                    <DialogDescription className="text-xl font-bold text-gray-300">
+                    <DialogDescription className="text-xl font-bold text-text-secondary">
                         Log in to keep your vehicle running smooth!
                     </DialogDescription>
                 </DialogHeader>
@@ -134,12 +133,12 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                     {!emailSent ? (
                         <>
                             {/* Method Toggle */}
-                            <div className="grid grid-cols-2 gap-2 bg-primary-theme/50 p-1 rounded-lg border border-secondary-theme">
+                            <div className="grid grid-cols-2 gap-2 bg-bg-tertiary/50 p-1 rounded-lg border border-border-default">
                                 <Button
                                     type="button"
                                     variant="ghost"
                                     onClick={() => setLoginMethod('email')}
-                                    className={`flex cursor-pointer items-center justify-center gap-2 h-10 rounded-md font-black uppercase text-[10px] tracking-widest transition-all ${loginMethod === 'email' ? 'bg-theme-green/10 text-theme-green border border-theme-green/30' : 'text-gray-500 hover:text-white'}`}
+                                    className={`flex cursor-pointer items-center justify-center gap-2 h-10 rounded-md font-black uppercase text-[10px] tracking-widest transition-all ${loginMethod === 'email' ? 'bg-theme-amber/12 text-theme-amber border border-theme-amber/25' : 'text-text-secondary hover:text-text-primary'}`}
                                 >
                                     <Mail className="w-3.5 h-3.5" /> Email
                                 </Button>
@@ -148,7 +147,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     type="button"
                                     variant="ghost"
                                     onClick={() => setLoginMethod('phone')}
-                                    className={`flex cursor-pointer items-center justify-center gap-2 h-10 rounded-md font-black uppercase text-[10px] tracking-widest transition-all ${loginMethod === 'phone' ? 'bg-theme-green/10 text-theme-green border border-theme-green/30' : 'text-gray-500 hover:text-white'}`}
+                                    className={`flex cursor-pointer items-center justify-center gap-2 h-10 rounded-md font-black uppercase text-[10px] tracking-widest transition-all ${loginMethod === 'phone' ? 'bg-theme-amber/12 text-theme-amber border border-theme-amber/25' : 'text-text-secondary hover:text-text-primary'}`}
                                 >
                                     <Phone className="w-3.5 h-3.5" /> Phone
                                 </Button>
@@ -167,40 +166,40 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     </>
                                 ) : (
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-gray-500">Email Address</label>
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-text-secondary">Email Address</label>
                                         <Input
                                             {...register('email')}
                                             placeholder="Enter your email"
-                                            className="h-12 bg-primary-theme border-secondary-theme text-white placeholder:text-gray-600 focus-visible:ring-theme-green/30 focus-visible:border-theme-green selection:bg-theme-green/20 rounded-xl"
+                                            className="h-12 bg-bg-tertiary border-border-default text-text-primary placeholder:text-text-tertiary/75 focus-visible:ring-theme-amber/30 focus-visible:border-theme-amber selection:bg-theme-amber-muted rounded-xl"
                                         />
                                         {errors.email && <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1">{errors.email.message}</p>}
                                     </div>
                                 )}
                             </div>
-                            <p className="text-[10px] font-medium text-gray-600 text-center leading-relaxed">
-                                By continuing, you agree to our <span className="text-theme-green cursor-pointer hover:underline">Terms of Service</span> and <span className="text-theme-green cursor-pointer hover:underline">Privacy Policy</span>.
+                            <p className="text-[10px] font-medium text-text-tertiary text-center leading-relaxed">
+                                By continuing, you agree to our <span className="text-theme-amber cursor-pointer hover:underline">Terms of Service</span> and <span className="text-theme-amber cursor-pointer hover:underline">Privacy Policy</span>.
                             </p>
                             <div className="flex justify-center pt-2">
                                 <Button
                                     type="submit"
                                     loading={isLoading}
                                     loadingText="Signing in..."
-                                    className="w-full h-12 cursor-pointer bg-theme-green text-black font-black uppercase text-[10px] tracking-[0.2em] rounded-full hover:bg-theme-green/90 transition-all hover:scale-[1.02] active:scale-95 shadow-[0_10px_30px_rgba(0,223,130,0.2)] border-0"
+                                    className="w-full h-12 cursor-pointer bg-theme-amber text-text-inverse font-semibold uppercase text-[10px] tracking-[0.2em] rounded-[6px] hover:bg-theme-amber-hover transition-all active:scale-[0.98] border-0"
                                 >
-                                    Login to Vroom
+                                    Login to TORQ
                                 </Button>
                             </div>
                         </>
                     ) : (
                         <div className="flex flex-col items-center gap-4 py-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <div className="h-16 w-16 bg-green-500/10 rounded-full flex items-center justify-center mb-2">
-                                <Mail className="w-8 h-8 text-green-500" />
+                            <div className="h-16 w-16 bg-theme-amber/12 rounded-full flex items-center justify-center mb-2">
+                                <Mail className="w-8 h-8 text-theme-amber" />
                             </div>
-                            <h3 className="text-xl font-semibold text-white">Check your email</h3>
-                            <p className="text-gray-400 max-w-[280px]">
-                                We sent a magic link to <span className="text-white font-medium">{getValues('email')}</span>
+                            <h3 className="text-xl font-semibold text-text-primary">Check your email</h3>
+                            <p className="text-text-secondary max-w-[280px]">
+                                We sent a magic link to <span className="text-text-primary font-medium">{getValues('email')}</span>
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-text-tertiary">
                                 Click the link in the email to sign in.
                             </p>
                             <div className="flex gap-5">
@@ -208,7 +207,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     type="button"
                                     variant="outline"
                                     onClick={() => setEmailSent(false)}
-                                    className="mt-4 cursor-pointer border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
+                                    className="mt-4 cursor-pointer border-border-default text-text-secondary hover:bg-bg-tertiary hover:text-text-primary"
                                 >
                                     Back To Login
                                 </Button>
@@ -217,7 +216,7 @@ export default function LoginDialog({ open, setOpen, onLoginSuccess }: LoginDial
                                     type="button"
                                     variant="outline"
                                     onClick={() => openUserMail(getValues('email') ?? '')}
-                                    className="mt-4 cursor-pointer border-gray-700 text-gray-300 hover:bg-white/5 hover:text-white"
+                                    className="mt-4 cursor-pointer border-border-default text-text-secondary hover:bg-bg-tertiary hover:text-text-primary"
                                 >
                                     Go To Mail
                                 </Button>

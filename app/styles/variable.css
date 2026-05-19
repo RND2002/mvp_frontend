@@ -97,14 +97,12 @@
         --color-dark-brown-line: #813437;
         --color-muted-pink: #faf0f0;
         --color-card-pink: #ffc7c9;
-        --color-tech-card: #d3d3d3;
-        --color-primary-theme: #091A23;
-        --color-secondary-theme: #163341;
-        --color-primaryCard:#0D212C;
-        --color-primaryBorder:#5c707a;
-        --color-partnerLists:#2D4754;
-        --color-primaryText:#dcff1e;
-        /* --color-secondary-theme: #779433; */
+        --color-primary-theme: var(--bg-primary);
+        --color-secondary-theme: var(--border-default);
+        --color-primaryCard: var(--bg-secondary);
+        --color-primaryBorder: var(--border-subtle);
+        --color-partnerLists: var(--bg-tertiary);
+        --color-primaryText: var(--text-primary);
 
         /* Neutral / supporting colors */
         --color-navbar-label: #00000080;

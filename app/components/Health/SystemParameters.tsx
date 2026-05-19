@@ -15,11 +15,11 @@ interface SystemParameterItemProps {
 
 const SystemParameterItem = ({ icon, label, status, value, statusColor, isLast }: SystemParameterItemProps) => (
     <div className={cn(
-        "flex items-center justify-between py-3 px-5 group transition-colors hover:bg-white/5",
-        !isLast && "border-b border-white/5"
+        "flex items-center justify-between py-3 px-5 group transition-colors hover:bg-bg-tertiary/20",
+        !isLast && "border-b border-border-default/45"
     )}>
         <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:border-theme-green/30 transition-colors">
+            <div className="w-10 h-10 bg-bg-tertiary rounded-xl flex items-center justify-center border border-border-default group-hover:border-theme-green/30 transition-colors">
                 <div className="text-theme-green/80">
                     {React.isValidElement(icon) && React.cloneElement(icon as React.ReactElement<{ className?: string }>, {
                         className: "w-4.5 h-4.5"
@@ -27,20 +27,21 @@ const SystemParameterItem = ({ icon, label, status, value, statusColor, isLast }
                 </div>
             </div>
             <div>
-                <h4 className="text-white font-semibold text-sm leading-tight tracking-tight">{label}</h4>
+                <h4 className="text-text-primary font-semibold text-sm leading-tight tracking-tight">{label}</h4>
                 <p className={cn("text-[9px] font-bold uppercase tracking-[0.15em] mt-0.5 opacity-70", statusColor)}>
                     {status}
                 </p>
             </div>
         </div>
         <div className="text-right">
-            <span className="text-white font-bold text-lg tracking-tight">{value}</span>
+            <span className="text-text-primary font-bold text-lg tracking-tight">{value}</span>
         </div>
     </div>
 )
 
 interface SystemParametersProps {
     systems: Record<string, { score: number; status: string }>;
+    className?: string;
 }
 
 const getSystemIcon = (key: string) => {
@@ -60,18 +61,18 @@ const getStatusColorClass = (s: string) => {
     return 'text-theme-red';
 }
 
-export const SystemParameters = ({ systems }: SystemParametersProps) => {
+export const SystemParameters = ({ systems, className }: SystemParametersProps) => {
     const systemEntries = Object.entries(systems);
 
     return (
-        <div className="bg-primaryCard border border-secondary-theme rounded-3xl overflow-hidden">
-            <div className="px-5 py-3.5 border-b border-white/5">
-                <h3 className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em]">
+        <div className={cn("bg-bg-secondary border rounded-3xl overflow-hidden", className)}>
+            <div className="px-5 py-3.5 border-b border-border-subtle">
+                <h3 className="text-text-secondary text-[10px] font-black uppercase tracking-[0.2em]">
                     System Parameters
                 </h3>
             </div>
 
-            <div className="divide-y divide-white/5">
+            <div className="divide-y divide-border-subtle">
                 {systemEntries.length > 0 ? (
                     systemEntries.map(([key, system], index) => (
                         <SystemParameterItem
@@ -86,7 +87,7 @@ export const SystemParameters = ({ systems }: SystemParametersProps) => {
                     ))
                 ) : (
                     <div className="p-8 text-center">
-                        <p className="text-gray-500 text-sm font-medium">No system parameters available</p>
+                        <p className="text-text-secondary text-sm font-medium">No system parameters available</p>
                     </div>
                 )}
             </div>

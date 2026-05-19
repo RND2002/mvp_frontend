@@ -22,7 +22,7 @@ import {
 } from "@/app/store/slices/authSlice";
 // import supabase from "@/app/api/supabaseClient";
 import { useRouter, usePathname } from "next/navigation";
-import { User, UserIcon, ShoppingCart } from "lucide-react";
+import { User, UserIcon, ShoppingCart, Sun, Moon } from "lucide-react";
 import { useGetCartItemsQuery } from "@/app/beService/cart-items-service";
 import { selectSelectedVehicle } from "@/app/store/slices/vehicleSlice";
 
@@ -57,6 +57,19 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
   );
 
   const cartItemCount = cartData?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
+
+  const [theme, setThemeState] = React.useState<"light" | "dark">("light");
+
+  React.useEffect(() => {
+    const activeTheme = document.documentElement.getAttribute("data-theme") as "light" | "dark" || "light";
+    setThemeState(activeTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setThemeState(nextTheme);
+    import("@/app/lib/themes").then(({ setTheme }) => setTheme(nextTheme));
+  };
 
 
   // React.useEffect(() => {
@@ -139,87 +152,107 @@ const Navbar: React.FC<NavbarProps> = ({ navbarData, open, setOpen }) => {
 
   return (
     <>
-      <div className="lg:hidden flex items-center justify-between w-full px-4 py-3 bg-primary-theme border-b border-white/5">
+      <div className="lg:hidden flex items-center justify-between w-full px-4 py-3 bg-primary-theme border-b border-border-subtle">
         <Link href="/" className="inline-block transition-transform active:scale-95">
-          <Image
-            src={Logo}
-            alt="Vroom"
-            width={120}
-            height={40}
-            className="w-28 h-auto"
-          />
+          <span className="text-theme-amber text-xl font-black tracking-[0.25em]">TORQ</span>
         </Link>
 
         {pathname === "/" ? (
-          <button
-            onClick={() => dispatch(setLoginModalOpen(true))}
-            className="px-5 py-1.5 bg-theme-green text-black font-black text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-theme-green/90 transition-all active:scale-95 shadow-[0_0_15px_rgba(0,223,130,0.2)]"
-          >
-            Sign In
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="h-9 w-9 bg-theme-amber/12 rounded-full flex items-center justify-center cursor-pointer active:bg-theme-amber/20 transition-colors"
+              title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            >
+              {theme === "light" ? <Moon className="h-4 w-4 text-theme-amber" /> : <Sun className="h-4 w-4 text-theme-amber" />}
+            </button>
+            <button
+              onClick={() => dispatch(setLoginModalOpen(true))}
+              className="px-5 py-1.5 bg-theme-amber text-black font-semibold text-[10px] uppercase tracking-[0.2em] rounded-[6px] hover:bg-theme-amber-hover transition-all active:scale-[0.98]"
+            >
+              Sign In
+            </button>
+          </div>
         ) : (
           <div className="flex items-center gap-3">
             <div className="scale-75 origin-right">
               <LocationHeader />
             </div>
-            <Link href="/cart" className="relative h-9 w-9 bg-green-500/10 rounded-full flex items-center justify-center cursor-pointer active:bg-green-500/20 transition-colors">
-              <ShoppingCart className="h-4 w-4 text-green-500" />
+            <button
+              onClick={toggleTheme}
+              className="h-9 w-9 bg-theme-amber/12 rounded-full flex items-center justify-center cursor-pointer active:bg-theme-amber/20 transition-colors"
+              title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            >
+              {theme === "light" ? <Moon className="h-4 w-4 text-theme-amber" /> : <Sun className="h-4 w-4 text-theme-amber" />}
+            </button>
+            <Link href="/cart" className="relative h-9 w-9 bg-theme-amber/12 rounded-full flex items-center justify-center cursor-pointer active:bg-theme-amber/20 transition-colors">
+              <ShoppingCart className="h-4 w-4 text-theme-amber" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-brand-primary-500 text-white text-[9px] font-bold h-3.5 w-3.5 flex items-center justify-center rounded-full border border-primary-theme">
+                <span className="absolute -top-1 -right-1 bg-theme-amber text-black text-[9px] font-bold h-3.5 w-3.5 flex items-center justify-center rounded-full border border-primary-theme">
                   {cartItemCount > 9 ? '9+' : cartItemCount}
                 </span>
               )}
             </Link>
             <div
-              className="h-9 w-9 bg-green-500/10 rounded-full flex items-center justify-center cursor-pointer active:bg-green-500/20 transition-colors"
+              className="h-9 w-9 bg-theme-amber/12 rounded-full flex items-center justify-center cursor-pointer active:bg-theme-amber/20 transition-colors"
               onClick={handleAvatarClick}
             >
-              <User className="h-4 w-4 text-green-500" />
+              <User className="h-4 w-4 text-theme-amber" />
             </div>
           </div>
         )}
       </div>
       <div className="hidden lg:flex items-center w-full justify-between">
         <Link href="/" className="inline-block transition-transform hover:scale-105 active:scale-95">
-          <Image
-            src={Logo}
-            alt="Vroom Logo"
-            width={140}
-            height={48}
-            className="w-36 h-auto"
-          />
+          <span className="text-theme-amber text-2xl font-black tracking-[0.25em]">TORQ</span>
         </Link>
 
         {pathname === "/" ? (
           <>
             <div className="hidden lg:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
-              <Link href="#how-it-works" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors">How It Works</Link>
-              <Link href="#why-vroom" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors">Why Vroom</Link>
+              <Link href="#how-it-works" className="text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary hover:text-text-primary transition-colors">How It Works</Link>
+              <Link href="#why-vroom" className="text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary hover:text-text-primary transition-colors">Why TORQ</Link>
             </div>
-            <button
-              onClick={() => dispatch(setLoginModalOpen(true))}
-              className="ml-auto px-6 py-2 bg-theme-green text-black font-black text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-theme-green/90 transition-all hover:scale-105 shadow-[0_0_20px_rgba(0,223,130,0.2)]"
-            >
-              Sign In
-            </button>
+            <div className="ml-auto flex items-center gap-4">
+              <button
+                onClick={toggleTheme}
+                className="h-10 w-10 bg-theme-amber/12 rounded-full flex items-center justify-center cursor-pointer hover:bg-theme-amber/20 transition-colors"
+                title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+              >
+                {theme === "light" ? <Moon className="h-5 w-5 text-theme-amber" /> : <Sun className="h-5 w-5 text-theme-amber" />}
+              </button>
+              <button
+                onClick={() => dispatch(setLoginModalOpen(true))}
+                className="px-6 py-2 bg-theme-amber text-black font-semibold text-[10px] uppercase tracking-[0.2em] rounded-[6px] hover:bg-theme-amber-hover transition-all hover:scale-105 active:scale-[0.98]"
+              >
+                Sign In
+              </button>
+            </div>
           </>
         ) : (
           <>
             <LocationHeader />
             <div className="flex items-center gap-4 ml-auto">
-              <Link href="/cart" className="relative h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors">
-                <ShoppingCart className="h-5 w-5 text-green-500" />
+              <button
+                onClick={toggleTheme}
+                className="h-10 w-10 bg-theme-amber/12 rounded-full flex items-center justify-center cursor-pointer hover:bg-theme-amber/20 transition-colors"
+                title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+              >
+                {theme === "light" ? <Moon className="h-5 w-5 text-theme-amber" /> : <Sun className="h-5 w-5 text-theme-amber" />}
+              </button>
+              <Link href="/cart" className="relative h-10 w-10 bg-theme-amber/12 rounded-full flex items-center justify-center cursor-pointer hover:bg-theme-amber/20 transition-colors">
+                <ShoppingCart className="h-5 w-5 text-theme-amber" />
                 {cartItemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-brand-primary-500 text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-primary-theme">
+                  <span className="absolute -top-1 -right-1 bg-theme-amber text-black text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-primary-theme">
                     {cartItemCount > 9 ? '9+' : cartItemCount}
                   </span>
                 )}
               </Link>
               <div
-                className="h-10 w-10 bg-green-500/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500/30 transition-colors"
+                className="h-10 w-10 bg-theme-amber/12 rounded-full flex items-center justify-center cursor-pointer hover:bg-theme-amber/20 transition-colors"
                 onClick={handleAvatarClick}
               >
-                <User className="h-6 w-6 text-green-500" />
+                <User className="h-6 w-6 text-theme-amber" />
               </div>
             </div>
           </>

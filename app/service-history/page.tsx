@@ -71,7 +71,7 @@ export default function ServiceHistoryPage() {
 
     if (!selectedVehicle) {
         return (
-            <div className="min-h-screen bg-primary-theme flex items-center justify-center text-white">
+            <div className="min-h-screen bg-primary-theme flex items-center justify-center text-text-primary">
                 <div className="text-center">
                     <HistoryIcon className="w-12 h-12 text-gray-700 mx-auto mb-4" />
                     <p className="text-gray-500 font-bold uppercase tracking-widest text-sm">Please select a vehicle to view history.</p>
@@ -100,7 +100,7 @@ export default function ServiceHistoryPage() {
 
                 {/* Common Header */}
                 <PageHeader
-                    title={<>Service <span className="text-theme-green">History</span></>}
+                    title={<>Service <span className="text-theme-amber">History</span></>}
                     subtitle="Timeline of your vehicle maintenance and repairs."
                     backUrl="/dashboard"
                 />
@@ -129,11 +129,11 @@ export default function ServiceHistoryPage() {
                     {!isLoading && showPending && ongoingServices.length > 0 && (
                         <div className="space-y-6">
                             <div className="flex items-center gap-4">
-                                <h2 className="text-xl font-black text-white uppercase italic tracking-tight shrink-0 flex items-center gap-2">
+                                <h2 className="text-xl font-black text-text-primary uppercase italic tracking-tight shrink-0 flex items-center gap-2">
                                     <Clock className="w-5 h-5 text-amber-500" />
                                     Pending Services
                                 </h2>
-                                <div className="h-px bg-white/5 flex-1"></div>
+                                <div className="h-px bg-border-subtle flex-1"></div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {ongoingServices.map((service: any, index: number) => (
@@ -152,11 +152,11 @@ export default function ServiceHistoryPage() {
                         <div className="space-y-6">
                             {(filteredPastRows.length > 0 || selectedFilter !== "all") && (
                                 <div className="flex items-center gap-4">
-                                    <h2 className="text-xl font-black text-white uppercase italic tracking-tight shrink-0 flex items-center gap-2">
-                                        <CheckCircle2 className="w-5 h-5 text-theme-green" />
+                                    <h2 className="text-xl font-black text-text-primary uppercase italic tracking-tight shrink-0 flex items-center gap-2">
+                                        <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                                         {selectedFilter === "all" ? "Past Services" : `${selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1)} Services`}
                                     </h2>
-                                    <div className="h-px bg-white/5 flex-1"></div>
+                                    <div className="h-px bg-border-subtle flex-1"></div>
                                 </div>
                             )}
 
@@ -171,9 +171,9 @@ export default function ServiceHistoryPage() {
                                     ))}
                                 </div>
                             ) : (selectedFilter === "completed" || selectedFilter === "cancelled") && (
-                                <div className="bg-primaryCard/50 border border-dashed border-secondary-theme rounded-4xl p-16 text-center">
-                                    <HistoryIcon className="w-12 h-12 text-gray-800 mx-auto mb-4 opacity-20" />
-                                    <p className="text-gray-600 text-sm font-bold uppercase tracking-widest italic">
+                                <div className="bg-bg-secondary/50 border border-dashed border-border-default rounded-4xl p-16 text-center">
+                                    <HistoryIcon className="w-12 h-12 text-text-secondary mx-auto mb-4 opacity-20" />
+                                    <p className="text-text-secondary text-sm font-bold uppercase tracking-widest italic">
                                         No {selectedFilter} records found
                                     </p>
                                 </div>
@@ -183,9 +183,9 @@ export default function ServiceHistoryPage() {
 
                     {/* Empty State for Pending when Filtered */}
                     {!isLoading && selectedFilter === "pending" && ongoingServices.length === 0 && (
-                        <div className="bg-primaryCard/50 border border-dashed border-secondary-theme rounded-4xl p-16 text-center">
-                            <Clock className="w-12 h-12 text-gray-800 mx-auto mb-4 opacity-20" />
-                            <p className="text-gray-600 text-sm font-bold uppercase tracking-widest italic">No pending services found</p>
+                        <div className="bg-bg-secondary/50 border border-dashed border-border-default rounded-4xl p-16 text-center">
+                            <Clock className="w-12 h-12 text-text-secondary mx-auto mb-4 opacity-20" />
+                            <p className="text-text-secondary text-sm font-bold uppercase tracking-widest italic">No pending services found</p>
                         </div>
                     )}
                 </div>

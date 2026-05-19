@@ -23,7 +23,7 @@ export default function OngoingOrdersSheet({ open, setOpen, orders }: OngoingOrd
                         <ArrowLeft className="w-6 h-6" />
                     </button>
                     <SheetTitle className="text-xl font-bold flex items-center gap-2 text-white">
-                        <Package className="w-5 h-5 text-brand-primary-500" />
+                        <Package className="w-5 h-5 text-theme-amber" />
                         Ongoing Orders
                     </SheetTitle>
                 </SheetHeader>
@@ -59,7 +59,7 @@ export default function OngoingOrdersSheet({ open, setOpen, orders }: OngoingOrd
                                     {order.order_fulfillments?.map((fulfillment: any) => (
                                         <div key={fulfillment.id} className="flex items-center gap-2 text-xs text-zinc-400">
                                             <div className={`w-2 h-2 rounded-full ${fulfillment.status === 'completed' ? 'bg-green-500' :
-                                                fulfillment.status === 'shipping' ? 'bg-blue-500' : 'bg-yellow-500'
+                                                fulfillment.status === 'shipping' ? 'bg-blue-500' : 'bg-theme-amber'
                                                 }`} />
                                             <span className="capitalize">{fulfillment.fulfillment_type}: {fulfillment.status.replace('_', ' ')}</span>
                                         </div>

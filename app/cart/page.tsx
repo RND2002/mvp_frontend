@@ -104,14 +104,14 @@ export default function CartPage() {
     if (!selectedVehicle) {
         return (
             <div className="bg-primary-theme min-h-screen pt-20 flex flex-col items-center justify-center p-6 text-center">
-                <div className="w-16 h-16 bg-secondary-theme rounded-full flex items-center justify-center mb-4">
-                    <ShoppingBag className="w-8 h-8 text-zinc-500" />
+                <div className="w-16 h-16 bg-bg-secondary border border-border-default rounded-full flex items-center justify-center mb-4">
+                    <ShoppingBag className="w-8 h-8 text-text-secondary" />
                 </div>
-                <h2 className="text-white text-xl font-bold mb-2">Select a Vehicle</h2>
-                <p className="text-zinc-400 mb-6 max-w-xs">Please select a vehicle from your garage to view your cart.</p>
+                <h2 className="text-text-primary text-xl font-bold mb-2">Select a Vehicle</h2>
+                <p className="text-text-secondary mb-6 max-w-xs">Please select a vehicle from your garage to view your cart.</p>
                 <button
                     onClick={() => router.push('/')}
-                    className="px-6 py-2 bg-brand-primary-500 text-white rounded-lg font-medium"
+                    className="px-6 py-2 bg-theme-amber text-black font-semibold rounded-[6px] hover:bg-theme-amber-hover active:scale-[0.98] transition-all"
                 >
                     Go Home
                 </button>
@@ -124,7 +124,7 @@ export default function CartPage() {
             <Container className="pt-8 pb-4 px-4 sticky top-0 bg-primary-theme/80 backdrop-blur-md z-30">
                 {/* Standardized Premium Page Header */}
                 <PageHeader
-                    title={<>My <span className="text-theme-green">Cart</span></>}
+                    title={<>My <span className="text-theme-amber">Cart</span></>}
                     subtitle={`You have ${totalItems} items ready.`}
                     backUrl="/dashboard"
                     rightElement={(
@@ -133,10 +133,10 @@ export default function CartPage() {
                             {activeDeliveryOrders && activeDeliveryOrders.length > 0 && (
                                 <button
                                     onClick={() => setShowOngoingOrders(true)}
-                                    className="relative p-2.5 bg-white/5 border border-white/10 rounded-xl text-zinc-400 hover:text-white transition-all active:scale-95 group"
+                                    className="relative p-2.5 bg-bg-tertiary border border-border-default rounded-xl text-text-secondary hover:text-text-primary transition-all active:scale-95 group"
                                 >
                                     <History className="w-5 h-5 group-hover:rotate-[-20deg] transition-transform" />
-                                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[8px] font-bold flex items-center justify-center rounded-full border-2 border-primary-theme">
+                                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[8px] font-bold flex items-center justify-center rounded-full border border-primary-theme">
                                         {activeDeliveryOrders.length}
                                     </span>
                                 </button>
@@ -148,10 +148,10 @@ export default function CartPage() {
                                     onClick={handleCheckout}
                                     disabled={isCheckingOut || !selectedLocation}
                                     className={cn(
-                                        "h-11 px-6 relative group overflow-hidden transition-all duration-500 font-bold text-sm rounded-xl flex items-center justify-center gap-2",
+                                        "h-11 px-6 relative group overflow-hidden transition-all duration-500 font-bold text-sm rounded-[6px] flex items-center justify-center gap-2",
                                         !selectedLocation || isCheckingOut
-                                            ? "bg-white/5 text-gray-600 border border-white/10 cursor-not-allowed"
-                                            : "bg-theme-green text-black shadow-[0_10px_20px_-5px_rgba(0,223,130,0.3)] active:scale-95"
+                                            ? "bg-bg-tertiary text-text-tertiary border border-border-default cursor-not-allowed"
+                                            : "bg-theme-amber text-black hover:bg-theme-amber-hover active:scale-[0.98]"
                                     )}
                                 >
                                     <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
@@ -176,8 +176,8 @@ export default function CartPage() {
                     {allItems.length > 0 && (
                         <div className="mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
                             <div className="flex items-center gap-2 mb-3 px-1">
-                                <div className="w-1 h-3 bg-theme-green rounded-full"></div>
-                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-[0.2em]">Service Location</span>
+                                <div className="w-1 h-3 bg-theme-amber rounded-full"></div>
+                                <span className="text-[9px] font-black text-text-secondary uppercase tracking-[0.2em]">Service Location</span>
                             </div>
                             <LocationSelector
                                 onLocationSelect={setSelectedLocation}
@@ -188,14 +188,14 @@ export default function CartPage() {
 
                     {allItems.length === 0 && !isLoading ? (
                         <div className="flex flex-col items-center justify-center py-20 text-center">
-                            <div className="w-20 h-20 bg-secondary-theme rounded-full flex items-center justify-center mb-6">
-                                <ShoppingBag className="w-10 h-10 text-zinc-500" />
+                            <div className="w-20 h-20 bg-bg-secondary border border-border-default rounded-full flex items-center justify-center mb-6">
+                                <ShoppingBag className="w-10 h-10 text-text-secondary" />
                             </div>
-                            <h2 className="text-white text-lg font-bold mb-2">Your cart is empty</h2>
-                            <p className="text-zinc-500 mb-8 max-w-xs">Looks like you haven't added any gear for your {selectedVehicle.model} yet.</p>
+                            <h2 className="text-text-primary text-lg font-bold mb-2">Your cart is empty</h2>
+                            <p className="text-text-secondary mb-8 max-w-xs">Looks like you haven't added any gear for your {selectedVehicle.model} yet.</p>
                             <button
                                 onClick={() => router.push('/gear-up')}
-                                className="px-8 py-3 bg-secondary-theme text-white rounded-xl font-medium hover:bg-secondary-theme/80 transition-colors"
+                                className="px-8 py-3 bg-theme-amber text-black font-semibold rounded-[6px] hover:bg-theme-amber-hover active:scale-[0.98] transition-all"
                             >
                                 Browse Gear
                             </button>

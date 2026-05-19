@@ -110,7 +110,7 @@ export default function ModifyRidePage() {
             <Container className="py-8 px-4 sm:px-6 lg:px-8">
                 {/* Standardized Page Header */}
                 <PageHeader
-                    title={<>Gear <span className="text-theme-green">Up</span></>}
+                    title={<>Gear <span className="text-theme-amber">Up</span></>}
                     subtitle={`Premium upgrades and accessories tailored for your ${selectedVehicle ? `${selectedVehicle.brand} ${selectedVehicle.model}` : "vehicle"}.`}
                     backUrl="/dashboard"
                     className="mb-8"
@@ -131,7 +131,7 @@ export default function ModifyRidePage() {
                 {/* Main Content Area */}
                 {!vehicleId ? (
                     <div className="flex flex-col items-center justify-center py-20 text-center">
-                        <p className="text-lg text-zinc-400 mb-4">Please select a vehicle to see recommendations.</p>
+                        <p className="text-lg text-text-secondary mb-4">Please select a vehicle to see recommendations.</p>
                     </div>
                 ) : (
                     <>
@@ -162,13 +162,13 @@ export default function ModifyRidePage() {
                             )}
 
                             {!isFetching && products.length === 0 && (
-                                <div className="text-center text-zinc-400">
+                                <div className="text-center text-text-secondary">
                                     <p>No products found in this category.</p>
                                 </div>
                             )}
 
                             {!isFetching && products.length > 0 && !hasMore && (
-                                <p className="text-sm text-zinc-500">You've reached the end of the list.</p>
+                                <p className="text-sm text-text-tertiary">You've reached the end of the list.</p>
                             )}
                         </div>
                     </>

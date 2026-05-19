@@ -21,17 +21,17 @@ export const Loader = ({ fullScreen = false, text, size = "md" }: LoaderProps) =
                 <div className="relative flex flex-col items-center">
                     {/* Pulsing Rings */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="h-32 w-32 rounded-full border border-theme-green/20 animate-ping opacity-20" />
-                        <div className="absolute h-40 w-40 rounded-full border border-theme-green/10 animate-[ping_2s_linear_infinite] opacity-10" />
+                        <div className="h-32 w-32 rounded-full border border-theme-amber/20 animate-ping opacity-20" />
+                        <div className="absolute h-40 w-40 rounded-full border border-theme-amber/10 animate-[ping_2s_linear_infinite] opacity-10" />
                     </div>
 
                     {/* Logo and Spinner */}
                     <div className="relative bg-primaryCard border border-secondary-theme p-8 rounded-[40px] flex flex-col items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                        <Image src={Logo} alt="Vroom" width={120} height={40} className="w-32 h-auto animate-pulse" />
+                        <span className="text-theme-amber text-3xl font-extrabold tracking-[0.25em] drop-shadow-md animate-pulse">TORQ</span>
                         <div className="flex flex-col items-center gap-3">
-                            <Loader2 className="h-8 w-8 text-theme-green animate-spin" />
+                            <Loader2 className="h-8 w-8 text-theme-amber animate-spin" />
                             {text && (
-                                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-theme-green animate-pulse">
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-theme-amber animate-pulse">
                                     {text}
                                 </p>
                             )}
@@ -45,8 +45,8 @@ export const Loader = ({ fullScreen = false, text, size = "md" }: LoaderProps) =
     return (
         <div className="flex flex-col items-center justify-center p-4 gap-3 animate-in fade-in duration-300">
             <div className="relative">
-                <Loader2 className={`${sizeClasses[size]} text-theme-green animate-spin`} />
-                <div className={`absolute inset-0 ${sizeClasses[size]} rounded-full border border-theme-green/20 animate-ping`} />
+                <Loader2 className={`${sizeClasses[size]} text-theme-amber animate-spin`} />
+                <div className={`absolute inset-0 ${sizeClasses[size]} rounded-full border border-theme-amber/20 animate-ping`} />
             </div>
             {text && (
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">

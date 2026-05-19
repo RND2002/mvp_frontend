@@ -7,23 +7,23 @@ import { MdTune, MdEmergency } from "react-icons/md";
 
 const actions = [
     {
-        title: "Book Service",
+        title: "Schedule a Service",
         icon: FaCalendarCheck,
         link: "/book-service"
     },
     {
-        title: "Gear Up",
+        title: "The Workshop",
         icon: MdTune,
         link: "/gear-up"
     },
     {
-        title: "Emergency Help",
+        title: "Emergency Pit Stop",
         icon: MdEmergency,
         link: "/emergency-assistance"
     },
 
     {
-        title: "Service History",
+        title: "Garage Log",
         icon: FaHistory,
         link: "/service-history"
     }

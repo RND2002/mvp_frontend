@@ -11,7 +11,7 @@ export default function TestimonialSection() {
             </div>
 
             <blockquote className="max-w-4xl px-4">
-                <p className="text-2xl md:text-4xl font-black text-white italic leading-tight tracking-tight">
+                <p className="text-2xl md:text-4xl font-black text-text-primary italic leading-tight tracking-tight">
                     "Built to make roadside help simple, fast, and stress-free."
                 </p>
             </blockquote>

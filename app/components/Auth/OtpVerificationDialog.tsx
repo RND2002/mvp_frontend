@@ -134,15 +134,15 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             {isRedirecting && <Loader fullScreen text="Redirecting to Dashboard..." />}
-            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-primaryCard border-secondary-theme text-white">
+            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-bg-elevated border-border-default text-text-primary">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">
-                        <Image src={Logo} alt="Vroom" width={128} height={42} className="w-32 h-auto drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)]" />
+                        <span className="text-theme-amber text-3xl font-extrabold tracking-[0.25em] drop-shadow-md">TORQ</span>
                     </DialogTitle>
-                    <DialogDescription className="text-xl font-bold text-gray-300">
+                    <DialogDescription className="text-xl font-bold text-text-secondary">
                         Enter Verification Code
                     </DialogDescription>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-text-tertiary">
                         We have sent a verification code to {identifier || "your account"}.
                     </p>
                 </DialogHeader>
@@ -159,7 +159,7 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
                                     onChange={(e) => handleChange(e.target, index)}
                                     onKeyDown={(e) => handleKeyDown(e, index)}
                                     onPaste={handlePaste}
-                                    className="w-10 h-10 sm:w-12 sm:h-12 text-center text-xl font-bold bg-vehicle-card-bg border border-vehicle-card-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                                    className="w-10 h-10 sm:w-12 sm:h-12 text-center text-xl font-bold bg-bg-tertiary border border-border-default rounded-md text-text-primary focus:outline-none focus:ring-2 focus:ring-theme-amber focus:border-transparent transition-all"
                                 />
                             );
                         })}
@@ -178,8 +178,8 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
                     </div>
 
                     <div className="text-center">
-                        <p className="text-sm text-gray-400">
-                            Didn't receive the code? <button type="button" className="text-green-500 font-semibold hover:underline bg-transparent border-none cursor-pointer">Resend</button>
+                        <p className="text-sm text-text-tertiary">
+                            Didn't receive the code? <button type="button" className="text-theme-amber font-semibold hover:underline bg-transparent border-none cursor-pointer">Resend</button>
                         </p>
                     </div>
                 </form>

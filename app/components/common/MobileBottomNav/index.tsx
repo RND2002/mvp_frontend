@@ -50,7 +50,7 @@ const MobileBottomNav: React.FC = () => {
     if (!isAuthenticated) return null;
 
     return (
-        <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-[400px] bg-vehicle-card-bg/80 backdrop-blur-xl border border-white/10 z-50 rounded-full shadow-2xl shadow-black/40 px-2 overflow-hidden">
+        <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-[400px] bg-bg-secondary/95 backdrop-blur-[16px] border border-border-subtle z-50 rounded-full shadow-2xl shadow-black/40 px-2 overflow-hidden">
             <div className="flex justify-around items-center h-16">
                 {actions.map((action, idx) => {
                     const isActive = pathname === action.link || (action.link === "/dashboard" && pathname === "/");
@@ -59,17 +59,20 @@ const MobileBottomNav: React.FC = () => {
                         <Link
                             key={idx}
                             href={action.link}
-                            className="flex flex-col items-center justify-center w-full h-full gap-1 active:bg-white/10 transition-colors group"
+                            className="relative flex flex-col items-center justify-center w-full h-full gap-1 active:bg-bg-tertiary/50 transition-colors group"
                         >
+                            {isActive && (
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[2px] bg-theme-amber" />
+                            )}
                             <Icon
                                 className={cn(
                                     "w-6 h-6 transition-colors",
-                                    isActive ? "text-theme-green" : "text-gray-400 group-hover:text-gray-200"
+                                    isActive ? "text-theme-amber" : "text-text-secondary group-hover:text-text-primary"
                                 )}
                             />
                             <span className={cn(
                                 "text-[10px] font-medium leading-none",
-                                isActive ? "text-theme-green" : "text-gray-400 group-hover:text-gray-200"
+                                isActive ? "text-theme-amber" : "text-text-secondary group-hover:text-text-primary"
                             )}>
                                 {action.title}
                             </span>
