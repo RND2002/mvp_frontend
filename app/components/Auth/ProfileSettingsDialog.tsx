@@ -204,7 +204,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                         {/* User Profile Card */}
                         <div className="relative group">
                             <div className="relative flex items-center gap-5 bg-[#F8F9FB] border border-[#E4E7EC] rounded-3xl p-6">
-                                <div className="w-16 h-16 bg-[#DCFCE7] rounded-2xl flex items-center justify-center border border-[#6B2FA0]/20">
+                                <div className="w-16 h-16 bg-[#6B2FA0]/10 rounded-2xl flex items-center justify-center border border-[#6B2FA0]/20">
                                     <UserIcon className="w-8 h-8 text-[#6B2FA0]" />
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -225,7 +225,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                     className="flex items-center gap-3 cursor-pointer group/header py-1"
                                     onClick={() => setIsVehiclesExpanded(!isVehiclesExpanded)}
                                 >
-                                    <div className="w-8 h-8 bg-[#DCFCE7] rounded-xl flex items-center justify-center border border-[#6B2FA0]/20 group-hover/header:bg-[#6B2FA0]/20 transition-colors">
+                                    <div className="w-8 h-8 bg-[#6B2FA0]/10 rounded-xl flex items-center justify-center border border-[#6B2FA0]/20 group-hover/header:bg-[#6B2FA0]/20 transition-colors">
                                         <Car className="w-4 h-4 text-[#6B2FA0]" />
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -261,7 +261,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                                 className={cn(
                                                     "group flex items-center p-4 rounded-2xl border transition-all cursor-pointer relative overflow-hidden",
                                                     isActive
-                                                        ? "bg-[#DCFCE7]/40 border-[#6B2FA0] shadow-sm"
+                                                        ? "bg-[#6B2FA0]/5 border-[#6B2FA0] shadow-sm"
                                                         : "bg-[#F8F9FB] border-[#E4E7EC] hover:bg-white"
                                                 )}
                                             >
@@ -312,7 +312,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                     className="flex items-center gap-3 cursor-pointer group/header py-1"
                                     onClick={() => setIsLocationsExpanded(!isLocationsExpanded)}
                                 >
-                                    <div className="w-8 h-8 bg-[#DCFCE7] rounded-xl flex items-center justify-center border border-[#6B2FA0]/20 group-hover/header:bg-[#6B2FA0]/20 transition-colors">
+                                    <div className="w-8 h-8 bg-[#6B2FA0]/10 rounded-xl flex items-center justify-center border border-[#6B2FA0]/20 group-hover/header:bg-[#6B2FA0]/20 transition-colors">
                                         <MapPin className="w-4 h-4 text-[#6B2FA0]" />
                                     </div>
                                     <div className="flex items-center gap-2">

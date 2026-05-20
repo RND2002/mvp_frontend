@@ -71,7 +71,7 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
     };
 
     return (
-        <div className="flex flex-col h-[100dvh] w-full bg-white text-white p-4 md:p-6 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] overflow-hidden">
+        <div className="flex flex-col h-[100dvh] w-full bg-white  p-4 md:p-6 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] overflow-hidden">
             {/* Header */}
             <div className="flex justify-between items-center mb-2 container mx-auto max-w-4xl shrink-0">
                 <Button variant="ghost" size="sm" onClick={handleSkip} className="text-muted-foreground">
@@ -112,11 +112,18 @@ const WizardContent = ({ onClose }: { onClose?: () => void }) => {
                 </Button>
 
                 {currentStep < totalSteps ? (
-                    <Button onClick={handleNext}>
+                    <Button 
+                        onClick={handleNext} 
+                        className="bg-[#6B2FA0] hover:bg-[#582186] text-white font-semibold transition-all px-5 rounded-xl shadow-md shadow-[#6B2FA0]/15"
+                    >
                         Next <ChevronRight className="ml-2 h-4 w-4" />
                     </Button>
                 ) : (
-                    <Button onClick={handleSubmit(onSubmit)} loading={isLoading} className="text-white hover:text-green-400">
+                    <Button 
+                        onClick={handleSubmit(onSubmit)} 
+                        loading={isLoading} 
+                        className="bg-[#6B2FA0] hover:bg-[#582186] text-white font-semibold transition-all px-6 rounded-xl shadow-md shadow-[#6B2FA0]/15"
+                    >
                         Finish Setup
                     </Button>
                 )}
@@ -134,7 +141,7 @@ interface VehicleOnboardingWizardProps {
 export const VehicleOnboardingWizard = ({ open, onClose }: VehicleOnboardingWizardProps) => {
     return (
         <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
-            <DialogContent className="flex justify-center items-center h-[100dvh] w-screen max-w-none max-h-none border-none shadow-none bg-white text-white p-0 [&>button]:hidden rounded-none flex-col z-[9999]">
+            <DialogContent className="flex justify-center items-center h-[100dvh] w-screen max-w-none max-h-none border-none shadow-none bg-white p-0 [&>button]:hidden rounded-none flex-col z-[9999]">
                 <DialogTitle className="sr-only">Vehicle onboarding</DialogTitle>
                 <OnboardingProvider>
                     <WizardContent onClose={onClose} />

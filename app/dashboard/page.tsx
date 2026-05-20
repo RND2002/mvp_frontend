@@ -12,7 +12,7 @@ import { VehicleOnboardingWizard } from "@/components/onboarding/VehicleOnboardi
 import { useEffect, useState } from "react";
 import Container from "@/app/components/common/Container";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 import { Suspense } from "react";
@@ -20,6 +20,7 @@ import { Suspense } from "react";
 function DashboardContent() {
     const { data, isLoading } = useGetUserVehiclesQuery();
     const [showOnboarding, setShowOnboarding] = useState(false);
+    const router = useRouter();
 
     const vehicles = data?.vehicles;
 
@@ -34,7 +35,15 @@ function DashboardContent() {
 
     return (
         <div className="w-full bg-[#F8F9FB] min-h-screen">
-            <VehicleOnboardingWizard open={showOnboarding} onClose={() => setShowOnboarding(false)} />
+            <VehicleOnboardingWizard
+                open={showOnboarding}
+                onClose={() => {
+                    setShowOnboarding(false);
+                    if (onboarding === 'true') {
+                        router.replace('/dashboard');
+                    }
+                }}
+            />
             <Container className="py-4">
                 <div className="mb-6">
                     <HealthDashboard />

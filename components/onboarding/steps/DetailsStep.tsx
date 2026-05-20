@@ -35,11 +35,11 @@ export const DetailsStep = () => {
 
     return (
         <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
-            <h2 className="text-2xl font-bold">Vehicle Details</h2>
+            <h2 className="text-2xl font-bold text-[#0F172A]">Vehicle Details</h2>
 
             <div className="space-y-4">
                 <div className="space-y-2">
-                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-300">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#475569]">
                         Manufacturing Year
                     </label>
                     <Controller
@@ -54,7 +54,7 @@ export const DetailsStep = () => {
                                             type="button"
                                             variant="outline"
                                             onClick={() => field.onChange(year)}
-                                            className={`h-9 px-2 text-xs ${field.value == year ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
+                                            className={`h-9 px-2 text-xs transition-all ${field.value == year ? "bg-[#6B2FA0] border-[#6B2FA0] text-white hover:bg-[#582186]" : "bg-white border-[#E4E7EC] text-[#0F172A] hover:bg-[#F5EDFC]/50 hover:border-[#6B2FA0] hover:text-[#6B2FA0]"}`}
                                         >
                                             {year}
                                         </Button>
@@ -67,7 +67,7 @@ export const DetailsStep = () => {
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-300">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#475569]">
                         Fuel Type
                     </label>
                     <Controller
@@ -78,16 +78,17 @@ export const DetailsStep = () => {
                                 {FUEL_TYPES.map((fuel) => {
                                     const value = fuel.toLowerCase();
                                     return (
-                                    <Button
-                                        key={fuel}
-                                        type="button"
-                                        variant="outline"
-                                        className={`h-9 px-3 ${field.value === value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
-                                        onClick={() => field.onChange(value)}
-                                    >
-                                        {fuel}
-                                    </Button>
-                                )})}
+                                        <Button
+                                            key={fuel}
+                                            type="button"
+                                            variant="outline"
+                                            className={`h-9 px-3 transition-all ${field.value === value ? "bg-[#6B2FA0] border-[#6B2FA0] text-white hover:bg-[#582186]" : "bg-white border-[#E4E7EC] text-[#0F172A] hover:bg-[#F5EDFC]/50 hover:border-[#6B2FA0] hover:text-[#6B2FA0]"}`}
+                                            onClick={() => field.onChange(value)}
+                                        >
+                                            {fuel}
+                                        </Button>
+                                    )
+                                })}
                             </div>
                         )}
                     />
@@ -95,7 +96,7 @@ export const DetailsStep = () => {
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-300">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#475569]">
                         Registration Number
                     </label>
                     <Controller
@@ -106,7 +107,7 @@ export const DetailsStep = () => {
                                 {...field}
                                 value={field.value || ''}
                                 className={cn(
-                                    "bg-[#F8F9FB] border-[#E4E7EC] text-white placeholder:text-[#475569]",
+                                    "bg-[#F8F9FB] border-[#E4E7EC] text-[#0F172A] placeholder:text-[#94A3B8] focus-visible:ring-[#6B2FA0]",
                                     errors.registration_number && "border-red-500 focus-visible:ring-red-500/50"
                                 )}
                                 placeholder="e.g. MH 02 AB 1234"
@@ -119,7 +120,7 @@ export const DetailsStep = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-300">Current Odometer</label>
+                        <label className="text-sm font-medium text-[#475569]">Current Odometer</label>
                         <Controller
                             control={control}
                             name="odometer_reading"
@@ -128,7 +129,7 @@ export const DetailsStep = () => {
                                     {...field}
                                     value={field.value || ''}
                                     type="number"
-                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-white placeholder:text-[#475569]"
+                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-[#0F172A] placeholder:text-[#94A3B8] focus-visible:ring-[#6B2FA0]"
                                     placeholder="18450"
                                     onChange={(e) => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
                                 />
@@ -138,7 +139,7 @@ export const DetailsStep = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-300">Last Service Date</label>
+                        <label className="text-sm font-medium text-[#475569]">Last Service Date</label>
                         <Controller
                             control={control}
                             name="baseline_last_service_date"
@@ -147,7 +148,7 @@ export const DetailsStep = () => {
                                     {...field}
                                     value={field.value || ''}
                                     type="date"
-                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-white"
+                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-[#0F172A] focus-visible:ring-[#6B2FA0]"
                                 />
                             )}
                         />
@@ -156,7 +157,7 @@ export const DetailsStep = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-300">Last Service Odometer</label>
+                        <label className="text-sm font-medium text-[#475569]">Last Service Odometer</label>
                         <Controller
                             control={control}
                             name="baseline_odometer_reading"
@@ -165,7 +166,7 @@ export const DetailsStep = () => {
                                     {...field}
                                     value={field.value || ''}
                                     type="number"
-                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-white placeholder:text-[#475569]"
+                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-[#0F172A] placeholder:text-[#94A3B8] focus-visible:ring-[#6B2FA0]"
                                     placeholder="16000"
                                     onChange={(e) => {
                                         const value = e.target.value ? Number(e.target.value) : undefined;
@@ -178,7 +179,7 @@ export const DetailsStep = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-300">Last Service Type</label>
+                        <label className="text-sm font-medium text-[#475569]">Last Service Type</label>
                         <Controller
                             control={control}
                             name="last_service_type"
@@ -189,7 +190,7 @@ export const DetailsStep = () => {
                                             key={type.value}
                                             type="button"
                                             variant="outline"
-                                            className={`h-9 px-3 ${field.value === type.value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
+                                            className={`h-9 px-3 transition-all ${field.value === type.value ? "bg-[#6B2FA0] border-[#6B2FA0] text-white hover:bg-[#582186]" : "bg-white border-[#E4E7EC] text-[#0F172A] hover:bg-[#F5EDFC]/50 hover:border-[#6B2FA0] hover:text-[#6B2FA0]"}`}
                                             onClick={() => field.onChange(type.value)}
                                         >
                                             {type.label}
@@ -202,7 +203,7 @@ export const DetailsStep = () => {
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">Purchase Type</label>
+                    <label className="text-sm font-medium text-[#475569]">Purchase Type</label>
                     <Controller
                         control={control}
                         name="purchase_type"
@@ -213,7 +214,7 @@ export const DetailsStep = () => {
                                         key={type.value}
                                         type="button"
                                         variant="outline"
-                                        className={`h-9 px-4 ${field.value === type.value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
+                                        className={`h-9 px-4 transition-all ${field.value === type.value ? "bg-[#6B2FA0] border-[#6B2FA0] text-white hover:bg-[#582186]" : "bg-white border-[#E4E7EC] text-[#0F172A] hover:bg-[#F5EDFC]/50 hover:border-[#6B2FA0] hover:text-[#6B2FA0]"}`}
                                         onClick={() => field.onChange(type.value)}
                                     >
                                         {type.label}
@@ -225,7 +226,7 @@ export const DetailsStep = () => {
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">Known Issues</label>
+                    <label className="text-sm font-medium text-[#475569]">Known Issues</label>
                     <Controller
                         control={control}
                         name="known_issues"
@@ -240,7 +241,7 @@ export const DetailsStep = () => {
                                                 key={issue.value}
                                                 type="button"
                                                 variant="outline"
-                                                className={`h-9 px-3 ${isActive ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
+                                                className={`h-9 px-3 transition-all ${isActive ? "bg-[#6B2FA0] border-[#6B2FA0] text-white hover:bg-[#582186]" : "bg-white border-[#E4E7EC] text-[#0F172A] hover:bg-[#F5EDFC]/50 hover:border-[#6B2FA0] hover:text-[#6B2FA0]"}`}
                                                 onClick={() => field.onChange(isActive ? selected.filter((value: string) => value !== issue.value) : [...selected, issue.value])}
                                             >
                                                 {issue.label}

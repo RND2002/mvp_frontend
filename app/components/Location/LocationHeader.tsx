@@ -48,10 +48,10 @@ export default function LocationHeader() {
     return (
         <div className="flex flex-col cursor-pointer group ml-4">
             <div className="flex items-center gap-1">
-                <span className="text-xs font-bold text-green-500 uppercase tracking-wider">
+                <span className="text-xs font-bold uppercase tracking-wider">
                     {title}
                 </span>
-                <ChevronDown className="w-3 h-3 text-green-500 group-hover:rotate-180 transition-transform duration-200" />
+                <ChevronDown className="w-3 h-3  group-hover:rotate-180 transition-transform duration-200" />
             </div>
             <div className="text-sm font-medium text-white truncate max-w-[200px] sm:max-w-[300px]">
                 {loading ? (

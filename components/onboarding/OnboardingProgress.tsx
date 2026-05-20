@@ -20,10 +20,10 @@ export const OnboardingProgress = () => {
                             className={cn(
                                 "flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-300",
                                 isCompleted
-                                    ? "bg-green-500 border-green-500 text-white"
+                                    ? "bg-[#6B2FA0] border-[#6B2FA0] text-white"
                                     : isCurrent
-                                        ? "border-green-500 text-green-500 font-bold"
-                                        : "border-gray-500 text-[#475569]"
+                                        ? "border-[#6B2FA0] text-[#6B2FA0] font-bold"
+                                        : "border-[#E4E7EC] text-[#94A3B8]"
                             )}
                         >
                             {isCompleted ? <Check size={16} /> : <span>{stepNumber}</span>}
@@ -34,7 +34,7 @@ export const OnboardingProgress = () => {
                             <div
                                 className={cn(
                                     "flex-1 h-0.5 mx-2 transition-all duration-300",
-                                    stepNumber < currentStep ? "bg-green-500" : "bg-gray-700"
+                                    stepNumber < currentStep ? "bg-[#6B2FA0]" : "bg-[#E4E7EC]"
                                 )}
                             />
                         )}

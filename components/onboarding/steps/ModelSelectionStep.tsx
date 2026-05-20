@@ -51,12 +51,12 @@ export const ModelSelectionStep = () => {
                 <div className="text-red-500 text-sm font-semibold">{errors.model.message}</div>
             )}
             <div className="space-y-2">
-                <h2 className="text-2xl font-bold">Select Model</h2>
+                <h2 className="text-2xl font-bold text-[#0F172A]">Select Model</h2>
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8] h-4 w-4" />
                     <Input
                         placeholder="Search models..."
-                        className="pl-9 bg-[#F8F9FB] border-[#E4E7EC] text-white placeholder:text-[#475569]"
+                        className="pl-9 bg-[#F8F9FB] border-[#E4E7EC] text-[#0F172A] placeholder:text-[#475569] focus-visible:ring-[#6B2FA0]"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -66,11 +66,11 @@ export const ModelSelectionStep = () => {
             <ScrollArea className={cn("flex-1 min-h-0 border border-[#E4E7EC] rounded-md p-2", errors.model && "border-red-500")}>
                 {isLoading ? (
                     <div className="flex items-center justify-center h-full p-4">
-                        <Loader2 className="w-6 h-6 animate-spin text-green-500" />
-                        <span className="ml-2 text-muted-foreground">Loading models...</span>
+                        <Loader2 className="w-6 h-6 animate-spin text-[#6B2FA0]" />
+                        <span className="ml-2 text-[#475569]">Loading models...</span>
                     </div>
                 ) : isError ? (
-                    <div className="flex items-center justify-center h-full p-4 text-red-400">
+                    <div className="flex items-center justify-center h-full p-4 text-red-500">
                         Failed to load models. Please try again.
                     </div>
                 ) : (
@@ -79,13 +79,16 @@ export const ModelSelectionStep = () => {
                             <Button
                                 key={model.id}
                                 variant="outline"
-                                className={`h-16 justify-start px-4 bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC] hover:border-green-500 hover:text-white ${selectedModel === model.name ? 'border-green-500 bg-green-500/10' : ''}`}
+                                className={cn(
+                                    "h-16 justify-start px-4 bg-white border-[#E4E7EC] text-[#0F172A] hover:bg-[#F5EDFC]/50 hover:border-[#6B2FA0] hover:text-[#6B2FA0] transition-all",
+                                    selectedModel === model.name && "border-[#6B2FA0] bg-[#6B2FA0]/5 text-[#6B2FA0] shadow-[0_0_15px_rgba(107,47,160,0.05)]"
+                                )}
                                 onClick={() => handleSelect(model.id, model.name)}
                             >
                                 <div className="flex flex-col items-start">
-                                    <span className="text-base font-medium">{model.name}</span>
+                                    <span className="text-sm font-semibold">{model.name}</span>
                                     {(model.year || model.fuel_type) && (
-                                        <span className="text-xs text-muted-foreground">
+                                        <span className="text-[10px] text-muted-foreground mt-0.5">
                                             {model.year} {model.fuel_type && `• ${model.fuel_type}`}
                                         </span>
                                     )}
