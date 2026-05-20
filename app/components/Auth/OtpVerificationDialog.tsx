@@ -34,7 +34,7 @@ interface OtpVerificationDialogProps {
 export default function OtpVerificationDialog({ open, setOpen, identifier, type }: OtpVerificationDialogProps) {
     const router = useRouter()
     const dispatch = useDispatch()
-    const { control, handleSubmit, setValue, formState: { errors } } = useForm({
+    const { handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(otpSchema),
         defaultValues: {
             otp: ""
@@ -125,9 +125,13 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
                 setOpen(false)
                 router.push("/dashboard")
             }
-        } catch (error: any) {
+        } catch (error) {
             console.error(error)
-            toast.error(error?.data?.error || "Invalid OTP")
+            const message =
+                typeof error === "object" && error !== null && "data" in error
+                    ? (error as { data?: { error?: string } }).data?.error
+                    : undefined
+            toast.error(message || "Invalid OTP")
         }
     }
 
@@ -179,7 +183,7 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
 
                     <div className="text-center">
                         <p className="text-sm text-gray-400">
-                            Didn't receive the code? <button type="button" className="text-green-500 font-semibold hover:underline bg-transparent border-none cursor-pointer">Resend</button>
+                            Did not receive the code? <button type="button" className="text-green-500 font-semibold hover:underline bg-transparent border-none cursor-pointer">Resend</button>
                         </p>
                     </div>
                 </form>

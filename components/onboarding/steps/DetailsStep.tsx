@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useOnboarding } from '../OnboardingContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,24 @@ const YEARS = getManufacturingYears();
 
 import { Controller } from 'react-hook-form';
 import { cn } from '@/lib/utils';
+
+const SERVICE_TYPES = [
+    { value: 'full_service', label: 'Full Service' },
+    { value: 'oil_change', label: 'Oil Change' },
+    { value: 'general_checkup', label: 'General Checkup' },
+];
+
+const PURCHASE_TYPES = [
+    { value: 'new', label: 'New' },
+    { value: 'used', label: 'Used' },
+];
+
+const KNOWN_ISSUES = [
+    { value: 'brake_noise', label: 'Brake noise' },
+    { value: 'engine_noise', label: 'Engine noise' },
+    { value: 'battery_issue', label: 'Battery issue' },
+    { value: 'tyre_wear', label: 'Tyre wear' },
+];
 
 export const DetailsStep = () => {
     const { form } = useOnboarding();
@@ -57,17 +75,19 @@ export const DetailsStep = () => {
                         name="fuel_type"
                         render={({ field }) => (
                             <div className="flex flex-wrap gap-2">
-                                {FUEL_TYPES.map((fuel) => (
+                                {FUEL_TYPES.map((fuel) => {
+                                    const value = fuel.toLowerCase();
+                                    return (
                                     <Button
                                         key={fuel}
                                         type="button"
                                         variant="outline"
-                                        className={`h-9 px-3 ${field.value === fuel ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
-                                        onClick={() => field.onChange(fuel)}
+                                        className={`h-9 px-3 ${field.value === value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                        onClick={() => field.onChange(value)}
                                     >
                                         {fuel}
                                     </Button>
-                                ))}
+                                )})}
                             </div>
                         )}
                     />
@@ -95,6 +115,142 @@ export const DetailsStep = () => {
                         )}
                     />
                     {errors.registration_number && <p className="text-red-500 text-xs">{errors.registration_number.message}</p>}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-gray-300">Current Odometer</label>
+                        <Controller
+                            control={control}
+                            name="odometer_reading"
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    value={field.value || ''}
+                                    type="number"
+                                    className="bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
+                                    placeholder="18450"
+                                    onChange={(e) => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                                />
+                            )}
+                        />
+                        {errors.odometer_reading && <p className="text-red-500 text-xs">{errors.odometer_reading.message}</p>}
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-gray-300">Last Service Date</label>
+                        <Controller
+                            control={control}
+                            name="baseline_last_service_date"
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    value={field.value || ''}
+                                    type="date"
+                                    className="bg-white/5 border-secondary-theme text-white"
+                                />
+                            )}
+                        />
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-gray-300">Last Service Odometer</label>
+                        <Controller
+                            control={control}
+                            name="baseline_odometer_reading"
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    value={field.value || ''}
+                                    type="number"
+                                    className="bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
+                                    placeholder="16000"
+                                    onChange={(e) => {
+                                        const value = e.target.value ? Number(e.target.value) : undefined;
+                                        field.onChange(value);
+                                        form.setValue('last_service_odometer', value);
+                                    }}
+                                />
+                            )}
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-gray-300">Last Service Type</label>
+                        <Controller
+                            control={control}
+                            name="last_service_type"
+                            render={({ field }) => (
+                                <div className="flex flex-wrap gap-2">
+                                    {SERVICE_TYPES.map((type) => (
+                                        <Button
+                                            key={type.value}
+                                            type="button"
+                                            variant="outline"
+                                            className={`h-9 px-3 ${field.value === type.value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                            onClick={() => field.onChange(type.value)}
+                                        >
+                                            {type.label}
+                                        </Button>
+                                    ))}
+                                </div>
+                            )}
+                        />
+                    </div>
+                </div>
+
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-300">Purchase Type</label>
+                    <Controller
+                        control={control}
+                        name="purchase_type"
+                        render={({ field }) => (
+                            <div className="flex flex-wrap gap-2">
+                                {PURCHASE_TYPES.map((type) => (
+                                    <Button
+                                        key={type.value}
+                                        type="button"
+                                        variant="outline"
+                                        className={`h-9 px-4 ${field.value === type.value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                        onClick={() => field.onChange(type.value)}
+                                    >
+                                        {type.label}
+                                    </Button>
+                                ))}
+                            </div>
+                        )}
+                    />
+                </div>
+
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-300">Known Issues</label>
+                    <Controller
+                        control={control}
+                        name="known_issues"
+                        render={({ field }) => {
+                            const selected = field.value || [];
+                            return (
+                                <div className="flex flex-wrap gap-2">
+                                    {KNOWN_ISSUES.map((issue) => {
+                                        const isActive = selected.includes(issue.value);
+                                        return (
+                                            <Button
+                                                key={issue.value}
+                                                type="button"
+                                                variant="outline"
+                                                className={`h-9 px-3 ${isActive ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                                onClick={() => field.onChange(isActive ? selected.filter((value: string) => value !== issue.value) : [...selected, issue.value])}
+                                            >
+                                                {issue.label}
+                                            </Button>
+                                        );
+                                    })}
+                                </div>
+                            );
+                        }}
+                    />
                 </div>
             </div>
         </div>

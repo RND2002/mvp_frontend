@@ -22,13 +22,13 @@ export default function AuthCallbackPage() {
             setStatus('Taking longer than expected...')
         }, 3000)
 
-        const handleAuth = async (accessToken: string) => {
+        const handleAuth = async (accessToken: string, refreshToken: string | null) => {
             try {
                 // 1. Sync session with server for middleware cookie
                 const sessionRes = await fetch("/api/auth/session", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ access_token: accessToken }),
+                    body: JSON.stringify({ access_token: accessToken, refresh_token: refreshToken }),
                 });
 
                 if (!sessionRes.ok) throw new Error("Failed to set session cookie");
@@ -62,9 +62,9 @@ export default function AuthCallbackPage() {
 
                 setStatus('Login successful! Redirecting...')
                 window.location.href = '/dashboard'
-            } catch (err: any) {
+            } catch (err) {
                 console.error("Auth callback error:", err);
-                setError(err.message || "Authentication failed during sync");
+                setError(err instanceof Error ? err.message : "Authentication failed during sync");
             }
         }
 
@@ -83,9 +83,10 @@ export default function AuthCallbackPage() {
 
         // 2. Extract tokens from hash
         const accessToken = hashParams.get('access_token')
+        const refreshToken = hashParams.get('refresh_token')
 
         if (accessToken) {
-            handleAuth(accessToken)
+            handleAuth(accessToken, refreshToken)
         } else {
             // If no token, maybe it's a slow redirect or an invalid hit
             console.log("No token found in hash yet...");

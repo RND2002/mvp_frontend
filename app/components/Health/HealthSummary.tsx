@@ -1,7 +1,6 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Settings, Droplets, BatteryFull, Activity, Circle, ShieldCheck } from "lucide-react"
 import { VehicleHealthReport } from "@/app/beService/health-service"
 
 import { SystemParameters } from "./SystemParameters"
@@ -15,11 +14,10 @@ interface HealthSummaryProps {
 
 export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }: HealthSummaryProps) => {
     const health = data.health;
-    const overall = health.overall;
-    const systems = health.systems || {};
+    const systems = health.components || health.systems || {};
 
-    const score = overall?.score || 0;
-    const status = overall?.status || "INSUFFICIENT DATA";
+    const score = health.overall_score ?? health.overall?.score ?? 0;
+    const status = health.overall_status || health.overall?.status || "INSUFFICIENT DATA";
 
     return (
         <div className="space-y-4 cursor-pointer" onClick={onClick}>
@@ -34,7 +32,7 @@ export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }
                             <p className="text-gray-500 text-sm font-bold tracking-widest opacity-80">{registrationNumber || ""}</p>
                         </div>
                         <div className="bg-theme-green/10 text-theme-green border border-theme-green/30 rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest h-fit uppercase">
-                            {status === "OPTIMAL" ? "EXCELLENT" : status}
+                            {status === "OPTIMAL" ? "EXCELLENT" : status.replace(/_/g, " ")}
                         </div>
                     </div>
 

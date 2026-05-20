@@ -7,8 +7,7 @@ export async function GET(
 ) {
     try {
         const { id } = await params;
-
-        const res = await backend.get(`/vehicles/${id}/health`);
+        const res = await backend.get(`/vehicles/${id}/timeline`);
 
         if (!res.success) {
             return NextResponse.json({ error: res.error }, { status: res.status || 500 });
@@ -16,7 +15,7 @@ export async function GET(
 
         return NextResponse.json(res);
     } catch (err) {
-        console.error("GET Health Error:", err);
+        console.error("GET Vehicle Timeline Error:", err);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

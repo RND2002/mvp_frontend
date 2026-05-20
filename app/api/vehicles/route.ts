@@ -4,7 +4,7 @@ import { backend } from "@/app/lib/backend-client";
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const res = await backend.post("/users/vehicles", body);
+        const res = await backend.post("/vehicles", body);
 
         if (!res.success) {
             return NextResponse.json({ error: res.error }, { status: res.status || 500 });

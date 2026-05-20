@@ -8,19 +8,40 @@ const AuthInitializer = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isMounted = true;
+
+        const loadMe = async () => {
+            const res = await fetch('/api/auth/me', { credentials: 'include' });
+            if (!res.ok) return false;
+
+            const data = await res.json();
+            if (data.authenticated && isMounted) {
+                dispatch(setCredentials({
+                    user: data.user,
+                    token: "cookie"
+                }));
+                return true;
+            }
+
+            return false;
+        };
+
         const checkAuth = async () => {
             try {
-                const res = await fetch('/api/auth/me');
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.authenticated) {
-                        dispatch(setCredentials({
-                            user: data.user,
-                            token: "cookie" // Token is HttpOnly, effectively present
-                        }));
-                    }
-                } else if (res.status === 401) {
-                    // Force redirect to home/login if session is invalid
+                const authenticated = await loadMe();
+                if (authenticated) return;
+
+                const refreshRes = await fetch('/api/auth/refresh-token', {
+                    method: 'POST',
+                    credentials: 'include',
+                });
+
+                if (refreshRes.ok) {
+                    const refreshed = await loadMe();
+                    if (refreshed) return;
+                }
+
+                if (isMounted) {
                     if (window.location.pathname !== '/') {
                         window.location.href = '/';
                     }
@@ -30,6 +51,10 @@ const AuthInitializer = ({ children }: { children: React.ReactNode }) => {
             }
         };
         checkAuth();
+
+        return () => {
+            isMounted = false;
+        };
     }, [dispatch]);
 
     return <>{children}</>;

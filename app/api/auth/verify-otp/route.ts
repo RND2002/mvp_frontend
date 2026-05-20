@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { backend } from '@/app/lib/backend-client'
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8080'
+
+const getCookieValueFromHeader = (header: string | null, name: string) => {
+    if (!header) return null
+    const match = header.match(new RegExp(`${name}=([^;]+)`))
+    return match?.[1] || null
+}
 
 export async function POST(request: Request) {
     try {
@@ -11,9 +18,16 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Phone/Email and OTP required' }, { status: 400 })
         }
 
-        const res = await backend.post('/auth/verify', { phone, email, otp })
+        const response = await fetch(`${BACKEND_URL}/auth/verify`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone, email, otp }),
+            cache: 'no-store',
+        })
 
-        if (!res.success) {
+        const res = await response.json().catch(() => ({}))
+
+        if (!response.ok || !res.success) {
             return NextResponse.json({ error: res.error || 'Invalid OTP' }, { status: 401 })
         }
 
@@ -28,10 +42,11 @@ export async function POST(request: Request) {
             maxAge: 3600, // Default to 1 hour if not provided by backend
         })
 
-        // Backend should handle refresh token via cookies if possible, 
-        // but here we follow the existing pattern of returning it or setting it if provided.
-        if (res.refresh_token) {
-            cookieStore.set('sb_refresh_token', res.refresh_token, {
+        const setCookieHeader = response.headers.get('set-cookie')
+        const refreshToken = res.refresh_token || getCookieValueFromHeader(setCookieHeader, 'sb_refresh_token')
+
+        if (refreshToken) {
+            cookieStore.set('sb_refresh_token', refreshToken, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'lax',

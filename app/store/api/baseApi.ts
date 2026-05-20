@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
-import { logout } from '../slices/authSlice'
+import { logout, setToken } from '../slices/authSlice'
 
 const rawBaseQuery = fetchBaseQuery({
     baseUrl: '/api',
@@ -14,10 +14,25 @@ const baseQueryWithReauth: BaseQueryFn<
     let result = await rawBaseQuery(args, api, extraOptions)
 
     if (result.error && result.error.status === 401) {
-        // Clear auth state
+        const requestUrl = typeof args === 'string' ? args : args.url
+        const isRefreshRequest = requestUrl.includes('/auth/refresh-token')
+
+        if (!isRefreshRequest) {
+            const refreshResult = await rawBaseQuery(
+                { url: '/auth/refresh-token', method: 'POST' },
+                api,
+                extraOptions
+            )
+
+            if (refreshResult.data && typeof refreshResult.data === 'object' && 'token' in refreshResult.data) {
+                api.dispatch(setToken(String(refreshResult.data.token)))
+                result = await rawBaseQuery(args, api, extraOptions)
+                return result
+            }
+        }
+
         api.dispatch(logout())
 
-        // Redirect to home page (which triggers login logic or modal)
         if (typeof window !== 'undefined') {
             window.location.href = '/'
         }

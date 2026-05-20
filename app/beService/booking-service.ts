@@ -77,7 +77,7 @@ export interface BookingEvent {
     booking_id: string;
     event_type: BookingEventType;
     created_at: string;
-    meta_data?: any;
+    meta_data?: Record<string, unknown>;
 }
 
 export interface Garage {
@@ -144,7 +144,19 @@ export const bookingApi = baseApi.injectEndpoints({
             }),
             providesTags: (result, error, id) => [{ type: 'Booking', id }],
         }),
-        updateBookingStatus: builder.mutation<{ success: boolean; booking: Booking }, { booking_id: string; status: BookingStatus; event_type: BookingEventType; meta_data?: any; updates?: any }>({
+        updateBookingStatus: builder.mutation<{ success: boolean; booking: Booking }, {
+            booking_id: string;
+            status: BookingStatus;
+            eventType?: BookingEventType;
+            event_type?: BookingEventType;
+            curr_odometre_reading?: number;
+            final_price?: number;
+            components_serviced?: string[];
+            service_type?: string;
+            notes?: string;
+            meta_data?: Record<string, unknown>;
+            updates?: Record<string, unknown>;
+        }>({
             query: (body) => ({
                 url: '/booking',
                 method: 'PATCH',

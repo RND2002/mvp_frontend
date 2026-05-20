@@ -4,12 +4,18 @@ import {
     Sheet,
     SheetContent,
 } from "@/components/ui/sheet"
-import { HealthInputForm } from "./HealthInputForm"
 import { useSelector } from "react-redux"
 import { RootState } from "@/app/store/store"
 import { toast } from "sonner"
 import { ChevronLeft } from "lucide-react"
-import { useUpdateVehicleMutation } from "@/app/beService/health-service"
+import {
+    AddServiceRecordRequest,
+    ReportVehicleIssueRequest,
+    useAddVehicleOdometerMutation,
+    useAddVehicleServiceRecordMutation,
+    useReportVehicleIssueMutation,
+} from "@/app/beService/health-service"
+import { HealthActionForms } from "./HealthActionForms"
 
 interface HealthSidebarProps {
     open: boolean;
@@ -19,26 +25,63 @@ interface HealthSidebarProps {
 
 export const HealthSidebar = ({ open, onOpenChange, onSuccess }: HealthSidebarProps) => {
     const { selectedVehicle } = useSelector((state: RootState) => state.vehicle)
-    const [updateVehicle, { isLoading }] = useUpdateVehicleMutation()
+    const [addOdometer, odometerState] = useAddVehicleOdometerMutation()
+    const [addServiceRecord, serviceState] = useAddVehicleServiceRecordMutation()
+    const [reportIssue, issueState] = useReportVehicleIssueMutation()
+    const isLoading = odometerState.isLoading || serviceState.isLoading || issueState.isLoading
 
-    const handleSubmit = async (data: { kilometers_driven: number, last_service_date: string }) => {
+    const ensureVehicle = () => {
         if (!selectedVehicle) {
             toast.error("No vehicle selected")
-            return
+            return null
         }
+        return selectedVehicle.id
+    }
 
+    const handleSuccess = (message: string) => {
+        toast.success(message)
+        onOpenChange(false)
+        if (onSuccess) onSuccess()
+    }
+
+    const getErrorMessage = (err: unknown, fallback: string) => {
+        if (typeof err === "object" && err !== null && "data" in err) {
+            const data = (err as { data?: { error?: string } }).data
+            return data?.error || fallback
+        }
+        return fallback
+    }
+
+    const handleAddOdometer = async (data: { reading: number; source: "user_input" }) => {
+        const vehicleId = ensureVehicle()
+        if (!vehicleId) return
         try {
-            await updateVehicle({
-                id: selectedVehicle.id,
-                baseline_odometer_reading: data.kilometers_driven,
-                baseline_last_service_date: data.last_service_date
-            }).unwrap()
+            await addOdometer({ vehicleId, ...data }).unwrap()
+            handleSuccess("Odometer updated and health recalculated")
+        } catch (err) {
+            toast.error(getErrorMessage(err, "Failed to update odometer"))
+        }
+    }
 
-            toast.success("Vehicle health data updated!")
-            onOpenChange(false)
-            if (onSuccess) onSuccess()
-        } catch (err: any) {
-            toast.error(err.data?.error || "Failed to update health data")
+    const handleAddServiceRecord = async (data: Omit<AddServiceRecordRequest, "vehicleId">) => {
+        const vehicleId = ensureVehicle()
+        if (!vehicleId) return
+        try {
+            await addServiceRecord({ vehicleId, ...data }).unwrap()
+            handleSuccess("Service record saved and health recalculated")
+        } catch (err) {
+            toast.error(getErrorMessage(err, "Failed to save service record"))
+        }
+    }
+
+    const handleReportIssue = async (data: Omit<ReportVehicleIssueRequest, "vehicleId">) => {
+        const vehicleId = ensureVehicle()
+        if (!vehicleId) return
+        try {
+            await reportIssue({ vehicleId, ...data }).unwrap()
+            handleSuccess("Issue reported and health recalculated")
+        } catch (err) {
+            toast.error(getErrorMessage(err, "Failed to report issue"))
         }
     }
 
@@ -54,7 +97,12 @@ export const HealthSidebar = ({ open, onOpenChange, onSuccess }: HealthSidebarPr
                         <span className="text-sm font-medium">Vehicle History Details</span>
                     </button>
 
-                    <HealthInputForm onSubmit={handleSubmit} isLoading={isLoading} />
+                    <HealthActionForms
+                        isLoading={isLoading}
+                        onAddOdometer={handleAddOdometer}
+                        onAddServiceRecord={handleAddServiceRecord}
+                        onReportIssue={handleReportIssue}
+                    />
                 </div>
             </SheetContent>
         </Sheet>

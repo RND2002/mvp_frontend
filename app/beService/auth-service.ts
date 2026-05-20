@@ -22,8 +22,38 @@ interface VerifyOtpResponse {
     token: string
 }
 
+interface EmailPasswordRequest {
+    email: string
+    password: string
+    role?: string
+}
+
+interface AuthResponse {
+    success: boolean
+    user: User
+    token: string
+}
+
 export const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        loginWithEmail: builder.mutation<AuthResponse, EmailPasswordRequest>({
+            query: (body) => ({
+                url: '/auth/login',
+                method: 'POST',
+                body,
+            }),
+            invalidatesTags: ['User'],
+        }),
+
+        signupWithEmail: builder.mutation<AuthResponse, EmailPasswordRequest>({
+            query: (body) => ({
+                url: '/auth/signup',
+                method: 'POST',
+                body,
+            }),
+            invalidatesTags: ['User'],
+        }),
+
         sendOtp: builder.mutation<SendOtpResponse, SendOtpRequest>({
             query: (body) => ({
                 url: '/auth/send-otp',
@@ -52,6 +82,8 @@ export const authApi = baseApi.injectEndpoints({
 })
 
 export const {
+    useLoginWithEmailMutation,
+    useSignupWithEmailMutation,
     useSendOtpMutation,
     useVerifyOtpMutation,
     useLogoutMutation,

@@ -40,13 +40,17 @@ const authSlice = createSlice({
             state.token = null;
             state.isAuthenticated = false;
         },
+        setToken: (state, action: PayloadAction<string>) => {
+            state.token = action.payload;
+            state.isAuthenticated = true;
+        },
         setLoginModalOpen: (state, action: PayloadAction<boolean>) => {
             state.isLoginModalOpen = action.payload;
         },
     },
 });
 
-export const { setCredentials, logout, setLoginModalOpen } = authSlice.actions;
+export const { setCredentials, logout, setToken, setLoginModalOpen } = authSlice.actions;
 export default authSlice.reducer;
 
 export const selectCurrentUser = (state: { auth: AuthState }) => state.auth.user;

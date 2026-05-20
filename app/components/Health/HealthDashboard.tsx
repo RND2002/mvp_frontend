@@ -109,11 +109,12 @@ export const HealthDashboard = () => {
     }
 
     // Default Case: No health data found or CTA
-    const needsSetup = !healthData?.health || healthData.health.overall?.score === null;
+    const score = healthData?.health?.overall_score ?? healthData?.health?.overall?.score
+    const needsSetup = !healthData?.health || score === null || score === undefined;
 
     if (needsSetup) {
         const message = healthData?.health?.overall?.message || "Analyze your vehicle's engine, brakes, and electricals using our AI-powered diagnostic engine.";
-        const title = healthData?.health?.overall?.score === null ? "Add vehicle details" : "Check your vehicle health";
+        const title = score === null ? "Add vehicle details" : "Check your vehicle health";
 
         return (
             <Card className="bg-primaryCard border-secondary-theme text-white relative overflow-hidden group">

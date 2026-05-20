@@ -7,7 +7,7 @@ import { BrandSelectionStep } from './steps/BrandSelectionStep';
 import { ModelSelectionStep } from './steps/ModelSelectionStep';
 import { DetailsStep } from './steps/DetailsStep';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useAddVehicleMutation } from '@/app/beService/vehicle-service';
 import { toast } from 'sonner';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -135,6 +135,7 @@ export const VehicleOnboardingWizard = ({ open, onClose }: VehicleOnboardingWiza
     return (
         <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
             <DialogContent className="flex justify-center items-center h-[100dvh] w-screen max-w-none max-h-none border-none shadow-none bg-primaryCard text-theme-white p-0 [&>button]:hidden rounded-none flex-col z-[9999]">
+                <DialogTitle className="sr-only">Vehicle onboarding</DialogTitle>
                 <OnboardingProvider>
                     <WizardContent onClose={onClose} />
                 </OnboardingProvider>

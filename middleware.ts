@@ -12,12 +12,13 @@ export function middleware(request: NextRequest) {
         path.includes('.')
 
     const token = request.cookies.get('sb_access_token')?.value || ''
+    const refreshToken = request.cookies.get('sb_refresh_token')?.value || ''
 
     if (isPublicPath) {
         return NextResponse.next()
     }
 
-    if (!token) {
+    if (!token && !refreshToken) {
         // Redirect to home page if not authenticated
         return NextResponse.redirect(new URL('/', request.url))
     }

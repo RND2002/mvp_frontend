@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { VehicleFormData, vehicleSchema, stepSchemas } from '@/app/schema/vehicles';
-import { useForm, UseFormReturn } from 'react-hook-form';
+import { Resolver, useForm, UseFormReturn } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 interface OnboardingContextType {
@@ -21,7 +21,7 @@ export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
     const totalSteps = 4;
 
     const form = useForm<VehicleFormData>({
-        resolver: yupResolver(vehicleSchema),
+        resolver: yupResolver(vehicleSchema) as unknown as Resolver<VehicleFormData>,
         mode: "onChange",
         defaultValues: {
             vehicle_type: undefined,
@@ -31,6 +31,8 @@ export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
             fuel_type: '',
             registration_number: '',
             vehicle_model_id: '',
+            known_issues: [],
+            purchase_type: undefined,
         }
     });
 

@@ -1,22 +1,18 @@
 import { NextResponse } from "next/server";
 import { backend } from "@/app/lib/backend-client";
 
-export async function GET(
-    request: Request,
-    { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: Request) {
     try {
-        const { id } = await params;
-
-        const res = await backend.get(`/vehicles/${id}/health`);
+        const body = await request.json();
+        const res = await backend.post("/users", body);
 
         if (!res.success) {
             return NextResponse.json({ error: res.error }, { status: res.status || 500 });
         }
 
         return NextResponse.json(res);
-    } catch (err) {
-        console.error("GET Health Error:", err);
+    } catch (error) {
+        console.error("POST Users Error:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

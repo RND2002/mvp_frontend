@@ -44,16 +44,15 @@ export async function GET(request: Request) {
 export async function PATCH(request: Request) {
     try {
         const body = await request.json();
-        const { booking_id, status, event_type, description } = body;
+        const { booking_id, event_type, ...rest } = body;
 
         if (!booking_id) {
             return NextResponse.json({ error: "Missing required field: booking_id" }, { status: 400 });
         }
 
         const res = await backend.patch(`/bookings/${booking_id}/status`, {
-            status,
-            eventType: event_type,
-            description
+            ...rest,
+            eventType: body.eventType || event_type,
         });
 
         if (!res.success) {
@@ -61,7 +60,7 @@ export async function PATCH(request: Request) {
         }
 
         return NextResponse.json(res);
-    } catch (err: any) {
+    } catch (err) {
         console.error("PATCH Booking Error:", err);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }

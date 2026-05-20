@@ -26,6 +26,17 @@ export const loginSchema = yup.object({
         schema.email("Invalid email").required("Email is required"),
       otherwise: (schema) => schema.optional(),
     }),
+
+  password: yup
+    .string()
+    .defined()
+    .transform((value) => (value === "" ? undefined : value))
+    .when("method", {
+      is: "email",
+      then: (schema) =>
+        schema.min(6, "Password must be at least 6 characters").required("Password is required"),
+      otherwise: (schema) => schema.optional(),
+    }),
 });
 
 export const MAIL_PROVIDERS: Record<string, string> = {
