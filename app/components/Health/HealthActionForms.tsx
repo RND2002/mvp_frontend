@@ -69,10 +69,10 @@ export const HealthActionForms = ({ isLoading, onAddOdometer, onAddServiceRecord
         <div className="space-y-6">
             <div className="space-y-2">
                 <h2 className="text-3xl font-bold text-white">Update vehicle health</h2>
-                <p className="text-gray-400 text-sm">Add real maintenance events so the dashboard can refresh from backend health reports.</p>
+                <p className="text-[#475569] text-sm">Add real maintenance events so the dashboard can refresh from backend health reports.</p>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 rounded-xl bg-white/5 p-1 border border-secondary-theme">
+            <div className="grid grid-cols-3 gap-2 rounded-xl bg-[#F8F9FB] p-1 border border-[#E4E7EC]">
                 {actionTabs.map((tab) => (
                     <button
                         key={tab.id}
@@ -80,7 +80,7 @@ export const HealthActionForms = ({ isLoading, onAddOdometer, onAddServiceRecord
                         onClick={() => setActiveAction(tab.id)}
                         className={cn(
                             "h-10 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center justify-center gap-2 transition-colors",
-                            activeAction === tab.id ? "bg-theme-green text-white" : "text-gray-400 hover:text-white hover:bg-white/5"
+                            activeAction === tab.id ? "bg-theme-green text-white" : "text-[#475569] hover:text-white hover:bg-[#F8F9FB]"
                         )}
                     >
                         {tab.icon}
@@ -99,7 +99,7 @@ export const HealthActionForms = ({ isLoading, onAddOdometer, onAddServiceRecord
                 >
                     <div className="space-y-2">
                         <Label htmlFor="reading" className="text-gray-300">Current odometer</Label>
-                        <Input id="reading" type="number" placeholder="19000" className="h-12 bg-white/5 border-secondary-theme text-white" {...odometerForm.register("reading")} />
+                        <Input id="reading" type="number" placeholder="19000" className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...odometerForm.register("reading")} />
                         {odometerForm.formState.errors.reading && <p className="text-red-500 text-xs">{odometerForm.formState.errors.reading.message}</p>}
                     </div>
                     <Button type="submit" disabled={isLoading} className="w-full h-12 bg-theme-green text-white font-bold rounded-xl">
@@ -127,33 +127,33 @@ export const HealthActionForms = ({ isLoading, onAddOdometer, onAddServiceRecord
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div className="space-y-2">
                             <Label htmlFor="service_date" className="text-gray-300">Service date</Label>
-                            <Input id="service_date" type="date" max={today} className="h-12 bg-white/5 border-secondary-theme text-white" {...serviceForm.register("service_date")} />
+                            <Input id="service_date" type="date" max={today} className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...serviceForm.register("service_date")} />
                             {serviceForm.formState.errors.service_date && <p className="text-red-500 text-xs">{serviceForm.formState.errors.service_date.message}</p>}
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="odometer_at_service" className="text-gray-300">Odometer</Label>
-                            <Input id="odometer_at_service" type="number" placeholder="18800" className="h-12 bg-white/5 border-secondary-theme text-white" {...serviceForm.register("odometer_at_service")} />
+                            <Input id="odometer_at_service" type="number" placeholder="18800" className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...serviceForm.register("odometer_at_service")} />
                             {serviceForm.formState.errors.odometer_at_service && <p className="text-red-500 text-xs">{serviceForm.formState.errors.odometer_at_service.message}</p>}
                         </div>
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="service_type" className="text-gray-300">Service type</Label>
-                        <Input id="service_type" placeholder="oil_change" className="h-12 bg-white/5 border-secondary-theme text-white" {...serviceForm.register("service_type")} />
+                        <Input id="service_type" placeholder="oil_change" className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...serviceForm.register("service_type")} />
                         {serviceForm.formState.errors.service_type && <p className="text-red-500 text-xs">{serviceForm.formState.errors.service_type.message}</p>}
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="components_serviced" className="text-gray-300">Components serviced</Label>
-                        <Input id="components_serviced" placeholder="engine_oil, air_filter, brakes" className="h-12 bg-white/5 border-secondary-theme text-white" {...serviceForm.register("components_serviced")} />
+                        <Input id="components_serviced" placeholder="engine_oil, air_filter, brakes" className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...serviceForm.register("components_serviced")} />
                         {serviceForm.formState.errors.components_serviced && <p className="text-red-500 text-xs">{serviceForm.formState.errors.components_serviced.message}</p>}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div className="space-y-2">
                             <Label htmlFor="cost" className="text-gray-300">Cost</Label>
-                            <Input id="cost" type="number" placeholder="1200" className="h-12 bg-white/5 border-secondary-theme text-white" {...serviceForm.register("cost")} />
+                            <Input id="cost" type="number" placeholder="1200" className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...serviceForm.register("cost")} />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="garage_name" className="text-gray-300">Garage name</Label>
-                            <Input id="garage_name" placeholder="Local Garage" className="h-12 bg-white/5 border-secondary-theme text-white" {...serviceForm.register("garage_name")} />
+                            <Input id="garage_name" placeholder="Local Garage" className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...serviceForm.register("garage_name")} />
                         </div>
                     </div>
                     <Button type="submit" disabled={isLoading} className="w-full h-12 bg-theme-green text-white font-bold rounded-xl">
@@ -173,12 +173,12 @@ export const HealthActionForms = ({ isLoading, onAddOdometer, onAddServiceRecord
                 >
                     <div className="space-y-2">
                         <Label htmlFor="issue_type" className="text-gray-300">Issue type</Label>
-                        <Input id="issue_type" placeholder="noise" className="h-12 bg-white/5 border-secondary-theme text-white" {...issueForm.register("issue_type")} />
+                        <Input id="issue_type" placeholder="noise" className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...issueForm.register("issue_type")} />
                         {issueForm.formState.errors.issue_type && <p className="text-red-500 text-xs">{issueForm.formState.errors.issue_type.message}</p>}
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="description" className="text-gray-300">Description</Label>
-                        <Input id="description" placeholder="Brake squeaking at low speed" className="h-12 bg-white/5 border-secondary-theme text-white" {...issueForm.register("description")} />
+                        <Input id="description" placeholder="Brake squeaking at low speed" className="h-12 bg-[#F8F9FB] border-[#E4E7EC] text-white" {...issueForm.register("description")} />
                         {issueForm.formState.errors.description && <p className="text-red-500 text-xs">{issueForm.formState.errors.description.message}</p>}
                     </div>
                     <div className="space-y-2">
@@ -193,8 +193,8 @@ export const HealthActionForms = ({ isLoading, onAddOdometer, onAddServiceRecord
                                         issueForm.setValue("severity", severity, { shouldValidate: true })
                                     }}
                                     className={cn(
-                                        "h-10 rounded-lg border border-secondary-theme text-xs font-bold uppercase transition-colors",
-                                        selectedSeverity === severity ? "bg-theme-green text-white" : "bg-white/5 text-gray-400 hover:text-white"
+                                        "h-10 rounded-lg border border-[#E4E7EC] text-xs font-bold uppercase transition-colors",
+                                        selectedSeverity === severity ? "bg-theme-green text-white" : "bg-[#F8F9FB] text-[#475569] hover:text-white"
                                     )}
                                 >
                                     {severity}
@@ -208,11 +208,11 @@ export const HealthActionForms = ({ isLoading, onAddOdometer, onAddServiceRecord
                 </form>
             )}
 
-            <div className="bg-primaryCard/50 border border-secondary-theme rounded-xl p-4 flex gap-3">
+            <div className="bg-primaryCard/50 border border-[#E4E7EC] rounded-xl p-4 flex gap-3">
                 <div className="bg-theme-green/20 p-2 rounded-lg h-fit">
                     <Activity className="w-5 h-5 text-theme-green" />
                 </div>
-                <p className="text-gray-400 text-xs leading-relaxed">
+                <p className="text-[#475569] text-xs leading-relaxed">
                     Each update is sent to the backend action API, which recalculates health and refreshes this dashboard.
                 </p>
             </div>

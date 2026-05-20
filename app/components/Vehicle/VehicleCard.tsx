@@ -14,7 +14,7 @@ export const VehicleCard = ({ vehicle, isSelected, onSelect }: VehicleCardProps)
                 relative flex items-center p-3 rounded-lg border cursor-pointer transition-all
                 ${isSelected
                     ? 'bg-sky-500/10 border-sky-500/50'
-                    : 'bg-vehicle-card-bg/30 border-vehicle-card-border/30 hover:bg-vehicle-card-bg/50'}
+                    : 'bg-white/30 border-[#E4E7EC]/30 hover:bg-white/50'}
             `}
         >
             <div className="flex-1">
@@ -23,7 +23,7 @@ export const VehicleCard = ({ vehicle, isSelected, onSelect }: VehicleCardProps)
                         {vehicle.brand?.toUpperCase()} {vehicle.model?.toUpperCase()}
                     </span>
                 </div>
-                <div className="text-sm text-gray-400 mt-1">
+                <div className="text-sm text-[#475569] mt-1">
                     {vehicle.registration_number?.toUpperCase() || 'No reg. number'} • {vehicle.year}
                 </div>
             </div>

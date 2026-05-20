@@ -70,7 +70,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 
                     <div className={clsx("py-6 lg:py-8", descOrderClass)}>
                         <div className="max-w-md mx-auto md:mx-0">
-                            <h4 className="text-white font-bold 2xl:text-2xl lg:text-xl text-[15px] mb-3">
+                            <h4 className="text-[#0F172A] font-bold 2xl:text-2xl lg:text-xl text-[15px] mb-3">
                                 {headline}
                             </h4>
 

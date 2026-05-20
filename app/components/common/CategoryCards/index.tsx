@@ -50,7 +50,7 @@ const ConsultantCategorySection: React.FC<ConsultantCategorySectionProps> = ({
                         {data.heading}
                         <span className="primary-gradient-text [background-image:var(--gradient-chatbot-dev)] font-bold "> {data.subHeading}</span>
                     </h2>
-                    <p className="mt-4 text-lg text-gray-600">{data.description}</p>
+                    <p className="mt-4 text-lg text-[#94A3B8]">{data.description}</p>
                 </div>
                 <ScrollArea className="w-full pb-4">
                     <div className="flex w-max space-x-4 p-4">

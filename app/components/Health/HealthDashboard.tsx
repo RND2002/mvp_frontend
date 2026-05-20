@@ -43,14 +43,14 @@ export const HealthDashboard = () => {
 
     if (!selectedVehicle) {
         return (
-            <Card className="bg-primaryCard border-secondary-theme text-white">
+            <Card className="bg-white border-[#E4E7EC] text-white">
                 <CardContent className="p-8 text-center space-y-4">
                     <div className="bg-gray-800/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                        <AlertCircle className="w-8 h-8 text-gray-500" />
+                        <AlertCircle className="w-8 h-8 text-[#475569]" />
                     </div>
                     <div>
                         <h3 className="text-xl font-bold">No Vehicle Selected</h3>
-                        <p className="text-gray-400 text-sm max-w-xs mx-auto mt-2">
+                        <p className="text-[#475569] text-sm max-w-xs mx-auto mt-2">
                             Please select or add a vehicle to view health insights and maintenance predictions.
                         </p>
                     </div>
@@ -62,10 +62,10 @@ export const HealthDashboard = () => {
     if (isFetchingHealth) {
         return (
             <div className="space-y-6">
-                <Skeleton className="h-64 w-full bg-primaryCard/20 rounded-2xl" />
+                <Skeleton className="h-64 w-full bg-white rounded-2xl" />
                 <div className="grid grid-cols-2 gap-4">
-                    <Skeleton className="h-32 w-full bg-primaryCard/20 rounded-xl" />
-                    <Skeleton className="h-32 w-full bg-primaryCard/20 rounded-xl" />
+                    <Skeleton className="h-32 w-full bg-white rounded-xl" />
+                    <Skeleton className="h-32 w-full bg-white rounded-xl" />
                 </div>
             </div>
         )
@@ -80,14 +80,14 @@ export const HealthDashboard = () => {
                         variant="ghost"
                         size="icon"
                         onClick={() => setShowFullReport(false)}
-                        className="bg-primaryCard border border-secondary-theme rounded-xl hover:bg-white/5 h-10 w-10"
+                        className="bg-white border border-[#E4E7EC] rounded-xl hover:bg-[#F8F9FB] h-10 w-10"
                         icon={<ChevronLeft className="w-5 h-5 text-white" />}
                         iconPosition="left"
                     >
                     </VroomButton>
                     <div>
                         <h2 className="text-xl font-bold text-white leading-tight">Detailed Health Report</h2>
-                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">{selectedVehicle.brand} {selectedVehicle.model}</p>
+                        <p className="text-[#475569] text-[10px] font-bold uppercase tracking-widest">{selectedVehicle.brand} {selectedVehicle.model}</p>
                     </div>
                 </div>
 
@@ -117,7 +117,7 @@ export const HealthDashboard = () => {
         const title = score === null ? "Add vehicle details" : "Check your vehicle health";
 
         return (
-            <Card className="bg-primaryCard border-secondary-theme text-white relative overflow-hidden group">
+            <Card className="bg-white border-[#E4E7EC] text-white relative overflow-hidden group">
                 <CardContent className="p-8">
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="space-y-2 text-center md:text-left">
@@ -126,7 +126,7 @@ export const HealthDashboard = () => {
                                 <span className="text-xs font-bold uppercase tracking-wider">Smart Health Check</span>
                             </div>
                             <h3 className="text-2xl font-bold">{title}</h3>
-                            <p className="text-gray-400 text-sm max-w-md">
+                            <p className="text-[#475569] text-sm max-w-md">
                                 {message}
                             </p>
                         </div>

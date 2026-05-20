@@ -4,7 +4,7 @@ export const Footer = () => {
     return (
 
         <footer
-            className={`bg-primary-theme `}
+            className={`bg-[#F8F9FB] `}
         >
             <div className="border-t border-white/80 py-6 container mx-auto flex flex-col-reverse lg:flex-row items-center gap-6 justify-between text-sm 2xl:text-base text-white">
                 <p>© 2025 Smart Auto Solutions. All rights reserved.</p>

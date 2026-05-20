@@ -34,12 +34,12 @@ export default function HowItWorksSection() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {steps.map((step, i) => (
-                        <div key={i} className="group p-8 rounded-[32px] bg-primaryCard/20 border border-secondary-theme hover:border-theme-green/30 transition-all flex flex-col items-center text-center">
+                        <div key={i} className="group p-8 rounded-[32px] bg-white border border-[#E4E7EC] hover:border-theme-green/30 transition-all flex flex-col items-center text-center">
                             <div className="h-16 w-16 rounded-full bg-theme-green/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 <step.icon className="h-8 w-8 text-theme-green" />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-3 tracking-tight">{step.title}</h3>
-                            <p className="text-gray-500 text-sm leading-relaxed font-medium">{step.description}</p>
+                            <p className="text-[#475569] text-sm leading-relaxed font-medium">{step.description}</p>
                         </div>
                     ))}
                 </div>

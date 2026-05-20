@@ -48,23 +48,17 @@ export default function EmergencyHelpPage() {
             </div>
 
             {/* Header */}
-            <div className="absolute top-0 left-0 right-0 z-10 p-5 pt-8 flex items-center justify-between bg-gradient-to-b from-white/80 to-transparent md:from-transparent md:p-8">
-                <button className="p-2 rounded-full bg-white shadow-md hover:bg-slate-50 transition-colors" onClick={() => window.history.back()}>
+            <div className="absolute top-0 left-0 right-0 z-10 p-5 pt-8 flex items-center justify-between md:p-8">
+                <button className="p-2 rounded-full bg-white border border-[#E4E7EC] hover:bg-[#F8F9FB] transition-colors shadow-sm" onClick={() => window.history.back()}>
                     {/* Back Icon */}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-slate-700"><path d="m15 18-6-6 6-6" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-[#0F172A]"><path d="m15 18-6-6 6-6" /></svg>
                 </button>
-                <h1 className="text-lg font-bold text-slate-800 tracking-wide uppercase bg-white/50 backdrop-blur-md px-4 py-1 rounded-full shadow-sm">
+                <h1 className="text-xs font-black text-[#0F172A] tracking-[0.2em] uppercase bg-white border border-[#E4E7EC] px-4 py-1.5 rounded-full shadow-sm">
                     Location
                 </h1>
-                <button className="p-2 rounded-full bg-white shadow-md hover:bg-slate-50 transition-colors">
+                <button className="p-2 rounded-full bg-white border border-[#E4E7EC] hover:bg-[#F8F9FB] transition-colors shadow-sm">
                     <span className="sr-only">Menu</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-slate-700"><circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /><circle cx="12" cy="19" r="1" /></svg>
-                    {/* Simple kebab menu icon */}
-                    <div className="flex flex-col gap-1 items-center justify-center w-5 h-5">
-                        <div className="w-1 h-1 bg-slate-700 rounded-full"></div>
-                        <div className="w-1 h-1 bg-slate-700 rounded-full"></div>
-                        <div className="w-1 h-1 bg-slate-700 rounded-full"></div>
-                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-[#0F172A]"><circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="12" cy="19" r="1" /></svg>
                 </button>
             </div>
 
@@ -72,9 +66,9 @@ export default function EmergencyHelpPage() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 flex flex-col items-center justify-center">
                 {/* Pulse Effect */}
                 <div className="relative">
-                    <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping opacity-75"></div>
-                    <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white p-1 rounded-full shadow-xl overflow-hidden border-4 border-cyan-100">
-                        <div className="w-full h-full bg-slate-200 rounded-full flex items-center justify-center text-slate-400 font-bold overflow-hidden">
+                    <div className="absolute inset-0 bg-[#6B2FA0] rounded-full animate-ping opacity-75"></div>
+                    <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white p-1 rounded-full shadow-xl overflow-hidden border-4 border-[#DCFCE7]">
+                        <div className="w-full h-full bg-[#F8F9FB] rounded-full flex items-center justify-center text-[#94A3B8] font-bold overflow-hidden">
                             {/* Placeholder Avatar */}
                             <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60" alt="User" className="w-full h-full object-cover" />
                         </div>
@@ -84,12 +78,12 @@ export default function EmergencyHelpPage() {
 
             {/* Permission Alert (if needed or just checking hooks) */}
             {!loaded && (
-                <div className="absolute top-24 left-1/2 -translate-x-1/2 z-20 bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur-md text-xs font-medium animate-pulse">
+                <div className="absolute top-24 left-1/2 -translate-x-1/2 z-20 bg-black/80 text-white px-4 py-2 rounded-full text-xs font-semibold animate-pulse">
                     Getting Location...
                 </div>
             )}
             {error && (
-                <div className="absolute top-24 left-1/2 -translate-x-1/2 z-20 bg-red-500 text-white px-4 py-2 rounded-full shadow-lg text-xs font-bold flex items-center gap-2">
+                <div className="absolute top-24 left-1/2 -translate-x-1/2 z-20 bg-[#DC2626] text-white px-4 py-2 rounded-full shadow-lg text-xs font-bold flex items-center gap-2">
                     <AlertTriangle className="w-4 h-4" />
                     Please enable location access
                 </div>
@@ -97,42 +91,38 @@ export default function EmergencyHelpPage() {
 
 
             {/* Bottom Sheet / Interaction Area */}
-            {/* On Phone: Bottom Sheet. On Laptop: Centered floating card or Left side panel. 
-          User requested "ensure good look for laptop".
-          I'll stick to a bottom-center floating card style which looks good on both.
-      */}
             <div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-8 flex justify-center">
-                <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-[2.5rem] shadow-2xl p-6 md:p-8 border border-slate-100 dark:border-slate-800 animate-slide-up">
+                <div className="bg-white w-full max-w-md rounded-[2.5rem] shadow-xl p-6 md:p-8 border border-[#E4E7EC] animate-slide-up">
 
                     {/* Drag Handle (Visual only) */}
-                    <div className="w-12 h-1 bg-slate-200 rounded-full mx-auto mb-6"></div>
+                    <div className="w-12 h-1 bg-[#E4E7EC] rounded-full mx-auto mb-6"></div>
 
                     {/* User Info Row */}
                     <div className="flex items-center gap-4 mb-8">
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
+                        <div className="w-12 h-12 rounded-full overflow-hidden bg-[#F8F9FB] shrink-0 border border-[#E4E7EC]">
                             <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60" alt="User" className="w-full h-full object-cover" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-bold text-slate-800 dark:text-white leading-none mb-1">Eleanor Fant</h3>
-                            <span className="inline-block bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                            <h3 className="text-lg font-bold text-[#0F172A] leading-none mb-1">Eleanor Fant</h3>
+                            <span className="inline-block bg-[#6B2FA0] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                                 Need Help
                             </span>
                         </div>
-                        <button className="text-slate-400 hover:text-slate-600">
+                        <button className="text-[#94A3B8] hover:text-[#475569]">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="12" cy="19" r="1" /></svg>
                         </button>
                     </div>
 
                     {/* Location Info */}
                     <div className="text-center mb-8">
-                        <h4 className="text-green-500 font-bold text-lg mb-2">Need Help</h4>
-                        <p className="text-slate-600 dark:text-slate-300 font-medium text-sm md:text-base px-8 leading-relaxed">
+                        <h4 className="text-[#6B2FA0] font-bold text-lg mb-2">Need Help</h4>
+                        <p className="text-[#475569] font-semibold text-sm md:text-base px-8 leading-relaxed">
                             {loaded && coordinates
                                 ? `${coordinates.latitude.toFixed(4)} N, ${coordinates.longitude.toFixed(4)} E (Approx)`
                                 : "Detecting Location..."
                             }
                         </p>
-                        <p className="text-xs text-slate-400 mt-1">
+                        <p className="text-xs text-[#94A3B8] mt-1 font-bold">
                             {error ? "Location access denied" : "Monday, 20 December 01:50:34 PM"}
                         </p>
                     </div>
@@ -141,7 +131,7 @@ export default function EmergencyHelpPage() {
                     <div className="w-full">
                         <Button
                             onClick={handleBookEmergency}
-                            className="w-full rounded-full py-6 text-base font-bold uppercase tracking-wider shadow-lg shadow-green-900/20"
+                            className="w-full bg-[#6B2FA0] hover:bg-[#6B2FA0] text-white rounded-xl py-6 text-base font-bold uppercase tracking-widest shadow-none transition-all duration-200"
                         >
                             Call for Help
                         </Button>

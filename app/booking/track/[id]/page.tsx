@@ -67,7 +67,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-primary-theme pb-20">
+            <div className="min-h-screen bg-[#F8F9FB] pb-20">
                 <div className="max-w-7xl px-6 py-6 pb-2">
                     <PageHeader
                         title={<>Tracking <span className="text-theme-green">Progress</span></>}
@@ -86,15 +86,15 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
 
     if (error || !booking) {
         return (
-            <div className="min-h-screen bg-primary-theme flex items-center justify-center text-white flex-col p-6 text-center">
+            <div className="min-h-screen bg-[#F8F9FB] flex items-center justify-center text-white flex-col p-6 text-center">
                 <div className="w-20 h-20 bg-theme-red/10 rounded-full flex items-center justify-center mb-6">
                     <XCircle className="w-10 h-10 text-theme-red" />
                 </div>
                 <h2 className="text-xl font-bold mb-2">Booking Not Found</h2>
-                <p className="text-gray-400 text-sm mb-8 max-w-xs">We couldn't find the booking details you're looking for.</p>
+                <p className="text-[#475569] text-sm mb-8 max-w-xs">We couldn't find the booking details you're looking for.</p>
                 <button
                     onClick={() => router.back()}
-                    className="px-8 py-3 bg-white/5 border border-white/10 rounded-xl font-bold text-sm hover:bg-white/10 transition-colors"
+                    className="px-8 py-3 bg-[#F8F9FB] border border-[#E4E7EC] rounded-xl font-bold text-sm hover:bg-[#F5EDFC] transition-colors"
                 >
                     Go Back
                 </button>
@@ -193,7 +193,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
     };
 
     return (
-        <div className="min-h-screen bg-primary-theme pb-20">
+        <div className="min-h-screen bg-[#F8F9FB] pb-20">
             <div className="max-w-7xl px-6 py-6 pb-2">
                 <PageHeader
                     title={<>Tracking <span className="text-theme-green">Progress</span></>}
@@ -210,12 +210,12 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                         {/* LEFT COLUMN: Progress Tracking */}
                         <div className="flex-1 w-full space-y-6">
                             {/* Status Card */}
-                            <div className="relative bg-primaryCard border border-secondary-theme rounded-4xl p-8 shadow-xl shadow-black/40 overflow-hidden">
+                            <div className="relative bg-white border border-[#E4E7EC] rounded-4xl p-8 shadow-xl shadow-black/40 overflow-hidden">
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-theme-green/5 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none"></div>
 
                                 <div className="flex justify-between items-start mb-10 relative z-10">
                                     <div>
-                                        <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">Current Progress</p>
+                                        <p className="text-[#475569] text-[10px] font-black uppercase tracking-[0.2em] mb-2">Current Progress</p>
                                         <h2 className={cn(
                                             "text-3xl md:text-4xl font-black tracking-tighter uppercase",
                                             isCancelled ? "text-theme-red" : "text-theme-green"
@@ -238,7 +238,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                 {/* Timeline */}
                                 <div className="space-y-8 relative pl-6 z-10 py-2">
                                     {/* Connecting Line */}
-                                    <div className="absolute top-0 bottom-0 left-[30px] w-0.5 bg-white/5"></div>
+                                    <div className="absolute top-0 bottom-0 left-[30px] w-0.5 bg-[#F8F9FB]"></div>
 
                                     {trackingData.timeline.map((step, idx) => (
                                         <div key={idx} className="flex gap-6 items-start relative group">
@@ -253,11 +253,11 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                             <div className="space-y-1">
                                                 <h4 className={cn(
                                                     "text-[13px] font-black uppercase tracking-widest transition-colors duration-500",
-                                                    step.completed || step.current ? "text-white" : "text-gray-600"
+                                                    step.completed || step.current ? "text-white" : "text-[#94A3B8]"
                                                 )}>
                                                     {step.status}
                                                 </h4>
-                                                <p className="text-[10px] font-bold text-gray-500 tracking-wider">
+                                                <p className="text-[10px] font-bold text-[#475569] tracking-wider">
                                                     {step.completed ? step.time : "Pending"}
                                                 </p>
                                             </div>
@@ -271,21 +271,21 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                         <div className="w-full lg:w-[400px] xl:w-[450px] shrink-0 space-y-6 lg:sticky lg:top-28">
 
                             {/* Garage Info */}
-                            <div className="bg-primaryCard border border-secondary-theme rounded-4xl p-6 shadow-xl shadow-black/40">
+                            <div className="bg-white border border-[#E4E7EC] rounded-4xl p-6 shadow-xl shadow-black/40">
                                 <div className="flex items-center gap-2 text-theme-green mb-5">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     <span className="text-[10px] font-black uppercase tracking-[0.2em]">Partner Garage</span>
                                 </div>
 
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-xl font-black text-white">
+                                    <div className="w-14 h-14 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC] flex items-center justify-center text-xl font-black text-white">
                                         {trackingData.garage.name[0]}
                                     </div>
                                     <div>
                                         <h4 className="text-base font-bold text-white tracking-tight">{trackingData.garage.name}</h4>
                                         <div className="flex items-center gap-1.5 mt-1">
                                             <span className="text-theme-green text-xs">★</span>
-                                            <span className="text-xs font-bold text-gray-400">{trackingData.garage.rating}</span>
+                                            <span className="text-xs font-bold text-[#475569]">{trackingData.garage.rating}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +294,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                     <div className="grid grid-cols-2 gap-3 mb-6">
                                         <button
                                             onClick={() => window.location.href = `tel:${trackingData.garage.phone}`}
-                                            className="h-11 rounded-xl bg-white/5 border border-white/10 text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
+                                            className="h-11 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#F5EDFC] transition-colors"
                                         >
                                             <Phone className="w-3.5 h-3.5" /> CALL
                                         </button>
@@ -307,25 +307,25 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                     </div>
                                 )}
 
-                                <div className="flex items-start gap-3 p-4 rounded-2xl bg-black/20 border border-white/5 italic">
-                                    <MapPin className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
-                                    <p className="text-xs text-gray-400 font-medium leading-relaxed">
+                                <div className="flex items-start gap-3 p-4 rounded-2xl bg-black/20 border border-[#E4E7EC] italic">
+                                    <MapPin className="w-4 h-4 text-[#475569] shrink-0 mt-0.5" />
+                                    <p className="text-xs text-[#475569] font-medium leading-relaxed">
                                         {trackingData.garage.address}
                                     </p>
                                 </div>
                             </div>
 
                             {/* Vehicle & Services */}
-                            <div className="bg-primaryCard border border-secondary-theme rounded-4xl p-6 shadow-xl shadow-black/40 space-y-6">
+                            <div className="bg-white border border-[#E4E7EC] rounded-4xl p-6 shadow-xl shadow-black/40 space-y-6">
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-2 text-theme-green">
                                         <Car className="w-3.5 h-3.5" />
                                         <span className="text-[10px] font-black uppercase tracking-[0.2em]">Service Details</span>
                                     </div>
-                                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                                        <p className="text-white font-black tracking-tighter text-lg mb-1">{trackingData.vehicle.name.toUpperCase()}</p>
-                                        <div className="flex items-center gap-2 text-gray-400">
-                                            <Hash className="w-3 h-3 text-gray-500" />
+                                    <div className="p-4 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC]">
+                                        <p className="text-[#0F172A] font-black tracking-tighter text-lg mb-1">{trackingData.vehicle.name.toUpperCase()}</p>
+                                        <div className="flex items-center gap-2 text-[#475569]">
+                                            <Hash className="w-3 h-3 text-[#475569]" />
                                             <span className="text-[10px] font-bold tracking-widest uppercase">{trackingData.vehicle.reg}</span>
                                         </div>
                                     </div>
@@ -340,8 +340,8 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                     ))}
                                 </div>
 
-                                <div className="pt-5 border-t border-white/5 flex justify-between items-center">
-                                    <div className="flex items-center gap-2 text-gray-500">
+                                <div className="pt-5 border-t border-[#E4E7EC] flex justify-between items-center">
+                                    <div className="flex items-center gap-2 text-[#475569]">
                                         <ReceiptText className="w-4 h-4" />
                                         <span className="text-[10px] font-black uppercase tracking-[0.2em]">Estimation</span>
                                     </div>
@@ -351,15 +351,15 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
 
                             {/* Booking Meta */}
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="flex flex-col gap-1.5 p-4 rounded-2xl bg-white/5 border border-white/10">
-                                    <div className="flex items-center gap-2 text-gray-500">
+                                <div className="flex flex-col gap-1.5 p-4 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC]">
+                                    <div className="flex items-center gap-2 text-[#475569]">
                                         <Hash className="w-3.5 h-3.5" />
                                         <span className="text-[8px] font-black uppercase tracking-widest">Booking ID</span>
                                     </div>
                                     <p className="text-[11px] font-bold text-white tracking-widest uppercase truncate">{id.substring(0, 14)}...</p>
                                 </div>
-                                <div className="flex flex-col gap-1.5 p-4 rounded-2xl bg-white/5 border border-white/10">
-                                    <div className="flex items-center gap-2 text-gray-500">
+                                <div className="flex flex-col gap-1.5 p-4 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC]">
+                                    <div className="flex items-center gap-2 text-[#475569]">
                                         <Clock className="w-3.5 h-3.5" />
                                         <span className="text-[8px] font-black uppercase tracking-widest">Est. Pickup</span>
                                     </div>

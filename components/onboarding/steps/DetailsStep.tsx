@@ -46,7 +46,7 @@ export const DetailsStep = () => {
                         control={control}
                         name="year"
                         render={({ field }) => (
-                            <ScrollArea className={cn("h-[144px] w-full border border-secondary-theme rounded-md p-2", errors.year && "border-red-500")}>
+                            <ScrollArea className={cn("h-[144px] w-full border border-[#E4E7EC] rounded-md p-2", errors.year && "border-red-500")}>
                                 <div className="grid grid-cols-4 gap-2">
                                     {YEARS.map((year) => (
                                         <Button
@@ -54,7 +54,7 @@ export const DetailsStep = () => {
                                             type="button"
                                             variant="outline"
                                             onClick={() => field.onChange(year)}
-                                            className={`h-9 px-2 text-xs ${field.value == year ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                            className={`h-9 px-2 text-xs ${field.value == year ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
                                         >
                                             {year}
                                         </Button>
@@ -82,7 +82,7 @@ export const DetailsStep = () => {
                                         key={fuel}
                                         type="button"
                                         variant="outline"
-                                        className={`h-9 px-3 ${field.value === value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                        className={`h-9 px-3 ${field.value === value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
                                         onClick={() => field.onChange(value)}
                                     >
                                         {fuel}
@@ -106,7 +106,7 @@ export const DetailsStep = () => {
                                 {...field}
                                 value={field.value || ''}
                                 className={cn(
-                                    "bg-white/5 border-secondary-theme text-white placeholder:text-gray-500",
+                                    "bg-[#F8F9FB] border-[#E4E7EC] text-white placeholder:text-[#475569]",
                                     errors.registration_number && "border-red-500 focus-visible:ring-red-500/50"
                                 )}
                                 placeholder="e.g. MH 02 AB 1234"
@@ -128,7 +128,7 @@ export const DetailsStep = () => {
                                     {...field}
                                     value={field.value || ''}
                                     type="number"
-                                    className="bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
+                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-white placeholder:text-[#475569]"
                                     placeholder="18450"
                                     onChange={(e) => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
                                 />
@@ -147,7 +147,7 @@ export const DetailsStep = () => {
                                     {...field}
                                     value={field.value || ''}
                                     type="date"
-                                    className="bg-white/5 border-secondary-theme text-white"
+                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-white"
                                 />
                             )}
                         />
@@ -165,7 +165,7 @@ export const DetailsStep = () => {
                                     {...field}
                                     value={field.value || ''}
                                     type="number"
-                                    className="bg-white/5 border-secondary-theme text-white placeholder:text-gray-500"
+                                    className="bg-[#F8F9FB] border-[#E4E7EC] text-white placeholder:text-[#475569]"
                                     placeholder="16000"
                                     onChange={(e) => {
                                         const value = e.target.value ? Number(e.target.value) : undefined;
@@ -189,7 +189,7 @@ export const DetailsStep = () => {
                                             key={type.value}
                                             type="button"
                                             variant="outline"
-                                            className={`h-9 px-3 ${field.value === type.value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                            className={`h-9 px-3 ${field.value === type.value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
                                             onClick={() => field.onChange(type.value)}
                                         >
                                             {type.label}
@@ -213,7 +213,7 @@ export const DetailsStep = () => {
                                         key={type.value}
                                         type="button"
                                         variant="outline"
-                                        className={`h-9 px-4 ${field.value === type.value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                        className={`h-9 px-4 ${field.value === type.value ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
                                         onClick={() => field.onChange(type.value)}
                                     >
                                         {type.label}
@@ -240,7 +240,7 @@ export const DetailsStep = () => {
                                                 key={issue.value}
                                                 type="button"
                                                 variant="outline"
-                                                className={`h-9 px-3 ${isActive ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-white/5 border-secondary-theme text-white hover:bg-white/10"}`}
+                                                className={`h-9 px-3 ${isActive ? "bg-green-500 border-green-500 text-white hover:bg-green-600" : "bg-[#F8F9FB] border-[#E4E7EC] text-white hover:bg-[#F5EDFC]"}`}
                                                 onClick={() => field.onChange(isActive ? selected.filter((value: string) => value !== issue.value) : [...selected, issue.value])}
                                             >
                                                 {issue.label}

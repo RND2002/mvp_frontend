@@ -23,7 +23,7 @@ export const OnboardingProgress = () => {
                                     ? "bg-green-500 border-green-500 text-white"
                                     : isCurrent
                                         ? "border-green-500 text-green-500 font-bold"
-                                        : "border-gray-500 text-gray-500"
+                                        : "border-gray-500 text-[#475569]"
                             )}
                         >
                             {isCompleted ? <Check size={16} /> : <span>{stepNumber}</span>}

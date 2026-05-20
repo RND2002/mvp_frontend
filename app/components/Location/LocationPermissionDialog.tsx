@@ -107,21 +107,21 @@ export default function LocationPermissionDialog() {
     return (
         <Dialog open={open} onOpenChange={() => { }}>
             {/* prevent closing by clicking outside/esc by passing empty handler or controlled open without setOpen exposed */}
-            <DialogContent className="sm:max-w-[425px] [&>button]:hidden bg-vehicle-card-bg text-foreground border-vehicle-card-border rounded-[2.5rem] shadow-2xl shadow-black/60 p-0 overflow-hidden">
+            <DialogContent className="sm:max-w-[425px] [&>button]:hidden bg-white text-[#0F172A] border-[#E4E7EC] rounded-[2.5rem] shadow-xl shadow-black/10 p-0 overflow-hidden">
                 <div className="relative p-8 pt-10">
-                    <div className="absolute top-0 right-0 w-48 h-48 bg-theme-green/5 rounded-full blur-[80px] -mr-24 -mt-24 pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-[#6B2FA0]/5 rounded-full blur-[80px] -mr-24 -mt-24 pointer-events-none"></div>
 
                     <DialogHeader className="relative z-10">
                         <div className="flex justify-center mb-6">
-                            <div className="h-20 w-20 bg-theme-green/10 border border-theme-green/20 rounded-2xl flex items-center justify-center animate-pulse shadow-[0_0_30px_rgba(0,223,130,0.1)]">
-                                <MapPin className="w-10 h-10 text-theme-green" />
+                            <div className="h-20 w-20 bg-[#6B2FA0]/10 border border-[#6B2FA0]/20 rounded-2xl flex items-center justify-center animate-pulse shadow-[0_0_30px_rgba(107,47,160,0.1)]">
+                                <MapPin className="w-10 h-10 text-[#6B2FA0]" />
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <p className="text-theme-green text-center text-[10px] font-black uppercase tracking-[0.3em] mb-1">Authorization Required</p>
-                            <DialogTitle className="text-center text-2xl font-black tracking-tighter uppercase text-white">Location Access</DialogTitle>
+                            <p className="text-[#6B2FA0] text-center text-[10px] font-black uppercase tracking-[0.3em] mb-1">Authorization Required</p>
+                            <DialogTitle className="text-center text-2xl font-black tracking-tighter uppercase text-[#0F172A]">Location Access</DialogTitle>
                         </div>
-                        <DialogDescription className="text-center text-gray-400 font-medium leading-relaxed pt-2 px-2">
+                        <DialogDescription className="text-center text-[#475569] font-medium leading-relaxed pt-2 px-2">
                             To find the best mechanics near you and provide accurate service times, we need access to your device's location.
                         </DialogDescription>
                     </DialogHeader>
@@ -130,11 +130,11 @@ export default function LocationPermissionDialog() {
                         <Button
                             onClick={handleAllowLocation}
                             disabled={loading}
-                            className="w-full h-14 bg-theme-green hover:bg-theme-green/90 text-[#020617] font-black uppercase tracking-widest text-xs rounded-2xl transition-all duration-300 shadow-lg shadow-theme-green/20"
+                            className="w-full h-14 bg-[#6B2FA0] hover:bg-[#582186] text-white font-black uppercase tracking-widest text-xs rounded-2xl transition-all duration-300 shadow-lg shadow-[#6B2FA0]/20"
                         >
                             {loading ? (
                                 <div className="flex items-center gap-2">
-                                    <div className="w-4 h-4 border-2 border-[#020617]/20 border-t-[#020617] rounded-full animate-spin"></div>
+                                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
                                     Detecting...
                                 </div>
                             ) : "Allow Access"}

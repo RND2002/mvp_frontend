@@ -7,7 +7,7 @@ import Container from "@/app/components/common/Container";
 
 export default function HealthPage() {
     return (
-        <div className="w-full bg-primary-theme min-h-screen">
+        <div className="w-full bg-[#F8F9FB] min-h-screen">
             <Container className="py-4">
                 <HealthDashboard />
             </Container>

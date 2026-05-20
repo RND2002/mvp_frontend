@@ -20,8 +20,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-             "group toast animate-[toast-slide-in_0.35s_ease-out] data-[state=closed]:animate-[toast-slide-out_0.25s_ease-in] group-[.toaster]:bg-black group-[.toaster]:text-white group-[.toaster]:border-vehicle-card-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-gray-400",
+             "group toast animate-[toast-slide-in_0.35s_ease-out] data-[state=closed]:animate-[toast-slide-out_0.25s_ease-in] group-[.toaster]:bg-black group-[.toaster]:text-white group-[.toaster]:border-[#E4E7EC] group-[.toaster]:shadow-lg",
+          description: "group-[.toast]:text-[#475569]",
           actionButton:
             "group-[.toast]:bg-green-500 group-[.toast]:text-white",
           cancelButton:
@@ -37,7 +37,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
         info: <InfoIcon className="size-4 text-blue-500" />,
         warning: <TriangleAlertIcon className="size-4 text-yellow-500" />,
         error: <OctagonXIcon className="size-4 text-red-500" />,
-        loading: <Loader2Icon className="size-4 animate-spin text-gray-400" />,
+        loading: <Loader2Icon className="size-4 animate-spin text-[#475569]" />,
       }}
       {...props}
     />

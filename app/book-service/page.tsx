@@ -57,7 +57,7 @@ export default function BookServicePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000]">
+        <div className="min-h-screen bg-[#F8F9FB] text-[#0F172A]">
 
             {step === "discovery" && (
                 <ServiceDiscovery onServiceSelect={handleServiceSelect} />

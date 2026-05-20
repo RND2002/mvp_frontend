@@ -22,25 +22,25 @@ export const HealthMetricCard = ({
     const getStatusColor = (s?: string) => {
         if (color) return color;
         const statusLower = s?.toLowerCase();
-        if (statusLower === 'optimal' || statusLower === 'healthy' || statusLower === 'good') return 'var(--theme-green)';
-        if (statusLower === 'medium') return '#EAB308'; // Yellow-500
-        if (statusLower === 'bad') return 'var(--theme-red)';
-        return 'var(--theme-green)';
+        if (statusLower === 'optimal' || statusLower === 'healthy' || statusLower === 'good') return '#6B2FA0';
+        if (statusLower === 'medium') return '#D97706'; // Amber-600
+        if (statusLower === 'bad') return '#DC2626';
+        return '#6B2FA0';
     }
 
     const statusColor = getStatusColor(status);
 
     return (
-        <div className="bg-primaryCard/80 border border-secondary-theme rounded-xl p-4 mb-2 backdrop-blur-sm">
+        <div className="bg-white border border-[#E4E7EC] rounded-xl p-4 mb-2 shadow-sm">
             <div className="flex justify-between items-start mb-2">
                 <div>
-                    <h4 className="text-gray-400 text-xs uppercase tracking-wider mb-1">{label}</h4>
+                    <h4 className="text-[#475569] text-xs uppercase tracking-wider mb-1 font-bold">{label}</h4>
                     <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-bold">{value}</span>
+                        <span className="text-xl font-bold text-[#0F172A]">{value}</span>
                         {status && (
                             <span
                                 className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded"
-                                style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
+                                style={{ backgroundColor: `${statusColor}15`, color: statusColor }}
                             >
                                 {status}
                             </span>
@@ -51,7 +51,7 @@ export const HealthMetricCard = ({
 
             {showProgress && percentage !== undefined && (
                 <div className="mt-4">
-                    <div className="h-1.5 w-full bg-secondary-theme rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full bg-[#E4E7EC] rounded-full overflow-hidden">
                         <div
                             className="h-full transition-all duration-500"
                             style={{
@@ -64,7 +64,7 @@ export const HealthMetricCard = ({
             )}
 
             {subLabel && (
-                <p className="text-[10px] text-gray-500 mt-2 uppercase">
+                <p className="text-[10px] text-[#94A3B8] mt-2 uppercase font-bold">
                     {subLabel}
                 </p>
             )}

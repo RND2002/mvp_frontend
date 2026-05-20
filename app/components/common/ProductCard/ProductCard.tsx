@@ -26,69 +26,48 @@ const ProductCard: React.FC<ProductCardProps> = ({
     onAdd,
 }) => {
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm p-3 flex flex-col h-full relative group hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-2xl border border-[#E4E7EC] shadow-sm p-4 flex flex-col h-full relative group hover:shadow-md transition-all duration-200">
             {/* Image Area */}
-            <div className="relative w-full aspect-[4/3] mb-3 bg-gray-50 dark:bg-slate-800 rounded-lg overflow-hidden">
+            <div className="relative w-full aspect-[4/3] mb-3 bg-[#F8F9FB] border border-[#E4E7EC] rounded-xl overflow-hidden">
                 <Image
                     src={image}
                     alt={title}
                     fill
-                    className="object-contain p-2 mix-blend-multiply dark:mix-blend-normal"
+                    className="object-contain p-2 mix-blend-multiply"
                 />
-
-                {/* Discount Tag (if high discount, optional placement) */}
-                {/* <div className="absolute top-0 left-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-br-lg">
-                    {discount}
-                </div> */}
             </div>
 
             {/* Content */}
             <div className="flex-1 flex flex-col items-start w-full">
-                {/* Timer / ETA Placeholder (Opional Zepto feature) */}
-                {/* <div className="bg-slate-100 dark:bg-slate-800 text-[10px] font-bold px-1.5 py-0.5 rounded-md mb-2 text-slate-600">
-                    9 MINS
-                </div> */}
-
-                <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 line-clamp-2 leading-tight mb-1 min-h-[2.5em]">
+                <h3 className="text-sm font-bold text-[#0F172A] line-clamp-2 leading-tight mb-1 min-h-[2.5em]">
                     {title}
                 </h3>
 
-                <p className="text-xs text-slate-500 font-medium mb-3">
+                <p className="text-xs text-[#475569] font-medium mb-3">
                     {weight}
                 </p>
 
-                {/* Rating (Optional based on screenshot) */}
-                {/* {rating && (
-                    <div className="flex items-center gap-1 bg-green-50 px-1 rounded border border-green-100 mb-2">
-                        <Star className="w-2 h-2 text-green-600 fill-green-600" />
-                        <span className="text-[10px] font-bold text-green-700">{rating} ({ratingCount})</span>
-                    </div>
-                )} */}
-
                 <div className="mt-auto w-full flex items-end justify-between">
                     <div className="flex flex-col">
-                        <span className="text-xs font-medium text-slate-400 line-through">
+                        <span className="text-xs font-medium text-[#94A3B8] line-through">
                             ₹{originalPrice}
                         </span>
-                        <span className="text-base font-bold text-slate-900 dark:text-white">
+                        <span className="text-base font-black text-[#0F172A]">
                             ₹{price}
                         </span>
                     </div>
 
                     <button
                         onClick={onAdd}
-                        className="border border-[#FF3269] bg-white text-[#FF3269] hover:bg-[#FF3269] hover:text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-colors shadow-sm uppercase tracking-wide"
+                        className="border border-[#6B2FA0] bg-white text-[#6B2FA0] hover:bg-[#6B2FA0] hover:text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-colors shadow-none uppercase tracking-wider"
                     >
                         Add
                     </button>
                 </div>
-
-                {/* Discount Badge on Price Side or Bottom? Zepto usually puts it next to price or on image. */}
-                {/* Let's put a small green badge above price if needed or just keep it simple as screenshot */}
             </div>
 
-            {/* Absolute Floating Discount Badge like screenshot */}
-            <div className="absolute top-0 left-0 bg-[#56a827] text-white text-[10px] font-bold px-2 py-1 rounded-tl-xl rounded-br-xl shadow-sm z-10">
+            {/* Absolute Floating Discount Badge */}
+            <div className="absolute top-0 left-0 bg-[#6B2FA0] text-white text-[9px] font-bold px-2.5 py-1 rounded-tl-2xl rounded-br-2xl shadow-none z-10 uppercase tracking-wider">
                 {discount}
             </div>
         </div>

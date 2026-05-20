@@ -19,7 +19,7 @@ const FormFieldInsideLabel: React.FC<FormFieldInsideLabelProps> = ({
   w-full rounded-md px-6 py-3 text-sm
   ${color === "white"
             ? "bg-transparent border border-white/30 text-white placeholder:text-white/70 focus:border-white"
-            : "bg-text-field text-text-dark placeholder:text-gray-500 focus:border-primary-dark"
+            : "bg-text-field text-text-dark placeholder:text-[#475569] focus:border-primary-dark"
         }
   focus:ring-2 focus:ring-primary-dark focus:outline-none transition-all
 `;

@@ -26,7 +26,7 @@ export const Loader = ({ fullScreen = false, text, size = "md" }: LoaderProps) =
                     </div>
 
                     {/* Logo and Spinner */}
-                    <div className="relative bg-primaryCard border border-secondary-theme p-8 rounded-[40px] flex flex-col items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <div className="relative bg-white border border-[#E4E7EC] p-8 rounded-[40px] flex flex-col items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                         <Image src={Logo} alt="Vroom" width={120} height={40} className="w-32 h-auto animate-pulse" />
                         <div className="flex flex-col items-center gap-3">
                             <Loader2 className="h-8 w-8 text-theme-green animate-spin" />
@@ -49,7 +49,7 @@ export const Loader = ({ fullScreen = false, text, size = "md" }: LoaderProps) =
                 <div className={`absolute inset-0 ${sizeClasses[size]} rounded-full border border-theme-green/20 animate-ping`} />
             </div>
             {text && (
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#475569]">
                     {text}
                 </span>
             )}

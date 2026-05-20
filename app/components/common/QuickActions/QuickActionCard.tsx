@@ -23,7 +23,7 @@ const QuickActionCard: React.FC<QuickActionCardProps> = ({ title, icon: Icon, li
             </div>
 
             {/* Title */}
-            <span className="text-[11px] sm:text-xs font-semibold text-center text-gray-700 leading-tight group-hover:text-[var(--color-primary)] transition-colors">
+            <span className="text-[11px] sm:text-xs font-semibold text-center text-[#94A3B8] leading-tight group-hover:text-[var(--color-primary)] transition-colors">
                 {title}
             </span>
         </Link>

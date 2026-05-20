@@ -20,7 +20,7 @@ export const VehicleHealthCard = () => {
     const getHealthStatus = (value: number) => {
         if (value <= 33) return { label: "Very Bad", color: "#EF4444" } // Red
         if (value <= 66) return { label: "Average", color: "#FFFFFF" } // White
-        return { label: "Excellent", color: "#22C55E" } // Green
+        return { label: "Excellent", color: "#6B2FA0" } // Green
     }
 
     const status = getHealthStatus(score)
@@ -49,11 +49,11 @@ export const VehicleHealthCard = () => {
     }
 
     return (
-        <Card className="bg-vehicle-card-bg border-vehicle-card-border text-white overflow-hidden relative">
+        <Card className="bg-white border-[#E4E7EC] text-white overflow-hidden relative">
             <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-4">
                     <div>
-                        <h3 className="text-gray-400 text-sm font-medium uppercase tracking-wider">
+                        <h3 className="text-[#475569] text-sm font-medium uppercase tracking-wider">
                             Vehicle Healths
                         </h3>
                         <h2 className="text-2xl font-bold mt-1">
@@ -62,7 +62,7 @@ export const VehicleHealthCard = () => {
                                 : "No Vehicle Selected"}
                         </h2>
                         {selectedVehicle && (
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-[#475569]">
                                 {selectedVehicle.registration_number}
                             </p>
                         )}
@@ -113,16 +113,16 @@ export const VehicleHealthCard = () => {
                                 <span className="text-4xl font-bold block" style={{ color: status.color }}>
                                     {score}%
                                 </span>
-                                <span className="text-xs text-gray-400 uppercase">Health Score</span>
+                                <span className="text-xs text-[#475569] uppercase">Health Score</span>
                             </div>
                         </div>
 
                         {/* Legend / Range Indicators */}
-                        <div className="grid grid-cols-3 gap-2 w-full mt-4 text-center text-[10px] text-gray-500">
+                        <div className="grid grid-cols-3 gap-2 w-full mt-4 text-center text-[10px] text-[#475569]">
                             <div className={`rounded p-1 ${score <= 33 ? 'bg-red-500/10 text-red-500 font-bold' : ''}`}>
                                 0-33<br />Bad
                             </div>
-                            <div className={`rounded p-1 ${score > 33 && score <= 66 ? 'bg-white/10 text-white font-bold' : ''}`}>
+                            <div className={`rounded p-1 ${score > 33 && score <= 66 ? 'bg-[#F5EDFC] text-white font-bold' : ''}`}>
                                 34-66<br />Average
                             </div>
                             <div className={`rounded p-1 ${score > 66 ? 'bg-green-500/10 text-green-500 font-bold' : ''}`}>
@@ -131,7 +131,7 @@ export const VehicleHealthCard = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="h-[150px] flex items-center justify-center text-gray-500 text-sm italic">
+                    <div className="h-[150px] flex items-center justify-center text-[#475569] text-sm italic">
                         Select a vehicle to view health insights
                     </div>
                 )}

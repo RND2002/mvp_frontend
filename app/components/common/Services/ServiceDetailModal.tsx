@@ -49,7 +49,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
             ></div>
 
             {/* Modal Content */}
-            <div className="relative w-full max-w-lg md:max-w-xl h-[90vh] md:h-auto md:max-h-[90vh] bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] rounded-t-[2.5rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:m-4 animate-slide-up border border-vehicle-card-border">
+            <div className="relative w-full max-w-lg md:max-w-xl h-[90vh] md:h-auto md:max-h-[90vh] bg-gradient-to-br from-[#091A23] via-[#0D212C] to-[#000000] rounded-t-[2.5rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:m-4 animate-slide-up border border-[#E4E7EC]">
 
                 {/* Scrollable Area */}
                 <div className="flex-1 overflow-y-auto pb-24 md:pb-6 scrollbar-hide">
@@ -67,12 +67,12 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                         <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center text-white">
                             <button
                                 onClick={onClose}
-                                className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors"
+                                className="w-10 h-10 rounded-full bg-[#F5EDFC] backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors"
                             >
                                 <ArrowLeft className="w-5 h-5" />
                             </button>
                             <div className="flex gap-2">
-                                {/* <button className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors">
+                                {/* <button className="w-10 h-10 rounded-full bg-[#F5EDFC] backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors">
                              <Share2 className="w-5 h-5" />
                          </button> */}
                             </div>
@@ -93,7 +93,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                     <div className="relative -mt-12 bg-[#091A23] rounded-t-[2.5rem] px-6 pt-8 pb-8 min-h-[300px]">
 
                         {/* Mechanic Profile Card */}
-                        <div className="bg-vehicle-card-bg rounded-2xl p-4 shadow-sm border border-vehicle-card-border flex items-center gap-4 mb-8">
+                        <div className="bg-white rounded-2xl p-4 shadow-sm border border-[#E4E7EC] flex items-center gap-4 mb-8">
                             <div className="flex-1">
                                 <h3 className="font-bold text-white text-lg">{mechanic.name}</h3>
                                 <p className="text-slate-400 text-xs font-medium mb-1">{mechanic.role}</p>
@@ -138,7 +138,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                                     </li>
                                 ))}
                             </ul>
-                            <button className="text-white font-bold text-sm mt-4 hover:underline">
+                            <button className="text-[#0F172A] font-bold text-sm mt-4 hover:underline">
                                 View All
                             </button>
                         </div>
@@ -148,7 +148,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                             <h3 className="font-bold text-white text-lg mb-4">Related Services</h3>
                             <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
                                 {/* Mock Related Cards */}
-                                <div className="min-w-[140px] bg-vehicle-card-bg p-3 rounded-2xl border border-vehicle-card-border flex items-center gap-3">
+                                <div className="min-w-[140px] bg-white p-3 rounded-2xl border border-[#E4E7EC] flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center">
                                         {/* Icon placeholder */}
                                         <div className="w-4 h-4 bg-yellow-400 rounded-sm"></div>
@@ -158,7 +158,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                                         <span className="text-[10px] text-slate-500">Painting</span>
                                     </div>
                                 </div>
-                                <div className="min-w-[140px] bg-vehicle-card-bg p-3 rounded-2xl border border-vehicle-card-border flex items-center gap-3">
+                                <div className="min-w-[140px] bg-white p-3 rounded-2xl border border-[#E4E7EC] flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
                                         {/* Icon placeholder */}
                                         <div className="w-4 h-4 bg-pink-400 rounded-sm"></div>

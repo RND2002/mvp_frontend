@@ -87,11 +87,11 @@ export const HealthSidebar = ({ open, onOpenChange, onSuccess }: HealthSidebarPr
 
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetContent side="right" className="w-full sm:max-w-md bg-primaryCard border-l-secondary-theme p-0 overflow-y-auto">
+            <SheetContent side="right" className="w-full sm:max-w-md bg-white border-l-secondary-theme p-0 overflow-y-auto">
                 <div className="p-6">
                     <button
                         onClick={() => onOpenChange(false)}
-                        className="mb-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                        className="mb-8 flex items-center gap-2 text-[#475569] hover:text-white transition-colors"
                     >
                         <ChevronLeft className="w-5 h-5" />
                         <span className="text-sm font-medium">Vehicle History Details</span>

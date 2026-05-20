@@ -9,7 +9,7 @@ const PlatformFeatures = () => {
                 <h2 className="text-center text-4xl font-bold text-white">
                     Platform Features
                 </h2>
-                <p className="mt-3 text-center text-gray-400">
+                <p className="mt-3 text-center text-[#475569]">
                     Everything you need for complete vehicle care
                 </p>
 

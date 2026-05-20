@@ -18,7 +18,7 @@ interface AutoSliderProps {
 
 const AutoSlider: React.FC<AutoSliderProps> = ({ slides, className }) => {
     return (
-        <div className={clsx("flex overflow-hidden h-[60px] items-center text-sm font-semibold text-gray-700", className)}>
+        <div className={clsx("flex overflow-hidden h-[60px] items-center text-sm font-semibold text-[#94A3B8]", className)}>
             <div className="animate-pulse">
                 {slides[0]}
             </div>

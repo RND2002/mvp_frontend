@@ -22,31 +22,31 @@ export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }
     return (
         <div className="space-y-4 cursor-pointer" onClick={onClick}>
             {/* Main Health Card */}
-            <Card className="bg-primaryCard border-secondary-theme overflow-hidden relative rounded-3xl group shadow-2xl shadow-black/40">
-                <CardContent className="p-7">
+            <Card className="bg-white border border-[#E4E7EC] overflow-hidden relative rounded-3xl group shadow-sm">
+                <CardContent className="p-5">
                     {/* Header Section */}
-                    <div className="flex justify-between items-start mb-10">
+                    <div className="flex justify-between items-start mb-5">
                         <div>
-                            <p className="text-theme-green text-[10px] font-black uppercase tracking-[0.2em] mb-2">Vehicle Health</p>
-                            <h3 className="text-3xl font-bold text-white leading-tight tracking-tight max-w-[200px] mb-1">{vehicleName?.toUpperCase() || "Your Vehicle"}</h3>
-                            <p className="text-gray-500 text-sm font-bold tracking-widest opacity-80">{registrationNumber || ""}</p>
+                            <p className="text-[#6B2FA0] text-[9px] font-black uppercase tracking-[0.2em] mb-1">Vehicle Health</p>
+                            <h3 className="text-xl font-bold text-[#0F172A] leading-tight tracking-tight max-w-[180px] mb-0.5">{vehicleName?.toUpperCase() || "Your Vehicle"}</h3>
+                            <p className="text-[#94A3B8] text-xs font-bold tracking-widest">{registrationNumber || ""}</p>
                         </div>
-                        <div className="bg-theme-green/10 text-theme-green border border-theme-green/30 rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest h-fit uppercase">
+                        <div className="bg-[#DCFCE7] text-[#6B2FA0] border border-[#DCFCE7] rounded-full px-3 py-1 text-[9px] font-black tracking-widest h-fit uppercase">
                             {status === "OPTIMAL" ? "EXCELLENT" : status.replace(/_/g, " ")}
                         </div>
                     </div>
 
                     {/* Gauge Section */}
-                    <div className="relative flex flex-col items-center justify-center py-6 mb-4">
-                        <div className="relative w-64 h-32 overflow-hidden">
+                    <div className="relative flex flex-col items-center justify-center py-2 mb-2">
+                        <div className="relative w-48 h-24 overflow-hidden">
                             {/* Semi-circle background */}
-                            <svg className="w-64 h-64 -rotate-180" viewBox="0 0 100 100">
+                            <svg className="w-48 h-48 -rotate-180" viewBox="0 0 100 100">
                                 <circle
                                     cx="50"
                                     cy="50"
                                     r="44"
                                     fill="none"
-                                    stroke="#1E293B"
+                                    stroke="#E4E7EC"
                                     strokeWidth="12"
                                     strokeDasharray="138.23 276.46"
                                     strokeLinecap="round"
@@ -65,49 +65,38 @@ export const HealthSummary = ({ data, onClick, registrationNumber, vehicleName }
                                 />
                                 <defs>
                                     <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stopColor="#00DF82" />
-                                        <stop offset="100%" stopColor="#00DF82" />
+                                        <stop offset="0%" stopColor="#6B2FA0" />
+                                        <stop offset="100%" stopColor="#6B2FA0" />
                                     </linearGradient>
-                                    <filter id="glow">
-                                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                                        <feMerge>
-                                            <feMergeNode in="coloredBlur" />
-                                            <feMergeNode in="SourceGraphic" />
-                                        </feMerge>
-                                    </filter>
                                 </defs>
                             </svg>
                         </div>
 
                         {/* Gauge Label Overlay */}
-                        <div className="absolute top-[62%] flex flex-col items-center">
-                            <span className="text-5xl font-black text-white tracking-tighter drop-shadow-sm">{score}%</span>
-                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mt-1">Health Score</span>
+                        <div className="absolute top-[55%] flex flex-col items-center">
+                            <span className="text-3xl font-black text-[#0F172A] tracking-tighter">{score}%</span>
+                            <span className="text-[9px] font-bold text-[#475569] uppercase tracking-[0.2em] mt-0.5">Health Score</span>
                         </div>
                     </div>
 
                     {/* Legend Section */}
-                    <div className="flex justify-between items-center mt-10 px-2 pt-6 border-t border-white/5">
+                    <div className="flex justify-between items-center mt-4 px-2 pt-4 border-t border-[#E4E7EC]">
                         <div className="text-center flex-1">
-                            <p className="text-[10px] text-gray-500 font-bold mb-1.5 opacity-60">0-33</p>
-                            <p className="text-[10px] text-theme-red font-black uppercase tracking-widest">Bad</p>
+                            <p className="text-[9px] text-[#94A3B8] font-bold mb-1 opacity-60">0-33</p>
+                            <p className="text-[9px] text-[#DC2626] font-bold uppercase tracking-widest">Bad</p>
                         </div>
-                        <div className="h-6 w-px bg-white/5"></div>
+                        <div className="h-5 w-px bg-[#E4E7EC]"></div>
                         <div className="text-center flex-1">
-                            <p className="text-[10px] text-gray-500 font-bold mb-1.5 opacity-60">34-66</p>
-                            <p className="text-[10px] text-theme-yellow font-black uppercase tracking-widest">Average</p>
+                            <p className="text-[9px] text-[#94A3B8] font-bold mb-1 opacity-60">34-66</p>
+                            <p className="text-[9px] text-[#D97706] font-bold uppercase tracking-widest">Average</p>
                         </div>
-                        <div className="h-6 w-px bg-white/5"></div>
+                        <div className="h-5 w-px bg-[#E4E7EC]"></div>
                         <div className="text-center flex-1">
-                            <p className="text-[10px] text-gray-500 font-bold mb-1.5 opacity-60">67-100</p>
-                            <p className="text-[10px] text-theme-green font-black uppercase tracking-widest">Good</p>
+                            <p className="text-[9px] text-[#94A3B8] font-bold mb-1 opacity-60">67-100</p>
+                            <p className="text-[9px] text-[#6B2FA0] font-bold uppercase tracking-widest">Good</p>
                         </div>
                     </div>
                 </CardContent>
-
-                {/* Subtle Glow Effects */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-theme-green/5 rounded-full blur-[80px] -mr-16 -mt-16 pointer-events-none group-hover:bg-theme-green/10 transition-colors"></div>
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/5 rounded-full blur-[80px] -ml-16 -mb-16 pointer-events-none"></div>
             </Card>
 
             {/* System Parameters List */}

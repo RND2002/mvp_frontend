@@ -130,7 +130,7 @@ const ContactPopup: React.FC<ContactPopupProps> = ({
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-500 hover:text-black"
+                    className="absolute top-4 right-4 text-[#475569] hover:text-black"
                 >
                     ✕
                 </button>

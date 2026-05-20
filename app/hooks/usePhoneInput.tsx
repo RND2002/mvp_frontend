@@ -34,19 +34,15 @@ const PhoneInputField = <T extends FieldValues>({
     error,
 }: PhoneInputFieldProps<T>) => {
     const labelClass = clsx(
-        "mb-1",
-        labelClassName,
-        color === "white"
-            ? "text-sm 2xl:text-lg text-white"
-            : "text-sm 2xl:text-lg text-text-white"
+        "mb-2 text-[10px] font-black uppercase tracking-widest text-[#475569]",
+        labelClassName
     );
 
     const inputClass = clsx(
         "w-full px-4 py-3",
         "rounded-[12px]",
-        // Always usage dark theme for consistency
-        "bg-vehicle-card-bg text-white border border-vehicle-card-border placeholder:text-gray-500",
-        "focus:border-green-500 focus:ring-green-500/50 focus:outline-none focus:ring-[3px]",
+        "bg-white text-[#0F172A] border border-[#E4E7EC] placeholder:text-[#94A3B8]",
+        "focus:border-[#6B2FA0] focus:ring-[#6B2FA0]/30 focus:outline-none focus:ring-[3px]",
         error && "border-red-500 focus:ring-red-500/50",
         inputClassName
     );

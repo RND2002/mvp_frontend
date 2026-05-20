@@ -62,7 +62,7 @@ export default function ProductDetailsPage() {
 
     if (isFetching) {
         return (
-            <div className="bg-primary-theme min-h-screen flex items-center justify-center">
+            <div className="bg-[#F8F9FB] min-h-screen flex items-center justify-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-theme-green text-theme-green"></div>
             </div>
         );
@@ -70,12 +70,12 @@ export default function ProductDetailsPage() {
 
     if (error || !product) {
         return (
-            <div className="bg-primary-theme min-h-screen py-20 text-center px-4">
-                <h2 className="text-white text-xl font-bold mb-2">Product Not Found</h2>
+            <div className="bg-[#F8F9FB] min-h-screen py-20 text-center px-4">
+                <h2 className="text-[#0F172A] text-xl font-bold mb-2">Product Not Found</h2>
                 <p className="text-zinc-400 mb-6">We couldn't find the product you're looking for.</p>
                 <button
                     onClick={() => router.back()}
-                    className="px-4 py-2 bg-secondary-theme text-white rounded-lg hover:bg-secondary-theme/80 transition-colors"
+                    className="px-4 py-2 bg-[#F5EDFC] text-white rounded-lg hover:bg-[#F5EDFC]/80 transition-colors"
                 >
                     Go Back
                 </button>
@@ -84,7 +84,7 @@ export default function ProductDetailsPage() {
     }
 
     return (
-        <div className="bg-primary-theme min-h-screen pb-40">
+        <div className="bg-[#F8F9FB] min-h-screen pb-40">
             <Container className="py-6 px-4 sm:px-6 lg:px-8">
                 {/* Breadcrumb / Back Navigation */}
                 <button
@@ -98,7 +98,7 @@ export default function ProductDetailsPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                     {/* LEFT: Image Carousel */}
                     <div className="flex flex-col gap-4">
-                        <div className="relative w-full aspect-[4/3] bg-secondary-theme rounded-2xl overflow-hidden border border-secondary-theme group">
+                        <div className="relative w-full aspect-[4/3] bg-[#F5EDFC] rounded-2xl overflow-hidden border border-[#E4E7EC] group">
                             {product.image_urls && product.image_urls.length > 0 ? (
                                 <>
                                     <Image
@@ -157,10 +157,10 @@ export default function ProductDetailsPage() {
                     {/* RIGHT: Product Info */}
                     <div className="flex flex-col">
                         <div className="mb-2 flex items-center justify-between">
-                            <span className="px-3 py-1 bg-secondary-theme text-theme-green text-xs font-bold uppercase rounded-full tracking-wider border border-border-primaryBorder">
+                            <span className="px-3 py-1 bg-[#F5EDFC] text-theme-green text-xs font-bold uppercase rounded-full tracking-wider border border-border-primaryBorder">
                                 {product.category}
                             </span>
-                            <button className="p-2 text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-secondary-theme">
+                            <button className="p-2 text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-[#F5EDFC]">
                                 <Share2 className="w-5 h-5" />
                             </button>
                         </div>
@@ -170,7 +170,7 @@ export default function ProductDetailsPage() {
                         </h1>
 
                         {/* Price & Stock */}
-                        <div className="flex items-end gap-4 mb-6 pb-6 border-b border-secondary-theme">
+                        <div className="flex items-end gap-4 mb-6 pb-6 border-b border-[#E4E7EC]">
                             <div className="flex flex-col">
                                 <span className="text-zinc-500 text-sm mb-1">Price</span>
                                 <span className="text-3xl font-bold text-white">
@@ -199,8 +199,8 @@ export default function ProductDetailsPage() {
                             <div className="mb-6 bg-theme-green/10 border border-theme-green/20 rounded-xl p-4 flex items-start gap-3">
                                 <CheckCircle className="w-5 h-5 text-theme-green flex-shrink-0 mt-0.5" />
                                 <div>
-                                    <h4 className="text-theme-white font-medium text-sm">Compatible with your vehicle</h4>
-                                    <p className="text-theme-white/80 text-xs mt-1">
+                                    <h4 className="text-[#0F172A] font-medium text-sm">Compatible with your vehicle</h4>
+                                    <p className="text-white/80 text-xs mt-1">
                                         Verified fit for {selectedVehicle.brand} {selectedVehicle.model}
                                     </p>
                                 </div>
@@ -209,11 +209,11 @@ export default function ProductDetailsPage() {
 
                         {/* Installation Awareness */}
                         {product.requires_installation && (
-                            <div className="mb-8 bg-zinc-900 border border-secondary-theme rounded-xl p-5 relative overflow-hidden group">
+                            <div className="mb-8 bg-zinc-900 border border-[#E4E7EC] rounded-xl p-5 relative overflow-hidden group">
                                 <div className="absolute right-0 top-0 w-24 h-24 bg-theme-green/10 rounded-bl-full -mr-4 -mt-4 z-0" />
 
                                 <div className="relative z-10 flex items-start gap-3">
-                                    <div className="p-2.5 bg-secondary-theme rounded-lg text-theme-green shrink-0">
+                                    <div className="p-2.5 bg-[#F5EDFC] rounded-lg text-theme-green shrink-0">
                                         <Wrench className="w-6 h-6" />
                                     </div>
                                     <div>
@@ -250,16 +250,16 @@ export default function ProductDetailsPage() {
             </Container>
 
             {/* Bottom Sticky Action Bar */}
-            <div className="fixed bottom-0 left-0 right-0 bg-primaryCard border-t border-secondary-theme p-4 z-[100] safe-area-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
+            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E4E7EC] p-4 z-[100] safe-area-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
                 <Container className="!py-0 px-4 sm:px-6 lg:px-8 max-h-[80px]">
                     <div className="flex items-center justify-between gap-3 sm:gap-4 pl-12 sm:pl-0">
                         <div className="flex flex-col shrink-0">
                             <span className="text-zinc-400 text-[10px] hidden xs:block">Total</span>
-                            <span className="text-white font-bold text-lg leading-none">₹{product.price.toLocaleString('en-IN')}</span>
+                            <span className="text-[#0F172A] font-bold text-lg leading-none">₹{product.price.toLocaleString('en-IN')}</span>
                         </div>
 
                         <div className="flex-1 flex gap-2 sm:gap-3 justify-end items-center">
-                            <button className="flex-none border border-secondary-theme bg-secondary-theme/50 text-white font-medium p-3 sm:py-3 sm:px-6 rounded-xl hover:bg-secondary-theme transition-colors active:scale-95">
+                            <button className="flex-none border border-[#E4E7EC] bg-[#F5EDFC]/50 text-white font-medium p-3 sm:py-3 sm:px-6 rounded-xl hover:bg-[#F5EDFC] transition-colors active:scale-95">
                                 <span className="sm:hidden"><Share2 className="w-5 h-5" /></span>
                                 <span className="hidden sm:inline">Save for Later</span>
                             </button>
@@ -268,7 +268,7 @@ export default function ProductDetailsPage() {
                                 onClick={handleAddToCart}
                                 disabled={product.stock_quantity === 0 || isAddingToCart}
                                 className={`
-                                    flex-1 sm:flex-none py-3 px-4 sm:px-8 rounded-xl font-bold text-theme-white text-sm sm:text-base shadow-lg shadow-theme-green/25 transition-all active:scale-95 flex items-center justify-center gap-2
+                                    flex-1 sm:flex-none py-3 px-4 sm:px-8 rounded-xl font-bold text-white text-sm sm:text-base shadow-lg shadow-theme-green/25 transition-all active:scale-95 flex items-center justify-center gap-2
                                     ${product.stock_quantity > 0 && !isAddingToCart
                                         ? 'bg-theme-green hover:bg-theme-green/80'
                                         : 'bg-zinc-700 cursor-not-allowed text-zinc-400 shadow-none'
@@ -289,7 +289,7 @@ export default function ProductDetailsPage() {
                         </div>
                     </div>
                 </Container>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

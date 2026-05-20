@@ -56,7 +56,7 @@ export default function FeatureSection() {
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
                         Everything your vehicle needs
                     </h2>
-                    <p className="text-gray-400 max-w-2xl text-lg">
+                    <p className="text-[#475569] max-w-2xl text-lg">
                         One app to manage, maintain, and upgrade your vehicle. Designed for the modern owner.
                     </p>
                 </div>
@@ -65,7 +65,7 @@ export default function FeatureSection() {
                     {features.map((feature, index) => (
                         <div
                             key={index}
-                            className="group p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
+                            className="group p-6 rounded-2xl border border-[#E4E7EC] bg-[#F8F9FB] hover:bg-[#F5EDFC] transition-all duration-300 hover:-translate-y-1"
                         >
                             <div className={`h-12 w-12 rounded-xl flex items-center justify-center mb-4 ${feature.bg} ${feature.color} group-hover:scale-110 transition-transform duration-300`}>
                                 <feature.icon className="h-6 w-6" />
@@ -73,7 +73,7 @@ export default function FeatureSection() {
                             <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-green-400 transition-colors">
                                 {feature.title}
                             </h3>
-                            <p className="text-gray-400 leading-relaxed">
+                            <p className="text-[#475569] leading-relaxed">
                                 {feature.description}
                             </p>
                         </div>

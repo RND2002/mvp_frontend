@@ -18,12 +18,12 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
     const displayPrice = typeof product.price === 'string' ? parseFloat(product.price) : product.price;
 
     return (
-        <div className="group relative flex gap-5 p-5 bg-primaryCard/40 border border-[#5c707a]/20 rounded-[2.5rem] hover:border-theme-green/30 transition-all duration-500 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.4)] overflow-hidden">
+        <div className="group relative flex gap-5 p-5 bg-white border border-[#5c707a]/20 rounded-[2.5rem] hover:border-theme-green/30 transition-all duration-500 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.4)] overflow-hidden">
             {/* Ambient Background Glow */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-theme-green/5 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-theme-green/10 transition-colors duration-700"></div>
 
             {/* Product Image Section */}
-            <div className="relative w-28 h-28 shrink-0 rounded-[1.75rem] overflow-hidden border border-white/5 bg-primaryCard">
+            <div className="relative w-28 h-28 shrink-0 rounded-[1.75rem] overflow-hidden border border-[#E4E7EC] bg-white">
                 {product.image_urls?.[0] ? (
                     <Image
                         src={product.image_urls[0]}
@@ -49,13 +49,13 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
                                     {product.category}
                                 </span>
                                 {requires_installation && (
-                                    <div className="flex items-center gap-1 text-gray-500">
+                                    <div className="flex items-center gap-1 text-[#475569]">
                                         <Wrench className="w-2.5 h-2.5" />
                                         <span className="text-[8px] font-black uppercase tracking-widest">Setup Inc.</span>
                                     </div>
                                 )}
                             </div>
-                            <h3 className="text-white font-black text-sm uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-theme-green transition-colors">
+                            <h3 className="text-[#0F172A] font-black text-sm uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-theme-green transition-colors">
                                 {product.name}
                             </h3>
                         </div>
@@ -72,15 +72,15 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
 
                 <div className="flex items-end justify-between mt-4">
                     <div className="flex flex-col">
-                        <span className="text-[8px] font-black text-gray-600 uppercase tracking-widest mb-0.5">Unit Price</span>
-                        <div className="text-white font-black text-xl tracking-tighter">
+                        <span className="text-[8px] font-black text-[#94A3B8] uppercase tracking-widest mb-0.5">Unit Price</span>
+                        <div className="text-[#0F172A] font-black text-xl tracking-tighter">
                             ₹{displayPrice.toLocaleString('en-IN')}
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3 bg-white/5 border border-white/5 rounded-2xl p-1.5 px-4 h-11">
-                        <span className="text-gray-500 text-[9px] font-black uppercase tracking-widest">Qty</span>
-                        <div className="w-px h-3 bg-white/10"></div>
+                    <div className="flex items-center gap-3 bg-[#F8F9FB] border border-[#E4E7EC] rounded-2xl p-1.5 px-4 h-11">
+                        <span className="text-[#475569] text-[9px] font-black uppercase tracking-widest">Qty</span>
+                        <div className="w-px h-3 bg-[#F5EDFC]"></div>
                         <span className="text-theme-green font-black text-sm">{quantity}</span>
                     </div>
                 </div>

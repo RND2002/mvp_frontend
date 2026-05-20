@@ -68,7 +68,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ data }) => {
                 <h3 className="font-bold text-lg mb-4 text-white">Coupons & Offers</h3>
                 <div className="space-y-3">
                     {data.coupons.map((coupon, idx) => (
-                        <div key={idx} className="flex items-center gap-3 border border-dashed border-gray-300 rounded-lg p-3 bg-primaryCard">
+                        <div key={idx} className="flex items-center gap-3 border border-dashed border-gray-300 rounded-lg p-3 bg-white">
                             <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[var(--color-primary)]">
                                 %
                             </div>
@@ -76,7 +76,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ data }) => {
                                 <div className="font-bold text-white flex items-center gap-2">
                                     {coupon.code} <span className="text-xs text-red-500 font-normal">{">"}</span>
                                 </div>
-                                <p className="text-xs text-gray-500">{coupon.description}</p>
+                                <p className="text-xs text-[#475569]">{coupon.description}</p>
                             </div>
                         </div>
                     ))}

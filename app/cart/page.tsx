@@ -103,11 +103,11 @@ export default function CartPage() {
 
     if (!selectedVehicle) {
         return (
-            <div className="bg-primary-theme min-h-screen pt-20 flex flex-col items-center justify-center p-6 text-center">
-                <div className="w-16 h-16 bg-secondary-theme rounded-full flex items-center justify-center mb-4">
+            <div className="bg-[#F8F9FB] min-h-screen pt-20 flex flex-col items-center justify-center p-6 text-center">
+                <div className="w-16 h-16 bg-[#F5EDFC] rounded-full flex items-center justify-center mb-4">
                     <ShoppingBag className="w-8 h-8 text-zinc-500" />
                 </div>
-                <h2 className="text-white text-xl font-bold mb-2">Select a Vehicle</h2>
+                <h2 className="text-[#0F172A] text-xl font-bold mb-2">Select a Vehicle</h2>
                 <p className="text-zinc-400 mb-6 max-w-xs">Please select a vehicle from your garage to view your cart.</p>
                 <button
                     onClick={() => router.push('/')}
@@ -120,7 +120,7 @@ export default function CartPage() {
     }
 
     return (
-        <div className="bg-primary-theme h-svh flex flex-col overflow-x-hidden">
+        <div className="bg-[#F8F9FB] h-svh flex flex-col overflow-x-hidden">
             <Container className="pt-8 pb-4 px-4 sticky top-0 bg-primary-theme/80 backdrop-blur-md z-30">
                 {/* Standardized Premium Page Header */}
                 <PageHeader
@@ -133,7 +133,7 @@ export default function CartPage() {
                             {activeDeliveryOrders && activeDeliveryOrders.length > 0 && (
                                 <button
                                     onClick={() => setShowOngoingOrders(true)}
-                                    className="relative p-2.5 bg-white/5 border border-white/10 rounded-xl text-zinc-400 hover:text-white transition-all active:scale-95 group"
+                                    className="relative p-2.5 bg-[#F8F9FB] border border-[#E4E7EC] rounded-xl text-zinc-400 hover:text-white transition-all active:scale-95 group"
                                 >
                                     <History className="w-5 h-5 group-hover:rotate-[-20deg] transition-transform" />
                                     <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[8px] font-bold flex items-center justify-center rounded-full border-2 border-primary-theme">
@@ -150,8 +150,8 @@ export default function CartPage() {
                                     className={cn(
                                         "h-11 px-6 relative group overflow-hidden transition-all duration-500 font-bold text-sm rounded-xl flex items-center justify-center gap-2",
                                         !selectedLocation || isCheckingOut
-                                            ? "bg-white/5 text-gray-600 border border-white/10 cursor-not-allowed"
-                                            : "bg-theme-green text-black shadow-[0_10px_20px_-5px_rgba(0,223,130,0.3)] active:scale-95"
+                                            ? "bg-[#F8F9FB] text-[#94A3B8] border border-[#E4E7EC] cursor-not-allowed"
+                                            : "bg-theme-green text-white shadow-[0_10px_20px_-5px_rgba(107,47,160,0.3)] active:scale-95"
                                     )}
                                 >
                                     <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
@@ -177,7 +177,7 @@ export default function CartPage() {
                         <div className="mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
                             <div className="flex items-center gap-2 mb-3 px-1">
                                 <div className="w-1 h-3 bg-theme-green rounded-full"></div>
-                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-[0.2em]">Service Location</span>
+                                <span className="text-[9px] font-black text-[#475569] uppercase tracking-[0.2em]">Service Location</span>
                             </div>
                             <LocationSelector
                                 onLocationSelect={setSelectedLocation}
@@ -188,14 +188,14 @@ export default function CartPage() {
 
                     {allItems.length === 0 && !isLoading ? (
                         <div className="flex flex-col items-center justify-center py-20 text-center">
-                            <div className="w-20 h-20 bg-secondary-theme rounded-full flex items-center justify-center mb-6">
+                            <div className="w-20 h-20 bg-[#F5EDFC] rounded-full flex items-center justify-center mb-6">
                                 <ShoppingBag className="w-10 h-10 text-zinc-500" />
                             </div>
-                            <h2 className="text-white text-lg font-bold mb-2">Your cart is empty</h2>
+                            <h2 className="text-[#0F172A] text-lg font-bold mb-2">Your cart is empty</h2>
                             <p className="text-zinc-500 mb-8 max-w-xs">Looks like you haven't added any gear for your {selectedVehicle.model} yet.</p>
                             <button
                                 onClick={() => router.push('/gear-up')}
-                                className="px-8 py-3 bg-secondary-theme text-white rounded-xl font-medium hover:bg-secondary-theme/80 transition-colors"
+                                className="px-8 py-3 bg-[#F5EDFC] text-white rounded-xl font-medium hover:bg-[#F5EDFC]/80 transition-colors"
                             >
                                 Browse Gear
                             </button>

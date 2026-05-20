@@ -10,7 +10,7 @@ export const AddVehicleButton = ({ onClick }: AddVehicleButtonProps) => {
             variant="outline"
             size="sm"
             onClick={onClick}
-            className="text-xs border-vehicle-card-border text-green-500 hover:text-green-400 bg-transparent"
+            className="text-xs border-[#E4E7EC] text-green-500 hover:text-green-400 bg-transparent"
         >
             + Add New
         </Button>

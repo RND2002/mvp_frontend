@@ -98,12 +98,12 @@
         --color-muted-pink: #faf0f0;
         --color-card-pink: #ffc7c9;
         --color-tech-card: #d3d3d3;
-        --color-primary-theme: #091A23;
-        --color-secondary-theme: #163341;
-        --color-primaryCard:#0D212C;
-        --color-primaryBorder:#5c707a;
-        --color-partnerLists:#2D4754;
-        --color-primaryText:#dcff1e;
+        --color-primary-theme: #FFFFFF;
+        --color-secondary-theme: #F8F9FB;
+        --color-primaryCard: #FFFFFF;
+        --color-primaryBorder: #E4E7EC;
+        --color-partnerLists: #F8F9FB;
+        --color-primaryText: #0F172A;
         /* --color-secondary-theme: #779433; */
 
         /* Neutral / supporting colors */
@@ -783,7 +783,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-text-fill-color: white; /* text color */
+  -webkit-text-fill-color: #0F172A; /* text color */
   -webkit-box-shadow: 0 0 0px 1000px transparent inset; /* background */
   transition: background-color 5000s ease-in-out 0s;
 }

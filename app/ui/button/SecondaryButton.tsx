@@ -16,7 +16,7 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = ({
         <button
             type={type}
             className={clsx(
-                "rounded-[12px] border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2",
+                "rounded-[12px] border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-[#94A3B8] transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2",
                 fullWidth && "w-full",
                 className
             )}

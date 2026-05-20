@@ -35,9 +35,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-[#F8F9FB]">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-primary-theme antialiased selection:bg-green-500/30`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-[#F8F9FB] antialiased selection:bg-[#6B2FA0]/20 selection:text-[#6B2FA0]`}
       >
         <StoreProvider>
           <VehicleInitializer />

@@ -39,13 +39,13 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
                     {showBackButton && (
                         <button
                             onClick={handleBack}
-                            className="p-2 -ml-2 text-zinc-400 hover:text-white transition-all active:scale-95 shrink-0"
+                            className="p-2 -ml-2 text-[#94A3B8] hover:text-[#0F172A] transition-all active:scale-95 shrink-0"
                         >
                             <ChevronLeft className="w-6 h-6" />
                         </button>
                     )}
                     <div className="flex-1">
-                        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-white tracking-tight leading-tight">
+                        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#0F172A] tracking-tight leading-tight">
                             {title}
                         </h1>
                     </div>
@@ -58,7 +58,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
             </div>
             {subtitle && (
                 <div className={cn(
-                    "text-gray-500 font-medium tracking-tight text-[11px] md:text-xs max-w-2xl mt-0",
+                    "text-[#475569] font-medium tracking-tight text-[11px] md:text-xs max-w-2xl mt-0",
                     showBackButton ? "ml-14" : "ml-0"
                 )}>
                     {subtitle}

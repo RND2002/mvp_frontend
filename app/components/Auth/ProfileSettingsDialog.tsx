@@ -176,24 +176,24 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             {isRedirecting && <Loader fullScreen text="Switching vehicle..." />}
-            <SheetContent side="right" className="w-full sm:max-w-[420px] bg-primaryCard border-l border-secondary-theme text-white p-0 overflow-hidden flex flex-col">
-                <SheetHeader className="p-6 border-b border-white/5 flex flex-row items-center gap-4 space-y-0 relative z-10">
+            <SheetContent side="right" className="w-full sm:max-w-[420px] bg-white border-l border-[#E4E7EC] text-[#0F172A] p-0 overflow-hidden flex flex-col">
+                <SheetHeader className="p-6 border-b border-[#E4E7EC] flex flex-row items-center gap-4 space-y-0 relative z-10">
                     <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => setOpen(false)}
-                        className="text-gray-500 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                        className="text-[#94A3B8] hover:text-[#475569] hover:bg-[#F8F9FB] rounded-xl transition-all"
                     >
                         <ArrowLeft className="w-6 h-6" />
                     </Button>
                     <div className="flex-1">
                         <div className="flex items-center gap-2 mb-0.5">
-                            <SheetTitle className="text-xl font-black text-white uppercase tracking-tighter">
+                            <SheetTitle className="text-xl font-black text-[#0F172A] uppercase tracking-tighter">
                                 Settings
                             </SheetTitle>
-                            <div className="w-1.5 h-1.5 rounded-full bg-theme-green"></div>
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#6B2FA0]"></div>
                         </div>
-                        <SheetDescription className="text-gray-500 font-bold uppercase text-[9px] tracking-widest text-left">
+                        <SheetDescription className="text-[#94A3B8] font-bold uppercase text-[9px] tracking-widest text-left">
                             Personalize your dashboard
                         </SheetDescription>
                     </div>
@@ -203,17 +203,15 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                     <div className="px-6 py-8 space-y-10 scrollbar-hide">
                         {/* User Profile Card */}
                         <div className="relative group">
-                            <div className="absolute -inset-0.5 bg-linear-to-r from-theme-green/20 to-transparent rounded-3xl blur-sm opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                            <div className="relative flex items-center gap-5 bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl">
-                                <div className="w-16 h-16 bg-theme-green/10 rounded-2xl flex items-center justify-center border border-theme-green/20">
-                                    <UserIcon className="w-8 h-8 text-theme-green" />
+                            <div className="relative flex items-center gap-5 bg-[#F8F9FB] border border-[#E4E7EC] rounded-3xl p-6">
+                                <div className="w-16 h-16 bg-[#DCFCE7] rounded-2xl flex items-center justify-center border border-[#6B2FA0]/20">
+                                    <UserIcon className="w-8 h-8 text-[#6B2FA0]" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    {/* <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">Authenticated Account</p> */}
-                                    <h3 className="text-white font-black text-lg tracking-tight leading-tight">
+                                    <h3 className="text-[#0F172A] font-black text-lg tracking-tight leading-tight">
                                         {user?.email?.split('@')[0] || user?.phone || "Guest User"}
                                     </h3>
-                                    <p className="text-gray-500 font-bold text-[10px] tracking-widest break-all">
+                                    <p className="text-[#94A3B8] font-bold text-[10px] tracking-widest break-all">
                                         {user?.email || "verified member"}
                                     </p>
                                 </div>
@@ -227,13 +225,13 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                     className="flex items-center gap-3 cursor-pointer group/header py-1"
                                     onClick={() => setIsVehiclesExpanded(!isVehiclesExpanded)}
                                 >
-                                    <div className="w-8 h-8 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20 group-hover/header:bg-theme-green/20 transition-colors">
-                                        <Car className="w-4 h-4 text-theme-green" />
+                                    <div className="w-8 h-8 bg-[#DCFCE7] rounded-xl flex items-center justify-center border border-[#6B2FA0]/20 group-hover/header:bg-[#6B2FA0]/20 transition-colors">
+                                        <Car className="w-4 h-4 text-[#6B2FA0]" />
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <h3 className="text-sm font-black text-white uppercase tracking-tighter">My Vehicles</h3>
+                                        <h3 className="text-sm font-black text-[#0F172A] uppercase tracking-tighter">My Vehicles</h3>
                                         <div className="transition-transform duration-200">
-                                            {isVehiclesExpanded ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                                            {isVehiclesExpanded ? <ChevronUp className="w-4 h-4 text-[#94A3B8]" /> : <ChevronDown className="w-4 h-4 text-[#94A3B8]" />}
                                         </div>
                                     </div>
                                 </div>
@@ -263,45 +261,45 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                                 className={cn(
                                                     "group flex items-center p-4 rounded-2xl border transition-all cursor-pointer relative overflow-hidden",
                                                     isActive
-                                                        ? "bg-theme-green/10 border-theme-green/50 shadow-[0_0_20px_rgba(34,197,94,0.1)]"
-                                                        : "bg-white/5 border-white/10 hover:border-white/20"
+                                                        ? "bg-[#DCFCE7]/40 border-[#6B2FA0] shadow-sm"
+                                                        : "bg-[#F8F9FB] border-[#E4E7EC] hover:bg-white"
                                                 )}
                                             >
                                                 <div className={cn(
                                                     "w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0",
-                                                    isActive ? "bg-theme-green text-black" : "bg-white/5 text-gray-400 group-hover:text-white"
+                                                    isActive ? "bg-[#6B2FA0] text-white" : "bg-white text-[#94A3B8] group-hover:text-[#475569] border border-[#E4E7EC]"
                                                 )}>
                                                     {getVehicleIcon(vehicle.vehicle_type)}
                                                 </div>
                                                 <div className="ml-4 flex-1 min-w-0">
                                                     <div className="flex items-start gap-2">
-                                                        <span className="text-white font-black uppercase text-xs tracking-widest whitespace-normal leading-tight">
+                                                        <span className="text-[#0F172A] font-black uppercase text-xs tracking-widest whitespace-normal leading-tight">
                                                             {vehicle.brand} {vehicle.model}
                                                         </span>
                                                         {isActive && (
-                                                            <div className="shrink-0 h-4 px-2 flex items-center rounded-full border border-theme-green/30 text-theme-green text-[7px] font-black uppercase tracking-widest bg-theme-green/5">
+                                                            <div className="shrink-0 h-4 px-2 flex items-center rounded-full border border-[#6B2FA0]/30 text-[#6B2FA0] text-[7px] font-black uppercase tracking-widest bg-[#6B2FA0]/5">
                                                                 Active
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <p className="text-gray-500 text-[9px] font-bold uppercase tracking-wider mt-0.5 whitespace-normal break-all">
+                                                    <p className="text-[#475569] text-[9px] font-bold uppercase tracking-wider mt-0.5 whitespace-normal break-all">
                                                         {vehicle.registration_number || "PENDING REG"}
                                                     </p>
                                                 </div>
                                                 <div className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-2">
-                                                    <Settings2 className="w-4 h-4 text-gray-600" />
+                                                    <Settings2 className="w-4 h-4 text-[#94A3B8]" />
                                                 </div>
                                                 {isActive && (
-                                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-theme-green rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)]"></div>
+                                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-[#6B2FA0] rounded-full"></div>
                                                 )}
                                             </div>
                                         );
                                     });
                                 })()}
                                 {vehicles.length === 0 && (
-                                    <div className="text-center py-10 px-4 rounded-3xl border border-dashed border-white/5 bg-white/[0.02]">
-                                        <Car className="w-8 h-8 text-white/10 mx-auto mb-3" />
-                                        <p className="text-gray-600 font-bold uppercase text-[9px] tracking-[0.2em]">Add your primary vehicle to start</p>
+                                    <div className="text-center py-10 px-4 rounded-3xl border border-dashed border-[#E4E7EC] bg-[#F8F9FB]">
+                                        <Car className="w-8 h-8 text-[#E4E7EC] mx-auto mb-3" />
+                                        <p className="text-[#94A3B8] font-bold uppercase text-[9px] tracking-[0.2em]">Add your primary vehicle to start</p>
                                     </div>
                                 )}
                             </div>
@@ -314,13 +312,13 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                     className="flex items-center gap-3 cursor-pointer group/header py-1"
                                     onClick={() => setIsLocationsExpanded(!isLocationsExpanded)}
                                 >
-                                    <div className="w-8 h-8 bg-theme-green/10 rounded-xl flex items-center justify-center border border-theme-green/20 group-hover/header:bg-theme-green/20 transition-colors">
-                                        <MapPin className="w-4 h-4 text-theme-green" />
+                                    <div className="w-8 h-8 bg-[#DCFCE7] rounded-xl flex items-center justify-center border border-[#6B2FA0]/20 group-hover/header:bg-[#6B2FA0]/20 transition-colors">
+                                        <MapPin className="w-4 h-4 text-[#6B2FA0]" />
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <h3 className="text-sm font-black text-white uppercase tracking-tighter">Saved Locations</h3>
+                                        <h3 className="text-sm font-black text-[#0F172A] uppercase tracking-tighter">Saved Locations</h3>
                                         <div className="transition-transform duration-200">
-                                            {isLocationsExpanded ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                                            {isLocationsExpanded ? <ChevronUp className="w-4 h-4 text-[#94A3B8]" /> : <ChevronDown className="w-4 h-4 text-[#94A3B8]" />}
                                         </div>
                                     </div>
                                 </div>
@@ -329,7 +327,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                         variant="outline"
                                         size="sm"
                                         onClick={() => setIsAddLocationOpen(true)}
-                                        className="text-[10px] font-black uppercase tracking-widest border-white/10 text-theme-green bg-transparent h-8 rounded-lg hover:bg-theme-green hover:text-black transition-colors"
+                                        className="text-[10px] font-black uppercase tracking-widest border-[#E4E7EC] text-[#6B2FA0] bg-transparent h-8 rounded-lg hover:bg-[#6B2FA0] hover:text-white transition-colors"
                                     >
                                         + Add New
                                     </Button>
@@ -347,19 +345,19 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                     return itemsToDisplay.map((loc) => (
                                         <div
                                             key={loc.id}
-                                            className="group flex items-center p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all"
+                                            className="group flex items-center p-4 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC] hover:bg-white transition-all"
                                         >
-                                            <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-theme-green transition-colors shrink-0">
+                                            <div className="w-10 h-10 bg-white text-[#94A3B8] group-hover:text-[#6B2FA0] border border-[#E4E7EC] rounded-xl flex items-center justify-center transition-colors shrink-0">
                                                 {getLocationIcon(loc.label)}
                                             </div>
                                             <div className="ml-4 flex-1 min-w-0">
                                                 <div className="flex items-start gap-2">
-                                                    <span className="text-white font-black uppercase text-xs tracking-widest whitespace-normal leading-tight">{loc.label}</span>
+                                                    <span className="text-[#0F172A] font-black uppercase text-xs tracking-widest whitespace-normal leading-tight">{loc.label}</span>
                                                     {loc.is_default && (
-                                                        <div className="shrink-0 h-3.5 px-1.5 flex items-center rounded border border-theme-green/30 text-theme-green text-[6px] font-black uppercase tracking-widest bg-theme-green/5">Default</div>
+                                                        <div className="shrink-0 h-3.5 px-1.5 flex items-center rounded border border-[#6B2FA0]/30 text-[#6B2FA0] text-[6px] font-black uppercase tracking-widest bg-[#6B2FA0]/5">Default</div>
                                                     )}
                                                 </div>
-                                                <p className="text-gray-500 text-[9px] font-bold uppercase tracking-wider mt-0.5 whitespace-normal leading-relaxed">{loc.address}</p>
+                                                <p className="text-[#475569] text-[9px] font-bold uppercase tracking-wider mt-0.5 whitespace-normal leading-relaxed">{loc.address}</p>
                                             </div>
                                             {isLocationsExpanded && (
                                                 <button
@@ -373,9 +371,9 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                     ));
                                 })()}
                                 {locations.length === 0 && (
-                                    <div className="text-center py-10 rounded-3xl border border-dashed border-white/5 bg-white/2">
-                                        <MapPin className="w-8 h-8 text-white/10 mx-auto mb-3" />
-                                        <p className="text-gray-600 font-bold uppercase text-[9px] tracking-[0.2em]">Quick access addresses will appear here</p>
+                                    <div className="text-center py-10 rounded-3xl border border-dashed border-[#E4E7EC] bg-[#F8F9FB]">
+                                        <MapPin className="w-8 h-8 text-[#E4E7EC] mx-auto mb-3" />
+                                        <p className="text-[#94A3B8] font-bold uppercase text-[9px] tracking-[0.2em]">Quick access addresses will appear here</p>
                                     </div>
                                 )}
                             </div>
@@ -384,17 +382,17 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                 </ScrollArea>
 
                 <Dialog open={isAddLocationOpen} onOpenChange={setIsAddLocationOpen}>
-                    <DialogContent className="bg-primaryCard border border-secondary-theme text-white rounded-4xl p-8 max-w-md">
+                    <DialogContent className="bg-white border border-[#E4E7EC] text-[#0F172A] rounded-4xl p-8 max-w-md">
                         <DialogHeader>
-                            <DialogTitle className="text-2xl font-black uppercase  tracking-tighter">Add Location</DialogTitle>
-                            <DialogDescription className="text-gray-500 font-bold uppercase text-[10px] tracking-widest">
+                            <DialogTitle className="text-2xl font-black uppercase tracking-tighter">Add Location</DialogTitle>
+                            <DialogDescription className="text-[#94A3B8] font-bold uppercase text-[10px] tracking-widest">
                                 Save a new address for faster bookings
                             </DialogDescription>
                         </DialogHeader>
 
                         <div className="space-y-6 mt-4">
                             <div className="space-y-2">
-                                <Label className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">Label</Label>
+                                <Label className="text-[10px] font-black text-[#475569] uppercase tracking-widest px-1">Label</Label>
                                 <div className="flex gap-2">
                                     {["Home", "Work", "Other"].map(l => (
                                         <button
@@ -402,7 +400,7 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                             onClick={() => setNewLoc(prev => ({ ...prev, label: l }))}
                                             className={cn(
                                                 "px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all flex-1",
-                                                newLoc.label === l ? "bg-theme-green border-theme-green text-black" : "bg-white/5 border-white/10 text-gray-500 hover:border-white/20"
+                                                newLoc.label === l ? "bg-[#6B2FA0] border-[#6B2FA0] text-white" : "bg-white border-[#E4E7EC] text-[#94A3B8] hover:text-[#475569]"
                                             )}
                                         >
                                             {l}
@@ -413,18 +411,18 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">House / Flat No.</Label>
+                                    <Label className="text-[10px] font-black text-[#475569] uppercase tracking-widest px-1">House / Flat No.</Label>
                                     <Input
-                                        className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-theme-green/50"
+                                        className="h-12 bg-white border border-[#E4E7EC] text-[#0F172A] placeholder:text-[#94A3B8] rounded-xl focus-visible:ring-[#6B2FA0]/30 focus-visible:border-[#6B2FA0]"
                                         value={newLoc.houseNo}
                                         onChange={e => setNewLoc(prev => ({ ...prev, houseNo: e.target.value }))}
                                         placeholder="e.g. 101"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">Building/Area</Label>
+                                    <Label className="text-[10px] font-black text-[#475569] uppercase tracking-widest px-1">Building/Area</Label>
                                     <Input
-                                        className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-theme-green/50"
+                                        className="h-12 bg-white border border-[#E4E7EC] text-[#0F172A] placeholder:text-[#94A3B8] rounded-xl focus-visible:ring-[#6B2FA0]/30 focus-visible:border-[#6B2FA0]"
                                         value={newLoc.building}
                                         onChange={e => setNewLoc(prev => ({ ...prev, building: e.target.value }))}
                                         placeholder="e.g. Skyline"
@@ -433,18 +431,18 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">Landmark (Optional)</Label>
+                                <Label className="text-[10px] font-black text-[#475569] uppercase tracking-widest px-1">Landmark (Optional)</Label>
                                 <Input
-                                    className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-theme-green/50"
+                                    className="h-12 bg-white border border-[#E4E7EC] text-[#0F172A] placeholder:text-[#94A3B8] rounded-xl focus-visible:ring-[#6B2FA0]/30 focus-visible:border-[#6B2FA0]"
                                     value={newLoc.landmark}
                                     onChange={e => setNewLoc(prev => ({ ...prev, landmark: e.target.value }))}
                                     placeholder="e.g. Near Mall"
                                 />
                             </div>
 
-                            <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
-                                <div className={cn("w-2 h-2 rounded-full", geo.loaded ? "bg-theme-green animate-pulse" : "bg-gray-600")}></div>
-                                <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest">
+                            <div className="p-4 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC] flex items-center gap-3">
+                                <div className={cn("w-2 h-2 rounded-full", geo.loaded ? "bg-[#6B2FA0] animate-pulse" : "bg-[#94A3B8]")}></div>
+                                <p className="text-[8px] font-black text-[#94A3B8] uppercase tracking-widest">
                                     {geo.loaded ? "GPS COORDINATES CAPTURED" : "DETECTING GPS LOCATION..."}
                                 </p>
                             </div>
@@ -453,14 +451,14 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                                 <Button
                                     variant="ghost"
                                     onClick={() => setIsAddLocationOpen(false)}
-                                    className="flex-1 rounded-xl text-gray-500 uppercase font-black text-xs"
+                                    className="flex-1 rounded-xl text-[#94A3B8] hover:text-[#475569] uppercase font-black text-xs"
                                 >
                                     Cancel
                                 </Button>
                                 <Button
                                     onClick={handleSaveLocation}
                                     disabled={isCreatingLocation || !geo.loaded}
-                                    className="flex-1 bg-theme-green hover:bg-theme-green/90 text-black rounded-xl uppercase font-black text-xs"
+                                    className="flex-1 bg-[#6B2FA0] hover:bg-[#6B2FA0] text-white rounded-xl uppercase font-black text-xs shadow-none border-0"
                                 >
                                     {isCreatingLocation ? <Loader size="sm" /> : "Save Location"}
                                 </Button>
@@ -469,12 +467,12 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                     </DialogContent>
                 </Dialog>
 
-                <div className="p-6 border-t border-white/5 bg-white/[0.01] flex flex-col gap-4">
+                <div className="p-6 border-t border-[#E4E7EC] bg-[#F8F9FB] flex flex-col gap-4">
                     <Button
                         variant="ghost"
                         onClick={handleLogout}
                         disabled={isLoading}
-                        className="w-full h-14 rounded-2xl border border-white/5 bg-white/5 hover:bg-red-500/10 hover:border-red-500/20 text-gray-400 hover:text-red-500 font-black uppercase tracking-widest transition-all"
+                        className="w-full h-14 rounded-2xl border border-[#E4E7EC] bg-white hover:bg-[#FEF2F2] hover:border-[#FCA5A5] text-[#94A3B8] hover:text-[#DC2626] font-black uppercase tracking-widest transition-all"
                     >
                         {isLoading ? (
                             <div className="flex items-center gap-2">
@@ -488,9 +486,8 @@ export default function ProfileSettingsDialog({ open, setOpen, user }: ProfileSe
                             </div>
                         )}
                     </Button>
-                    {/* <p className="text-center text-gray-600 text-[8px] font-black uppercase tracking-[0.3em]">Version 2.4.0 • MVP PRO PLATFORM</p> */}
                 </div>
             </SheetContent>
-        </Sheet >
+        </Sheet>
     )
 }

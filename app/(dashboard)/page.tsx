@@ -23,7 +23,7 @@ export default function DashboardPage() {
     }, [isAuthenticated, router]);
 
     return (
-        <main className="bg-primary-theme min-h-screen">
+        <main className="bg-[#F8F9FB] min-h-screen">
             <HeroSection />
             <WhatYouCanDoSection />
             <div id="how-it-works">

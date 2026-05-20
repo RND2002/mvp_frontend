@@ -68,7 +68,7 @@ function DesktopFloatingDockContent() {
 
     return (
         <div className="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
-            <div className="flex items-center gap-1 p-2 bg-vehicle-card-bg/95 backdrop-blur-md border border-vehicle-card-border rounded-full shadow-2xl shadow-black/50">
+            <div className="flex items-center gap-1 p-2 bg-white/95 backdrop-blur-md border border-[#E4E7EC] rounded-full shadow-2xl shadow-black/50">
                 {actions.map((action) => {
                     const isActive = pathname === action.link || (action.link === "/dashboard" && pathname === "/");
                     const Icon = action.icon;

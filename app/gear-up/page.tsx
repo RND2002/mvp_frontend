@@ -106,7 +106,7 @@ export default function ModifyRidePage() {
 
 
     return (
-        <div className="bg-primary-theme min-h-screen pb-20">
+        <div className="bg-[#F8F9FB] min-h-screen pb-20">
             <Container className="py-8 px-4 sm:px-6 lg:px-8">
                 {/* Standardized Page Header */}
                 <PageHeader

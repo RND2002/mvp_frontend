@@ -55,7 +55,7 @@ export default function LocationHeader() {
             </div>
             <div className="text-sm font-medium text-white truncate max-w-[200px] sm:max-w-[300px]">
                 {loading ? (
-                    <span className="animate-pulse text-gray-400">Locating...</span>
+                    <span className="animate-pulse text-[#475569]">Locating...</span>
                 ) : (
                     displayAddress
                 )}

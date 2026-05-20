@@ -31,7 +31,7 @@ const getTimelineIcon = (type: string) => {
     if (type === "service_record") return <Wrench className="w-5 h-5 text-theme-green" />;
     if (type === "booking") return <CalendarClock className="w-5 h-5 text-sky-400" />;
     if (type === "issue") return <CircleAlert className="w-5 h-5 text-amber-400" />;
-    return <Clock className="w-5 h-5 text-gray-400" />;
+    return <Clock className="w-5 h-5 text-[#475569]" />;
 };
 
 export default function ServiceHistoryPage() {
@@ -52,10 +52,10 @@ export default function ServiceHistoryPage() {
 
     if (!selectedVehicle) {
         return (
-            <div className="min-h-screen bg-primary-theme flex items-center justify-center text-white">
+            <div className="min-h-screen bg-[#F8F9FB] flex items-center justify-center text-white">
                 <div className="text-center">
-                    <HistoryIcon className="w-12 h-12 text-gray-700 mx-auto mb-4" />
-                    <p className="text-gray-500 font-bold uppercase tracking-widest text-sm">Please select a vehicle to view history.</p>
+                    <HistoryIcon className="w-12 h-12 text-[#94A3B8] mx-auto mb-4" />
+                    <p className="text-[#475569] font-bold uppercase tracking-widest text-sm">Please select a vehicle to view history.</p>
                 </div>
             </div>
         );
@@ -64,7 +64,7 @@ export default function ServiceHistoryPage() {
 
 
     return (
-        <div className="min-h-screen bg-primary-theme pb-24 lg:pb-12 animate-slide-up overflow-x-hidden">
+        <div className="min-h-screen bg-[#F8F9FB] pb-24 lg:pb-12 animate-slide-up overflow-x-hidden">
             <div className="max-w-3xl lg:max-w-7xl lg:mx-0 lg:px-12 mx-auto px-4 pt-8">
 
                 {/* Common Header */}
@@ -96,25 +96,25 @@ export default function ServiceHistoryPage() {
                             {filteredTimeline.map((item) => {
                                 const date = getTimelineDate(item);
                                 return (
-                                    <article key={`${item.type}-${item.id}`} className="bg-primaryCard border border-secondary-theme rounded-2xl p-5">
+                                    <article key={`${item.type}-${item.id}`} className="bg-white border border-[#E4E7EC] rounded-2xl p-5">
                                         <div className="flex gap-4">
-                                            <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                                            <div className="w-11 h-11 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC] flex items-center justify-center shrink-0">
                                                 {getTimelineIcon(item.type)}
                                             </div>
                                             <div className="min-w-0 flex-1">
                                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                                                     <div>
                                                         <p className="text-[10px] font-black uppercase tracking-[0.2em] text-theme-green">{item.type.replaceAll("_", " ")}</p>
-                                                        <h2 className="text-white text-lg font-bold capitalize mt-1">{getTimelineTitle(item)}</h2>
+                                                        <h2 className="text-[#0F172A] text-lg font-bold capitalize mt-1">{getTimelineTitle(item)}</h2>
                                                     </div>
                                                     {item.status && (
-                                                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-gray-300 w-fit">
+                                                        <span className="rounded-full border border-[#E4E7EC] bg-[#F8F9FB] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-gray-300 w-fit">
                                                             {item.status}
                                                         </span>
                                                     )}
                                                 </div>
-                                                {item.description && <p className="text-sm text-gray-400 mt-3 leading-relaxed">{item.description}</p>}
-                                                <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-xs text-gray-500">
+                                                {item.description && <p className="text-sm text-[#475569] mt-3 leading-relaxed">{item.description}</p>}
+                                                <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-xs text-[#475569]">
                                                     {date && <span>{formatDate(date)}</span>}
                                                     {(item.odometer_at_service || item.odometer_reading) && <span>{item.odometer_at_service || item.odometer_reading} km</span>}
                                                     {(item.cost || item.final_price) && <span>Rs. {item.cost || item.final_price}</span>}
@@ -123,7 +123,7 @@ export default function ServiceHistoryPage() {
                                                 {item.components_serviced && item.components_serviced.length > 0 && (
                                                     <div className="flex flex-wrap gap-2 mt-4">
                                                         {item.components_serviced.map((component) => (
-                                                            <span key={component} className="rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[10px] text-gray-300 uppercase tracking-wider">
+                                                            <span key={component} className="rounded-full bg-[#F8F9FB] border border-[#E4E7EC] px-3 py-1 text-[10px] text-gray-300 uppercase tracking-wider">
                                                                 {component.replaceAll("_", " ")}
                                                             </span>
                                                         ))}
@@ -138,16 +138,16 @@ export default function ServiceHistoryPage() {
                     )}
 
                     {!isLoading && filteredTimeline.length === 0 && (
-                        <div className="bg-primaryCard/50 border border-dashed border-secondary-theme rounded-4xl p-16 text-center">
+                        <div className="bg-primaryCard/50 border border-dashed border-[#E4E7EC] rounded-4xl p-16 text-center">
                             <HistoryIcon className="w-12 h-12 text-gray-800 mx-auto mb-4 opacity-20" />
-                            <p className="text-gray-600 text-sm font-bold uppercase tracking-widest italic">
+                            <p className="text-[#94A3B8] text-sm font-bold uppercase tracking-widest italic">
                                 No garage log records found
                             </p>
                         </div>
                     )}
 
                     {!isLoading && timeline.length > 0 && (
-                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                        <div className="flex items-center gap-3 text-xs text-[#475569]">
                             <CheckCircle2 className="w-4 h-4 text-theme-green" />
                             <span>Showing backend timeline data for {selectedVehicle.brand} {selectedVehicle.model}.</span>
                         </div>

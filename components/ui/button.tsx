@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-transparent border border-vehicle-card-border text-green-500 hover:text-green-400 hover:border-green-400 transition-colors",
+        default: "bg-transparent border border-[#E4E7EC] text-green-500 hover:text-green-400 hover:border-green-400 transition-colors",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
-          "bg-transparent border border-vehicle-card-border text-green-500 hover:text-green-400 hover:border-green-400 transition-colors",
+          "bg-transparent border border-[#E4E7EC] text-green-500 hover:text-green-400 hover:border-green-400 transition-colors",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
-          "hover:bg-vehicle-card-bg/50 hover:text-green-500",
+          "hover:bg-white/50 hover:text-green-500",
         link: "text-green-500 underline-offset-4 hover:underline",
       },
       size: {

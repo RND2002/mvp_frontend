@@ -138,15 +138,15 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             {isRedirecting && <Loader fullScreen text="Redirecting to Dashboard..." />}
-            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-primaryCard border-secondary-theme text-white">
+            <DialogContent className="sm:max-w-[450px] max-h-[90vh] overflow-y-auto bg-white border border-[#E4E7EC] text-[#0F172A]">
                 <DialogHeader>
                     <DialogTitle className="bg-transparent flex justify-start">
-                        <Image src={Logo} alt="Vroom" width={128} height={42} className="w-32 h-auto drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)]" />
+                        <Image src={Logo} alt="Vroom" width={128} height={42} className="w-32 h-auto" />
                     </DialogTitle>
-                    <DialogDescription className="text-xl font-bold text-gray-300">
+                    <DialogDescription className="text-xl font-bold text-[#475569]">
                         Enter Verification Code
                     </DialogDescription>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-[#94A3B8]">
                         We have sent a verification code to {identifier || "your account"}.
                     </p>
                 </DialogHeader>
@@ -163,27 +163,27 @@ export default function OtpVerificationDialog({ open, setOpen, identifier, type 
                                     onChange={(e) => handleChange(e.target, index)}
                                     onKeyDown={(e) => handleKeyDown(e, index)}
                                     onPaste={handlePaste}
-                                    className="w-10 h-10 sm:w-12 sm:h-12 text-center text-xl font-bold bg-vehicle-card-bg border border-vehicle-card-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                                    className="w-10 h-10 sm:w-12 sm:h-12 text-center text-xl font-bold bg-white border border-[#E4E7EC] rounded-md text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#6B2FA0] focus:border-transparent selection:bg-[#6B2FA0] selection:text-white transition-all"
                                 />
                             );
                         })}
                     </div>
-                    {errors.otp && <p className="text-red-500 text-sm text-center">{errors.otp.message}</p>}
+                    {errors.otp && <p className="text-[#DC2626] text-sm text-center font-bold">{errors.otp.message}</p>}
 
                     <div className="flex justify-center">
                         <Button
                             type="submit"
                             loading={isLoading}
                             loadingText="Verifying..."
-                            className="w-full py-3"
+                            className="w-full py-3 bg-[#6B2FA0] hover:bg-[#6B2FA0] text-white font-bold rounded-xl transition-all shadow-none"
                         >
                             Verify & Proceed
                         </Button>
                     </div>
 
                     <div className="text-center">
-                        <p className="text-sm text-gray-400">
-                            Did not receive the code? <button type="button" className="text-green-500 font-semibold hover:underline bg-transparent border-none cursor-pointer">Resend</button>
+                        <p className="text-sm text-[#94A3B8]">
+                            Did not receive the code? <button type="button" className="text-[#6B2FA0] font-semibold hover:underline bg-transparent border-none cursor-pointer">Resend</button>
                         </p>
                     </div>
                 </form>

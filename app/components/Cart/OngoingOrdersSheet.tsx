@@ -14,8 +14,8 @@ interface OngoingOrdersSheetProps {
 export default function OngoingOrdersSheet({ open, setOpen, orders }: OngoingOrdersSheetProps) {
     return (
         <Sheet open={open} onOpenChange={setOpen}>
-            <SheetContent side="right" className="w-full sm:max-w-[400px] bg-primaryCard border-l border-secondary-theme text-white p-0">
-                <SheetHeader className="p-4 border-b border-secondary-theme flex flex-row items-center gap-4 space-y-0">
+            <SheetContent side="right" className="w-full sm:max-w-[400px] bg-white border-l border-[#E4E7EC] text-white p-0">
+                <SheetHeader className="p-4 border-b border-[#E4E7EC] flex flex-row items-center gap-4 space-y-0">
                     <button
                         onClick={() => setOpen(false)}
                         className="text-zinc-400 hover:text-white transition-colors -ml-2 p-2"
@@ -36,10 +36,10 @@ export default function OngoingOrdersSheet({ open, setOpen, orders }: OngoingOrd
                         </div>
                     ) : (
                         orders.map(order => (
-                            <div key={order.id} className="bg-primaryCard border border-secondary-theme rounded-xl p-4">
+                            <div key={order.id} className="bg-white border border-[#E4E7EC] rounded-xl p-4">
                                 <div className="flex justify-between items-start mb-3">
                                     <div>
-                                        <p className="text-white font-medium">Order #{order.id.slice(0, 8).toUpperCase()}</p>
+                                        <p className="text-[#0F172A] font-medium">Order #{order.id.slice(0, 8).toUpperCase()}</p>
                                         <p className="text-zinc-400 text-xs">{new Date(order.created_at).toLocaleDateString()}</p>
                                     </div>
                                     <span className="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-md font-medium">
@@ -55,7 +55,7 @@ export default function OngoingOrdersSheet({ open, setOpen, orders }: OngoingOrd
                                     ))}
                                 </div>
                                 {/* Fulfillment Status */}
-                                <div className="mt-3 pt-3 border-t border-secondary-theme">
+                                <div className="mt-3 pt-3 border-t border-[#E4E7EC]">
                                     {order.order_fulfillments?.map((fulfillment: any) => (
                                         <div key={fulfillment.id} className="flex items-center gap-2 text-xs text-zinc-400">
                                             <div className={`w-2 h-2 rounded-full ${fulfillment.status === 'completed' ? 'bg-green-500' :

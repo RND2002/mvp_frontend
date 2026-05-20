@@ -123,12 +123,12 @@ const PartnerGrid: React.FC<PartnerGirdProps> = ({ data }) => {
                             ref={(el) => {
                                 sectionRefs.current[idx] = el;
                             }}
-                            className="relative bg-primaryCard border border-secondary-theme hover:border-primaryBorder flex flex-col text-left p-6 pb-14 text-white rounded-[20px] h-full"
+                            className="relative bg-white border border-[#E4E7EC] hover:border-primaryBorder flex flex-col text-left p-6 pb-14 text-white rounded-[20px] h-full"
                         >
                             <h3 className="text-[1.5rem] lg:text-[2.5rem] text-primaryText font-normal mb-2">
                                 {item.content.heading}
                             </h3>
-                            <p className="text-white text-[14px] 2xl:text-[18px] max-w-lg">
+                            <p className="text-[#0F172A] text-[14px] 2xl:text-[18px] max-w-lg">
                                 {item.content.description}
                             </p>
 

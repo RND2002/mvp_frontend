@@ -20,7 +20,7 @@ const CategoryCard: React.FC<Props> = ({ data }) => {
     return (
         <div onClick={() => router.push("/product/1")}
 
-            className="flex flex-col items-center gap-4 border border-secondary-theme hover:border-primaryBorder rounded-xl bg-primaryCard group transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+            className="flex flex-col items-center gap-4 border border-[#E4E7EC] hover:border-primaryBorder rounded-xl bg-white group transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
             <div className="w-full border-b border-primaryBorder p-3">
                 <div className="flex justify-between items-center py-2 px-2 md:min-w-[180px]">
                     <h3 className="text-[1.375rem] md:text-[1rem] leading-7 tracking-normal text-white whitespace-pre-line">

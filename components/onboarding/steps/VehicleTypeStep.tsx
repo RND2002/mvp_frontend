@@ -51,7 +51,7 @@ export const VehicleTypeStep = () => {
                     <Card
                         key={option.id}
                         className={cn(
-                            "cursor-pointer hover:border-green-500 transition-all p-4 flex flex-col items-center justify-center gap-3 h-32 w-full bg-white/5 border border-secondary-theme text-white hover:bg-white/10",
+                            "cursor-pointer hover:border-green-500 transition-all p-4 flex flex-col items-center justify-center gap-3 h-32 w-full bg-[#F8F9FB] border border-[#E4E7EC] text-white hover:bg-[#F5EDFC]",
                             vehicle_type === option.id && "border-green-500 bg-green-500/10",
                             errors.vehicle_type && "border-red-500"
                         )}
@@ -61,7 +61,7 @@ export const VehicleTypeStep = () => {
                             size={40}
                             className={cn(
                                 "transition-colors duration-200",
-                                vehicle_type === option.id ? "text-green-500" : "text-gray-400 group-hover:text-green-400"
+                                vehicle_type === option.id ? "text-green-500" : "text-[#475569] group-hover:text-green-400"
                             )}
                         />
                         <span className="font-semibold text-lg">{option.label}</span>

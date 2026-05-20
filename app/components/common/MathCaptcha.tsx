@@ -55,7 +55,7 @@ const MathCaptcha: React.FC<MathCaptchaProps> = ({
                     onClick={() => refresh()}
                     className={clsx(
                         "text-xs underline shrink-0",
-                        !loading ? "text-blue-600" : "text-gray-400 cursor-not-allowed"
+                        !loading ? "text-blue-600" : "text-[#475569] cursor-not-allowed"
                     )}
                     disabled={loading}
                     aria-disabled={loading}

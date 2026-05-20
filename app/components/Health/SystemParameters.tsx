@@ -15,26 +15,26 @@ interface SystemParameterItemProps {
 
 const SystemParameterItem = ({ icon, label, status, value, statusColor, isLast }: SystemParameterItemProps) => (
     <div className={cn(
-        "flex items-center justify-between py-3 px-5 group transition-colors hover:bg-white/5",
-        !isLast && "border-b border-white/5"
+        "flex items-center justify-between py-2 px-4 group transition-colors hover:bg-[#F8F9FB]",
+        !isLast && "border-b border-[#E4E7EC]"
     )}>
-        <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:border-theme-green/30 transition-colors">
-                <div className="text-theme-green/80">
+        <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-[#F8F9FB] rounded-lg flex items-center justify-center border border-[#E4E7EC] group-hover:border-[#6B2FA0]/50 transition-colors">
+                <div className="text-[#6B2FA0]">
                     {React.isValidElement(icon) && React.cloneElement(icon as React.ReactElement<{ className?: string }>, {
-                        className: "w-4.5 h-4.5"
+                        className: "w-3.5 h-3.5"
                     })}
                 </div>
             </div>
             <div>
-                <h4 className="text-white font-semibold text-sm leading-tight tracking-tight">{label}</h4>
-                <p className={cn("text-[9px] font-bold uppercase tracking-[0.15em] mt-0.5 opacity-70", statusColor)}>
+                <h4 className="text-[#0F172A] font-semibold text-xs leading-tight tracking-tight">{label}</h4>
+                <p className={cn("text-[8px] font-bold uppercase tracking-[0.15em] mt-0.5 opacity-90", statusColor)}>
                     {status}
                 </p>
             </div>
         </div>
         <div className="text-right">
-            <span className="text-white font-bold text-lg tracking-tight">{value}</span>
+            <span className="text-[#0F172A] font-bold text-sm tracking-tight">{value}</span>
         </div>
     </div>
 )
@@ -55,23 +55,23 @@ const getSystemIcon = (key: string) => {
 
 const getStatusColorClass = (s: string) => {
     const lower = s.toLowerCase();
-    if (lower === 'optimal' || lower === 'healthy' || lower === 'charging' || lower === 'good') return 'text-theme-green';
-    if (lower === 'fair' || lower === 'medium' || lower === 'attention' || lower === 'service_due') return 'text-theme-yellow';
-    return 'text-theme-red';
+    if (lower === 'optimal' || lower === 'healthy' || lower === 'charging' || lower === 'good') return 'text-[#6B2FA0]';
+    if (lower === 'fair' || lower === 'medium' || lower === 'attention' || lower === 'service_due') return 'text-[#D97706]';
+    return 'text-[#DC2626]';
 }
 
 export const SystemParameters = ({ systems }: SystemParametersProps) => {
     const systemEntries = Object.entries(systems);
 
     return (
-        <div className="bg-primaryCard border border-secondary-theme rounded-3xl overflow-hidden">
-            <div className="px-5 py-3.5 border-b border-white/5">
-                <h3 className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em]">
+        <div className="bg-white border border-[#E4E7EC] rounded-3xl overflow-hidden shadow-sm">
+            <div className="px-5 py-3.5 border-b border-[#E4E7EC]">
+                <h3 className="text-[#475569] text-[10px] font-black uppercase tracking-[0.2em]">
                     System Parameters
                 </h3>
             </div>
 
-            <div className="divide-y divide-white/5">
+            <div className="divide-y divide-[#E4E7EC]">
                 {systemEntries.length > 0 ? (
                     systemEntries.map(([key, system], index) => (
                         <SystemParameterItem
@@ -86,7 +86,7 @@ export const SystemParameters = ({ systems }: SystemParametersProps) => {
                     ))
                 ) : (
                     <div className="p-8 text-center">
-                        <p className="text-gray-500 text-sm font-medium">No system parameters available</p>
+                        <p className="text-[#94A3B8] text-sm font-medium">No system parameters available</p>
                     </div>
                 )}
             </div>

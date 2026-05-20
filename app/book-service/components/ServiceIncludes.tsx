@@ -18,16 +18,16 @@ interface ServiceIncludesProps {
 export const ServiceIncludes = ({ items, isLoading }: ServiceIncludesProps) => {
     if (isLoading) {
         return (
-            <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-3xl p-8 flex justify-center items-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-theme-green"></div>
+            <div className="bg-white border border-[#E4E7EC] rounded-3xl p-8 flex justify-center items-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#6B2FA0]"></div>
             </div>
         )
     }
 
     return (
-        <div className="bg-vehicle-card-bg border border-vehicle-card-border rounded-3xl p-6 shadow-xl relative overflow-hidden group">
-            <h3 className="text-white font-black text-lg mb-6 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-theme-green" />
+        <div className="bg-white border border-[#E4E7EC] rounded-3xl p-6 shadow-none relative overflow-hidden group">
+            <h3 className="text-[#0F172A] font-black text-lg mb-6 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-[#6B2FA0]" />
                 Service Includes
             </h3>
 
@@ -36,15 +36,15 @@ export const ServiceIncludes = ({ items, isLoading }: ServiceIncludesProps) => {
                     {items.map((item, idx) => (
                         <div
                             key={item.id || idx}
-                            className="flex items-start gap-4 p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-theme-green/20 transition-all group/item"
+                            className="flex items-start gap-4 p-3 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC] hover:border-[#6B2FA0]/20 transition-all group/item"
                         >
-                            <div className="w-10 h-10 rounded-xl bg-theme-green/10 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-theme-green/20 transition-colors">
-                                <CheckCircle2 className="w-5 h-5 text-theme-green" />
+                            <div className="w-10 h-10 rounded-xl bg-[#6B2FA0]/10 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-[#6B2FA0]/20 transition-colors">
+                                <CheckCircle2 className="w-5 h-5 text-[#6B2FA0]" />
                             </div>
                             <div>
-                                <h4 className="text-white font-bold text-sm leading-tight mb-1">{item.title}</h4>
+                                <h4 className="text-[#0F172A] font-bold text-sm leading-tight mb-1">{item.title}</h4>
                                 {item.description && (
-                                    <p className="text-gray-500 text-xs font-medium">{item.description}</p>
+                                    <p className="text-[#475569] text-xs font-medium">{item.description}</p>
                                 )}
                             </div>
                         </div>
@@ -52,20 +52,20 @@ export const ServiceIncludes = ({ items, isLoading }: ServiceIncludesProps) => {
                 </div>
             ) : (
                 <div className="flex flex-col items-center justify-center py-10 px-4 text-center">
-                    <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4">
-                        <Settings className="w-8 h-8 text-gray-600" />
+                    <div className="w-16 h-16 bg-[#F8F9FB] rounded-full flex items-center justify-center mb-4">
+                        <Settings className="w-8 h-8 text-[#94A3B8]" />
                     </div>
-                    <p className="text-gray-400 font-medium italic text-sm">
+                    <p className="text-[#475569] font-medium italic text-sm">
                         No specific items listed for this service.
                     </p>
-                    <p className="text-gray-600 text-xs mt-2 max-w-[200px]">
+                    <p className="text-[#94A3B8] text-xs mt-2 max-w-[200px]">
                         Our experts will perform a comprehensive inspection upon arrival.
                     </p>
                 </div>
             )}
 
             {/* Subtle decorative background */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-theme-green/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none group-hover:bg-theme-green/10 transition-colors"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#6B2FA0]/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none group-hover:bg-[#6B2FA0]/10 transition-colors"></div>
         </div>
     )
 }

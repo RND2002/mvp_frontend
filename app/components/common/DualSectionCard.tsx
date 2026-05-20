@@ -16,7 +16,7 @@
 //     return (
 //         <PopupTrigger as="div">
 //             <div className="flex py-5 flex-col h-full">
-//                 <div className="relative backdrop-blur-0 bg-primaryCard border border-secondary-theme hover:border-primaryBorder  rounded-[20px] p-6 flex flex-col gap-4 h-full justify-start aspect-6/6 lg:min-h-[380px] lg:aspect-13/16 group overflow-hidden z-0">
+//                 <div className="relative backdrop-blur-0 bg-white border border-[#E4E7EC] hover:border-primaryBorder  rounded-[20px] p-6 flex flex-col gap-4 h-full justify-start aspect-6/6 lg:min-h-[380px] lg:aspect-13/16 group overflow-hidden z-0">
 //                     {showHoverCircle && (
 //                         <>
 //                             <Image

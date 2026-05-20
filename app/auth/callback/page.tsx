@@ -103,10 +103,10 @@ export default function AuthCallbackPage() {
                         <span className="text-2xl">⚠️</span>
                     </div>
                     <h3 className="text-xl font-semibold text-red-500">Login Failed</h3>
-                    <p className="text-gray-400 max-w-[300px]">{error.replace(/\+/g, ' ')}</p>
+                    <p className="text-[#475569] max-w-[300px]">{error.replace(/\+/g, ' ')}</p>
                     <button
                         onClick={() => router.push('/')}
-                        className="mt-4 px-6 py-2 bg-white/10 hover:bg-white/20 rounded-md transition-colors"
+                        className="mt-4 px-6 py-2 bg-[#F5EDFC] hover:bg-[#F5EDFC] rounded-md transition-colors"
                     >
                         Return to Home
                     </button>

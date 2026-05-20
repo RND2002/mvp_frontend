@@ -31,9 +31,9 @@ const isValidUrl = (url: string) => {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
-        <Link href={`/product/${product.id}`} className="group relative w-full h-full bg-primaryCard rounded-xl border border-secondary-theme hover:border-theme-green/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col block">
+        <Link href={`/product/${product.id}`} className="group relative w-full h-full bg-white rounded-xl border border-[#E4E7EC] hover:border-theme-green/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col block">
             {/* Image Container */}
-            <div className="relative w-full aspect-[4/3] bg-secondary-theme overflow-hidden">
+            <div className="relative w-full aspect-[4/3] bg-[#F5EDFC] overflow-hidden">
                 {product.image_urls && product.image_urls.length > 0 && isValidUrl(product.image_urls[0]) ? (
                     <Image
                         src={product.image_urls[0]}
@@ -48,12 +48,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 )}
                 <div className="absolute top-2 right-2">
                     {product.stock_quantity > 0 ? (
-                        <div className="bg-theme-green/90 backdrop-blur-sm text-theme-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                        <div className="bg-theme-green/90 backdrop-blur-sm text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
                             <CheckCircle className="w-2.5 h-2.5" />
                             <span>In Stock</span>
                         </div>
                     ) : (
-                        <div className="bg-theme-red/90 backdrop-blur-sm text-theme-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                        <div className="bg-theme-red/90 backdrop-blur-sm text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
                             <AlertCircle className="w-2.5 h-2.5" />
                             <span>Out of Stock</span>
                         </div>
@@ -79,7 +79,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 </p>
 
                 {/* Footer: Price & Action */}
-                <div className="flex items-center justify-between mt-auto pt-3 border-t border-secondary-theme">
+                <div className="flex items-center justify-between mt-auto pt-3 border-t border-[#E4E7EC]">
                     <div className="flex flex-col">
                         <span className="text-[10px] text-zinc-500">Price</span>
                         <span className="text-lg font-bold text-white">
@@ -88,7 +88,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     </div>
 
                     <button
-                        className="p-2 bg-theme-green hover:bg-theme-green/80 text-theme-white rounded-lg shadow-lg shadow-theme-green/20 active:scale-95 transition-all duration-200"
+                        className="p-2 bg-theme-green hover:bg-theme-green/80 text-white rounded-lg shadow-lg shadow-theme-green/20 active:scale-95 transition-all duration-200"
                         aria-label="Add to cart"
                         onClick={(e) => {
                             e.preventDefault();

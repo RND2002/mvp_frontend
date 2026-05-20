@@ -26,8 +26,8 @@ export const PillFilters = ({ items, selectedId, onSelect, className }: PillFilt
                         className={cn(
                             "px-5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200",
                             selectedId === item.id
-                                ? "bg-theme-green text-theme-white shadow-lg shadow-theme-green/25 scale-105"
-                                : "bg-secondary-theme text-zinc-300 border border-transparent hover:border-theme-green/50 hover:text-theme-white"
+                                ? "bg-theme-green text-white shadow-lg shadow-theme-green/25 scale-105"
+                                : "bg-[#F5EDFC] text-[#475569] border border-transparent hover:border-[#6B2FA0]/50 hover:text-[#6B2FA0]"
                         )}
                     >
                         {item.label}

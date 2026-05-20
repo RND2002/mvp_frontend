@@ -33,7 +33,7 @@ function DashboardContent() {
     }, [vehicles, isLoading, onboarding]);
 
     return (
-        <div className="w-full bg-primary-theme min-h-screen">
+        <div className="w-full bg-[#F8F9FB] min-h-screen">
             <VehicleOnboardingWizard open={showOnboarding} onClose={() => setShowOnboarding(false)} />
             <Container className="py-4">
                 <div className="mb-6">
