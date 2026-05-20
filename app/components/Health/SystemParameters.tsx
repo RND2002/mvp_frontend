@@ -40,7 +40,7 @@ const SystemParameterItem = ({ icon, label, status, value, statusColor, isLast }
 )
 
 interface SystemParametersProps {
-    systems: Record<string, { score: number; status: string }>;
+    systems: Record<string, { score: number; status: string; due_in_km?: number | null; due_in_days?: number | null }>;
 }
 
 const getSystemIcon = (key: string) => {
@@ -55,8 +55,8 @@ const getSystemIcon = (key: string) => {
 
 const getStatusColorClass = (s: string) => {
     const lower = s.toLowerCase();
-    if (lower === 'optimal' || lower === 'healthy' || lower === 'charging') return 'text-theme-green';
-    if (lower === 'fair' || lower === 'medium') return 'text-theme-yellow';
+    if (lower === 'optimal' || lower === 'healthy' || lower === 'charging' || lower === 'good') return 'text-theme-green';
+    if (lower === 'fair' || lower === 'medium' || lower === 'attention' || lower === 'service_due') return 'text-theme-yellow';
     return 'text-theme-red';
 }
 
@@ -78,8 +78,8 @@ export const SystemParameters = ({ systems }: SystemParametersProps) => {
                             key={key}
                             icon={getSystemIcon(key)}
                             label={key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                            status={system.status}
-                            value={String(system.score) + (key.toLowerCase().includes('battery') ? 'V' : key.toLowerCase().includes('pressure') ? ' PSI' : '%')}
+                            status={system.status.replace(/_/g, " ")}
+                            value={`${system.score}%`}
                             statusColor={getStatusColorClass(system.status)}
                             isLast={index === systemEntries.length - 1}
                         />

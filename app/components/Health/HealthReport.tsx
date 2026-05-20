@@ -2,8 +2,7 @@
 
 import { VehicleHealthReport } from "@/app/beService/health-service"
 import { HealthMetricCard } from "./HealthMetricCard"
-import { Activity, Circle, CircleDot, Zap, ChevronLeft } from "lucide-react"
-import { FUEL_TYPE } from "@/app/beService/vehicle-service"
+import { Activity, CircleDot, Zap } from "lucide-react"
 import { useSelector } from "react-redux"
 import { RootState } from "@/app/store/store"
 import Link from "next/link"
@@ -15,9 +14,14 @@ interface HealthReportProps {
 export const HealthReport = ({ data }: HealthReportProps) => {
     const { selectedVehicle } = useSelector((state: RootState) => state.vehicle)
     const health = data.health;
-    const overall = health.overall;
-    const systems = health.systems || {};
+    const systems = health.components || health.systems || {};
     const recommendations = health.recommendations || [];
+    const overallScore = health.overall_score ?? health.overall?.score ?? null;
+    const overallStatus = health.overall_status || health.overall?.status || "pending";
+    const lastServiceDate = Object.values(systems)
+        .map((system) => system.last_serviced_date)
+        .filter(Boolean)
+        .sort()[0];
 
     const getOverallColor = (score: number | null) => {
         if (score === null) return "var(--theme-gray)"
@@ -26,7 +30,7 @@ export const HealthReport = ({ data }: HealthReportProps) => {
         return "var(--theme-red)"
     }
 
-    const overallColor = getOverallColor(overall?.score || null)
+    const overallColor = getOverallColor(overallScore)
 
     return (
         <div className="space-y-4">
@@ -36,7 +40,7 @@ export const HealthReport = ({ data }: HealthReportProps) => {
                     <div>
                         <h4 className="text-gray-400 text-xs uppercase tracking-widest mb-2">Overall Condition</h4>
                         <div className="flex items-baseline gap-2">
-                            <span className="text-5xl font-bold" style={{ color: overallColor }}>{overall?.score !== null ? `${overall?.score}%` : "N/A"}</span>
+                            <span className="text-5xl font-bold" style={{ color: overallColor }}>{overallScore !== null ? `${overallScore}%` : "N/A"}</span>
                         </div>
                     </div>
                     <div className="text-right">
@@ -44,10 +48,13 @@ export const HealthReport = ({ data }: HealthReportProps) => {
                             className="bg-theme-green/20 text-theme-green text-[10px] font-bold uppercase px-3 py-1 rounded-full border border-theme-green/30"
                             style={{ color: overallColor, borderColor: `${overallColor}50`, backgroundColor: `${overallColor}10` }}
                         >
-                            {overall?.status || "PENDING"}
+                            {overallStatus.replace(/_/g, " ")}
                         </span>
-                        {overall?.last_service_date && (
-                            <p className="text-[10px] text-gray-500 mt-2 italic">Last Service: {new Date(overall.last_service_date).toLocaleDateString()}</p>
+                        {lastServiceDate && (
+                            <p className="text-[10px] text-gray-500 mt-2 italic">Last Service: {new Date(lastServiceDate).toLocaleDateString()}</p>
+                        )}
+                        {health.confidence && (
+                            <p className="text-[10px] text-gray-500 mt-1 uppercase">Confidence: {health.confidence}</p>
                         )}
                     </div>
                 </div>
@@ -69,7 +76,13 @@ export const HealthReport = ({ data }: HealthReportProps) => {
                             value={`${system.score}%`}
                             status={system.status}
                             percentage={system.score}
-                            subLabel={system.basis}
+                            subLabel={
+                                system.due_in_km != null
+                                    ? `${Math.round(system.due_in_km)} km left`
+                                    : system.due_in_days != null
+                                        ? `${Math.round(system.due_in_days)} days left`
+                                        : system.basis
+                            }
                         />
                     ))}
                 </div>
@@ -86,7 +99,12 @@ export const HealthReport = ({ data }: HealthReportProps) => {
                         {recommendations.map((rec, index) => (
                             <div key={index} className="bg-primaryCard border border-secondary-theme rounded-xl p-4 flex gap-3 items-start">
                                 <Zap className="w-5 h-5 text-theme-green shrink-0 mt-0.5" />
-                                <p className="text-gray-300 text-sm leading-relaxed">{rec}</p>
+                                <div>
+                                    <p className="text-gray-300 text-sm leading-relaxed">{rec.message}</p>
+                                    <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">
+                                        {rec.component.replace(/_/g, " ")} • {rec.urgency}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>
