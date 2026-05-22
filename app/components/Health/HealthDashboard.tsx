@@ -81,12 +81,12 @@ export const HealthDashboard = () => {
                         size="icon"
                         onClick={() => setShowFullReport(false)}
                         className="bg-white border border-[#E4E7EC] rounded-xl hover:bg-[#F8F9FB] h-10 w-10"
-                        icon={<ChevronLeft className="w-5 h-5 text-white" />}
+                        icon={<ChevronLeft className="w-5 h-5" />}
                         iconPosition="left"
                     >
                     </VroomButton>
                     <div>
-                        <h2 className="text-xl font-bold text-white leading-tight">Detailed Health Report</h2>
+                        <h2 className="text-xl font-bold leading-tight">Detailed Health Report</h2>
                         <p className="text-[#475569] text-[10px] font-bold uppercase tracking-widest">{selectedVehicle.brand} {selectedVehicle.model}</p>
                     </div>
                 </div>

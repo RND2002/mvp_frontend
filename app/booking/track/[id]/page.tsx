@@ -86,7 +86,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
 
     if (error || !booking) {
         return (
-            <div className="min-h-screen bg-[#F8F9FB] flex items-center justify-center text-white flex-col p-6 text-center">
+            <div className="min-h-screen bg-[#F8F9FB] flex items-center justify-center  flex-col p-6 text-center">
                 <div className="w-20 h-20 bg-theme-red/10 rounded-full flex items-center justify-center mb-6">
                     <XCircle className="w-10 h-10 text-theme-red" />
                 </div>
@@ -253,7 +253,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                             <div className="space-y-1">
                                                 <h4 className={cn(
                                                     "text-[13px] font-black uppercase tracking-widest transition-colors duration-500",
-                                                    step.completed || step.current ? "text-white" : "text-[#94A3B8]"
+                                                    step.completed || step.current ? "" : "text-[#94A3B8]"
                                                 )}>
                                                     {step.status}
                                                 </h4>
@@ -278,11 +278,11 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                 </div>
 
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-14 h-14 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC] flex items-center justify-center text-xl font-black text-white">
+                                    <div className="w-14 h-14 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC] flex items-center justify-center text-xl font-black ">
                                         {trackingData.garage.name[0]}
                                     </div>
                                     <div>
-                                        <h4 className="text-base font-bold text-white tracking-tight">{trackingData.garage.name}</h4>
+                                        <h4 className="text-base font-bold  tracking-tight">{trackingData.garage.name}</h4>
                                         <div className="flex items-center gap-1.5 mt-1">
                                             <span className="text-theme-green text-xs">★</span>
                                             <span className="text-xs font-bold text-[#475569]">{trackingData.garage.rating}</span>
@@ -294,7 +294,7 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                     <div className="grid grid-cols-2 gap-3 mb-6">
                                         <button
                                             onClick={() => window.location.href = `tel:${trackingData.garage.phone}`}
-                                            className="h-11 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#F5EDFC] transition-colors"
+                                            className="h-11 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC]  font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#F5EDFC] transition-colors"
                                         >
                                             <Phone className="w-3.5 h-3.5" /> CALL
                                         </button>
@@ -356,14 +356,14 @@ export default function BookingTrackingPage({ params }: { params: Promise<{ id: 
                                         <Hash className="w-3.5 h-3.5" />
                                         <span className="text-[8px] font-black uppercase tracking-widest">Booking ID</span>
                                     </div>
-                                    <p className="text-[11px] font-bold text-white tracking-widest uppercase truncate">{id.substring(0, 14)}...</p>
+                                    <p className="text-[11px] font-bold  tracking-widest uppercase truncate">{id.substring(0, 14)}...</p>
                                 </div>
                                 <div className="flex flex-col gap-1.5 p-4 rounded-2xl bg-[#F8F9FB] border border-[#E4E7EC]">
                                     <div className="flex items-center gap-2 text-[#475569]">
                                         <Clock className="w-3.5 h-3.5" />
                                         <span className="text-[8px] font-black uppercase tracking-widest">Est. Pickup</span>
                                     </div>
-                                    <p className="text-[11px] font-bold text-white tracking-widest">TBD</p>
+                                    <p className="text-[11px] font-bold  tracking-widest">TBD</p>
                                 </div>
                             </div>
                         </div>

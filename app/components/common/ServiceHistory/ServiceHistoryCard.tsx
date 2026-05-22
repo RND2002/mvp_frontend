@@ -41,7 +41,7 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     return (
         <div
             onClick={onCardClick}
-            className="group relative bg-white border border-[#E4E7EC] rounded-4xl p-6 shadow-2xl shadow-black/60 cursor-pointer overflow-hidden transition-all duration-500 hover:border-theme-green/40 hover:-translate-y-1"
+            className="group relative bg-white border border-[#E4E7EC] rounded-4xl p-6 shadow-md shadow-gray-200/50 cursor-pointer overflow-hidden transition-all duration-500 hover:border-theme-green/40 hover:-translate-y-1"
         >
             {/* Glossy gradient accent */}
             <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-theme-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -56,7 +56,7 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                     </div>
                     <div>
                         <p className="text-[#475569] text-[9px] font-black uppercase tracking-[0.2em] mb-0.5">Assigned Partner</p>
-                        <h3 className="text-sm font-bold text-white tracking-tight">{providerName}</h3>
+                        <h3 className="text-sm font-bold text-[#0F172A] tracking-tight">{providerName}</h3>
                     </div>
                 </div>
                 <div className={cn(
@@ -68,23 +68,23 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             </div>
 
             <div className="mb-6">
-                <h4 className="text-2xl font-black text-white tracking-tighter leading-tight mb-3">
+                <h4 className="text-2xl font-black text-[#0F172A] tracking-tighter leading-tight mb-3">
                     {serviceName.toUpperCase()}
                 </h4>
 
                 <div className="flex flex-wrap gap-2">
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/3 border border-[#E4E7EC] group-hover:border-[#E4E7EC] transition-colors">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC] group-hover:border-[#E4E7EC] transition-colors">
                         <Calendar className="w-3 h-3 text-theme-green" />
                         <div className="flex flex-col">
                             <span className="text-[7px] font-black text-[#475569] uppercase tracking-widest leading-none mb-0.5">Scheduled Slot</span>
-                            <span className="text-[10px] font-bold text-gray-300 tracking-tight">{date}</span>
+                            <span className="text-[10px] font-bold text-[#0F172A] tracking-tight">{date}</span>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/3 border border-[#E4E7EC] group-hover:border-[#E4E7EC] transition-colors">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC] group-hover:border-[#E4E7EC] transition-colors">
                         <Hash className="w-3 h-3 text-[#475569]" />
                         <div className="flex flex-col">
                             <span className="text-[7px] font-black text-[#475569] uppercase tracking-widest leading-none mb-0.5">Registration</span>
-                            <span className="text-[10px] font-bold text-gray-300 tracking-tight uppercase">{vehicleNumber}</span>
+                            <span className="text-[10px] font-bold text-[#0F172A] tracking-tight uppercase">{vehicleNumber}</span>
                         </div>
                     </div>
                 </div>
@@ -103,13 +103,13 @@ export const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                                 e.stopPropagation();
                                 onInvoiceClick?.();
                             }}
-                            className="h-10 px-4 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC] flex items-center gap-2 text-[#475569] hover:text-white hover:bg-[#F5EDFC] transition-all duration-300"
+                            className="h-10 px-4 rounded-xl bg-[#F8F9FB] border border-[#E4E7EC] flex items-center gap-2 text-[#475569] hover:bg-[#F5EDFC] transition-all duration-300"
                         >
                             <FileText className="w-3.5 h-3.5" />
                             <span className="text-[10px] font-black tracking-widest uppercase">Invoice</span>
                         </button>
                     )}
-                    <div className="w-10 h-10 rounded-xl bg-theme-green/10 border border-theme-green/20 flex items-center justify-center text-theme-green group-hover:bg-theme-green group-hover:text-black transition-all duration-500">
+                    <div className="w-10 h-10 rounded-xl bg-theme-green/10 border border-theme-green/20 flex items-center justify-center text-theme-green group-hover:bg-theme-green group-hover:text-black transition-all duration-500 animate-in fade-in zoom-in-50">
                         <ChevronRight className="w-5 h-5 translate-x-px" />
                     </div>
                 </div>

@@ -195,7 +195,7 @@ export default function CartPage() {
                             <p className="text-zinc-500 mb-8 max-w-xs">Looks like you haven't added any gear for your {selectedVehicle.model} yet.</p>
                             <button
                                 onClick={() => router.push('/gear-up')}
-                                className="px-8 py-3 bg-[#F5EDFC] text-white rounded-xl font-medium hover:bg-[#F5EDFC]/80 transition-colors"
+                                className="px-8 py-3 bg-[#F5EDFC] rounded-xl font-medium hover:bg-[#F5EDFC]/80 transition-colors"
                             >
                                 Browse Gear
                             </button>
